@@ -13,33 +13,25 @@ interface PlanRequestFormProps {
 }
 
 const PlanRequestForm = ({
-  formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdCxm5jtOQmhzQMlEQ3XYq9iUfSHXZN1zC_z7JqQKwgVPtHfg/viewform?embedded=true",
+  // Formulario de Google Forms para Andes Runners
+  formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScdqR-Gg53vh4sbkCWT58CMDkL7Ihzb952pIM8n5WfUePVWng/viewform?embedded=true",
 }: PlanRequestFormProps) => {
   return (
     <div className="w-full max-w-3xl mx-auto bg-background">
       <Card className="border border-gray-200 shadow-lg">
-        <CardHeader className="bg-gray-50 border-b">
-          <CardTitle className="text-2xl font-bold text-center text-gray-900">
-            Request Your Beta Personalized Plan
-          </CardTitle>
-          <CardDescription className="text-center text-gray-600">
-            Complete the form below to receive a training plan tailored to your
-            needs and goals.
-          </CardDescription>
-        </CardHeader>
         <CardContent className="p-0">
-          <div className="w-full h-[600px] overflow-hidden">
+          <div className="w-full overflow-hidden">
             <iframe
               src={formUrl}
               width="100%"
-              height="100%"
+              height="2307"
               frameBorder="0"
               marginHeight={0}
               marginWidth={0}
               title="Personalized plan request form"
-              className="w-full h-full"
+              className="w-full"
             >
-              Loading form...
+              Cargando...
             </iframe>
           </div>
 

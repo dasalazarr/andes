@@ -46,7 +46,7 @@ const Home = () => {
       description:
         "Complete plan for beginners looking to finish their first marathon with confidence.",
       duration: "20 weeks",
-      difficulty: "Beginner",
+      difficulty: "Beginner" as "Beginner" | "Intermediate" | "Advanced",
       pdfUrl: "#plan-20-weeks",
     },
     {
@@ -55,7 +55,7 @@ const Home = () => {
       description:
         "For runners who already have experience in 10K races or half marathons.",
       duration: "16 weeks",
-      difficulty: "Intermediate",
+      difficulty: "Intermediate" as "Beginner" | "Intermediate" | "Advanced",
       pdfUrl: "#plan-16-weeks",
     },
   ];
@@ -69,17 +69,43 @@ const Home = () => {
           <span className="text-xl font-bold">Andes Runners</span>
         </div>
         <nav className="hidden md:flex space-x-8">
-          <a href="#features" className="text-gray-600 hover:text-black">
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector('section:nth-of-type(3)')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-gray-600 hover:text-black"
+          >
             Features
           </a>
-          <a href="#community" className="text-gray-600 hover:text-black">
+          <a 
+            href="#community" 
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-gray-600 hover:text-black"
+          >
             Community
           </a>
-          <a href="#resources" className="text-gray-600 hover:text-black">
-            Resources
+          <a 
+            href="#articles" 
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector('section:nth-of-type(5)')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-gray-600 hover:text-black"
+          >
+            Articles
           </a>
         </nav>
-        <Button className="bg-black text-white hover:bg-black/90">
+        <Button 
+          className="bg-black text-white hover:bg-black/90"
+          onClick={() => {
+            document.getElementById('request-plan')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
           Get Started
         </Button>
       </header>
@@ -161,10 +187,21 @@ const Home = () => {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Start Today</h2>
           <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
-            <Button size="lg" className="w-full bg-black hover:bg-black/90">
+            <Button 
+              size="lg" 
+              className="w-full bg-black hover:bg-black/90"
+              onClick={() => {
+                document.getElementById('request-plan')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Request Your Beta Personalized Plan
             </Button>
-            <Button variant="outline" size="lg" className="w-full">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="w-full"
+              onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')}
+            >
               Join Our Community
             </Button>
           </div>
@@ -212,6 +249,40 @@ const Home = () => {
                 pdfUrl={plan.pdfUrl}
               />
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Community Section */}
+      <section id="community" className="py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            Join Our Community
+          </h2>
+          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Connect with fellow runners, share your experiences, and receive guidance from our coaches.
+          </p>
+          
+          <div className="bg-white border border-gray-200 rounded-xl p-8 max-w-2xl mx-auto shadow-sm">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold mb-2">WhatsApp Community</h3>
+                <p className="text-gray-600 mb-4">
+                  Our WhatsApp group is where you'll find daily motivation, training tips, and a supportive community of runners at all levels.
+                </p>
+                <Button 
+                  className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white"
+                  onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')}
+                >
+                  Join WhatsApp Group
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
