@@ -20,15 +20,15 @@ interface ArticleCardProps {
 }
 
 const ArticleCard = ({
-  title = "Cómo prepararte para tu primera maratón",
-  excerpt = "Consejos esenciales para principiantes que quieren completar su primera carrera de 42km con éxito y sin lesiones.",
+  title = "How to prepare for your first marathon",
+  excerpt = "Essential tips for beginners who want to complete their first 42km race successfully and without injuries.",
   imageUrl = "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
   readMoreUrl = "#",
-  date = "Mayo 15, 2023",
-  author = "Entrenador Andes",
+  date = "May 15, 2023",
+  author = "Andes Coach",
 }: ArticleCardProps) => {
   return (
-    <Card className="overflow-hidden flex flex-col h-full bg-white">
+    <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200">
       <div className="relative h-48 overflow-hidden">
         <img
           src={imageUrl}
@@ -41,10 +41,14 @@ const ArticleCard = ({
           <span>{date}</span>
           <span>{author}</span>
         </div>
-        <CardTitle className="text-xl line-clamp-2">{title}</CardTitle>
+        <CardTitle className="text-xl line-clamp-2 text-gray-900">
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex-grow">
-        <CardDescription className="line-clamp-3">{excerpt}</CardDescription>
+        <CardDescription className="line-clamp-3 text-gray-600">
+          {excerpt}
+        </CardDescription>
       </CardContent>
       <CardFooter className="pt-0">
         <Button
@@ -54,9 +58,9 @@ const ArticleCard = ({
         >
           <a
             href={readMoreUrl}
-            className="flex items-center text-primary font-medium"
+            className="flex items-center text-black font-medium"
           >
-            Leer más <ArrowRight className="ml-2 h-4 w-4" />
+            Read more <ArrowRight className="ml-2 h-4 w-4" />
           </a>
         </Button>
       </CardFooter>

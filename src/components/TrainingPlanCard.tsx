@@ -40,10 +40,12 @@ const TrainingPlanCard = ({
   };
 
   return (
-    <Card className="w-full max-w-md bg-white overflow-hidden transition-all hover:shadow-lg">
+    <Card className="w-full max-w-md bg-white overflow-hidden transition-all hover:shadow-lg border border-gray-200">
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
-          <CardTitle className="text-xl font-bold">{title}</CardTitle>
+          <CardTitle className="text-xl font-bold text-gray-900">
+            {title}
+          </CardTitle>
           <Badge className={getDifficultyColor(difficulty)}>{difficulty}</Badge>
         </div>
         <CardDescription className="text-sm text-gray-500">
@@ -55,7 +57,7 @@ const TrainingPlanCard = ({
       </CardContent>
       <CardFooter className="pt-2">
         <Button
-          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90"
+          className="w-full flex items-center justify-center gap-2 bg-black hover:bg-black/90 text-white"
           onClick={() => window.open(pdfUrl, "_blank")}
         >
           <Download size={16} />

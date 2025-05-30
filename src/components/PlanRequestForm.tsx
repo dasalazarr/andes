@@ -17,14 +17,14 @@ const PlanRequestForm = ({
 }: PlanRequestFormProps) => {
   return (
     <div className="w-full max-w-3xl mx-auto bg-background">
-      <Card className="border shadow-lg">
-        <CardHeader className="bg-primary/5 border-b">
-          <CardTitle className="text-2xl font-bold text-center text-primary">
-            Solicita tu Plan Personalizado Beta
+      <Card className="border border-gray-200 shadow-lg">
+        <CardHeader className="bg-gray-50 border-b">
+          <CardTitle className="text-2xl font-bold text-center text-gray-900">
+            Request Your Beta Personalized Plan
           </CardTitle>
-          <CardDescription className="text-center">
-            Completa el formulario a continuación para recibir un plan de
-            entrenamiento adaptado a tus necesidades y objetivos.
+          <CardDescription className="text-center text-gray-600">
+            Complete the form below to receive a training plan tailored to your
+            needs and goals.
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
@@ -36,25 +36,25 @@ const PlanRequestForm = ({
               frameBorder="0"
               marginHeight={0}
               marginWidth={0}
-              title="Formulario de solicitud de plan personalizado"
+              title="Personalized plan request form"
               className="w-full h-full"
             >
-              Cargando formulario...
+              Loading form...
             </iframe>
           </div>
 
           <div className="p-6 text-center">
-            <p className="text-sm text-muted-foreground mb-4">
-              Al enviar este formulario, aceptas que utilicemos tus datos para
-              crear tu plan personalizado y contactarte con información
-              relevante.
+            <p className="text-sm text-gray-500 mb-4">
+              By submitting this form, you agree that we may use your data to
+              create your personalized plan and contact you with relevant
+              information.
             </p>
             <Button
               variant="outline"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="mt-2"
+              className="mt-2 border-gray-300 text-gray-700 hover:bg-gray-100"
             >
-              Volver arriba
+              Back to top
             </Button>
           </div>
         </CardContent>
