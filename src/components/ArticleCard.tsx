@@ -17,6 +17,7 @@ interface ArticleCardProps {
   readMoreUrl: string;
   date?: string;
   author?: string;
+  onClick?: () => void;
 }
 
 const ArticleCard = ({
@@ -26,6 +27,7 @@ const ArticleCard = ({
   readMoreUrl = "#",
   date = "May 15, 2023",
   author = "Andes Coach",
+  onClick,
 }: ArticleCardProps) => {
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200">
@@ -51,18 +53,30 @@ const ArticleCard = ({
         </CardDescription>
       </CardContent>
       <CardFooter className="pt-0">
-        <Button
-          variant="ghost"
-          className="p-0 h-auto hover:bg-transparent"
-          asChild
-        >
-          <a
-            href={readMoreUrl}
-            className="flex items-center text-black font-medium"
+        {onClick ? (
+          <Button
+            variant="ghost"
+            className="p-0 h-auto hover:bg-transparent"
+            onClick={onClick}
           >
-            Read more <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
+            <span className="flex items-center text-black font-medium">
+              Read more <ArrowRight className="ml-2 h-4 w-4" />
+            </span>
+          </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            className="p-0 h-auto hover:bg-transparent"
+            asChild
+          >
+            <a
+              href={readMoreUrl}
+              className="flex items-center text-black font-medium"
+            >
+              Read more <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

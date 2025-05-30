@@ -1,6 +1,16 @@
 @tailwind base;
   @tailwind components;
   @tailwind utilities;
+  
+  /* Custom utility classes */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
   @layer base {
     :root {

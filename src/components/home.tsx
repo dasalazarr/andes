@@ -1,13 +1,319 @@
-import React from "react";
+import React, { useState } from "react";
 import HeroSection from "./HeroSection";
 import ArticleCard from "./ArticleCard";
 import PlanRequestForm from "./PlanRequestForm";
 import TrainingPlanCard from "./TrainingPlanCard";
+import UnderConstructionPlanCard from "./UnderConstructionPlanCard";
+import ArticleDetail from "./ArticleDetail";
+import ArticleCarousel from "./ArticleCarousel";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { ArrowRight, BookOpen, Calendar, Users } from "lucide-react";
 
 const Home = () => {
+  // Estado para controlar qué artículo está activo (null si ninguno está activo)
+  const [activeArticle, setActiveArticle] = useState<number | null>(null);
+  
+  // Función para cerrar el modal
+  const closeArticleModal = () => {
+    setActiveArticle(null);
+  };
+  // Contenido completo de los artículos
+  const articleContents = [
+    // Article 1: Nutrition for Beginner Runners
+    <>
+      <p className="mb-6">
+        Proper nutrition is essential for any runner, especially for those just starting out.
+        Your body needs the right fuel to perform well in training sessions and recover adequately.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Key Macronutrients for Runners</h3>
+      
+      <h4 className="text-lg font-medium mb-2">Carbohydrates: Your Main Energy Source</h4>
+      <p className="mb-4">
+        Carbohydrates are your body's preferred fuel for aerobic activities like running.
+        For long training sessions, prioritize complex carbohydrates such as:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Oats and whole grain cereals</li>
+        <li>Brown rice and quinoa</li>
+        <li>Sweet potatoes and legumes</li>
+        <li>Fresh fruits</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Proteins: Muscle Repair and Building</h4>
+      <p className="mb-4">
+        Proteins are essential for repairing muscle tissue after workouts.
+        Runners need approximately 1.2-1.4 grams per kilogram of body weight. Good sources include:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Chicken and turkey breast</li>
+        <li>Fish and seafood</li>
+        <li>Eggs</li>
+        <li>Legumes and tofu</li>
+        <li>Greek yogurt and cottage cheese</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Healthy Fats: Sustained Energy</h4>
+      <p className="mb-4">
+        Healthy fats provide long-lasting energy and are vital for vitamin absorption. Include:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li>Avocados</li>
+        <li>Nuts and seeds</li>
+        <li>Olive oil</li>
+        <li>Fatty fish like salmon</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Hydration: More Than Just Water</h3>
+      <p className="mb-4">
+        Dehydration can significantly reduce your performance. Follow these guidelines:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li>Drink approximately 500-600 ml of water 2-3 hours before running</li>
+        <li>For runs longer than 60 minutes, consider electrolyte drinks</li>
+        <li>After running, replenish fluids: approximately 500 ml for every 0.5 kg lost</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Before and After Running</h3>
+      <p className="mb-4">
+        <strong>Pre-workout (1-2 hours before):</strong> Combine easily digestible carbohydrates with a small amount of protein.
+        Examples: banana with peanut butter, yogurt with granola, toast with egg.
+      </p>
+      <p className="mb-6">
+        <strong>Post-workout (within 30-45 minutes):</strong> Consume proteins and carbohydrates in a 1:3 or 1:4 ratio.
+        Examples: protein shake with banana, chicken with rice, yogurt with fruits and honey.
+      </p>
+
+      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+        <p className="font-medium">Pro tip:</p>
+        <p>Experiment with different foods during training, not on race day.
+        Every runner is unique; learn to listen to your body and discover what works best for you.</p>
+      </div>
+
+      <p className="italic text-gray-600">
+        Remember that this information is general. For a personalized nutrition plan,
+        consult with a sports nutritionist or request our personalized plan.
+      </p>
+    </>,
+
+    // Article 2: Choosing the Right Running Shoes
+    <>
+      <p className="mb-6">
+        Choosing the right footwear is possibly the most important decision you'll make as a runner.
+        The correct shoes can prevent injuries and significantly improve your performance.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Understand Your Foot Strike</h3>
+      <p className="mb-4">
+        Before buying, it's crucial to know your foot strike type:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li><strong>Pronator:</strong> Your foot rolls inward when landing. You need shoes with stability support.</li>
+        <li><strong>Neutral:</strong> Balanced impact distribution. Shoes with moderate cushioning are ideal.</li>
+        <li><strong>Supinator:</strong> Your foot rolls outward. Requires shoes with greater flexibility and cushioning.</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Key Factors to Consider</h3>
+      
+      <h4 className="text-lg font-medium mb-2">1. Cushioning and Drop</h4>
+      <p className="mb-4">
+        Cushioning varies from minimalist (ground feel) to maximum. The "drop" is the height difference
+        between the heel and toe. A low drop (0-4mm) promotes a midfoot or forefoot strike, while
+        a high drop (8-12mm) favors heel striking.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">2. Weight and Flexibility</h4>
+      <p className="mb-4">
+        For speed workouts, lighter shoes. For long distances, prioritize cushioning
+        even if they're slightly heavier. Flexibility should allow natural foot movement.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">3. Fit and Size</h4>
+      <p className="mb-4">
+        There should be approximately one centimeter of space between your longest toe and the shoe tip.
+        Try shoes at the end of the day when feet are more swollen. The shoe should feel comfortable immediately,
+        with no need to "break it in".
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">When to Replace Your Shoes</h3>
+      <p className="mb-4">
+        Typical lifespan is 500-800 km depending on your weight, running style, and surface.
+        Signs that you need to replace them:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li>Visible wear on the sole</li>
+        <li>Compressed cushioning (feels "flat")</li>
+        <li>Deformation of the upper or heel counter</li>
+        <li>New aches or discomfort when running</li>
+      </ul>
+
+      <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+        <p className="font-medium">Buyer's tip:</p>
+        <p>Visit a specialized running store where they can analyze your gait.
+        It's an investment worth making to prevent long-term injuries.</p>
+      </div>
+
+      <p className="italic text-gray-600">
+        Consider having more than one pair of shoes and alternating them, especially if you train daily.
+        This extends their lifespan and reduces the risk of injuries from repetitive movements.
+      </p>
+    </>,
+
+    // Article 3: Creating Your First Marathon Training Plan
+    <>
+      <p className="mb-6">
+        Preparing for a marathon is a transformative journey that requires careful planning.
+        A well-structured training plan will increase your chances of success and reduce the risk of injuries.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Before You Begin</h3>
+      <p className="mb-4">
+        Make sure you have these bases covered before starting your marathon training:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li>Aerobic base: You should be able to comfortably run 5-6 miles before starting</li>
+        <li>Medical check-up: Especially if you're over 40 or have pre-existing conditions</li>
+        <li>Proper equipment: Appropriate shoes and technical clothing</li>
+        <li>Time commitment: 4-6 hours weekly for 16-20 weeks</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Structure of a 16-Week Plan for Beginners</h3>
+      
+      <h4 className="text-lg font-medium mb-2">Phase 1: Base Building (Weeks 1-4)</h4>
+      <p className="mb-4">
+        Focus on building endurance with easy runs, gradually increasing weekly mileage.
+        Include rest days and possibly cross-training (swimming, cycling, yoga).
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">Phase 2: Development (Weeks 5-10)</h4>
+      <p className="mb-4">
+        Introduce specific workouts:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li><strong>Weekly long run:</strong> Progressively increase up to 15-18 miles</li>
+        <li><strong>Tempo workouts:</strong> Sections at target marathon pace</li>
+        <li><strong>Recovery runs:</strong> At conversational pace, very easy</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Phase 3: Refinement (Weeks 11-14)</h4>
+      <p className="mb-4">
+        Reach your peak training volume. The long run will reach 20-22 miles.
+        Practice your nutrition and hydration strategy during long runs.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">Phase 4: Taper (Weeks 15-16)</h4>
+      <p className="mb-4">
+        Gradually reduce volume (but maintain intensity) to arrive rested on race day.
+        Weekly mileage will decrease by approximately 30-50%.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Essential Plan Elements</h3>
+      <ul className="list-disc pl-6 mb-6">
+        <li><strong>Gradual progression:</strong> Don't increase distance by more than 10% per week</li>
+        <li><strong>Recovery:</strong> At least 1-2 complete rest days weekly</li>
+        <li><strong>Consistency:</strong> More important than occasional intense workouts</li>
+        <li><strong>Flexibility:</strong> Adapt the plan based on how you feel and your commitments</li>
+      </ul>
+
+      <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+        <p className="font-medium">Coach's tip:</p>
+        <p>For your first marathon, the goal should be to finish it, not to achieve a specific time.
+        Run the first three-quarters of the marathon with your head and only the last quarter with your heart.</p>
+      </div>
+
+      <p className="italic text-gray-600">
+        Remember that every runner is unique. What works for others may not be ideal for you.
+        Listen to your body and adjust your plan as needed.
+      </p>
+    </>,
+
+    // Article 4: Stretching and Recovery for Runners
+    <>
+      <p className="mb-6">
+        Recovery is just as important as training itself. Proper stretching and recovery techniques 
+        help prevent injuries, reduce muscle soreness, and improve overall performance.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">The Science of Recovery</h3>
+      <p className="mb-4">
+        When you run, you create microscopic tears in your muscle fibers. Recovery periods allow these 
+        fibers to repair and strengthen. Without adequate recovery, you risk overtraining syndrome, 
+        decreased performance, and injuries.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Effective Stretching Routines</h3>
+      
+      <h4 className="text-lg font-medium mb-2">Dynamic Stretching Before Running</h4>
+      <p className="mb-4">
+        Dynamic stretches involve moving parts of your body through a full range of motion. 
+        Perform these before your run to prepare your muscles:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li><strong>Leg swings:</strong> 10-15 swings per leg, both front-to-back and side-to-side</li>
+        <li><strong>Walking lunges:</strong> 10 per leg with a gentle torso rotation</li>
+        <li><strong>High knees and butt kicks:</strong> 20 meters of each</li>
+        <li><strong>Arm circles:</strong> 10 forward and 10 backward</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Static Stretching After Running</h4>
+      <p className="mb-4">
+        Static stretches involve holding a position for 30-60 seconds. These are best performed after 
+        your run when muscles are warm:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li><strong>Standing quadriceps stretch:</strong> Hold your foot against your buttock</li>
+        <li><strong>Hamstring stretch:</strong> Extend your leg on a raised surface and lean forward</li>
+        <li><strong>Calf stretch:</strong> Place your foot against a wall with heel on the ground</li>
+        <li><strong>Hip flexor stretch:</strong> Lunge forward keeping your back straight</li>
+        <li><strong>IT band stretch:</strong> Cross one leg over the other and lean toward the crossed side</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Recovery Techniques Beyond Stretching</h3>
+      
+      <h4 className="text-lg font-medium mb-2">1. Active Recovery</h4>
+      <p className="mb-4">
+        Low-intensity movement (walking, light swimming, gentle cycling) on rest days helps 
+        increase blood flow to muscles without causing additional strain.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">2. Foam Rolling (Self-Myofascial Release)</h4>
+      <p className="mb-4">
+        Spend 1-2 minutes on each major muscle group, focusing on tight or sore areas. 
+        This helps break up adhesions between muscle fibers and fascia.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">3. Compression Garments</h4>
+      <p className="mb-4">
+        Wearing compression socks or sleeves during or after running may help reduce muscle 
+        vibration during exercise and decrease swelling post-run.
+      </p>
+
+      <h4 className="text-lg font-medium mb-2">4. Cold and Heat Therapy</h4>
+      <p className="mb-4">
+        Ice baths or cold compresses can reduce inflammation after hard workouts. 
+        Heat therapy improves blood flow and can be effective for chronic tightness.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">Recovery Nutrition</h3>
+      <p className="mb-4">
+        Refuel within 30-45 minutes post-run with a 3:1 ratio of carbs to protein. 
+        Stay hydrated and consider tart cherry juice, which has natural anti-inflammatory properties.
+      </p>
+
+      <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-6">
+        <p className="font-medium">Sleep tip:</p>
+        <p>Quality sleep is your best recovery tool. Aim for 7-9 hours nightly. Consider taking 
+        short naps (20-30 minutes) after particularly demanding workouts if possible.</p>
+      </div>
+
+      <p className="italic text-gray-600">
+        Listen to your body. If you're consistently tired or noticing declining performance, 
+        you may need more recovery time. Recovery is when you get stronger—don't shortchange it.
+      </p>
+    </>
+  ];
+
   // Sample articles data
   const articles = [
     {
@@ -16,25 +322,33 @@ const Home = () => {
       excerpt:
         "Learn the fundamentals of nutrition to optimize your performance in marathons.",
       imageUrl:
-        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80",
+        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80",
       readMoreUrl: "#nutrition",
     },
     {
       id: 2,
-      title: "How to Prevent Common Injuries",
+      title: "Choosing the Right Running Shoes",
       excerpt:
-        "Effective strategies to avoid injuries during your marathon training.",
+        "Learn how to select the perfect running shoes for your foot type and running style.",
       imageUrl:
-        "https://images.unsplash.com/photo-1556316384-12c35d30afa4?w=800&q=80",
-      readMoreUrl: "#injuries",
+        "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&q=80",
+      readMoreUrl: "#shoes",
     },
     {
       id: 3,
-      title: "Essential Equipment for Marathons",
-      excerpt: "Complete guide on the equipment you need to train properly.",
+      title: "Creating Your First Marathon Training Plan",
+      excerpt: "A step-by-step guide to building a marathon training plan that works for you.",
       imageUrl:
-        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80",
-      readMoreUrl: "#equipment",
+        "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
+      readMoreUrl: "#training-plan",
+    },
+    {
+      id: 4,
+      title: "Stretching and Recovery for Runners",
+      excerpt: "Learn essential techniques to recover faster and prevent injuries after your runs.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
+      readMoreUrl: "#recovery",
     },
   ];
 
@@ -47,7 +361,7 @@ const Home = () => {
         "Complete plan for beginners looking to finish their first marathon with confidence.",
       duration: "20 weeks",
       difficulty: "Beginner" as "Beginner" | "Intermediate" | "Advanced",
-      pdfUrl: "#plan-20-weeks",
+      pdfUrl: "https://drive.google.com/file/d/1Y3qoIPh_cbRZ8Xw_AbcSdEgHloZp8V4S/view?usp=sharing",
     },
     {
       id: 2,
@@ -213,12 +527,12 @@ const Home = () => {
       </section>
 
       {/* Articles Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-16">
+      <section id="articles" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             Articles for Runners
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <ArticleCarousel>
             {articles.map((article) => (
               <ArticleCard
                 key={article.id}
@@ -226,11 +540,21 @@ const Home = () => {
                 excerpt={article.excerpt}
                 imageUrl={article.imageUrl}
                 readMoreUrl={article.readMoreUrl}
+                onClick={() => setActiveArticle(article.id - 1)}
               />
             ))}
-          </div>
+          </ArticleCarousel>
         </div>
       </section>
+
+      {/* Modal para mostrar el artículo completo */}
+      {activeArticle !== null && (
+        <ArticleDetail
+          title={articles[activeArticle].title}
+          content={articleContents[activeArticle]}
+          onClose={closeArticleModal}
+        />
+      )}
 
       {/* Training Plans Section */}
       <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
@@ -239,16 +563,25 @@ const Home = () => {
             Free Training Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {trainingPlans.map((plan) => (
-              <TrainingPlanCard
-                key={plan.id}
-                title={plan.title}
-                description={plan.description}
-                duration={plan.duration}
-                difficulty={plan.difficulty}
-                pdfUrl={plan.pdfUrl}
-              />
-            ))}
+            {/* Plan de 20 semanas - Normal */}
+            <TrainingPlanCard
+              key={trainingPlans[0].id}
+              title={trainingPlans[0].title}
+              description={trainingPlans[0].description}
+              duration={trainingPlans[0].duration}
+              difficulty={trainingPlans[0].difficulty}
+              pdfUrl={trainingPlans[0].pdfUrl}
+            />
+            
+            {/* Plan de 16 semanas - Under Construction */}
+            <UnderConstructionPlanCard
+              key={trainingPlans[1].id}
+              title={trainingPlans[1].title}
+              description={trainingPlans[1].description}
+              duration={trainingPlans[1].duration}
+              difficulty={trainingPlans[1].difficulty}
+              pdfUrl={trainingPlans[1].pdfUrl}
+            />
           </div>
         </div>
       </section>
