@@ -64,7 +64,8 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       {/* Header/Navigation */}
       <header className="py-4 px-4 md:px-8 lg:px-16 flex justify-between items-center border-b border-gray-200">
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <img src="/logo.svg" alt="Andes Runners Logo" className="h-8 w-auto" />
           <span className="text-xl font-bold">Andes Runners</span>
         </div>
         <nav className="hidden md:flex space-x-8">

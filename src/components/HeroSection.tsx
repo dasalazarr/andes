@@ -19,38 +19,40 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   ctaSecondaryText = "Join Our Community",
   onPrimaryClick,
   onSecondaryClick,
-  backgroundImage = "https://images.unsplash.com/photo-1502904550040-7534597429ae?w=1200&q=80",
+  backgroundImage = "/images/background.png",
 }) => {
   return (
-    <div className="relative w-full h-[600px] bg-background">
-      {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/50 to-black/50" />
-      </div>
+    <div className="py-8 px-4 md:px-8 lg:px-16">
+      <div className="relative overflow-hidden rounded-xl max-w-6xl mx-auto">
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
 
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-          {title}
-        </h1>
+        {/* Content Container */}
+        <div className="relative z-10 flex flex-col items-center justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            {title}
+          </h1>
 
-        <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-3xl">
-          {subtitle}
-        </p>
+          <p className="text-lg text-white/90 mb-8 max-w-3xl">
+            {subtitle}
+          </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
-          <Button
-            size="lg"
-            className="w-full sm:w-auto flex-1 bg-black hover:bg-black/90 text-white font-medium"
-            onClick={onPrimaryClick}
-          >
-            {ctaPrimaryText}
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto flex-1 bg-black hover:bg-black/90 text-white font-medium"
+              onClick={onPrimaryClick}
+            >
+              {ctaPrimaryText}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
