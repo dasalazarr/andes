@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download } from "lucide-react";
+import { trackPlanDownload } from "../lib/analytics";
 
 interface TrainingPlanCardProps {
   title: string;
@@ -17,6 +18,7 @@ interface TrainingPlanCardProps {
   duration: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   pdfUrl: string;
+  onDownload?: () => void;
 }
 
 const TrainingPlanCard = ({
@@ -25,6 +27,7 @@ const TrainingPlanCard = ({
   duration = "8 weeks",
   difficulty = "Beginner",
   pdfUrl = "#",
+  onDownload,
 }: TrainingPlanCardProps) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -58,10 +61,13 @@ const TrainingPlanCard = ({
       <CardFooter className="pt-2">
         <Button
           className="w-full flex items-center justify-center gap-2 bg-black hover:bg-black/90 text-white"
-          onClick={() => window.open(pdfUrl, "_blank")}
+          onClick={() => {
+            trackPlanDownload(title);
+            if (onDownload) onDownload();
+            window.open(pdfUrl, "_blank");
+          }}
         >
-          <Download size={16} />
-          Download PDF
+          <Download className="mr-2 h-4 w-4" /> Download PDF
         </Button>
       </CardFooter>
     </Card>

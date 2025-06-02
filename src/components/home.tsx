@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense, useEffect } from "react";
 import HeroSection from "./HeroSection";
 import ArticleCard from "./ArticleCard";
-import PlanRequestForm from "./PlanRequestForm";
 import TrainingPlanCard from "./TrainingPlanCard";
 import UnderConstructionPlanCard from "./UnderConstructionPlanCard";
-import ArticleDetail from "./ArticleDetail";
 import ArticleCarousel from "./ArticleCarousel";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { ArrowRight, BookOpen, Calendar, Users } from "lucide-react";
+import { initGA, trackArticleView } from "../lib/analytics";
+
+// Lazy load componentes pesados que no son necesarios en la carga inicial
+const ArticleDetail = lazy(() => import("./ArticleDetail"));
+const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
 
 const Home = () => {
   // Estado para controlar qué artículo está activo (null si ninguno está activo)
   const [activeArticle, setActiveArticle] = useState<number | null>(null);
   
+  // Inicializar Google Analytics al cargar la página
+  useEffect(() => {
+    initGA();
+  }, []);
+  
   // Función para cerrar el modal
   const closeArticleModal = () => {
     setActiveArticle(null);
+  };
+  
+  // Función para abrir el modal y rastrear la visualización del artículo
+  const openArticle = (index: number) => {
+    setActiveArticle(index);
+    trackArticleView(articles[index].title);
   };
   // Contenido completo de los artículos
   const articleContents = [
@@ -533,14 +547,15 @@ const Home = () => {
             Articles for Runners
           </h2>
           <ArticleCarousel>
-            {articles.map((article) => (
+            {articles.map((article, index) => (
               <ArticleCard
                 key={article.id}
                 title={article.title}
                 excerpt={article.excerpt}
                 imageUrl={article.imageUrl}
                 readMoreUrl={article.readMoreUrl}
-                onClick={() => setActiveArticle(article.id - 1)}
+                onClick={() => openArticle(index)}
+                data-testid="article-card"
               />
             ))}
           </ArticleCarousel>
@@ -549,11 +564,13 @@ const Home = () => {
 
       {/* Modal para mostrar el artículo completo */}
       {activeArticle !== null && (
-        <ArticleDetail
-          title={articles[activeArticle].title}
-          content={articleContents[activeArticle]}
-          onClose={closeArticleModal}
-        />
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center"><p className="text-white">Cargando artículo...</p></div>}>
+          <ArticleDetail
+            title={articles[activeArticle].title}
+            content={articleContents[activeArticle]}
+            onClose={closeArticleModal}
+          />
+        </Suspense>
       )}
 
       {/* Training Plans Section */}
@@ -630,7 +647,9 @@ const Home = () => {
             Complete the form below and our coaches will create a plan
             specifically tailored to your needs and goals.
           </p>
-          <PlanRequestForm />
+          <Suspense fallback={<div className="h-[500px] flex items-center justify-center"><p>Cargando formulario...</p></div>}>
+            <PlanRequestForm />
+          </Suspense>
         </div>
       </section>
 

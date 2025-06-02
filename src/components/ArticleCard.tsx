@@ -31,11 +31,15 @@ const ArticleCard = ({
 }: ArticleCardProps) => {
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200">
-      <div className="relative h-48 overflow-hidden">
+      <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="450"
         />
       </div>
       <CardHeader className="pb-2">
