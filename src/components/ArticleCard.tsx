@@ -31,31 +31,31 @@ const ArticleCard = ({
 }: ArticleCardProps) => {
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200">
-      <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg">
+      <div className="w-full h-48 overflow-hidden rounded-t-lg">
         <img
           src={imageUrl}
           alt={title}
-          className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           loading="lazy"
           decoding="async"
-          width="800"
-          height="450"
+          width={800}
+          height={450}
         />
       </div>
-      <CardHeader className="pb-2">
-        <div className="flex justify-between items-center text-xs text-muted-foreground mb-1">
+      <CardHeader className="pb-2 flex-1">
+        <div className="flex justify-between items-center text-xs text-muted-foreground mb-2">
           <span>{date}</span>
           <span>{author}</span>
         </div>
-        <CardTitle className="text-xl line-clamp-2 text-gray-900">
+        <CardTitle className="text-lg md:text-xl line-clamp-2 text-gray-900 mb-2">
           {title}
         </CardTitle>
+        <CardContent className="p-0">
+          <CardDescription className="line-clamp-3 text-gray-600 text-sm">
+            {excerpt}
+          </CardDescription>
+        </CardContent>
       </CardHeader>
-      <CardContent className="flex-grow">
-        <CardDescription className="line-clamp-3 text-gray-600">
-          {excerpt}
-        </CardDescription>
-      </CardContent>
       <CardFooter className="pt-0">
         {onClick ? (
           <Button

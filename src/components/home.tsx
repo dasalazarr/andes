@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useEffect } from "react";
+import React, { useState, lazy, Suspense, useEffect, useRef } from "react";
 import HeroSection from "./HeroSection";
 import ArticleCard from "./ArticleCard";
 import TrainingPlanCard from "./TrainingPlanCard";
@@ -7,7 +7,7 @@ import ArticleCarousel from "./ArticleCarousel";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { ArrowRight, BookOpen, Calendar, Users } from "lucide-react";
-import { initGA, trackArticleView } from "../lib/analytics";
+import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
 
 // Lazy load componentes pesados que no son necesarios en la carga inicial
 const ArticleDetail = lazy(() => import("./ArticleDetail"));
@@ -16,11 +16,22 @@ const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
 const Home = () => {
   // Estado para controlar qué artículo está activo (null si ninguno está activo)
   const [activeArticle, setActiveArticle] = useState<number | null>(null);
+  const requestPlanRef = useRef<HTMLElement>(null);
   
   // Inicializar Google Analytics al cargar la página
   useEffect(() => {
     initGA();
   }, []);
+
+  // Función para hacer scroll al inicio de la página
+  const scrollToRequestPlan = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Función para hacer scroll a la sección de comunidad
+  const scrollToCommunity = () => {
+    document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
+  };
   
   // Función para cerrar el modal
   const closeArticleModal = () => {
@@ -398,10 +409,10 @@ const Home = () => {
         </div>
         <nav className="hidden md:flex space-x-8">
           <a 
-            href="#" 
+            href="#how-it-works"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector('section:nth-of-type(3)')?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="text-gray-600 hover:text-black"
           >
@@ -421,7 +432,7 @@ const Home = () => {
             href="#articles" 
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector('section:nth-of-type(5)')?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById('articles')?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="text-gray-600 hover:text-black"
           >
@@ -439,7 +450,16 @@ const Home = () => {
       </header>
 
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection 
+        ctaPrimaryText="Get Free 20-Week Plan"
+        onPrimaryClick={() => {
+          // Track the download
+          trackPlanDownload('20-Week Marathon Plan');
+          // Trigger download
+          window.open('/plans/20-week-marathon-plan.pdf', '_blank');
+        }}
+        onSecondaryClick={scrollToCommunity}
+      />
 
       {/* Stats Section */}
       <section className="py-8 px-4 md:px-8 lg:px-16">
@@ -460,7 +480,7 @@ const Home = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-16">
+      <section id="how-it-works" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             How It Works
@@ -638,7 +658,7 @@ const Home = () => {
       </section>
 
       {/* Plan Request Form Section */}
-      <section id="request-plan" className="py-16 px-4 md:px-8 lg:px-16">
+      <section ref={requestPlanRef} id="request-plan" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-2">
             Request Your Beta Personalized Plan
