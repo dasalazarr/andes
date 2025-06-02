@@ -455,8 +455,8 @@ const Home = () => {
         onPrimaryClick={() => {
           // Track the download
           trackPlanDownload('20-Week Marathon Plan');
-          // Trigger download
-          window.open('/plans/20-week-marathon-plan.pdf', '_blank');
+          // Open Google Drive PDF
+          window.open('https://drive.google.com/file/d/1Y3qoIPh_cbRZ8Xw_AbcSdEgHloZp8V4S/view?usp=sharing', '_blank');
         }}
         onSecondaryClick={scrollToCommunity}
       />
