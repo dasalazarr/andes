@@ -8,10 +8,12 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { ArrowRight, BookOpen, Calendar, Users } from "lucide-react";
 import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
+import { motion } from "framer-motion";
 
 // Lazy load componentes pesados que no son necesarios en la carga inicial
 const ArticleDetail = lazy(() => import("./ArticleDetail"));
 const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
+const GritSection = React.lazy(() => import("./grit/GritSection"));
 
 const Home = () => {
   // Estado para controlar qué artículo está activo (null si ninguno está activo)
@@ -336,6 +338,104 @@ const Home = () => {
         Listen to your body. If you're consistently tired or noticing declining performance, 
         you may need more recovery time. Recovery is when you get stronger—don't shortchange it.
       </p>
+    </>,
+
+    // Article 5: How to Build a Training Habit (and Not Give Up)
+    <>
+      <p className="mb-6">
+        Building a consistent training habit is often more challenging than the physical activity itself.
+        The good news is that habit formation follows predictable patterns that you can leverage in your favor.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-3">The Anatomy of a Habit</h3>
+      <p className="mb-4">
+        Every habit consists of four components: cue, craving, response, and reward. Understanding this loop
+        is essential to establishing lasting training routines:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li><strong>Cue:</strong> The trigger that initiates the behavior (time of day, location, preceding event)</li>
+        <li><strong>Craving:</strong> The motivation or desire for the change of state</li>
+        <li><strong>Response:</strong> The actual habit or action you perform</li>
+        <li><strong>Reward:</strong> The benefit you gain from doing the habit</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Practical Strategies for Runners</h3>
+      
+      <h4 className="text-lg font-medium mb-2">1. Start Ridiculously Small</h4>
+      <p className="mb-4">
+        The most common mistake is starting too ambitious. Begin with a "tiny habit" that's impossible to fail:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Just put on your running shoes and step outside for 2 minutes</li>
+        <li>Commit to running only to the end of your block</li>
+        <li>Start with a walk/run approach: 1 minute running, 2 minutes walking</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">2. Anchor to Existing Habits</h4>
+      <p className="mb-4">
+        Connect your new running habit to something you already do consistently:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>"After I brush my teeth in the morning, I'll change into running clothes"</li>
+        <li>"After I get home from work, I'll immediately put on my running shoes"</li>
+        <li>"After I pour my morning coffee, I'll plan my run for the day"</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">3. Remove Friction</h4>
+      <p className="mb-4">
+        Make running the path of least resistance by eliminating obstacles:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Prepare your running clothes the night before</li>
+        <li>Keep your running shoes by the door</li>
+        <li>Pre-plan your routes for different time constraints (have 15, 30, and 45-minute options)</li>
+        <li>Charge your devices and prepare your playlist/podcast in advance</li>
+      </ul>
+
+      <h3 className="text-xl font-semibold mb-3">Overcoming Common Obstacles</h3>
+      
+      <h4 className="text-lg font-medium mb-2">When Motivation Disappears</h4>
+      <p className="mb-4">
+        Motivation is unreliable and fluctuates daily. Instead, focus on:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Building identity: Think of yourself as "a runner" rather than "someone trying to run"</li>
+        <li>Setting process goals rather than outcome goals: "I run three times a week" vs. "I want to lose weight"</li>
+        <li>Using the 2-minute rule: Just commit to 2 minutes of running—once started, you'll often continue</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Dealing with Schedule Disruptions</h4>
+      <p className="mb-4">
+        Life inevitably disrupts routines. Prepare by:
+      </p>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Having multiple time slots available for training</li>
+        <li>Creating contingency plans: "If I can't run in the morning, I'll do a shorter run at lunch"</li>
+        <li>Following the "never miss twice" rule: Missing once is an accident, missing twice is the start of a new habit</li>
+      </ul>
+
+      <h4 className="text-lg font-medium mb-2">Tracking and Accountability</h4>
+      <p className="mb-4">
+        Visible progress is incredibly motivating:
+      </p>
+      <ul className="list-disc pl-6 mb-6">
+        <li>Use a physical or digital habit tracker (marking Xs on a calendar works surprisingly well)</li>
+        <li>Share your commitment with others or find a running buddy</li>
+        <li>Join running communities (online or local) for support and friendly competition</li>
+        <li>Schedule your runs in your calendar as non-negotiable appointments</li>
+      </ul>
+
+      <div className="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
+        <p className="font-medium">Habit hack:</p>
+        <p>Try habit stacking with a reward. For example, "I can only listen to my favorite podcast while running."
+        This creates an immediate reward that makes you look forward to your training session.</p>
+      </div>
+
+      <p className="italic text-gray-600">
+        Remember, it takes approximately 66 days for a habit to become automatic—not the 21 days often quoted.
+        Be patient with yourself and celebrate consistency over perfection. Small steps, repeated consistently,
+        lead to remarkable results over time.
+      </p>
     </>
   ];
 
@@ -374,6 +474,14 @@ const Home = () => {
       imageUrl:
         "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
       readMoreUrl: "#recovery",
+    },
+    {
+      id: 5,
+      title: "How to Build a Training Habit (and Not Give Up)",
+      excerpt: "Practical strategies to develop consistent training routines and overcome common obstacles.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+      readMoreUrl: "#training-habit",
     },
   ];
 
@@ -419,16 +527,6 @@ const Home = () => {
             Features
           </a>
           <a 
-            href="#community" 
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="text-gray-600 hover:text-black"
-          >
-            Community
-          </a>
-          <a 
             href="#articles" 
             onClick={(e) => {
               e.preventDefault();
@@ -438,6 +536,17 @@ const Home = () => {
           >
             Articles
           </a>
+          <a 
+            href="#community" 
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-gray-600 hover:text-black"
+          >
+            Community
+          </a>
+          
         </nav>
         <Button 
           className="bg-black text-white hover:bg-black/90"
@@ -462,7 +571,7 @@ const Home = () => {
       />
 
       {/* Stats Section */}
-      <section className="py-8 px-4 md:px-8 lg:px-16">
+      <section className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto grid grid-cols-3 gap-4">
           <div className="border border-gray-200 p-6 rounded-lg text-center">
             <div className="text-2xl font-bold mb-1">100+</div>
@@ -482,10 +591,10 @@ const Home = () => {
       {/* How It Works Section */}
       <section id="how-it-works" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             How It Works
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
             Andes combines cutting-edge technology with expert coaching to
             provide a comprehensive marathon training experience.
           </p>
@@ -530,36 +639,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Start Today Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">Start Today</h2>
-          <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
-            <Button 
-              size="lg" 
-              className="w-full bg-black hover:bg-black/90"
-              onClick={() => {
-                document.getElementById('request-plan')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Request Your Beta Personalized Plan
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="w-full"
-              onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')}
-            >
-              Join Our Community
-            </Button>
-          </div>
-          <p className="mt-8 text-gray-600">
-            Explore our free resources, including articles and standard training
-            plans, to get started on your marathon journey.
-          </p>
-        </div>
-      </section>
-
       {/* Articles Section */}
       <section id="articles" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
@@ -593,6 +672,15 @@ const Home = () => {
         </Suspense>
       )}
 
+
+      {/* GRIT Section - Historias de Disciplina */}
+      <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+        <Suspense fallback={<div className="h-96 flex items-center justify-center"><p>Cargando historias inspiradoras...</p></div>}>
+          <GritSection />
+        </Suspense>
+      </section>
+      
+
       {/* Training Plans Section */}
       <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
         <div className="max-w-6xl mx-auto">
@@ -622,7 +710,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Community Section */}
       <section id="community" className="py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
