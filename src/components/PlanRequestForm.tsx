@@ -1,76 +1,86 @@
-import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { trackFormSubmission } from "../lib/analytics";
+import React, { useState } from 'react';
+import { ShieldCheck, Award, Users, CheckCircle, ArrowRight } from 'lucide-react';
+import MultiStepPlanForm from './MultiStepPlanForm';
 
 interface PlanRequestFormProps {
-  formUrl?: string;
+  language: 'en' | 'es';
 }
 
-const PlanRequestForm = ({
-  // Formulario de Google Forms para Andes Runners
-  formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScdqR-Gg53vh4sbkCWT58CMDkL7Ihzb952pIM8n5WfUePVWng/viewform?embedded=true",
-}: PlanRequestFormProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+const content = {
+  en: {
+    footer: "We will contact you in less than 24 hours to coordinate.",
+    badges: [
+      { text: "Secure Data", icon: ShieldCheck },
+      { text: "Quality Plans", icon: Award },
+      { text: "Active Community", icon: Users }
+    ],
+    success: {
+      title: "Thank You!",
+      message: "Your request has been sent. Our team will review your information and contact you shortly.",
+      button: "Join our WhatsApp Community"
+    }
+  },
+  es: {
+    footer: "Nos pondremos en contacto contigo en menos de 24 horas para coordinar.",
+    badges: [
+      { text: "Datos Seguros", icon: ShieldCheck },
+      { text: "Planes de Calidad", icon: Award },
+      { text: "Comunidad Activa", icon: Users }
+    ],
+    success: {
+      title: "¡Gracias!",
+      message: "Tu solicitud ha sido enviada. Nuestro equipo revisará tu información y se pondrá en contacto contigo.",
+      button: "Únete a la Comunidad de WhatsApp"
+    }
+  }
+};
 
-  const onSubmit = async () => {
-    setIsSubmitting(true);
-    // Rastrear el envío del formulario en Google Analytics
-    trackFormSubmission();
-    // Simular envío al servidor
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Mostrar mensaje de éxito
+const iconColors = ["text-amber-400", "text-amber-400", "text-amber-400"];
+
+const PlanRequestForm: React.FC<PlanRequestFormProps> = ({ language }) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const t = content[language];
+
+  const handleFormSubmit = (data: any) => {
+    console.log("Form data submitted:", data);
+    // Here you would typically send the data to your backend
     setIsSubmitted(true);
-    setIsSubmitting(false);
   };
 
-  return (
-    <div className="w-full max-w-3xl mx-auto bg-background" data-testid="plan-request-form">
-      <Card className="border border-gray-200 shadow-lg">
-        <CardContent className="p-0">
-          <div className="w-full overflow-hidden">
-            <iframe
-              src={formUrl}
-              width="100%"
-              height="2307"
-              frameBorder="0"
-              marginHeight={0}
-              marginWidth={0}
-              title="Personalized plan request form"
-              className="w-full"
-            >
-              Cargando...
-            </iframe>
-          </div>
+  const SuccessMessage = () => (
+    <div className="text-center py-10">
+      <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+      <h3 className="text-2xl font-bold text-white mb-2">{t.success.title}</h3>
+      <p className="text-gray-300 mb-8">{t.success.message}</p>
+      <button 
+        onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')}
+        className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg transition-transform transform hover:scale-105"
+      >
+        {t.success.button} <ArrowRight className="h-4 w-4 ml-2" />
+      </button>
+    </div>
+  );
 
-          <div className="p-6 text-center">
-            <p className="text-sm text-gray-500 mb-4">
-              By submitting this form, you agree that we may use your data to
-              create your personalized plan and contact you with relevant
-              information.
-            </p>
-            <Button
-              variant="outline"
-              onClick={onSubmit}
-              className="mt-2 border-gray-300 text-gray-700 hover:bg-gray-100"
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
-            {isSubmitted && (
-              <p className="text-sm text-gray-500 mt-4">
-                Form submitted successfully!
-              </p>
-            )}
+  return (
+    <div className="max-w-3xl mx-auto bg-neutral-900/50 backdrop-blur-sm border border-white/10 rounded-xl shadow-2xl p-6 md:p-10 min-h-[500px] flex flex-col justify-center">
+      {!isSubmitted ? (
+        <>
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mb-8">
+            {t.badges.map((badge, index) => {
+              const Icon = badge.icon;
+              return (
+                <div key={badge.text} className="flex items-center gap-3 text-gray-300">
+                  <Icon className={`h-6 w-6 ${iconColors[index]}`} />
+                  <span className="text-sm font-medium tracking-wider">{badge.text}</span>
+                </div>
+              );
+            })}
           </div>
-        </CardContent>
-      </Card>
+          <MultiStepPlanForm language={language} onSubmit={handleFormSubmit} />
+        </>
+      ) : (
+        <SuccessMessage />
+      )}
     </div>
   );
 };

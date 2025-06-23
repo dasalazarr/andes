@@ -20,7 +20,7 @@ describe('ArticleCarousel Component', () => {
 
   it('renders children correctly', () => {
     render(
-      <ArticleCarousel>
+      <ArticleCarousel language="en">
         <div data-testid="test-item-1">Item 1</div>
         <div data-testid="test-item-2">Item 2</div>
         <div data-testid="test-item-3">Item 3</div>
@@ -34,7 +34,7 @@ describe('ArticleCarousel Component', () => {
 
   it('has navigation buttons', () => {
     render(
-      <ArticleCarousel>
+      <ArticleCarousel language="en">
         <div>Test Content</div>
       </ArticleCarousel>
     );
@@ -51,7 +51,7 @@ describe('ArticleCarousel Component', () => {
     const user = userEvent.setup();
     
     render(
-      <ArticleCarousel>
+      <ArticleCarousel language="en">
         <div>Test Content</div>
       </ArticleCarousel>
     );
@@ -71,7 +71,7 @@ describe('ArticleCarousel Component', () => {
     const user = userEvent.setup();
     
     render(
-      <ArticleCarousel>
+      <ArticleCarousel language="en">
         <div>Test Content</div>
       </ArticleCarousel>
     );

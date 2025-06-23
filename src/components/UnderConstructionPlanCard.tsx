@@ -9,14 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download } from "lucide-react";
+import { Download, Construction } from "lucide-react";
 
 interface UnderConstructionPlanCardProps {
   title: string;
   description: string;
   duration: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
-  pdfUrl: string;
 }
 
 const UnderConstructionPlanCard = ({
@@ -24,67 +23,58 @@ const UnderConstructionPlanCard = ({
   description,
   duration,
   difficulty,
-  pdfUrl,
 }: UnderConstructionPlanCardProps) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
-        return "bg-green-100 text-green-800 hover:bg-green-200";
+        return "border-green-500/30 bg-green-500/10 text-green-400";
       case "Intermediate":
-        return "bg-blue-100 text-blue-800 hover:bg-blue-200";
+        return "border-blue-500/30 bg-blue-500/10 text-blue-400";
       case "Advanced":
-        return "bg-purple-100 text-purple-800 hover:bg-purple-200";
+        return "border-purple-500/30 bg-purple-500/10 text-purple-400";
       default:
-        return "bg-gray-100 text-gray-800 hover:bg-gray-200";
+        return "border-gray-500/30 bg-gray-500/10 text-gray-400";
     }
   };
 
   return (
-    <Card className="w-full max-w-md bg-white overflow-hidden transition-all hover:shadow-lg border border-gray-200 relative">
-      {/* Under Construction Overlay */}
-      <div className="absolute inset-0 bg-yellow-100 bg-opacity-70 flex flex-col items-center justify-center z-10 p-4">
-        <div className="bg-yellow-400 text-yellow-800 font-bold py-1 px-3 rounded-md transform -rotate-12 mb-2">
-          COMING SOON
-        </div>
-        <p className="text-center text-yellow-800 font-medium mb-2">This training plan is under development</p>
-        <div className="flex items-center justify-center space-x-1">
-          {[...Array(3)].map((_, i) => (
-            <div 
-              key={i} 
-              className="h-2 w-2 bg-yellow-600 rounded-full animate-bounce" 
-              style={{ animationDelay: `${i * 0.15}s` }}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Original Card Content (blurred) */}
-      <div className="blur-[2px]">
-        <CardHeader className="pb-2">
-          <div className="flex justify-between items-start">
-            <CardTitle className="text-xl font-bold text-gray-900">
+    <div className="relative w-full max-w-md h-full">
+      {/* The base card, which will be blurred */}
+      <Card className="w-full h-full bg-neutral-900/60 border border-neutral-800 rounded-lg overflow-hidden flex flex-col blur-sm pointer-events-none">
+        <CardHeader className="pb-4">
+          <div className="flex justify-between items-start gap-4">
+            <CardTitle className="text-xl font-bold text-gray-100">
               {title}
             </CardTitle>
-            <Badge className={getDifficultyColor(difficulty)}>{difficulty}</Badge>
+            <Badge variant="outline" className={`whitespace-nowrap ${getDifficultyColor(difficulty)}`}>{difficulty}</Badge>
           </div>
-          <CardDescription className="text-sm text-gray-500">
+          <CardDescription className="text-sm text-gray-400 pt-1">
             {duration}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-gray-700">{description}</p>
+        <CardContent className="flex-grow">
+          <p className="text-sm text-gray-300">{description}</p>
         </CardContent>
-        <CardFooter className="pt-2">
+        <CardFooter className="pt-4">
           <Button
-            className="w-full flex items-center justify-center gap-2 bg-black hover:bg-black/90 text-white"
-            onClick={() => window.open(pdfUrl, "_blank")}
+            variant="default"
+            className="w-full bg-white text-black hover:bg-gray-200 font-semibold"
+            disabled
           >
-            <Download size={16} />
-            Download PDF
+            <Download className="mr-2 h-4 w-4" /> Descargar Plan
           </Button>
         </CardFooter>
+      </Card>
+
+      {/* "Coming Soon" Overlay */}
+      <div className="absolute inset-0 bg-black/70 rounded-lg flex flex-col items-center justify-center z-10 p-4 text-center">
+        <Construction className="w-10 h-10 text-purple-400 mb-4" />
+        <h3 className="text-lg font-bold text-white mb-1">Próximamente</h3>
+        <p className="text-sm text-gray-300">
+          Este plan de entrenamiento está en desarrollo.
+        </p>
       </div>
-    </Card>
+    </div>
   );
 };
 

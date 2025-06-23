@@ -1,88 +1,53 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import React from 'react';
+import type { Article, Language } from '../data/content';
 
 interface ArticleCardProps {
-  title: string;
-  excerpt: string;
-  imageUrl: string;
-  readMoreUrl: string;
-  date?: string;
-  author?: string;
-  onClick?: () => void;
+  article: Article;
+  language: Language;
+  onClick: (article: Article) => void;
 }
 
-const ArticleCard = ({
-  title = "How to prepare for your first marathon",
-  excerpt = "Essential tips for beginners who want to complete their first 42km race successfully and without injuries.",
-  imageUrl = "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
-  readMoreUrl = "#",
-  date = "May 15, 2023",
-  author = "Andes Coach",
-  onClick,
-}: ArticleCardProps) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({ article, language, onClick }) => {
+  // NOTE: Assuming 'summary' and 'category' might not exist on the Article type yet.
+  // The linter previously reported errors. We will add them back once the type is updated.
+  const { title, image, imageAlt, excerpt, category } = article;
+
   return (
-    <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200">
-      <div className="w-full h-48 overflow-hidden rounded-t-lg">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+    <div 
+      className="bg-neutral-900/50 border border-white/10 rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:border-purple-500/50 hover:shadow-purple-500/20 cursor-pointer h-full flex flex-col group" 
+      onClick={() => onClick(article)}
+    >
+      <div className="relative overflow-hidden">
+        <img 
+          className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-105" 
+          src={image} 
+          alt={imageAlt ? imageAlt[language] : title[language]} 
+          style={{ objectPosition: 'center 30%' }}
           loading="lazy"
-          decoding="async"
-          width={800}
-          height={450}
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
-      <CardHeader className="pb-2 flex-1">
-        <div className="flex justify-between items-center text-xs text-muted-foreground mb-2">
-          <span>{date}</span>
-          <span>{author}</span>
-        </div>
-        <CardTitle className="text-lg md:text-xl line-clamp-2 text-gray-900 mb-2">
-          {title}
-        </CardTitle>
-        <CardContent className="p-0">
-          <CardDescription className="line-clamp-3 text-gray-600 text-sm">
-            {excerpt}
-          </CardDescription>
-        </CardContent>
-      </CardHeader>
-      <CardFooter className="pt-0">
-        {onClick ? (
-          <Button
-            variant="ghost"
-            className="p-0 h-auto hover:bg-transparent"
-            onClick={onClick}
-          >
-            <span className="flex items-center text-black font-medium">
-              Read more <ArrowRight className="ml-2 h-4 w-4" />
+      <div className="p-5 md:p-6 flex flex-col flex-grow">
+        <div className="flex items-center mb-3">
+          {category && (
+            <span className="inline-block bg-purple-900/30 text-purple-300 text-xs font-medium px-2.5 py-0.5 rounded">
+              {category[language]}
             </span>
-          </Button>
-        ) : (
-          <Button
-            variant="ghost"
-            className="p-0 h-auto hover:bg-transparent"
-            asChild
-          >
-            <a
-              href={readMoreUrl}
-              className="flex items-center text-black font-medium"
-            >
-              Read more <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
+          )}
+          <span className="text-xs text-gray-500 ml-auto">
+            {new Date(article.date).toLocaleDateString(language, { year: 'numeric', month: 'long' })}
+          </span>
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+          {title[language]}
+        </h3>
+        {excerpt && (
+          <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+            {excerpt[language]}
+          </p>
         )}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

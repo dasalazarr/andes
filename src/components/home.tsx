@@ -1,790 +1,279 @@
-import React, { useState, lazy, Suspense, useEffect, useRef } from "react";
+import React, { useState, lazy, Suspense, useEffect, useRef, useLayoutEffect } from "react";
+import { AnimatePresence } from 'framer-motion';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Button } from "./ui/button";
+import { ArrowRight } from "lucide-react";
+import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Component Imports
 import HeroSection from "./HeroSection";
 import ArticleCard from "./ArticleCard";
 import TrainingPlanCard from "./TrainingPlanCard";
 import UnderConstructionPlanCard from "./UnderConstructionPlanCard";
 import ArticleCarousel from "./ArticleCarousel";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { ArrowRight, BookOpen, Calendar, Users } from "lucide-react";
-import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
-import { motion } from "framer-motion";
 
-// Lazy load componentes pesados que no son necesarios en la carga inicial
-const ArticleDetail = lazy(() => import("./ArticleDetail"));
+// Lazy Loaded Components
 const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
-const GritSection = React.lazy(() => import("./grit/GritSection"));
+const GritSection = lazy(() => import("./grit/GritSection"));
+const GritStoryModal = lazy(() => import("./grit/GritStoryModal"));
+const LeadMagnetModal = lazy(() => import("./LeadMagnetModal"));
+const BenefitsSection = lazy(() => import("./BenefitsSection"));
+const PricingSection = lazy(() => import("./PricingSection"));
+const FAQSection = lazy(() => import("./FAQSection"));
+const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
+const SeoManager = lazy(() => import("./SeoManager"));
+const ArticleModal = lazy(() => import('./ArticleModal'));
+
+import { trainingPlans, heroContent, benefitsContent, pricingContent, faqContent, ctaContent, freePlansSectionContent, communityContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent } from "../data/content";
+import type { Language, Article } from "../data/content";
 
 const Home = () => {
-  // Estado para controlar qué artículo está activo (null si ninguno está activo)
-  const [activeArticle, setActiveArticle] = useState<number | null>(null);
-  const requestPlanRef = useRef<HTMLElement>(null);
-  
-  // Inicializar Google Analytics al cargar la página
+  const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
+  const path = window.location.pathname;
+  const language = path.startsWith('/es') ? 'es' : 'en';
+  const [activeArticle, setActiveArticle] = useState<Article | null>(null);
+  const [leadMagnetModalOpen, setLeadMagnetModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ title: string; pdfUrl: string } | null>(null);
+  const [selectedGritStory, setSelectedGritStory] = useState<any | null>(null);
+
+  const communityRef = useRef<HTMLDivElement>(null);
+  const gritSectionRef = useRef<HTMLDivElement>(null);
+  const planRequestFormRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     initGA();
   }, []);
 
-  // Función para hacer scroll al inicio de la página
-  const scrollToRequestPlan = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
-  // Función para hacer scroll a la sección de comunidad
-  const scrollToCommunity = () => {
-    document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
-  // Función para cerrar el modal
+
+  const scrollToRequestPlan = () => planRequestFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToCommunity = () => communityRef.current?.scrollIntoView({ behavior: 'smooth' });
+
   const closeArticleModal = () => {
     setActiveArticle(null);
+    setIsArticleModalOpen(false);
   };
-  
-  // Función para abrir el modal y rastrear la visualización del artículo
-  const openArticle = (index: number) => {
-    setActiveArticle(index);
-    trackArticleView(articles[index].title);
+
+  const openGritStoryModal = (story: any) => {
+    setSelectedGritStory(story);
   };
-  // Contenido completo de los artículos
-  const articleContents = [
-    // Article 1: Nutrition for Beginner Runners
-    <>
-      <p className="mb-6">
-        Proper nutrition is essential for any runner, especially for those just starting out.
-        Your body needs the right fuel to perform well in training sessions and recover adequately.
-      </p>
 
-      <h3 className="text-xl font-semibold mb-3">Key Macronutrients for Runners</h3>
-      
-      <h4 className="text-lg font-medium mb-2">Carbohydrates: Your Main Energy Source</h4>
-      <p className="mb-4">
-        Carbohydrates are your body's preferred fuel for aerobic activities like running.
-        For long training sessions, prioritize complex carbohydrates such as:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Oats and whole grain cereals</li>
-        <li>Brown rice and quinoa</li>
-        <li>Sweet potatoes and legumes</li>
-        <li>Fresh fruits</li>
-      </ul>
+  const closeGritStoryModal = () => {
+    setSelectedGritStory(null);
+  };
 
-      <h4 className="text-lg font-medium mb-2">Proteins: Muscle Repair and Building</h4>
-      <p className="mb-4">
-        Proteins are essential for repairing muscle tissue after workouts.
-        Runners need approximately 1.2-1.4 grams per kilogram of body weight. Good sources include:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Chicken and turkey breast</li>
-        <li>Fish and seafood</li>
-        <li>Eggs</li>
-        <li>Legumes and tofu</li>
-        <li>Greek yogurt and cottage cheese</li>
-      </ul>
+  const handlePlanClick = (plan: any) => {
+    if (plan.isLeadMagnet) {
+      setSelectedPlan(plan);
+      setLeadMagnetModalOpen(true);
+      trackPlanDownload(plan.title);
+    } else if (plan.pdfUrl && !plan.isUnderConstruction) {
+      window.open(plan.pdfUrl, '_blank');
+      trackPlanDownload(plan.title);
+    }
+  };
 
-      <h4 className="text-lg font-medium mb-2">Healthy Fats: Sustained Energy</h4>
-      <p className="mb-4">
-        Healthy fats provide long-lasting energy and are vital for vitamin absorption. Include:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li>Avocados</li>
-        <li>Nuts and seeds</li>
-        <li>Olive oil</li>
-        <li>Fatty fish like salmon</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Hydration: More Than Just Water</h3>
-      <p className="mb-4">
-        Dehydration can significantly reduce your performance. Follow these guidelines:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li>Drink approximately 500-600 ml of water 2-3 hours before running</li>
-        <li>For runs longer than 60 minutes, consider electrolyte drinks</li>
-        <li>After running, replenish fluids: approximately 500 ml for every 0.5 kg lost</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Before and After Running</h3>
-      <p className="mb-4">
-        <strong>Pre-workout (1-2 hours before):</strong> Combine easily digestible carbohydrates with a small amount of protein.
-        Examples: banana with peanut butter, yogurt with granola, toast with egg.
-      </p>
-      <p className="mb-6">
-        <strong>Post-workout (within 30-45 minutes):</strong> Consume proteins and carbohydrates in a 1:3 or 1:4 ratio.
-        Examples: protein shake with banana, chicken with rice, yogurt with fruits and honey.
-      </p>
-
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-        <p className="font-medium">Pro tip:</p>
-        <p>Experiment with different foods during training, not on race day.
-        Every runner is unique; learn to listen to your body and discover what works best for you.</p>
-      </div>
-
-      <p className="italic text-gray-600">
-        Remember that this information is general. For a personalized nutrition plan,
-        consult with a sports nutritionist or request our personalized plan.
-      </p>
-    </>,
-
-    // Article 2: Choosing the Right Running Shoes
-    <>
-      <p className="mb-6">
-        Choosing the right footwear is possibly the most important decision you'll make as a runner.
-        The correct shoes can prevent injuries and significantly improve your performance.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">Understand Your Foot Strike</h3>
-      <p className="mb-4">
-        Before buying, it's crucial to know your foot strike type:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li><strong>Pronator:</strong> Your foot rolls inward when landing. You need shoes with stability support.</li>
-        <li><strong>Neutral:</strong> Balanced impact distribution. Shoes with moderate cushioning are ideal.</li>
-        <li><strong>Supinator:</strong> Your foot rolls outward. Requires shoes with greater flexibility and cushioning.</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Key Factors to Consider</h3>
-      
-      <h4 className="text-lg font-medium mb-2">1. Cushioning and Drop</h4>
-      <p className="mb-4">
-        Cushioning varies from minimalist (ground feel) to maximum. The "drop" is the height difference
-        between the heel and toe. A low drop (0-4mm) promotes a midfoot or forefoot strike, while
-        a high drop (8-12mm) favors heel striking.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">2. Weight and Flexibility</h4>
-      <p className="mb-4">
-        For speed workouts, lighter shoes. For long distances, prioritize cushioning
-        even if they're slightly heavier. Flexibility should allow natural foot movement.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">3. Fit and Size</h4>
-      <p className="mb-4">
-        There should be approximately one centimeter of space between your longest toe and the shoe tip.
-        Try shoes at the end of the day when feet are more swollen. The shoe should feel comfortable immediately,
-        with no need to "break it in".
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">When to Replace Your Shoes</h3>
-      <p className="mb-4">
-        Typical lifespan is 500-800 km depending on your weight, running style, and surface.
-        Signs that you need to replace them:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li>Visible wear on the sole</li>
-        <li>Compressed cushioning (feels "flat")</li>
-        <li>Deformation of the upper or heel counter</li>
-        <li>New aches or discomfort when running</li>
-      </ul>
-
-      <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
-        <p className="font-medium">Buyer's tip:</p>
-        <p>Visit a specialized running store where they can analyze your gait.
-        It's an investment worth making to prevent long-term injuries.</p>
-      </div>
-
-      <p className="italic text-gray-600">
-        Consider having more than one pair of shoes and alternating them, especially if you train daily.
-        This extends their lifespan and reduces the risk of injuries from repetitive movements.
-      </p>
-    </>,
-
-    // Article 3: Creating Your First Marathon Training Plan
-    <>
-      <p className="mb-6">
-        Preparing for a marathon is a transformative journey that requires careful planning.
-        A well-structured training plan will increase your chances of success and reduce the risk of injuries.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">Before You Begin</h3>
-      <p className="mb-4">
-        Make sure you have these bases covered before starting your marathon training:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li>Aerobic base: You should be able to comfortably run 5-6 miles before starting</li>
-        <li>Medical check-up: Especially if you're over 40 or have pre-existing conditions</li>
-        <li>Proper equipment: Appropriate shoes and technical clothing</li>
-        <li>Time commitment: 4-6 hours weekly for 16-20 weeks</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Structure of a 16-Week Plan for Beginners</h3>
-      
-      <h4 className="text-lg font-medium mb-2">Phase 1: Base Building (Weeks 1-4)</h4>
-      <p className="mb-4">
-        Focus on building endurance with easy runs, gradually increasing weekly mileage.
-        Include rest days and possibly cross-training (swimming, cycling, yoga).
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">Phase 2: Development (Weeks 5-10)</h4>
-      <p className="mb-4">
-        Introduce specific workouts:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li><strong>Weekly long run:</strong> Progressively increase up to 15-18 miles</li>
-        <li><strong>Tempo workouts:</strong> Sections at target marathon pace</li>
-        <li><strong>Recovery runs:</strong> At conversational pace, very easy</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">Phase 3: Refinement (Weeks 11-14)</h4>
-      <p className="mb-4">
-        Reach your peak training volume. The long run will reach 20-22 miles.
-        Practice your nutrition and hydration strategy during long runs.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">Phase 4: Taper (Weeks 15-16)</h4>
-      <p className="mb-4">
-        Gradually reduce volume (but maintain intensity) to arrive rested on race day.
-        Weekly mileage will decrease by approximately 30-50%.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">Essential Plan Elements</h3>
-      <ul className="list-disc pl-6 mb-6">
-        <li><strong>Gradual progression:</strong> Don't increase distance by more than 10% per week</li>
-        <li><strong>Recovery:</strong> At least 1-2 complete rest days weekly</li>
-        <li><strong>Consistency:</strong> More important than occasional intense workouts</li>
-        <li><strong>Flexibility:</strong> Adapt the plan based on how you feel and your commitments</li>
-      </ul>
-
-      <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
-        <p className="font-medium">Coach's tip:</p>
-        <p>For your first marathon, the goal should be to finish it, not to achieve a specific time.
-        Run the first three-quarters of the marathon with your head and only the last quarter with your heart.</p>
-      </div>
-
-      <p className="italic text-gray-600">
-        Remember that every runner is unique. What works for others may not be ideal for you.
-        Listen to your body and adjust your plan as needed.
-      </p>
-    </>,
-
-    // Article 4: Stretching and Recovery for Runners
-    <>
-      <p className="mb-6">
-        Recovery is just as important as training itself. Proper stretching and recovery techniques 
-        help prevent injuries, reduce muscle soreness, and improve overall performance.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">The Science of Recovery</h3>
-      <p className="mb-4">
-        When you run, you create microscopic tears in your muscle fibers. Recovery periods allow these 
-        fibers to repair and strengthen. Without adequate recovery, you risk overtraining syndrome, 
-        decreased performance, and injuries.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">Effective Stretching Routines</h3>
-      
-      <h4 className="text-lg font-medium mb-2">Dynamic Stretching Before Running</h4>
-      <p className="mb-4">
-        Dynamic stretches involve moving parts of your body through a full range of motion. 
-        Perform these before your run to prepare your muscles:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li><strong>Leg swings:</strong> 10-15 swings per leg, both front-to-back and side-to-side</li>
-        <li><strong>Walking lunges:</strong> 10 per leg with a gentle torso rotation</li>
-        <li><strong>High knees and butt kicks:</strong> 20 meters of each</li>
-        <li><strong>Arm circles:</strong> 10 forward and 10 backward</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">Static Stretching After Running</h4>
-      <p className="mb-4">
-        Static stretches involve holding a position for 30-60 seconds. These are best performed after 
-        your run when muscles are warm:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li><strong>Standing quadriceps stretch:</strong> Hold your foot against your buttock</li>
-        <li><strong>Hamstring stretch:</strong> Extend your leg on a raised surface and lean forward</li>
-        <li><strong>Calf stretch:</strong> Place your foot against a wall with heel on the ground</li>
-        <li><strong>Hip flexor stretch:</strong> Lunge forward keeping your back straight</li>
-        <li><strong>IT band stretch:</strong> Cross one leg over the other and lean toward the crossed side</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Recovery Techniques Beyond Stretching</h3>
-      
-      <h4 className="text-lg font-medium mb-2">1. Active Recovery</h4>
-      <p className="mb-4">
-        Low-intensity movement (walking, light swimming, gentle cycling) on rest days helps 
-        increase blood flow to muscles without causing additional strain.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">2. Foam Rolling (Self-Myofascial Release)</h4>
-      <p className="mb-4">
-        Spend 1-2 minutes on each major muscle group, focusing on tight or sore areas. 
-        This helps break up adhesions between muscle fibers and fascia.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">3. Compression Garments</h4>
-      <p className="mb-4">
-        Wearing compression socks or sleeves during or after running may help reduce muscle 
-        vibration during exercise and decrease swelling post-run.
-      </p>
-
-      <h4 className="text-lg font-medium mb-2">4. Cold and Heat Therapy</h4>
-      <p className="mb-4">
-        Ice baths or cold compresses can reduce inflammation after hard workouts. 
-        Heat therapy improves blood flow and can be effective for chronic tightness.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">Recovery Nutrition</h3>
-      <p className="mb-4">
-        Refuel within 30-45 minutes post-run with a 3:1 ratio of carbs to protein. 
-        Stay hydrated and consider tart cherry juice, which has natural anti-inflammatory properties.
-      </p>
-
-      <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-6">
-        <p className="font-medium">Sleep tip:</p>
-        <p>Quality sleep is your best recovery tool. Aim for 7-9 hours nightly. Consider taking 
-        short naps (20-30 minutes) after particularly demanding workouts if possible.</p>
-      </div>
-
-      <p className="italic text-gray-600">
-        Listen to your body. If you're consistently tired or noticing declining performance, 
-        you may need more recovery time. Recovery is when you get stronger—don't shortchange it.
-      </p>
-    </>,
-
-    // Article 5: How to Build a Training Habit (and Not Give Up)
-    <>
-      <p className="mb-6">
-        Building a consistent training habit is often more challenging than the physical activity itself.
-        The good news is that habit formation follows predictable patterns that you can leverage in your favor.
-      </p>
-
-      <h3 className="text-xl font-semibold mb-3">The Anatomy of a Habit</h3>
-      <p className="mb-4">
-        Every habit consists of four components: cue, craving, response, and reward. Understanding this loop
-        is essential to establishing lasting training routines:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li><strong>Cue:</strong> The trigger that initiates the behavior (time of day, location, preceding event)</li>
-        <li><strong>Craving:</strong> The motivation or desire for the change of state</li>
-        <li><strong>Response:</strong> The actual habit or action you perform</li>
-        <li><strong>Reward:</strong> The benefit you gain from doing the habit</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Practical Strategies for Runners</h3>
-      
-      <h4 className="text-lg font-medium mb-2">1. Start Ridiculously Small</h4>
-      <p className="mb-4">
-        The most common mistake is starting too ambitious. Begin with a "tiny habit" that's impossible to fail:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Just put on your running shoes and step outside for 2 minutes</li>
-        <li>Commit to running only to the end of your block</li>
-        <li>Start with a walk/run approach: 1 minute running, 2 minutes walking</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">2. Anchor to Existing Habits</h4>
-      <p className="mb-4">
-        Connect your new running habit to something you already do consistently:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>"After I brush my teeth in the morning, I'll change into running clothes"</li>
-        <li>"After I get home from work, I'll immediately put on my running shoes"</li>
-        <li>"After I pour my morning coffee, I'll plan my run for the day"</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">3. Remove Friction</h4>
-      <p className="mb-4">
-        Make running the path of least resistance by eliminating obstacles:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Prepare your running clothes the night before</li>
-        <li>Keep your running shoes by the door</li>
-        <li>Pre-plan your routes for different time constraints (have 15, 30, and 45-minute options)</li>
-        <li>Charge your devices and prepare your playlist/podcast in advance</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-3">Overcoming Common Obstacles</h3>
-      
-      <h4 className="text-lg font-medium mb-2">When Motivation Disappears</h4>
-      <p className="mb-4">
-        Motivation is unreliable and fluctuates daily. Instead, focus on:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Building identity: Think of yourself as "a runner" rather than "someone trying to run"</li>
-        <li>Setting process goals rather than outcome goals: "I run three times a week" vs. "I want to lose weight"</li>
-        <li>Using the 2-minute rule: Just commit to 2 minutes of running—once started, you'll often continue</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">Dealing with Schedule Disruptions</h4>
-      <p className="mb-4">
-        Life inevitably disrupts routines. Prepare by:
-      </p>
-      <ul className="list-disc pl-6 mb-4">
-        <li>Having multiple time slots available for training</li>
-        <li>Creating contingency plans: "If I can't run in the morning, I'll do a shorter run at lunch"</li>
-        <li>Following the "never miss twice" rule: Missing once is an accident, missing twice is the start of a new habit</li>
-      </ul>
-
-      <h4 className="text-lg font-medium mb-2">Tracking and Accountability</h4>
-      <p className="mb-4">
-        Visible progress is incredibly motivating:
-      </p>
-      <ul className="list-disc pl-6 mb-6">
-        <li>Use a physical or digital habit tracker (marking Xs on a calendar works surprisingly well)</li>
-        <li>Share your commitment with others or find a running buddy</li>
-        <li>Join running communities (online or local) for support and friendly competition</li>
-        <li>Schedule your runs in your calendar as non-negotiable appointments</li>
-      </ul>
-
-      <div className="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
-        <p className="font-medium">Habit hack:</p>
-        <p>Try habit stacking with a reward. For example, "I can only listen to my favorite podcast while running."
-        This creates an immediate reward that makes you look forward to your training session.</p>
-      </div>
-
-      <p className="italic text-gray-600">
-        Remember, it takes approximately 66 days for a habit to become automatic—not the 21 days often quoted.
-        Be patient with yourself and celebrate consistency over perfection. Small steps, repeated consistently,
-        lead to remarkable results over time.
-      </p>
-    </>
-  ];
-
-  // Sample articles data
-  const articles = [
-    {
-      id: 1,
-      title: "Nutrition for Beginner Runners",
-      excerpt:
-        "Learn the fundamentals of nutrition to optimize your performance in marathons.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80",
-      readMoreUrl: "#nutrition",
-    },
-    {
-      id: 2,
-      title: "Choosing the Right Running Shoes",
-      excerpt:
-        "Learn how to select the perfect running shoes for your foot type and running style.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&q=80",
-      readMoreUrl: "#shoes",
-    },
-    {
-      id: 3,
-      title: "Creating Your First Marathon Training Plan",
-      excerpt: "A step-by-step guide to building a marathon training plan that works for you.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
-      readMoreUrl: "#training-plan",
-    },
-    {
-      id: 4,
-      title: "Stretching and Recovery for Runners",
-      excerpt: "Learn essential techniques to recover faster and prevent injuries after your runs.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
-      readMoreUrl: "#recovery",
-    },
-    {
-      id: 5,
-      title: "How to Build a Training Habit (and Not Give Up)",
-      excerpt: "Practical strategies to develop consistent training routines and overcome common obstacles.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
-      readMoreUrl: "#training-habit",
-    },
-  ];
-
-  // Sample training plans data
-  const trainingPlans = [
-    {
-      id: 1,
-      title: "20-Week Plan for Your First Marathon",
-      description:
-        "Complete plan for beginners looking to finish their first marathon with confidence.",
-      duration: "20 weeks",
-      difficulty: "Beginner" as "Beginner" | "Intermediate" | "Advanced",
-      pdfUrl: "https://drive.google.com/file/d/1Y3qoIPh_cbRZ8Xw_AbcSdEgHloZp8V4S/view?usp=sharing",
-    },
-    {
-      id: 2,
-      title: "16-Week Plan for Experienced Runners",
-      description:
-        "For runners who already have experience in 10K races or half marathons.",
-      duration: "16 weeks",
-      difficulty: "Intermediate" as "Beginner" | "Intermediate" | "Advanced",
-      pdfUrl: "#plan-16-weeks",
-    },
-  ];
+  const handleOpenArticleModal = (article: Article) => {
+    setActiveArticle(article);
+    trackArticleView(article.title[language]);
+    setIsArticleModalOpen(true);
+  };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header/Navigation */}
-      <header className="py-4 px-4 md:px-8 lg:px-16 flex justify-between items-center border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <img src="/logo.svg" alt="Andes Runners Logo" className="h-8 w-auto" />
-          <span className="text-xl font-bold">Andes Runners</span>
-        </div>
-        <nav className="hidden md:flex space-x-8">
-          <a 
-            href="#how-it-works"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="text-gray-600 hover:text-black"
-          >
-            Features
-          </a>
-          <a 
-            href="#articles" 
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('articles')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="text-gray-600 hover:text-black"
-          >
-            Articles
-          </a>
-          <a 
-            href="#community" 
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="text-gray-600 hover:text-black"
-          >
-            Community
-          </a>
-          
-        </nav>
-        <Button 
-          className="bg-black text-white hover:bg-black/90"
-          onClick={() => {
-            document.getElementById('request-plan')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          Get Started
-        </Button>
-      </header>
-
-      {/* Hero Section */}
-      <HeroSection 
-        ctaPrimaryText="Get Free 20-Week Plan"
-        onPrimaryClick={() => {
-          // Track the download
-          trackPlanDownload('20-Week Marathon Plan');
-          // Open Google Drive PDF
-          window.open('https://drive.google.com/file/d/1Y3qoIPh_cbRZ8Xw_AbcSdEgHloZp8V4S/view?usp=sharing', '_blank');
-        }}
-        onSecondaryClick={scrollToCommunity}
-      />
-
-      {/* Stats Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-3 gap-4">
-          <div className="border border-gray-200 p-6 rounded-lg text-center">
-            <div className="text-2xl font-bold mb-1">100+</div>
-            <div className="text-gray-600">Runners</div>
-          </div>
-          <div className="border border-gray-200 p-6 rounded-lg text-center">
-            <div className="text-2xl font-bold mb-1">5+</div>
-            <div className="text-gray-600">Cities</div>
-          </div>
-          <div className="border border-gray-200 p-6 rounded-lg text-center">
-            <div className="text-2xl font-bold mb-1">10+</div>
-            <div className="text-gray-600">Plans Delivered Weekly</div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how-it-works" className="py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            How It Works
-          </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
-            Andes combines cutting-edge technology with expert coaching to
-            provide a comprehensive marathon training experience.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="flex items-center justify-center mb-4">
-                <Calendar className="h-8 w-8 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-center">
-                AI-Powered Personalization
-              </h3>
-              <p className="text-gray-600 text-center">
-                Our AI analyzes your fitness level, goals, and progress to
-                create a training plan tailored specifically for you.
-              </p>
-            </div>
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="flex items-center justify-center mb-4">
-                <Users className="h-8 w-8 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-center">
-                Adaptive Training Plans
-              </h3>
-              <p className="text-gray-600 text-center">
-                Your plan adjusts dynamically based on your performance and
-                feedback, ensuring optimal progress and minimizing injury risk.
-              </p>
-            </div>
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="flex items-center justify-center mb-4">
-                <BookOpen className="h-8 w-8 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-center">
-                Community Support
-              </h3>
-              <p className="text-gray-600 text-center">
-                Connect with fellow runners, share your journey, and receive
-                encouragement from our experienced coaches.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Articles Section */}
-      <section id="articles" className="py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            Articles for Runners
-          </h2>
-          <ArticleCarousel>
-            {articles.map((article, index) => (
-              <ArticleCard
-                key={article.id}
-                title={article.title}
-                excerpt={article.excerpt}
-                imageUrl={article.imageUrl}
-                readMoreUrl={article.readMoreUrl}
-                onClick={() => openArticle(index)}
-                data-testid="article-card"
-              />
-            ))}
-          </ArticleCarousel>
-        </div>
-      </section>
-
-      {/* Modal para mostrar el artículo completo */}
-      {activeArticle !== null && (
-        <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center"><p className="text-white">Cargando artículo...</p></div>}>
-          <ArticleDetail
-            title={articles[activeArticle].title}
-            content={articleContents[activeArticle]}
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <main className="flex-grow">
+        <Suspense fallback={null}>
+          <ArticleModal
+            isOpen={isArticleModalOpen}
             onClose={closeArticleModal}
+            article={activeArticle}
+            language={language}
           />
         </Suspense>
-      )}
+        <SeoManager lang={language} />
+        <HeroSection
+          title={heroContent[language].title}
+          subtitle={heroContent[language].subtitle}
+          ctaPrimaryText={heroContent[language].ctaPrimaryText}
+          ctaSecondaryText={heroContent[language].ctaSecondaryText}
+          onPrimaryClick={scrollToRequestPlan}
+          onSecondaryClick={scrollToCommunity}
+          videoSrc={heroContent[language].videoSrc}
+        />
 
-
-      {/* GRIT Section - Historias de Disciplina */}
-      <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
-        <Suspense fallback={<div className="h-96 flex items-center justify-center"><p>Cargando historias inspiradoras...</p></div>}>
-          <GritSection />
-        </Suspense>
-      </section>
-      
-
-      {/* Training Plans Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            Free Training Plans
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Plan de 20 semanas - Normal */}
-            <TrainingPlanCard
-              key={trainingPlans[0].id}
-              title={trainingPlans[0].title}
-              description={trainingPlans[0].description}
-              duration={trainingPlans[0].duration}
-              difficulty={trainingPlans[0].difficulty}
-              pdfUrl={trainingPlans[0].pdfUrl}
+        <div className="fade-in-section">
+          <Suspense fallback={<div className="text-center p-12">Cargando beneficios...</div>}>
+            <BenefitsSection
+              sectionTitle={benefitsContent[language].sectionTitle}
+              sectionSubtitle={benefitsContent[language].sectionSubtitle}
+              benefits={benefitsContent[language].benefits}
             />
-            
-            {/* Plan de 16 semanas - Under Construction */}
-            <UnderConstructionPlanCard
-              key={trainingPlans[1].id}
-              title={trainingPlans[1].title}
-              description={trainingPlans[1].description}
-              duration={trainingPlans[1].duration}
-              difficulty={trainingPlans[1].difficulty}
-              pdfUrl={trainingPlans[1].pdfUrl}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Community Section */}
-      <section id="community" className="py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Join Our Community
-          </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-            Connect with fellow runners, share your experiences, and receive guidance from our coaches.
-          </p>
-          
-          <div className="bg-white border border-gray-200 rounded-xl p-8 max-w-2xl mx-auto shadow-sm">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2">WhatsApp Community</h3>
-                <p className="text-gray-600 mb-4">
-                  Our WhatsApp group is where you'll find daily motivation, training tips, and a supportive community of runners at all levels.
-                </p>
-                <Button 
-                  className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white"
-                  onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')}
-                >
-                  Join WhatsApp Group
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Plan Request Form Section */}
-      <section ref={requestPlanRef} id="request-plan" className="py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-2">
-            Request Your Beta Personalized Plan
-          </h2>
-          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-            Complete the form below and our coaches will create a plan
-            specifically tailored to your needs and goals.
-          </p>
-          <Suspense fallback={<div className="h-[500px] flex items-center justify-center"><p>Cargando formulario...</p></div>}>
-            <PlanRequestForm />
           </Suspense>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-4 md:px-8 lg:px-16 bg-gray-100 text-gray-800">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <h3 className="text-xl font-bold">Andes Runners</h3>
-              <p className="text-gray-600">Your marathon journey starts here</p>
-            </div>
-            <div className="flex space-x-8">
-              <a href="#contact" className="text-gray-600 hover:text-black">
-                Contact Us
-              </a>
-              <a href="#privacy" className="text-gray-600 hover:text-black">
-                Privacy Policy
-              </a>
-              <a href="#terms" className="text-gray-600 hover:text-black">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-          <div className="mt-8 text-center text-gray-500 text-sm">
-            © {new Date().getFullYear()} Andes Runners. All rights reserved.
-          </div>
+        <div className="fade-in-section">
+          <Suspense fallback={<div className="text-center p-12">Cargando Historias de GRIT...</div>}>
+            <GritSection ref={gritSectionRef} language={language} onStoryClick={openGritStoryModal} content={gritStoriesContent[language]} />
+          </Suspense>
         </div>
+        
+        <div className="fade-in-section">
+          <Suspense fallback={<div className="text-center p-12">Cargando planes de precios...</div>}>
+            <PricingSection
+              sectionTitle={pricingContent[language].sectionTitle}
+              sectionSubtitle={pricingContent[language].sectionSubtitle}
+              onGetFreePlanClick={scrollToRequestPlan}
+              plans={pricingContent[language].plans.map((plan, index) => ({
+                ...plan,
+                onCtaClick: index === 0
+                  ? undefined
+                  : () => {
+                      if (index === 1) {
+                        const gritSection = document.getElementById('grit-stories');
+                        if (gritSection) {
+                          gritSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
+                    }
+              }))}
+            />
+          </Suspense>
+        </div>
+
+        <section id="training-plans" className="py-16 md:py-24 bg-gradient-to-b from-gray-950 to-black fade-in-section">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                {freePlansSectionContent[language].title}
+              </h2>
+              <p className="text-lg md:text-xl text-gray-400">
+                {freePlansSectionContent[language].sectionSubtitle}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {trainingPlans.filter(plan => plan.id !== '5k-plan').map((plan) =>
+                plan.isUnderConstruction ? (
+                  <UnderConstructionPlanCard
+                    key={plan.id}
+                    title={plan.title}
+                    description={plan.description}
+                    duration={plan.duration}
+                    difficulty={plan.difficulty}
+                  />
+                ) : (
+                  <TrainingPlanCard
+                    key={plan.id}
+                    title={plan.title}
+                    description={plan.description}
+                    duration={plan.duration}
+                    difficulty={plan.difficulty}
+                    pdfUrl={plan.pdfUrl}
+                    onDownloadClick={() => handlePlanClick(plan)}
+                  />
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section ref={planRequestFormRef} id="request-plan" className="py-16 md:py-24 bg-black fade-in-section">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+              {planRequestContent[language].title}
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
+              {planRequestContent[language].subtitle}
+            </p>
+            <Suspense fallback={<div className="text-center p-12">Cargando formulario...</div>}>
+              <PlanRequestForm language={language} />
+            </Suspense>
+          </div>
+        </section>
+
+        <section id="community" ref={communityRef} className="py-12 md:py-20 bg-white fade-in-section">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'en' ? 'Join Our Community' : 'Únete a Nuestra Comunidad'}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+              {language === 'en' 
+                ? 'Connect with other runners, share experiences, and receive support.'
+                : 'Conecta con otros corredores, comparte experiencias y recibe apoyo.'}
+            </p>
+            <Button onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')} size="lg">
+              {language === 'en' ? 'Join WhatsApp Group' : 'Unirse al Grupo de WhatsApp'} <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </section>
+
+        <div className="fade-in-section">
+          <Suspense fallback={<div className="text-center p-12">Cargando preguntas frecuentes...</div>}>
+            <FAQSection
+              sectionTitle={faqContent[language].sectionTitle}
+              sectionSubtitle={faqContent[language].sectionSubtitle}
+              faqs={faqContent[language].faqs}
+            />
+          </Suspense>
+        </div>
+
+
+        <section id="articles" className="py-12 md:py-20 bg-black fade-in-section">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-white">{articlesSectionContent[language].title}</h2>
+            <p className="text-center text-lg text-gray-400 max-w-3xl mx-auto mb-12">
+              {articlesSectionContent[language].subtitle}
+            </p>
+            <ArticleCarousel language={language}>
+              {articlesContent.map((articleItem) => (
+                <ArticleCard
+                  key={articleItem.id}
+                  language={language}
+                  article={articleItem}
+                  onClick={handleOpenArticleModal}
+                />
+              ))}
+            </ArticleCarousel>
+          </div>
+        </section>
+
+        <AnimatePresence>
+          {selectedGritStory && (
+            <Suspense fallback={<div>Cargando historia...</div>}>
+              <GritStoryModal
+                onClose={closeGritStoryModal}
+                story={selectedGritStory}
+              />
+            </Suspense>
+          )}
+        </AnimatePresence>
+
+        {selectedPlan && (
+          <Suspense fallback={<div>Cargando...</div>}>
+            <LeadMagnetModal
+              isOpen={leadMagnetModalOpen}
+              onClose={() => setLeadMagnetModalOpen(false)}
+              planTitle={selectedPlan.title}
+              pdfUrl={selectedPlan.pdfUrl}
+            />
+          </Suspense>
+        )}
+      </main>
+
+      <div className="fade-in-section">
+        <Suspense fallback={<div className="text-center p-12">Cargando ciudades...</div>}>
+          <CityCommunitySection
+            sectionTitle={cityCommunityContent[language].sectionTitle}
+            sectionSubtitle={cityCommunityContent[language].sectionSubtitle}
+            cities={cityCommunityContent[language].cities}
+          />
+        </Suspense>
+      </div>
+
+      <footer className="bg-black text-white py-8 text-center">
+        <p>&copy; {new Date().getFullYear()} Andes Runners. Todos los derechos reservados.</p>
       </footer>
     </div>
   );

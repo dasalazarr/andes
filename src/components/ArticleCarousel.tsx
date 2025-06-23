@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
+import type { Language } from "../data/content";
 
 interface ArticleCarouselProps {
   children: React.ReactNode;
+  language: Language;
 }
 
-const ArticleCarousel: React.FC<ArticleCarouselProps> = ({ children }) => {
+const ArticleCarousel: React.FC<ArticleCarouselProps> = ({ children, language }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -35,28 +37,35 @@ const ArticleCarousel: React.FC<ArticleCarouselProps> = ({ children }) => {
           WebkitOverflowScrolling: "touch"
         }}
       >
-        {React.Children.map(children, (child) => (
-          <div className="snap-start flex-shrink-0 pr-4 w-full sm:w-[85%] md:w-[45%] lg:w-[32%]">
-            {child}
-          </div>
-        ))}
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            // Clone the child (ArticleCard) and add the language prop
+            const childWithLanguage = React.cloneElement(child as React.ReactElement<any>, { language });
+            return (
+              <div className="snap-start flex-shrink-0 pr-4 w-full sm:w-[85%] md:w-[45%] lg:w-[32%]">
+                {childWithLanguage}
+              </div>
+            );
+          }
+          return child;
+        })}
       </div>
 
       {/* Navigation buttons */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full flex justify-between pointer-events-none">
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full flex justify-between pointer-events-none px-4">
         <Button 
           onClick={() => scroll("left")} 
           size="icon" 
-          variant="secondary"
-          className="rounded-full shadow-md pointer-events-auto opacity-90 hover:opacity-100"
+          variant="ghost"
+          className="rounded-full shadow-md pointer-events-auto bg-black/30 text-white/80 backdrop-blur-sm hover:bg-purple-500/20 hover:text-white transition-all duration-300"
         >
           <ChevronLeft className="h-6 w-6" />
         </Button>
         <Button 
           onClick={() => scroll("right")} 
           size="icon" 
-          variant="secondary"
-          className="rounded-full shadow-md pointer-events-auto opacity-90 hover:opacity-100"
+          variant="ghost"
+          className="rounded-full shadow-md pointer-events-auto bg-black/30 text-white/80 backdrop-blur-sm hover:bg-purple-500/20 hover:text-white transition-all duration-300"
         >
           <ChevronRight className="h-6 w-6" />
         </Button>

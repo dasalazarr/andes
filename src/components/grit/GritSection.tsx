@@ -1,20 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, forwardRef, useCallback } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { runnerImages, RunnerName } from "@/images/runners";
+import { gritStoriesContent } from '@/data/content'; // Import new content
 
-// Animation variants
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 1.2, // Increased duration for slower animation
-      ease: "easeOut"
-    }
-  }
-};
+import { Language } from '@/types'; // Assuming Language type is defined, e.g., in src/types.ts or similar
+
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -26,12 +17,37 @@ const staggerContainer: Variants = {
   }
 };
 
-const GritSection: React.FC = () => {
+interface GritSectionProps {
+  language: Language;
+  onStoryClick: (story: any) => void;
+  content: {
+    sectionTitle: string;
+    sectionSubtitle: string;
+    stories: any[];
+  };
+}
+
+const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onStoryClick, content }, forwardedRef) => {
   const controls = useAnimation();
-  const [ref, inView] = useInView({
+  const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
+
+  const setRefs = useCallback(
+    (node: HTMLElement | null) => {
+      // Ref from react-intersection-observer
+      inViewRef(node);
+
+      // Forwarded ref
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node);
+      } else if (forwardedRef) {
+        forwardedRef.current = node;
+      }
+    },
+    [forwardedRef, inViewRef]
+  );
 
   useEffect(() => {
     if (inView) {
@@ -39,92 +55,57 @@ const GritSection: React.FC = () => {
     }
   }, [controls, inView]);
 
-  const stories = [
-    {
-      name: "Carlos",
-      location: "Bogotá",
-      imageKey: "carlos" as RunnerName,
-      achievement: "From sedentary to marathoner in 14 months"
-    },
-    {
-      name: "Ana",
-      location: "Santiago",
-      imageKey: "ana" as RunnerName,
-      achievement: "Completed her first half marathon after overcoming depression"
-    },
-    {
-      name: "Miguel",
-      location: "Mexico City",
-      imageKey: "miguel" as RunnerName,
-      achievement: "3 marathons training at 4:30 AM for 5 years"
-    },
-    {
-      name: "Carmen",
-      location: "San José",
-      imageKey: "carmen" as RunnerName,
-      achievement: "Started running at 45, now at 52 she has completed 6 marathons"
-    },
-    {
-      name: "Javier",
-      location: "Montevideo",
-      imageKey: "javier" as RunnerName,
-      achievement: "Transformed his life routine through running after his divorce"
-    },
-    {
-      name: "María",
-      location: "Medellín",
-      imageKey: "maria" as RunnerName,
-      achievement: "Mother of three who qualified for the Boston Marathon after 3 years of training"
-    }
-  ];
-
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16" ref={ref}>
+    <section id="grit-stories" className="py-16 bg-black" ref={setRefs}>
       <motion.div 
-        className="max-w-6xl mx-auto"
+        className="container mx-auto px-4"
         initial="hidden"
         animate={controls}
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-3 text-gray-900">
-            GRIT
+        <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            {content.sectionTitle}
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Real stories from runners who transformed their lives through unwavering discipline.
+          <p className="text-lg md:text-xl text-gray-400">
+            {content.sectionSubtitle}
           </p>
-        </motion.div>
-        
+        </div>
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={staggerContainer}
         >
-          {stories.map((story, index) => (
-            <motion.div 
+          {content.stories.map((story, index) => (
+            <motion.div
               key={index}
-              className="flex flex-col items-center"
-              variants={fadeInUp}
+              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-purple-500/50 hover:shadow-purple-500/20"
+              onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
             >
-              <div className="w-48 h-48 rounded-full overflow-hidden mb-4 shadow-md">
-                <img 
-                  src={runnerImages[story.imageKey]} 
-                  alt={story.name} 
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              <img
+                src={runnerImages[story.imageKey]}
+                alt={story.name}
+                className="h-64 w-full object-cover object-top grayscale transition-all duration-300 group-hover:grayscale-0"
+                loading="lazy"
+              />
+              
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-white">{story.name}</h3>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="text-sm text-gray-400">{story.location}</p>
+                  {story.keyMetric && (
+                    <span className="rounded bg-purple-500/20 px-2 py-1 text-sm font-bold text-purple-300">
+                      {story.keyMetric}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-3 leading-relaxed text-gray-300">{story.achievement}</p>
               </div>
-              <h3 className="text-xl font-medium text-center">{story.name}</h3>
-              <p className="text-gray-500 text-sm mb-2">{story.location}</p>
-
-              <p className="text-xs font-semibold text-center text-gray-700 mt-4 max-w-xs mx-auto">
-                {story.achievement}
-              </p>
             </motion.div>
           ))}
         </motion.div>
       </motion.div>
     </section>
   );
-};
+});
 
 export default GritSection;
