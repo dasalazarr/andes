@@ -13,7 +13,7 @@ describe('PlanRequestForm Component', () => {
   });
 
   it('renders correctly with default Google Form URL', () => {
-    render(<PlanRequestForm />);
+    render(<PlanRequestForm language="en" />);
     
     // Verificar que el iframe existe y tiene la URL correcta
     const iframe = screen.getByTitle('Personalized plan request form');
@@ -26,21 +26,21 @@ describe('PlanRequestForm Component', () => {
 
   it('renders with custom form URL', () => {
     const customUrl = 'https://docs.google.com/forms/custom-form-url';
-    render(<PlanRequestForm formUrl={customUrl} />);
+    render(<PlanRequestForm formUrl={customUrl} language="en" />);
     
     const iframe = screen.getByTitle('Personalized plan request form');
     expect(iframe).toHaveAttribute('src', customUrl);
   });
 
   it('displays privacy information text', () => {
-    render(<PlanRequestForm />);
+    render(<PlanRequestForm language="en" />);
     
     const privacyText = screen.getByText(/By submitting this form, you agree that we may use your data/);
     expect(privacyText).toBeInTheDocument();
   });
 
   it("muestra el botón de envío del formulario", async () => {
-    render(<PlanRequestForm />);
+    render(<PlanRequestForm language="en" />);
     
     const submitButton = screen.getByText('Submit');
     expect(submitButton).toBeInTheDocument();

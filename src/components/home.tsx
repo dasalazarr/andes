@@ -26,6 +26,7 @@ const FAQSection = lazy(() => import("./FAQSection"));
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
 const ArticleModal = lazy(() => import('./ArticleModal'));
+const ChatDemo = lazy(() => import("./ChatDemo"));
 
 import { trainingPlans, heroContent, benefitsContent, pricingContent, faqContent, ctaContent, freePlansSectionContent, communityContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent } from "../data/content";
 import type { Language, Article } from "../data/content";
@@ -103,6 +104,12 @@ const Home = () => {
           onSecondaryClick={scrollToCommunity}
           videoSrc={heroContent[language].videoSrc}
         />
+
+        <div className="fade-in-section">
+          <Suspense fallback={<div className="text-center p-12">Cargando demo...</div>}>
+            <ChatDemo language={language} />
+          </Suspense>
+        </div>
 
         <div className="fade-in-section">
           <Suspense fallback={<div className="text-center p-12">Cargando beneficios...</div>}>

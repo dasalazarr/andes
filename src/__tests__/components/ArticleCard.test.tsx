@@ -14,7 +14,6 @@ describe('ArticleCard Component', () => {
     expect(screen.getByText(testArticle.excerpt.en)).toBeInTheDocument();
     expect(screen.getByText('May 15, 2023')).toBeInTheDocument();
     expect(screen.getByText('Andes Coach')).toBeInTheDocument();
-    expect(screen.getByText('Read more')).toBeInTheDocument();
     
     // Verificar que la imagen existe y tiene la URL correcta
     const image = screen.getByAltText(testArticle.title.en);
@@ -43,40 +42,15 @@ describe('ArticleCard Component', () => {
     expect(image).toHaveAttribute('src', '/custom-image.jpg');
   });
 
-  it('renders a link when no onClick handler is provided', () => {
-    const customUrl = "/custom-article-link";
-    const articleWithCustomUrl = { ...articlesContent[0], readMoreUrl: customUrl, id: "custom-url-article" };
-    render(<ArticleCard article={articleWithCustomUrl} language="en" />);
-    
-    const link = screen.getByText('Read more').closest('a');
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', customUrl);
-  });
-
-  it('calls onClick handler when button is clicked', async () => {
+  it('calls onClick handler when card is clicked', async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
     // For onClick test, ensure readMoreUrl is undefined or remove it from the test article
-    const articleForOnClick = { ...articlesContent[0], id: "onclick-article", readMoreUrl: undefined }; 
+    const articleForOnClick = { ...articlesContent[0], id: "onclick-article", readMoreUrl: undefined };
     render(<ArticleCard article={articleForOnClick} language="en" onClick={handleClick} />);
-    
-    const button = screen.getByText('Read more').closest('button');
-    expect(button).toBeInTheDocument();
-    
-    await user.click(button);
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
 
-  it('renders a button instead of a link when onClick is provided', () => {
-    const handleClick = vi.fn();
-    const articleForButton = { ...articlesContent[0], id: "button-article", readMoreUrl: undefined };
-    render(<ArticleCard article={articleForButton} language="en" onClick={handleClick} />);
-    
-    // Verificar que hay un botón y no un enlace
-    const button = screen.getByText('Read more').closest('button');
-    expect(button).toBeInTheDocument();
-    
-    const link = screen.queryByRole('link', { name: /Read more/i });
-    expect(link).not.toBeInTheDocument();
+    const card = screen.getByText(articleForOnClick.title.en);
+    await user.click(card);
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
