@@ -24,7 +24,7 @@ export const heroContent = {
 
 export const benefitsContent = {
   es: {
-    sectionTitle: "¿Por Qué Elegir Andes Runners?",
+    sectionTitle: "¿Por Qué Elegir Andes?",
     sectionSubtitle: "Descubre cómo nuestra plataforma con IA te ayuda a alcanzar tus metas, optimizando cada paso de tu entrenamiento.",
     benefits: [
       {
@@ -45,7 +45,7 @@ export const benefitsContent = {
     ],
   },
   en: {
-    sectionTitle: "Why Choose Andes Runners?",
+    sectionTitle: "Why Choose Andes?",
     sectionSubtitle: "Discover how our AI-powered platform helps you reach your goals by optimizing every step of your training.",
     benefits: [
       {
@@ -138,15 +138,17 @@ export const pricingContent: {
     sectionSubtitle: "Elige el plan que se adapte a tus necesidades y comienza a superar tus límites.",
     plans: [
       {
-        name: "Gratis",
-        iconName: "Rocket", // For lucide-react Rocket icon
+        name: "Básico",
+        iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Ideal para empezar y explorar nuestros métodos.",
+        description: "Valor real desde el inicio. Ideal para empezar y explorar nuestros métodos.",
         features: [
-          "Acceso a 1 plan de entrenamiento (5K o 10K)",
-          "Artículos de nutrición y técnica",
-          "Comunidad WhatsApp",
+          "Plan de entrenamiento básico adaptado a tu nivel",
+          "Registro de entrenamientos",
+          "Feedback y motivación simple",
+          "Acceso a consejos genéricos",
+          "Límite de consultas con el bot",
         ],
         ctaText: "Comienza Gratis",
         isPopular: false,
@@ -154,17 +156,19 @@ export const pricingContent: {
       },
       {
         name: "Premium",
-        iconName: "Zap", // For lucide-react Zap icon
-        price: "$9.99",
+        iconName: "Zap",
+        price: "$4.99",
         priceDetail: "/mes",
-        description: "Desbloquea todo tu potencial con acceso completo y soporte.",
+        description: "Desbloquea todo tu potencial con funcionalidades avanzadas y soporte prioritario.",
         features: [
-          "Acceso a todos los planes (5K, 10K, 21K, Maratón)",
-          "Contenido exclusivo y webinars",
-          "Soporte prioritario por email",
-          "Plan Beta Personalizado (si aplica)",
+          "Planes de entrenamiento especializados (Maratón, Trail, etc.)",
+          "Análisis de rendimiento detallado",
+          "Soporte prioritario (coach humano complementario)",
+          "Integración con Garmin y Strava",
+          "Recomendaciones nutricionales personalizadas",
+          "Interacciones ilimitadas con el bot",
         ],
-        ctaText: "Elige Premium",
+        ctaText: "Obtén Premium",
         isPopular: true,
         buttonVariant: "primary",
       },
@@ -179,11 +183,13 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "Perfect for starting out and exploring our methods.",
+        description: "Real value from the start. Perfect for exploring our methods.",
         features: [
-          "Access to 1 training plan (5K or 10K)",
-          "Nutrition and technique articles",
-          "WhatsApp Community",
+          "Basic training plan adapted to your level",
+          "Workout logging",
+          "Simple feedback & motivation",
+          "Access to generic tips",
+          "Limited bot interactions",
         ],
         ctaText: "Get Started Free",
         isPopular: false,
@@ -194,14 +200,16 @@ export const pricingContent: {
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/month",
-        description: "Unlock your full potential with complete access and support.",
+        description: "Unlock your full potential with advanced features and priority support.",
         features: [
-          "Access to all plans (5K, 10K, 21K, Marathon)",
-          "Exclusive content and webinars",
-          "Priority email support",
-          "Personalized Beta Plan (if applicable)",
+          "Specialized training plans (Marathon, Trail, etc.)",
+          "Detailed performance analysis",
+          "Priority support (complementary human coach)",
+          "Garmin & Strava integration",
+          "Personalized nutrition recommendations",
+          "Unlimited bot interactions",
         ],
-        ctaText: "Choose Premium",
+        ctaText: "Go Premium",
         isPopular: true,
         buttonVariant: "primary",
       },
@@ -347,6 +355,16 @@ export type Language = "en" | "es";
 export interface LanguageSpecificText {
   en: string;
   es: string;
+}
+
+export interface TrainingPlan {
+  id: string;
+  title: LanguageSpecificText;
+  description: LanguageSpecificText;
+  level: LanguageSpecificText;
+  iconName: string;
+  status: LanguageSpecificText;
+  downloadUrl: string;
 }
 
 export interface Article {
