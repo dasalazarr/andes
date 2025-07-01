@@ -6,16 +6,16 @@ import { articleImages } from '../config/images';
 
 export const heroContent = {
   es: {
-    title: "Tu Primer Maratón:\nGuía Inteligente para Principiantes",
-    subtitle: "Andes te ofrece planes de entrenamiento personalizados, guía experta y una comunidad de apoyo para ayudarte a alcanzar tus metas de maratón, sin importar tu nivel de experiencia.",
-    ctaPrimaryText: "Obtén Tu Plan Beta Personalizado",
+    title: "Tu Primer Maratón:\nGuía Inteligente con IA para Principiantes",
+    subtitle: "Andes utiliza inteligencia artificial para crear y adaptar continuamente un plan a tu medida, ofreciéndote guía experta y comunidad de apoyo para alcanzar tus metas de maratón.",
+    ctaPrimaryText: 'Ver Nuestros Planes',
     ctaSecondaryText: "Únete a Nuestra Comunidad",
     videoSrc: '/videos/video1', // Extension will be handled in component
   },
   en: {
-    title: "Your First Marathon:\nIntelligent Guide for Beginners",
-    subtitle: "Andes provides personalized training plans, expert guidance, and a supportive community to help you achieve your marathon goals, regardless of your experience level.",
-    ctaPrimaryText: "Get Your Beta Personalized Plan",
+    title: "Your First Marathon:\nAI-Powered Guide for Beginners",
+    subtitle: "Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.",
+    ctaPrimaryText: 'See Our Plans',
     ctaSecondaryText: "Join Our Community",
     videoSrc: '/videos/video2', // Extension will be handled in component
   },
@@ -25,7 +25,7 @@ export const heroContent = {
 export const benefitsContent = {
   es: {
     sectionTitle: "¿Por Qué Elegir Andes?",
-    sectionSubtitle: "Descubre cómo nuestra plataforma con IA te ayuda a alcanzar tus metas, optimizando cada paso de tu entrenamiento.",
+    sectionSubtitle: "Nuestro coach con IA aprende de cada interacción, adaptando tu entrenamiento en tiempo real para optimizar resultados y prevenir lesiones.",
     benefits: [
       {
         icon: FaBullseye,
@@ -46,7 +46,7 @@ export const benefitsContent = {
   },
   en: {
     sectionTitle: "Why Choose Andes?",
-    sectionSubtitle: "Discover how our AI-powered platform helps you reach your goals by optimizing every step of your training.",
+    sectionSubtitle: "Our AI-powered running coach learns from every interaction, dynamically adapting your training to optimize results and prevent injuries.",
     benefits: [
       {
         icon: FaBullseye,
@@ -148,7 +148,7 @@ export const pricingContent: {
           "Registro de entrenamientos",
           "Feedback y motivación simple",
           "Acceso a consejos genéricos",
-          "Límite de consultas con el bot",
+          "30 mensajes de coaching con IA al mes",
         ],
         ctaText: "Comienza Gratis",
         isPopular: false,
@@ -189,7 +189,7 @@ export const pricingContent: {
           "Workout logging",
           "Simple feedback & motivation",
           "Access to generic tips",
-          "Limited bot interactions",
+          "Up to 30 AI coaching messages per month",
         ],
         ctaText: "Get Started Free",
         isPopular: false,
@@ -238,6 +238,18 @@ export const faqContent = {
         question: "¿Puedo cancelar mi suscripción en cualquier momento?",
         answer: "Sí, puedes cancelar tu suscripción mensual en cualquier momento. Tendrás acceso al contenido hasta el final de tu ciclo de facturación actual.",
       },
+      {
+        question: "¿Cómo adapta Andes mi plan de entrenamiento en tiempo real?",
+        answer: "Andes analiza tus datos y retroalimentación para ajustar cada sesión, garantizando progreso constante y menor riesgo de lesión.",
+      },
+      {
+        question: "¿Mis datos personales están seguros con Andes?",
+        answer: "Sí, protegemos tu información y la usamos únicamente para mejorar tu experiencia de entrenamiento.",
+      },
+      {
+        question: "¿Qué sucede cuando alcanzo el límite mensual del plan básico?",
+        answer: "Podrás seguir utilizando las funciones gratuitas y te invitaremos a actualizar al plan Premium para obtener asistencia ilimitada.",
+      },
     ],
   },
   en: {
@@ -259,6 +271,18 @@ export const faqContent = {
       {
         question: "Can I cancel my subscription at any time?",
         answer: "Yes, you can cancel your monthly subscription at any time. You will have access to the content until the end of your current billing cycle.",
+      },
+      {
+        question: "How does Andes adapt my training plan in real time?",
+        answer: "Andes analyzes your data and feedback to adjust each session, ensuring steady progress and reducing injury risk.",
+      },
+      {
+        question: "Are my personal data safe with Andes?",
+        answer: "Yes, we protect your information and use it only to enhance your training experience.",
+      },
+      {
+        question: "What happens when I reach the monthly limit of the basic plan?",
+        answer: "You can keep using the free features and we'll invite you to upgrade to Premium for unlimited assistance.",
       },
     ],
   },
@@ -658,24 +682,6 @@ export const cityCommunityContent = {
   },
 };
 
-export const communityContent = {
-  es: {
-    title: "Únete a Nuestra Comunidad",
-    description: "Conecta con otros corredores, comparte tus progresos y encuentra motivación en nuestros grupos exclusivos. ¡Te esperamos para correr juntos!",
-    whatsappButtonText: "Unirse a WhatsApp",
-    telegramButtonText: "Unirse a Telegram",
-    whatsappLink: "https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK", // Placeholder
-    telegramLink: "https://t.me/YOUR_GROUP_INVITE_LINK", // Placeholder
-  },
-  en: {
-    title: "Join Our Community",
-    description: "Connect with other runners, share your progress, and find motivation in our exclusive groups. We're waiting for you to run together!",
-    whatsappButtonText: "Join WhatsApp",
-    telegramButtonText: "Join Telegram",
-    whatsappLink: "https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK", // Placeholder
-    telegramLink: "https://t.me/YOUR_GROUP_INVITE_LINK", // Placeholder
-  },
-};
 
 export const articles = [
   {

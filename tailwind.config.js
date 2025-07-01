@@ -117,6 +117,20 @@ module.exports = {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
+        "pulse-slow": {
+          "0%, 100%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.05)", opacity: ".9" },
+        },
+        "pulse-gradient": {
+          "0%, 100%": { 
+            background: "linear-gradient(45deg, #8b5cf6, #ec4899)", // Gradiente púrpura a rosa
+            boxShadow: "0 0 15px rgba(139, 92, 246, 0.5)" // Sombra suave
+          },
+          "50%": { 
+            background: "linear-gradient(45deg, #ec4899, #8b5cf6)", // Invertir gradiente
+            boxShadow: "0 0 25px rgba(236, 72, 153, 0.7)" // Sombra más pronunciada
+          },
+        },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
@@ -124,6 +138,7 @@ module.exports = {
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
+        "pulse-slow": "pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },

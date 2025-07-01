@@ -8,8 +8,8 @@ describe('HeroSection Component', () => {
     render(<HeroSection />);
     
     // Verificar que los textos predeterminados estén presentes
-    expect(screen.getByText('Your First Marathon, Without Fear: Intelligent Guide for Beginners')).toBeInTheDocument();
-    expect(screen.getByText('Andes provides personalized training plans, expert guidance, and a supportive community to help you achieve your marathon goals, regardless of your experience level.')).toBeInTheDocument();
+    expect(screen.getByText('Your First Marathon: AI-Powered Guide for Beginners')).toBeInTheDocument();
+    expect(screen.getByText('Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.')).toBeInTheDocument();
     expect(screen.getByText('Get Your Beta Personalized Plan')).toBeInTheDocument();
   });
 

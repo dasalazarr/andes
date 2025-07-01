@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+
+const InteractiveBotDemo = lazy(() => import('./InteractiveBotDemo'));
 
 interface BenefitItem {
   icon: React.ElementType;
@@ -35,6 +37,11 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ sectionTitle, section
             </div>
           ))}
         </div>
+
+        <Suspense fallback={<div className="text-center mt-12">Cargando demo...</div>}>
+          <InteractiveBotDemo />
+        </Suspense>
+
       </div>
     </section>
   );

@@ -35,7 +35,7 @@ describe('User Flow Integration Tests', () => {
     render(<Home />);
     
     // 1. Usuario ve la sección hero
-    const heroSection = screen.getByText(/Your First Marathon, Without Fear/i);
+    const heroSection = screen.getByText(/Your First Marathon: AI-Powered/i);
     expect(heroSection).toBeInTheDocument();
     
     // 2. Usuario ve los artículos destacados (usando los textos reales del componente)
