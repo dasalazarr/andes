@@ -8,14 +8,14 @@ export const heroContent = {
   es: {
     title: "Tu Primer Maratón:\nGuía Inteligente con IA para Principiantes",
     subtitle: "Andes utiliza inteligencia artificial para crear y adaptar continuamente un plan a tu medida, ofreciéndote guía experta y comunidad de apoyo para alcanzar tus metas de maratón.",
-    ctaPrimaryText: "Obtén Tu Plan Beta Personalizado",
+    ctaPrimaryText: 'Ver Nuestros Planes',
     ctaSecondaryText: "Únete a Nuestra Comunidad",
     videoSrc: '/videos/video1', // Extension will be handled in component
   },
   en: {
     title: "Your First Marathon:\nAI-Powered Guide for Beginners",
     subtitle: "Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.",
-    ctaPrimaryText: "Get Your Beta Personalized Plan",
+    ctaPrimaryText: 'See Our Plans',
     ctaSecondaryText: "Join Our Community",
     videoSrc: '/videos/video2', // Extension will be handled in component
   },
@@ -682,24 +682,6 @@ export const cityCommunityContent = {
   },
 };
 
-export const communityContent = {
-  es: {
-    title: "Únete a Nuestra Comunidad",
-    description: "Conecta con otros corredores, comparte tus progresos y encuentra motivación en nuestros grupos exclusivos. ¡Te esperamos para correr juntos!",
-    whatsappButtonText: "Unirse a WhatsApp",
-    telegramButtonText: "Unirse a Telegram",
-    whatsappLink: "https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK", // Placeholder
-    telegramLink: "https://t.me/YOUR_GROUP_INVITE_LINK", // Placeholder
-  },
-  en: {
-    title: "Join Our Community",
-    description: "Connect with other runners, share your progress, and find motivation in our exclusive groups. We're waiting for you to run together!",
-    whatsappButtonText: "Join WhatsApp",
-    telegramButtonText: "Join Telegram",
-    whatsappLink: "https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK", // Placeholder
-    telegramLink: "https://t.me/YOUR_GROUP_INVITE_LINK", // Placeholder
-  },
-};
 
 export const articles = [
   {

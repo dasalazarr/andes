@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Zap } from "lucide-react";
 
 interface HeroSectionProps {
   title?: string;
@@ -85,14 +85,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div id="buttons" className="flex flex-col sm:flex-row sm:justify-center gap-4 w-full max-w-md mx-auto">
             <Button
               size="lg"
-              className="w-full sm:w-auto bg-black hover:bg-black/90 text-white font-medium flex items-center gap-2 transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-lg"
+              className="px-8 py-4 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500/50
+                bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500
+                shadow-lg hover:shadow-purple-500/50"
+              style={{
+                backgroundSize: '200% 200%',
+                animation: 'pulse-gradient 4s ease infinite',
+                boxShadow: '0 0 15px rgba(139, 92, 246, 0.3)'
+              }}
               onClick={onPrimaryClick}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" x2="12" y1="15" y2="3"></line>
-              </svg>
+              <Zap className="h-5 w-5 mr-2" />
               {ctaPrimaryText}
             </Button>
             <Button

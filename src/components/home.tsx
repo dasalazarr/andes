@@ -26,8 +26,6 @@ const FAQSection = lazy(() => import("./FAQSection"));
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
 const ArticleModal = lazy(() => import('./ArticleModal'));
-const ChatDemo = lazy(() => import("./ChatDemo"));
-
 import { trainingPlans, heroContent, benefitsContent, pricingContent, faqContent, ctaContent, freePlansSectionContent, communityContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent } from "../data/content";
 import type { Language, Article } from "../data/content";
 
@@ -43,6 +41,7 @@ const Home = () => {
   const communityRef = useRef<HTMLDivElement>(null);
   const gritSectionRef = useRef<HTMLDivElement>(null);
   const planRequestFormRef = useRef<HTMLDivElement>(null);
+  const pricingSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     initGA();
@@ -51,6 +50,7 @@ const Home = () => {
 
 
   const scrollToRequestPlan = () => planRequestFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToPricing = () => pricingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   const scrollToCommunity = () => communityRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   const closeArticleModal = () => {
@@ -100,18 +100,12 @@ const Home = () => {
           subtitle={heroContent[language].subtitle}
           ctaPrimaryText={heroContent[language].ctaPrimaryText}
           ctaSecondaryText={heroContent[language].ctaSecondaryText}
-          onPrimaryClick={scrollToRequestPlan}
+          onPrimaryClick={scrollToPricing}
           onSecondaryClick={scrollToCommunity}
           videoSrc={heroContent[language].videoSrc}
         />
 
-        <div className="fade-in-section">
-          <Suspense fallback={<div className="text-center p-12">Cargando demo...</div>}>
-            <ChatDemo language={language} />
-          </Suspense>
-        </div>
-
-        <div className="fade-in-section">
+<div className="fade-in-section">
           <Suspense fallback={<div className="text-center p-12">Cargando beneficios...</div>}>
             <BenefitsSection
               sectionTitle={benefitsContent[language].sectionTitle}
@@ -127,7 +121,7 @@ const Home = () => {
           </Suspense>
         </div>
         
-        <div className="fade-in-section">
+        <div className="fade-in-section" ref={pricingSectionRef}>
           <Suspense fallback={<div className="text-center p-12">Cargando planes de precios...</div>}>
             <PricingSection
               sectionTitle={pricingContent[language].sectionTitle}
@@ -200,22 +194,6 @@ const Home = () => {
           </div>
         </section>
 
-        <section id="community" ref={communityRef} className="py-12 md:py-20 bg-white fade-in-section">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'en' ? 'Join Our Community' : 'Únete a Nuestra Comunidad'}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-              {language === 'en' 
-                ? 'Connect with other runners, share experiences, and receive support.'
-                : 'Conecta con otros corredores, comparte experiencias y recibe apoyo.'}
-            </p>
-            <Button onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')} size="lg">
-              {language === 'en' ? 'Join WhatsApp Group' : 'Unirse al Grupo de WhatsApp'} <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </section>
-
         <div className="fade-in-section">
           <Suspense fallback={<div className="text-center p-12">Cargando preguntas frecuentes...</div>}>
             <FAQSection
@@ -267,6 +245,21 @@ const Home = () => {
             />
           </Suspense>
         )}
+        <section id="community" ref={communityRef} className="py-12 md:py-20 bg-white fade-in-section">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'en' ? 'Join Our Community' : 'Únete a Nuestra Comunidad'}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+              {language === 'en' 
+                ? 'Connect with other runners, share experiences, and receive support.'
+                : 'Conecta con otros corredores, comparte experiencias y recibe apoyo.'}
+            </p>
+            <Button onClick={() => window.open('https://chat.whatsapp.com/Bzhqdte40aNB5LA1ViFqDl', '_blank')} size="lg">
+              {language === 'en' ? 'Join WhatsApp Group' : 'Unirse al Grupo de WhatsApp'} <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </section>
       </main>
 
       <div className="fade-in-section">
