@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -12,9 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { Download, Construction } from "lucide-react";
 
 interface UnderConstructionPlanCardProps {
-  title: string;
-  description: string;
-  duration: string;
+  title: string | { en: string; es: string };
+  description: string | { en: string; es: string };
+  duration: string | { en: string; es: string };
   difficulty: "Beginner" | "Intermediate" | "Advanced";
 }
 
@@ -24,6 +25,13 @@ const UnderConstructionPlanCard = ({
   duration,
   difficulty,
 }: UnderConstructionPlanCardProps) => {
+  const location = useLocation();
+  const language = location.pathname.startsWith('/es') ? 'es' : 'en';
+  
+  // Helper function to get the correct language text
+  const getText = (text: string | { en: string; es: string }) => {
+    return typeof text === 'string' ? text : text[language];
+  };
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
@@ -44,24 +52,23 @@ const UnderConstructionPlanCard = ({
         <CardHeader className="pb-4">
           <div className="flex justify-between items-start gap-4">
             <CardTitle className="text-xl font-bold text-gray-100">
-              {title}
+              {getText(title)}
             </CardTitle>
-            <Badge variant="outline" className={`whitespace-nowrap ${getDifficultyColor(difficulty)}`}>{difficulty}</Badge>
+            <Badge className={`${getDifficultyColor(difficulty)}`}>
+              {difficulty}
+            </Badge>
           </div>
           <CardDescription className="text-sm text-gray-400 pt-1">
-            {duration}
+            <p className="text-sm text-gray-400">{getText(duration)}</p>
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
-          <p className="text-sm text-gray-300">{description}</p>
+          <p className="text-sm text-gray-300">{getText(description)}</p>
         </CardContent>
         <CardFooter className="pt-4">
-          <Button
-            variant="default"
-            className="w-full bg-white text-black hover:bg-gray-200 font-semibold"
-            disabled
-          >
-            <Download className="mr-2 h-4 w-4" /> Descargar Plan
+          <Button disabled className="w-full bg-gray-700 text-gray-300 cursor-not-allowed">
+            <Construction className="mr-2 h-4 w-4" />
+            {language === 'es' ? 'En Construcción' : 'Coming Soon'}
           </Button>
         </CardFooter>
       </Card>

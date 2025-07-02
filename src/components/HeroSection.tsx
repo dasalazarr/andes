@@ -85,17 +85,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div id="buttons" className="flex flex-col sm:flex-row sm:justify-center gap-4 w-full max-w-md mx-auto">
             <Button
               size="lg"
-              className="px-8 py-4 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500/50
-                bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500
-                shadow-lg hover:shadow-purple-500/50"
+              className="px-8 py-4 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-electric-fuchsia/60
+                bg-gradient-to-r from-neon-purple to-fuchsia-gradient-start hover:from-fuchsia-gradient-start hover:to-purple-hover
+                shadow-lg hover:shadow-electric-fuchsia/50"
               style={{
                 backgroundSize: '200% 200%',
                 animation: 'pulse-gradient 4s ease infinite',
-                boxShadow: '0 0 15px rgba(139, 92, 246, 0.3)'
+                boxShadow: '0 0 15px rgba(155, 93, 229, 0.35)'
               }}
               onClick={onPrimaryClick}
             >
-              <Zap className="h-5 w-5 mr-2" />
+              <Zap className="h-5 w-5 mr-2 animate-icon-glow text-solar-yellow" />
               {ctaPrimaryText}
             </Button>
             <Button

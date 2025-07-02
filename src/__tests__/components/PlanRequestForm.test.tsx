@@ -24,12 +24,11 @@ describe('PlanRequestForm Component', () => {
     );
   });
 
-  it('renders with custom form URL', () => {
-    const customUrl = 'https://docs.google.com/forms/custom-form-url';
-    render(<PlanRequestForm formUrl={customUrl} language="en" />);
+  it('renders with default form URL', () => {
+    render(<PlanRequestForm language="en" />);
     
     const iframe = screen.getByTitle('Personalized plan request form');
-    expect(iframe).toHaveAttribute('src', customUrl);
+    expect(iframe).toHaveAttribute('src', 'https://docs.google.com/forms/d/e/1FAIpQLScdqR-Gg53vh4sbkCWT58CMDkL7Ihzb952pIM8n5WfUePVWng/viewform?embedded=true');
   });
 
   it('displays privacy information text', () => {

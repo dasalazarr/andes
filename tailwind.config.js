@@ -112,6 +112,21 @@ module.exports = {
           },
         },
       }),
+      colors: {
+        // Colores existentes...
+        // Nuevos colores púrpura más vibrantes
+        'neon-purple': '#9B5DE5', // CTA base
+        'purple-hover': '#7F3BFF', // CTA hover
+        'link-purple': '#8C30FF', // Links
+        'link-purple-hover': '#671BFF', // Links hover
+        'bg-purple-dark': '#270046', // Deep background
+        'bg-purple-light': '#581B98', // Background gradient end
+        'electric-fuchsia': '#C32AFF', // Highlights base
+        'fuchsia-hover': '#A516FF', // Highlight hover
+        'fuchsia-gradient-start': '#BB29FF', // CTA gradient start
+        'fuchsia-gradient-end': '#FF5DF1', // Electric Fuchsia gradient end
+        'solar-yellow': '#FFC700', // Accent color
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -123,12 +138,22 @@ module.exports = {
         },
         "pulse-gradient": {
           "0%, 100%": { 
-            background: "linear-gradient(45deg, #8b5cf6, #ec4899)", // Gradiente púrpura a rosa
-            boxShadow: "0 0 15px rgba(139, 92, 246, 0.5)" // Sombra suave
+            background: "linear-gradient(135deg, #BB29FF, #7F3BFF)",
+            boxShadow: "0 0 15px rgba(155, 93, 229, 0.35)"
           },
           "50%": { 
-            background: "linear-gradient(45deg, #ec4899, #8b5cf6)", // Invertir gradiente
-            boxShadow: "0 0 25px rgba(236, 72, 153, 0.7)" // Sombra más pronunciada
+            background: "linear-gradient(135deg, #7F3BFF, #BB29FF)",
+            boxShadow: "0 0 25px rgba(195, 42, 255, 0.5)"
+          },
+        },
+        "icon-glow": {
+          "0%, 100%": { 
+            filter: "drop-shadow(0 0 3px rgba(255, 255, 255, 0.7))",
+            opacity: "0.8"
+          },
+          "50%": { 
+            filter: "drop-shadow(0 0 5px rgba(255, 199, 0, 0.9))",
+            opacity: "1"
           },
         },
         "accordion-up": {
@@ -140,6 +165,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "pulse-slow": "pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "icon-glow": "icon-glow 2s ease-in-out infinite",
       },
     },
   },

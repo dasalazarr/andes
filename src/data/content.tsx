@@ -144,11 +144,9 @@ export const pricingContent: {
         priceDetail: "",
         description: "Valor real desde el inicio. Ideal para empezar y explorar nuestros métodos.",
         features: [
-          "Plan de entrenamiento básico adaptado a tu nivel",
-          "Registro de entrenamientos",
-          "Feedback y motivación simple",
-          "Acceso a consejos genéricos",
-          "30 mensajes de coaching con IA al mes",
+          "Acceso a la comunidad Andes",
+          "Contenido básico de entrenamiento",
+          "Recursos gratuitos para corredores",
         ],
         ctaText: "Comienza Gratis",
         isPopular: false,
@@ -161,12 +159,13 @@ export const pricingContent: {
         priceDetail: "/mes",
         description: "Desbloquea todo tu potencial con funcionalidades avanzadas y soporte prioritario.",
         features: [
-          "Planes de entrenamiento especializados (Maratón, Trail, etc.)",
-          "Análisis de rendimiento detallado",
-          "Soporte prioritario (coach humano complementario)",
-          "Integración con Garmin y Strava",
-          "Recomendaciones nutricionales personalizadas",
-          "Interacciones ilimitadas con el bot",
+          "🤖 Entrenador de IA personalizado que aprende de ti",
+          "🔍 Análisis avanzado de rendimiento con inteligencia artificial",
+          "📊 Planes de entrenamiento adaptativos que evolucionan contigo",
+          "🧠 Metodologías probadas de élite adaptadas a tu progreso",
+          "💡 Recomendaciones en tiempo real basadas en millones de datos",
+          "🏆 Trayectoria de aprendizaje personalizada para alcanzar tu máximo potencial",
+          "🎯 Objetivos inteligentes que se ajustan automáticamente",
         ],
         ctaText: "Obtén Premium",
         isPopular: true,
@@ -185,11 +184,9 @@ export const pricingContent: {
         priceDetail: "",
         description: "Real value from the start. Perfect for exploring our methods.",
         features: [
-          "Basic training plan adapted to your level",
-          "Workout logging",
-          "Simple feedback & motivation",
-          "Access to generic tips",
-          "Up to 30 AI coaching messages per month",
+          "Access to Andes community",
+          "Basic training content",
+          "Free resources for runners",
         ],
         ctaText: "Get Started Free",
         isPopular: false,
@@ -202,12 +199,13 @@ export const pricingContent: {
         priceDetail: "/month",
         description: "Unlock your full potential with advanced features and priority support.",
         features: [
-          "Specialized training plans (Marathon, Trail, etc.)",
-          "Detailed performance analysis",
-          "Priority support (complementary human coach)",
-          "Garmin & Strava integration",
-          "Personalized nutrition recommendations",
-          "Unlimited bot interactions",
+          "🤖 AI Coach that learns from your unique running style",
+          "🔍 Advanced performance analytics powered by AI",
+          "📊 Adaptive training plans that evolve with you",
+          "🧠 Elite-proven methodologies tailored to your progress",
+          "💡 Real-time recommendations based on millions of data points",
+          "🏆 Personalized learning path to maximize your potential",
+          "🎯 Smart goals that adjust automatically to your progress",
         ],
         ctaText: "Go Premium",
         isPopular: true,
@@ -710,29 +708,56 @@ export const articles = [
 export const trainingPlans = [
   {
     id: "5k-plan",
-    title: "Plan de 5K: Tu Primera Carrera", // Spanish
-    description: "Perfecto para principiantes. Te lleva de cero a correr 5K en 8 semanas.", // Spanish
-    duration: "8 semanas", // Spanish
+    title: {
+      es: "Plan de 5K: Tu Primera Carrera",
+      en: "5K Plan: Your First Race"
+    },
+    description: {
+      es: "Perfecto para principiantes. Te lleva de cero a correr 5K en 8 semanas.",
+      en: "Perfect for beginners. Takes you from zero to running 5K in 8 weeks."
+    },
+    duration: {
+      es: "8 semanas",
+      en: "8 weeks"
+    },
     difficulty: "Beginner" as const,
     pdfUrl: "/plans/Andes_Runners_5K_Plan_Principiante.pdf",
     isLeadMagnet: true,
   },
   {
     id: "10k-plan",
-    title: "Plan de 10K: Supera la Distancia", // Spanish
-    description: "Ideal si ya corres 5K. Mejora tu resistencia para conquistar los 10K.", // Spanish
-    duration: "10 semanas", // Spanish
+    title: {
+      es: "Plan de 10K: Supera la Distancia",
+      en: "10K Plan: Go the Distance"
+    },
+    description: {
+      es: "Ideal si ya corres 5K. Mejora tu resistencia para conquistar los 10K.",
+      en: "Ideal if you already run 5K. Improve your endurance to conquer 10K."
+    },
+    duration: {
+      es: "10 semanas",
+      en: "10 weeks"
+    },
     difficulty: "Intermediate" as const,
     pdfUrl: "/plans/Andes_Runners_10K_Plan_Intermedio.pdf",
     isLeadMagnet: false,
   },
   {
     id: "21k-plan",
-    title: "Plan de 21K: Media Maratón", // Spanish
-    description: "Un plan completo para prepararte para tu primera media maratón.", // Spanish
-    duration: "12 semanas", // Spanish
+    title: {
+      es: "Plan de 21K: Media Maratón",
+      en: "21K Plan: Half Marathon"
+    },
+    description: {
+      es: "Un plan completo para prepararte para tu primera media maratón.",
+      en: "A complete plan to prepare for your first half marathon."
+    },
+    duration: {
+      es: "12 semanas",
+      en: "12 weeks"
+    },
     difficulty: "Advanced" as const,
-    pdfUrl: "#", // Placeholder, plan en construcción
+    pdfUrl: "#",
     isUnderConstruction: true,
   },
 ];

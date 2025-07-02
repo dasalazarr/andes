@@ -26,7 +26,7 @@ const FAQSection = lazy(() => import("./FAQSection"));
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
 const ArticleModal = lazy(() => import('./ArticleModal'));
-import { trainingPlans, heroContent, benefitsContent, pricingContent, faqContent, ctaContent, freePlansSectionContent, communityContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent } from "../data/content";
+import { trainingPlans, heroContent, benefitsContent, pricingContent, faqContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent } from "../data/content";
 import type { Language, Article } from "../data/content";
 
 const Home = () => {
@@ -67,13 +67,16 @@ const Home = () => {
   };
 
   const handlePlanClick = (plan: any) => {
+    const language = window.location.pathname.startsWith('/es') ? 'es' : 'en';
+    const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
+    
     if (plan.isLeadMagnet) {
       setSelectedPlan(plan);
       setLeadMagnetModalOpen(true);
-      trackPlanDownload(plan.title);
+      trackPlanDownload(planTitle);
     } else if (plan.pdfUrl && !plan.isUnderConstruction) {
       window.open(plan.pdfUrl, '_blank');
-      trackPlanDownload(plan.title);
+      trackPlanDownload(planTitle);
     }
   };
 
@@ -155,27 +158,26 @@ const Home = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {trainingPlans.filter(plan => plan.id !== '5k-plan').map((plan) =>
-                plan.isUnderConstruction ? (
-                  <UnderConstructionPlanCard
-                    key={plan.id}
-                    title={plan.title}
-                    description={plan.description}
-                    duration={plan.duration}
-                    difficulty={plan.difficulty}
-                  />
+              {trainingPlans.filter(plan => plan.id !== '5k-plan').map((plan) => {
+                // For both card types, we'll pass the full i18n object and let the card component handle the language
+                const cardProps = {
+                  key: plan.id,
+                  title: plan.title,
+                  description: plan.description,
+                  duration: plan.duration,
+                  difficulty: plan.difficulty,
+                  ...(!plan.isUnderConstruction && {
+                    pdfUrl: plan.pdfUrl,
+                    onDownloadClick: () => handlePlanClick(plan)
+                  })
+                };
+                
+                return plan.isUnderConstruction ? (
+                  <UnderConstructionPlanCard {...cardProps} />
                 ) : (
-                  <TrainingPlanCard
-                    key={plan.id}
-                    title={plan.title}
-                    description={plan.description}
-                    duration={plan.duration}
-                    difficulty={plan.difficulty}
-                    pdfUrl={plan.pdfUrl}
-                    onDownloadClick={() => handlePlanClick(plan)}
-                  />
-                )
-              )}
+                  <TrainingPlanCard {...cardProps} />
+                );
+              })}
             </div>
           </div>
         </section>

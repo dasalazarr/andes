@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -13,22 +14,32 @@ import { Download } from "lucide-react";
 import { trackPlanDownload } from "../lib/analytics";
 
 interface TrainingPlanCardProps {
-  title: string;
-  description: string;
-  duration: string;
+  title: string | { en: string; es: string };
+  description: string | { en: string; es: string };
+  duration: string | { en: string; es: string };
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   pdfUrl: string;
-  onDownloadClick?: () => void; // Prop to override default download behavior
+  onDownloadClick?: () => void;
 }
 
 const TrainingPlanCard = ({
-  title = "5K Training Plan",
-  description = "Perfect for beginners looking to complete their first 5K race. Includes gradual build-up with walk/run intervals.",
-  duration = "8 weeks",
+  title = { en: "5K Training Plan", es: "Plan de 5K" },
+  description = {
+    en: "Perfect for beginners looking to complete their first 5K race.",
+    es: "Perfecto para principiantes que buscan completar su primera carrera de 5K."
+  },
+  duration = { en: "8 weeks", es: "8 semanas" },
   difficulty = "Beginner",
   pdfUrl = "#",
   onDownloadClick,
 }: TrainingPlanCardProps) => {
+  const location = useLocation();
+  const language = location.pathname.startsWith('/es') ? 'es' : 'en';
+  
+  // Helper function to get the correct language text
+  const getText = (text: string | { en: string; es: string }) => {
+    return typeof text === 'string' ? text : text[language];
+  };
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
@@ -47,31 +58,30 @@ const TrainingPlanCard = ({
       <CardHeader className="pb-4">
         <div className="flex justify-between items-start gap-4">
           <CardTitle className="text-xl font-bold text-gray-100">
-            {title}
+            {getText(title)}
           </CardTitle>
-          <Badge variant="outline" className={`whitespace-nowrap ${getDifficultyColor(difficulty)}`}>{difficulty}</Badge>
+          <Badge className={`${getDifficultyColor(difficulty)}`}>
+            {difficulty}
+          </Badge>
         </div>
         <CardDescription className="text-sm text-gray-400 pt-1">
-          {duration}
+          {getText(duration)}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="text-sm text-gray-300">{description}</p>
+        <p className="text-sm text-gray-300">{getText(description)}</p>
       </CardContent>
       <CardFooter className="pt-4">
         <Button
           variant="default"
-          className="w-full bg-white text-black hover:bg-gray-200 font-semibold"
-          onClick={() => {
-            if (onDownloadClick) {
-              onDownloadClick();
-            } else {
-              trackPlanDownload(title);
-              window.open(pdfUrl, "_blank");
-            }
-          }}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+          onClick={onDownloadClick || (() => {
+            trackPlanDownload(getText(title));
+            window.open(pdfUrl, "_blank");
+          })}
         >
-          <Download className="mr-2 h-4 w-4" /> Descargar Plan
+          <Download className="mr-2 h-4 w-4" />
+          {language === 'es' ? 'Descargar Plan' : 'Download Plan'}
         </Button>
       </CardFooter>
     </Card>

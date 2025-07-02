@@ -6,9 +6,9 @@ import { articlesContent } from '@/data/content'; // Import mock data
 
 describe('ArticleCard Component', () => {
   it('renders correctly with default props', () => {
-    // El componente ArticleCard tiene valores por defecto, pero TypeScript requiere que proporcionemos las props
     const testArticle = articlesContent[0];
-    render(<ArticleCard article={testArticle} language="en" />);
+    const mockOnClick = vi.fn();
+    render(<ArticleCard article={testArticle} language="en" onClick={mockOnClick} />);
     
     expect(screen.getByText(testArticle.title.en)).toBeInTheDocument();
     expect(screen.getByText(testArticle.excerpt.en)).toBeInTheDocument();
@@ -30,9 +30,11 @@ describe('ArticleCard Component', () => {
       imageUrl: "/custom-image.jpg",
       readMoreUrl: "#custom-url",
       date: "Custom Date",
-      // Author is removed
+      fullContent: { en: "Full content EN", es: "Contenido completo ES" },
+      image: "/custom-image.jpg"
     };
-    render(<ArticleCard article={customArticle} language="en" />);
+    const mockOnClick = vi.fn();
+    render(<ArticleCard article={customArticle} language="en" onClick={mockOnClick} />);
     
     expect(screen.getByText(customArticle.title.en)).toBeInTheDocument();
     expect(screen.getByText(customArticle.excerpt.en)).toBeInTheDocument();
