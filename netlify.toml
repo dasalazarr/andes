@@ -2,10 +2,12 @@
 # Optimizado para despliegue rápido y eficiente
 
 [build]
-  # Directorio donde se encuentran los archivos de construcción
   publish = "dist"
-  # Comando para construir el sitio
-  command = "npm run build"
+  command = "npm install && npm run build"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
 
 # Redirecciones para SPA
 [[redirects]]
