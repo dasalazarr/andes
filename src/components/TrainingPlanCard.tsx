@@ -47,14 +47,14 @@ const TrainingPlanCard = ({
       case "Intermediate":
         return "border-blue-500/30 bg-blue-500/10 text-blue-400";
       case "Advanced":
-        return "border-purple-500/30 bg-purple-500/10 text-purple-400";
+        return "border-[#006b5b]/30 bg-[#006b5b]/10 text-[#25d366]";
       default:
         return "border-gray-500/30 bg-gray-500/10 text-gray-400";
     }
   };
 
   return (
-    <Card className="w-full max-w-md bg-neutral-900/60 border border-neutral-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 flex flex-col">
+    <Card className="w-full max-w-md bg-neutral-900/60 border border-neutral-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-2xl hover:shadow-[0_0_15px_rgba(37,211,102,0.35)] flex flex-col backdrop-blur-sm">
       <CardHeader className="pb-4">
         <div className="flex justify-between items-start gap-4">
           <CardTitle className="text-xl font-bold text-gray-100">
@@ -74,7 +74,7 @@ const TrainingPlanCard = ({
       <CardFooter className="pt-4">
         <Button
           variant="default"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+          className="w-full bg-[#006b5b] hover:bg-[#25d366] text-white"
           onClick={onDownloadClick || (() => {
             trackPlanDownload(getText(title));
             window.open(pdfUrl, "_blank");

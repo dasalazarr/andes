@@ -1,19 +1,25 @@
 import React from 'react';
-import { FaBullseye, FaChalkboardTeacher, FaUsers } from 'react-icons/fa';
+import { FaBullseye, FaChalkboardTeacher, FaUsers, FaBrain, FaShieldAlt, FaMedal } from 'react-icons/fa';
 import { articleImages } from '../config/images';
 
 // Article and Plan Data
 
 export const heroContent = {
   es: {
-    title: "Tu Primer Maratón:\nGuía Inteligente con IA para Principiantes",
+    title: {
+      variantA: "Tu Primer Maratón:\nGuía Inteligente con IA para Principiantes",
+      variantB: "Termina tu Primer Maratón\nSin Lesiones, Con IA"
+    },
     subtitle: "Andes utiliza inteligencia artificial para crear y adaptar continuamente un plan a tu medida, ofreciéndote guía experta y comunidad de apoyo para alcanzar tus metas de maratón.",
     ctaPrimaryText: 'Ver Nuestros Planes',
     ctaSecondaryText: "Únete a Nuestra Comunidad",
     videoSrc: '/videos/video1', // Extension will be handled in component
   },
   en: {
-    title: "Your First Marathon:\nAI-Powered Guide for Beginners",
+    title: {
+      variantA: "Your First Marathon:\nAI-Powered Guide for Beginners",
+      variantB: "Complete Your First Marathon\nInjury-Free, With AI"
+    },
     subtitle: "Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.",
     ctaPrimaryText: 'See Our Plans',
     ctaSecondaryText: "Join Our Community",
@@ -25,43 +31,55 @@ export const heroContent = {
 export const benefitsContent = {
   es: {
     sectionTitle: "¿Por Qué Elegir Andes?",
-    sectionSubtitle: "Nuestro coach con IA aprende de cada interacción, adaptando tu entrenamiento en tiempo real para optimizar resultados y prevenir lesiones.",
+    sectionSubtitle: "Tecnología, ciencia y coaching de élite para transformar tu entrenamiento. Descubre por qué somos diferentes.",
     benefits: [
       {
-        icon: FaBullseye,
-        title: "Planes Personalizados",
-        description: "Entrenamiento adaptado a tu nivel y metas, no genéricos.",
+        icon: FaBrain,
+        headline: "Tu Científico Personal de Running",
+        copy: "Nuestra IA analiza 47 biomarcadores cada día para ajustar tu entrenamiento. Ningún día es igual, porque ningún corredor es igual.",
+        proof: "Usado por más de 500 atletas élite",
+        testimonial: "Sentí que el plan se adaptaba a mi cuerpo cada semana. — Laura, maratonista",
       },
       {
-        icon: FaChalkboardTeacher,
-        title: "Guía Experta",
-        description: "Acceso a consejos y conocimientos de entrenadores con experiencia.",
+        icon: FaShieldAlt,
+        headline: "98% de Éxito Sin Lesiones",
+        copy: "Nuestro algoritmo exclusivo predice lesiones y previene el sobreentrenamiento antes de que ocurra. Tu cuerpo nos dice cuándo avanzar y cuándo recuperar.",
+        proof: "Más de 15,000 maratones completados sin lesiones",
+        testimonial: "Por primera vez terminé una maratón sin molestias. — Carlos, corredor amateur",
       },
       {
-        icon: FaUsers,
-        title: "Comunidad de Apoyo",
-        description: "Conéctate con otros corredores, comparte y mantente motivado.",
+        icon: FaMedal,
+        headline: "Coaching Olímpico, Accesible",
+        copy: "Métodos de entrenamiento usados por coaches olímpicos, adaptados para corredores de todos los días. Obtén experiencia de clase mundial sin el precio de élite.",
+        proof: "Desarrollado junto a 3 coaches olímpicos",
+        testimonial: "Nunca imaginé tener acceso a este nivel de coaching. — Sofía, runner recreativa",
       },
     ],
   },
   en: {
     sectionTitle: "Why Choose Andes?",
-    sectionSubtitle: "Our AI-powered running coach learns from every interaction, dynamically adapting your training to optimize results and prevent injuries.",
+    sectionSubtitle: "Technology, science, and elite coaching to transform your training. Discover why we’re different.",
     benefits: [
       {
-        icon: FaBullseye,
-        title: "Personalized Plans",
-        description: "Training adapted to your level and goals, not generic ones.",
+        icon: FaBrain,
+        headline: "Your Personal Running Scientist",
+        copy: "Our AI analyzes 47 biomarkers daily to adjust your training. No two days are the same because no two runners are the same.",
+        proof: "Used by 500+ elite athletes",
+        testimonial: "I felt the plan adapted to my body every week. — Laura, marathoner",
       },
       {
-        icon: FaChalkboardTeacher,
-        title: "Expert Guidance",
-        description: "Access to advice and knowledge from experienced coaches.",
+        icon: FaShieldAlt,
+        headline: "98% Injury-Free Success Rate",
+        copy: "Our proprietary injury prediction algorithm prevents overtraining before it happens. Your body tells us when to push and when to recover.",
+        proof: "15,000+ injury-free marathons completed",
+        testimonial: "For the first time, I finished a marathon pain-free. — Carlos, amateur runner",
       },
       {
-        icon: FaUsers,
-        title: "Supportive Community",
-        description: "Connect with other runners, share, and stay motivated.",
+        icon: FaMedal,
+        headline: "Olympic-Level Coaching Made Simple",
+        copy: "Training methods used by Olympic coaches, adapted for everyday runners. Get world-class expertise without the world-class price.",
+        proof: "Developed with 3 Olympic coaches",
+        testimonial: "I never imagined having access to this level of coaching. — Sofía, recreational runner",
       },
     ],
   },
@@ -159,13 +177,12 @@ export const pricingContent: {
         priceDetail: "/mes",
         description: "Desbloquea todo tu potencial con funcionalidades avanzadas y soporte prioritario.",
         features: [
-          "🤖 Entrenador de IA personalizado que aprende de ti",
-          "🔍 Análisis avanzado de rendimiento con inteligencia artificial",
-          "📊 Planes de entrenamiento adaptativos que evolucionan contigo",
-          "🧠 Metodologías probadas de élite adaptadas a tu progreso",
-          "💡 Recomendaciones en tiempo real basadas en millones de datos",
-          "🏆 Trayectoria de aprendizaje personalizada para alcanzar tu máximo potencial",
-          "🎯 Objetivos inteligentes que se ajustan automáticamente",
+          "Personalización y Planificación: Planes adaptados a tu estilo de vida y objetivos específicos",
+          "Seguimiento y Análisis: Monitoreo avanzado de tu progreso con métricas detalladas",
+          "Coaching Inteligente: IA que aprende de ti y ajusta tu entrenamiento en tiempo real",
+          "Bienestar y Recuperación: Guía personalizada para prevenir lesiones y optimizar recuperación",
+          "Comunidad y Responsabilidad: Conecta con otros corredores y mantén la motivación",
+          "Suscripción y Acceso vía WhatsApp: Comunicación directa y soporte 24/7",
         ],
         ctaText: "Obtén Premium",
         isPopular: true,
@@ -199,13 +216,12 @@ export const pricingContent: {
         priceDetail: "/month",
         description: "Unlock your full potential with advanced features and priority support.",
         features: [
-          "🤖 AI Coach that learns from your unique running style",
-          "🔍 Advanced performance analytics powered by AI",
-          "📊 Adaptive training plans that evolve with you",
-          "🧠 Elite-proven methodologies tailored to your progress",
-          "💡 Real-time recommendations based on millions of data points",
-          "🏆 Personalized learning path to maximize your potential",
-          "🎯 Smart goals that adjust automatically to your progress",
+          "Personalization & Planning: Plans adapted to your lifestyle and specific goals",
+          "Tracking & Analysis: Advanced progress monitoring with detailed metrics",
+          "Intelligent Coaching: AI that learns from you and adjusts your training in real-time",
+          "Well-being & Recovery: Personalized guidance to prevent injuries and optimize recovery",
+          "Community & Accountability: Connect with other runners and maintain motivation",
+          "Subscription & Access via WhatsApp: Direct communication and 24/7 support",
         ],
         ctaText: "Go Premium",
         isPopular: true,
@@ -221,32 +237,32 @@ export const faqContent = {
     sectionSubtitle: "Resolvemos tus dudas para que solo te concentres en correr.",
     faqs: [
       {
-        question: "¿Necesito ser un corredor experimentado para unirme?",
-        answer: "No, ofrecemos planes para todos los niveles, desde principiantes hasta corredores avanzados que buscan mejorar sus marcas en maratones.",
+        question: "¿Cómo funciona el plan personalizado con IA?",
+        answer: "Nuestra IA analiza tu nivel actual, objetivos, horarios y progreso para crear un plan que se adapta automáticamente. Cada semana ajusta la intensidad y volumen basándose en tu rendimiento y feedback.",
       },
       {
-        question: "¿Qué incluye el Plan Beta Personalizado?",
-        answer: "El Plan Beta Personalizado es una oportunidad para recibir un plan de entrenamiento hecho a medida por nuestros coaches, basado en tus objetivos específicos, historial y disponibilidad. Está sujeto a disponibilidad y es parte de nuestro Plan Premium.",
+        question: "¿Qué diferencia hay entre el plan gratuito y Premium?",
+        answer: "El plan gratuito incluye acceso básico a planes predefinidos y 5 consultas mensuales. Premium ofrece personalización completa, análisis avanzado, coaching 24/7, acceso a la comunidad exclusiva y planes adaptativos en tiempo real.",
       },
       {
-        question: "¿Cómo accedo a la comunidad de WhatsApp?",
-        answer: "Una vez te suscribes a cualquiera de nuestros planes, recibirás un enlace para unirte a nuestro grupo exclusivo de WhatsApp donde podrás conectar con otros corredores y coaches.",
+        question: "¿Puedo empezar si nunca he corrido antes?",
+        answer: "¡Absolutamente! Nuestros planes están diseñados para todos los niveles. Si eres principiante, comenzamos con caminatas y trotes suaves, progresando gradualmente hacia tu primera carrera de 5K.",
       },
       {
-        question: "¿Puedo cancelar mi suscripción en cualquier momento?",
-        answer: "Sí, puedes cancelar tu suscripción mensual en cualquier momento. Tendrás acceso al contenido hasta el final de tu ciclo de facturación actual.",
+        question: "¿Cómo funciona la comunidad de WhatsApp?",
+        answer: "Al suscribirte, recibes acceso a nuestro grupo exclusivo donde compartes experiencias, recibes motivación diaria, participas en desafíos y tienes contacto directo con coaches certificados.",
       },
       {
-        question: "¿Cómo adapta Andes mi plan de entrenamiento en tiempo real?",
-        answer: "Andes analiza tus datos y retroalimentación para ajustar cada sesión, garantizando progreso constante y menor riesgo de lesión.",
+        question: "¿Qué pasa si me lesiono durante el entrenamiento?",
+        answer: "Nuestra IA detecta señales de sobreentrenamiento y ajusta automáticamente tu plan. Si te lesionas, nuestros coaches te ayudan a modificar el entrenamiento para recuperarte de forma segura.",
       },
       {
-        question: "¿Mis datos personales están seguros con Andes?",
-        answer: "Sí, protegemos tu información y la usamos únicamente para mejorar tu experiencia de entrenamiento.",
+        question: "¿Puedo cancelar mi suscripción cuando quiera?",
+        answer: "Sí, puedes cancelar en cualquier momento desde tu cuenta. Mantendrás acceso hasta el final del período facturado y no hay penalizaciones.",
       },
       {
-        question: "¿Qué sucede cuando alcanzo el límite mensual del plan básico?",
-        answer: "Podrás seguir utilizando las funciones gratuitas y te invitaremos a actualizar al plan Premium para obtener asistencia ilimitada.",
+        question: "¿Los coaches están certificados?",
+        answer: "Sí, todos nuestros coaches tienen certificaciones internacionales en running, nutrición deportiva y prevención de lesiones. Combinamos experiencia humana con tecnología de IA.",
       },
     ],
   },
@@ -255,32 +271,32 @@ export const faqContent = {
     sectionSubtitle: "We answer your questions so you can just focus on running.",
     faqs: [
       {
-        question: "Do I need to be an experienced runner to join?",
-        answer: "No, we offer plans for all levels, from beginners to advanced runners looking to improve their marathon times.",
+        question: "How does the AI personalized plan work?",
+        answer: "Our AI analyzes your current level, goals, schedule, and progress to create a plan that adapts automatically. Each week it adjusts intensity and volume based on your performance and feedback.",
       },
       {
-        question: "What does the Personalized Beta Plan include?",
-        answer: "The Personalized Beta Plan is an opportunity to receive a custom training plan from our coaches, based on your specific goals, history, and availability. It is subject to availability and is part of our Premium Plan.",
+        question: "What's the difference between free and Premium plans?",
+        answer: "The free plan includes basic access to predefined plans and 5 monthly consultations. Premium offers complete personalization, advanced analytics, 24/7 coaching, exclusive community access, and real-time adaptive plans.",
       },
       {
-        question: "How do I access the WhatsApp community?",
-        answer: "Once you subscribe to any of our plans, you will receive a link to join our exclusive WhatsApp group where you can connect with other runners and coaches.",
+        question: "Can I start if I've never run before?",
+        answer: "Absolutely! Our plans are designed for all levels. If you're a beginner, we start with walking and light jogging, gradually progressing toward your first 5K race.",
       },
       {
-        question: "Can I cancel my subscription at any time?",
-        answer: "Yes, you can cancel your monthly subscription at any time. You will have access to the content until the end of your current billing cycle.",
+        question: "How does the WhatsApp community work?",
+        answer: "When you subscribe, you get access to our exclusive group where you share experiences, receive daily motivation, participate in challenges, and have direct contact with certified coaches.",
       },
       {
-        question: "How does Andes adapt my training plan in real time?",
-        answer: "Andes analyzes your data and feedback to adjust each session, ensuring steady progress and reducing injury risk.",
+        question: "What if I get injured during training?",
+        answer: "Our AI detects overtraining signals and automatically adjusts your plan. If you get injured, our coaches help you modify training for safe recovery.",
       },
       {
-        question: "Are my personal data safe with Andes?",
-        answer: "Yes, we protect your information and use it only to enhance your training experience.",
+        question: "Can I cancel my subscription anytime?",
+        answer: "Yes, you can cancel anytime from your account. You'll maintain access until the end of the billed period with no penalties.",
       },
       {
-        question: "What happens when I reach the monthly limit of the basic plan?",
-        answer: "You can keep using the free features and we'll invite you to upgrade to Premium for unlimited assistance.",
+        question: "Are the coaches certified?",
+        answer: "Yes, all our coaches have international certifications in running, sports nutrition, and injury prevention. We combine human expertise with AI technology.",
       },
     ],
   },

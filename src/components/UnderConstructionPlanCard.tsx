@@ -39,7 +39,7 @@ const UnderConstructionPlanCard = ({
       case "Intermediate":
         return "border-blue-500/30 bg-blue-500/10 text-blue-400";
       case "Advanced":
-        return "border-purple-500/30 bg-purple-500/10 text-purple-400";
+        return "border-[#006b5b]/30 bg-[#006b5b]/10 text-[#25d366]";
       default:
         return "border-gray-500/30 bg-gray-500/10 text-gray-400";
     }
@@ -75,7 +75,7 @@ const UnderConstructionPlanCard = ({
 
       {/* "Coming Soon" Overlay */}
       <div className="absolute inset-0 bg-black/70 rounded-lg flex flex-col items-center justify-center z-10 p-4 text-center">
-        <Construction className="w-10 h-10 text-purple-400 mb-4" />
+        <Construction className="w-10 h-10 text-[#25d366] mb-4" />
         <h3 className="text-lg font-bold text-white mb-1">Próximamente</h3>
         <p className="text-sm text-gray-300">
           Este plan de entrenamiento está en desarrollo.

@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 
 const content = {
   en: {
-    steps: ['Contact', 'Your Goal', 'Your Level'],
+    steps: ['Contact', 'Goals & Consent'],
     fields: {
       name: { label: 'Full Name', placeholder: 'e.g., Alex Doe' },
       email: { label: 'Email Address', placeholder: 'alex.doe@example.com' },
@@ -29,7 +29,7 @@ const content = {
     }
   },
   es: {
-    steps: ['Contacto', 'Tu Meta', 'Tu Nivel'],
+    steps: ['Contacto', 'Metas y Consentimiento'],
     fields: {
         name: { label: 'Nombre Completo', placeholder: 'Ej: Alex García' },
         email: { label: 'Correo Electrónico', placeholder: 'alex.garcia@example.com' },
@@ -91,8 +91,7 @@ const MultiStepPlanForm: React.FC<MultiStepPlanFormProps> = ({ language, onSubmi
   const handleNextStep = async () => {
     const fieldsPerStep: (keyof FormValues)[][] = [
       ['name', 'email'],
-      ['mainGoal', 'marathonDate'],
-      ['experienceLevel', 'consent']
+      ['mainGoal', 'marathonDate', 'experienceLevel', 'consent']
     ];
     const isValid = await trigger(fieldsPerStep[currentStep]);
     if (isValid) {
@@ -107,7 +106,7 @@ const MultiStepPlanForm: React.FC<MultiStepPlanFormProps> = ({ language, onSubmi
   const Input = ({ name, label, placeholder, type = 'text' }: { name: keyof FormValues, label: string, placeholder: string, type?: string }) => (
     <div className="mb-6">
       <Label htmlFor={name} className="block text-sm font-medium text-gray-300 mb-2">{label}</Label>
-      <input {...register(name)} id={name} type={type} placeholder={placeholder} className="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+      <input {...register(name)} id={name} type={type} placeholder={placeholder} className="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg p-3 focus:ring-2 focus:ring-[#25d366] focus:border-[#25d366] transition-all duration-200" />
       {errors[name] && <p className="text-red-400 text-xs mt-2">{errors[name]?.message}</p>}
     </div>
   );
@@ -199,12 +198,13 @@ const MultiStepPlanForm: React.FC<MultiStepPlanFormProps> = ({ language, onSubmi
       <div className="mb-8 flex justify-center items-center space-x-2 md:space-x-4">
         {t.steps.map((step, index) => (
           <React.Fragment key={step}>
-            <div className={`flex items-center ${index <= currentStep ? 'text-purple-400' : 'text-gray-500'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${index <= currentStep ? 'border-purple-400 bg-purple-400/20' : 'border-gray-600'}`}>
+            <div className={`flex items-center ${index <= currentStep ? 'text-[#25d366]' : 'text-gray-500'}`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 font-semibold ${index <= currentStep ? 'border-[#25d366] bg-[#25d366]/20' : 'border-gray-600'}`}>
                 {index + 1}
               </div>
+              <span className="ml-2 text-sm font-medium hidden sm:block">{step}</span>
             </div>
-            {index < t.steps.length - 1 && <div className={`w-6 h-0.5 md:w-10 ${index < currentStep ? 'bg-purple-400' : 'bg-gray-600'}`} />}
+            {index < t.steps.length - 1 && <div className={`w-8 h-0.5 md:w-12 ${index < currentStep ? 'bg-[#25d366]' : 'bg-gray-600'}`} />}
           </React.Fragment>
         ))}
       </div>
@@ -217,9 +217,6 @@ const MultiStepPlanForm: React.FC<MultiStepPlanFormProps> = ({ language, onSubmi
       <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
         <RadioGroupField name="mainGoal" label={t.fields.mainGoal.label} options={t.fields.mainGoal.options} />
         <Input name="marathonDate" label={t.fields.marathonDate.label} type="date" placeholder="" />
-      </div>
-
-      <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
         <RadioGroupField name="experienceLevel" label={t.fields.experienceLevel.label} options={t.fields.experienceLevel.options} />
         <SingleCheckbox name="consent" label={t.fields.consent.label} />
       </div>
@@ -232,11 +229,11 @@ const MultiStepPlanForm: React.FC<MultiStepPlanFormProps> = ({ language, onSubmi
         ) : <div />} 
 
         {currentStep < t.steps.length - 1 ? (
-          <button type="button" onClick={handleNextStep} className="flex items-center px-6 py-3 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition">
+          <button type="button" onClick={handleNextStep} className="flex items-center px-6 py-3 text-sm font-semibold text-white bg-[#006b5b] hover:bg-[#25d366] rounded-lg transition">
             {t.buttons.next} <ArrowRight className="h-4 w-4 ml-2" />
           </button>
         ) : (
-          <button type="submit" className="flex items-center px-6 py-3 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition">
+          <button type="submit" className="flex items-center px-6 py-3 text-sm font-semibold text-white bg-[#006b5b] hover:bg-[#25d366] rounded-lg transition">
             {t.buttons.submit}
           </button>
         )}

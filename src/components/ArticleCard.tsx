@@ -14,7 +14,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, language, onClick })
 
   return (
     <div 
-      className="bg-neutral-900/50 border border-white/10 rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:border-purple-500/50 hover:shadow-purple-500/20 cursor-pointer h-full flex flex-col group" 
+      className="bg-neutral-900/50 border border-white/10 rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-[0_0_15px_rgba(37,211,102,0.35)] cursor-pointer h-full flex flex-col group backdrop-blur-sm" 
       onClick={() => onClick(article)}
     >
       <div className="relative overflow-hidden">
@@ -30,7 +30,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, language, onClick })
       <div className="p-5 md:p-6 flex flex-col flex-grow">
         <div className="flex items-center mb-3">
           {category && (
-            <span className="inline-block bg-purple-900/30 text-purple-300 text-xs font-medium px-2.5 py-0.5 rounded">
+            <span className="inline-block bg-[#006b5b]/30 text-[#25d366] text-xs font-medium px-2.5 py-0.5 rounded">
               {category[language]}
             </span>
           )}
@@ -38,7 +38,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, language, onClick })
             {new Date(article.date).toLocaleDateString(language, { year: 'numeric', month: 'long' })}
           </span>
         </div>
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#25d366] transition-colors">
           {title[language]}
         </h3>
         {excerpt && (

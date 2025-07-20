@@ -66,7 +66,7 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article, l
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-3 right-3 rounded-full bg-black/30 text-white/80 backdrop-blur-sm hover:bg-purple-500/20 hover:text-white"
+                className="absolute top-3 right-3 rounded-full bg-black/30 text-white/80 backdrop-blur-sm hover:bg-[#25d366]/20 hover:text-white"
                 onClick={onClose}
                 aria-label="Close article detail"
               >
@@ -77,7 +77,7 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article, l
             <div className="p-6 md:p-8 overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800">
               <div className="mb-6">
                 {article.category && (
-                  <span className="inline-block bg-purple-900/50 text-purple-300 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                  <span className="inline-block bg-[#006b5b]/50 text-[#25d366] text-xs font-semibold px-3 py-1 rounded-full mb-3">
                     {article.category[language]}
                   </span>
                 )}
@@ -89,7 +89,7 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article, l
                 </div>
               </div>
 
-              <div className="prose prose-invert max-w-none prose-p:text-gray-300 prose-headings:text-white prose-a:text-purple-400 hover:prose-a:text-purple-300 prose-strong:text-white prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-gray-500">
+              <div className="prose prose-invert max-w-none prose-p:text-gray-300 prose-headings:text-white prose-a:text-[#25d366] hover:prose-a:text-[#006b5b] prose-strong:text-white prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-gray-500">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {content}
                 </ReactMarkdown>
@@ -101,7 +101,7 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article, l
                 <Clock size={16} />
                 <span>{readingTime} min {language === 'es' ? 'de lectura' : 'read'}</span>
               </div>
-              <Button variant="outline" size="sm" onClick={handleShare} className="bg-transparent border-purple-500/50 text-purple-300 hover:bg-purple-500/20 hover:text-white">
+              <Button variant="outline" size="sm" onClick={handleShare} className="bg-transparent border-[#25d366]/50 text-[#25d366] hover:bg-[#25d366]/20 hover:text-white">
                 <Share2 size={16} className="mr-2" />
                 {language === 'es' ? 'Compartir' : 'Share'}
               </Button>

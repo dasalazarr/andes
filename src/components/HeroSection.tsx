@@ -4,28 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
 
 interface HeroSectionProps {
-  title?: string;
-  subtitle?: string;
-  ctaPrimaryText?: string;
-  ctaSecondaryText?: string;
-  onPrimaryClick?: () => void;
-  onSecondaryClick?: () => void;
-  backgroundImage?: string;
-  videoSrc?: string;
+  title: string | { variantA: string; variantB: string };
+  subtitle: string;
+  ctaPrimaryText: string;
+  ctaSecondaryText: string;
+  onPrimaryClick: () => void;
+  onSecondaryClick: () => void;
+  videoSrc: string;
+  language: 'en' | 'es';
+  abVariant?: 'A' | 'B';
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({
-  title = "Your First Marathon: \n Intelligent Guide for Beginners",
-  subtitle = "Andes provides personalized training plans, expert guidance, and a supportive community to help you achieve your marathon goals, regardless of your experience level.",
-  ctaPrimaryText = "Get Your Beta Personalized Plan",
-  ctaSecondaryText = "Join Our Community",
-  onPrimaryClick,
-  onSecondaryClick,
-  videoSrc = "/videos/video1", // Default video base path, extension handled below
-  // backgroundImage prop is no longer used for the main background
-  // backgroundImage = "/images/background.png", 
-}) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryText, ctaSecondaryText, onPrimaryClick, onSecondaryClick, videoSrc, language, abVariant = 'A' }) => {
   const comp = useRef<HTMLDivElement>(null);
+
+  // Lógica para manejar variantes A/B
+  const getTitle = () => {
+    if (typeof title === 'string') return title;
+    return title[`variant${abVariant}` as keyof typeof title] || title.variantA;
+  };
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -55,54 +52,72 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <div className="w-full h-screen" ref={comp}>
       <div className="relative w-full h-full overflow-hidden">
-        {/* Video Background with Overlay */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
+        {/* Background Video with Overlay */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Preload poster image for better LCP */}
+          <link rel="preload" as="image" href={`${videoSrc}.webp`} />
           <video
             autoPlay
             loop
             muted
-            playsInline // Important for iOS Safari
-            className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
-            poster={`${videoSrc}.jpg`} // Assumes poster image has .jpg extension
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
+            poster={`${videoSrc}.webp`}
+            aria-label={language === 'es' ? 'Video de fondo: corredor entrenando en pista' : 'Background video: runner training on track'}
           >
+            <source src={`${videoSrc}.avif`} type="image/avif" />
+            <source src={`${videoSrc}.webp`} type="image/webp" />
             <source src={`${videoSrc}.webm`} type="video/webm" />
             <source src={`${videoSrc}.mp4`} type="video/mp4" />
-            Your browser does not support the video tag.
+            {/* Fallback image */}
+            <img src={`${videoSrc}.webp`} alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'} className="w-full h-full object-cover" />
           </video>
-          <div className="absolute inset-0 bg-black/50 z-10" /> {/* Overlay on top of video */}
+          {/* Overlay oscuro para mejorar contraste */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         </div>
 
         {/* Content Container - ensure it's above the video and overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center z-20">
-          <h1 id="title" className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 whitespace-pre-line">
-            {title}
+          {/* Badges de confianza */}
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-6" role="group" aria-label={language === 'es' ? 'Badges de confianza' : 'Trust badges'}>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
+              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+              {language === 'es' ? '+100 corredores' : '+100 runners'}
+            </span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
+              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+              {language === 'es' ? '98% éxito' : '98% success rate'}
+            </span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
+              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+              {language === 'es' ? 'Coaches certificados + IA' : 'Certified coaches + AI'}
+            </span>
+          </div>
+
+          <h1 id="title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 whitespace-pre-line leading-tight">
+            {getTitle()}
           </h1>
 
-          <p id="subtitle" className="text-lg text-white/90 mb-8 max-w-3xl">
+          <p id="subtitle" className="text-xl text-white/90 mb-10 max-w-4xl leading-relaxed">
             {subtitle}
           </p>
 
-          <div id="buttons" className="flex flex-col sm:flex-row sm:justify-center gap-4 w-full max-w-md mx-auto">
+          <div id="buttons" className="flex flex-col sm:flex-row sm:justify-center gap-6 w-full max-w-lg mx-auto">
             <Button
               size="lg"
-              className="px-8 py-4 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-electric-fuchsia/60
-                bg-gradient-to-r from-neon-purple to-fuchsia-gradient-start hover:from-fuchsia-gradient-start hover:to-purple-hover
-                shadow-lg hover:shadow-electric-fuchsia/50"
-              style={{
-                backgroundSize: '200% 200%',
-                animation: 'pulse-gradient 4s ease infinite',
-                boxShadow: '0 0 15px rgba(155, 93, 229, 0.35)'
-              }}
+              className="w-full sm:w-auto px-8 py-4 font-semibold rounded-lg bg-[#25d366] text-[#f4f7f8] hover:bg-[#25d366]/90 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 shadow-lg hover:shadow-[#25d366]/25"
               onClick={onPrimaryClick}
+              aria-label={language === 'es' ? 'Ver planes de entrenamiento' : 'View training plans'}
             >
-              <Zap className="h-5 w-5 mr-2 animate-icon-glow text-solar-yellow" />
               {ctaPrimaryText}
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/20 transform transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:border-white"
+              className="w-full sm:w-auto px-8 py-4 font-semibold rounded-lg border-2 border-[#006b5b] bg-transparent text-white hover:bg-[#006b5b] hover:text-white transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#006b5b] focus:ring-offset-2"
               onClick={onSecondaryClick}
+              aria-label={language === 'es' ? 'Unirse a la comunidad' : 'Join community'}
             >
               {ctaSecondaryText}
             </Button>

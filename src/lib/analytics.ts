@@ -56,6 +56,86 @@ export const trackFormSubmission = () => {
   }
 };
 
+// A/B Testing Analytics
+export const trackABTest = (variant: 'A' | 'B', language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'ab_test_view', {
+      'experiment_name': 'hero_title_variant',
+      'variant': variant,
+      'language': language,
+      'custom_parameter_1': 'hero_section'
+    });
+  }
+};
+
+export const trackHeroCTR = (variant: 'A' | 'B', language: 'en' | 'es', buttonType: 'primary' | 'secondary') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'hero_ctr', {
+      'experiment_name': 'hero_title_variant',
+      'variant': variant,
+      'language': language,
+      'button_type': buttonType,
+      'custom_parameter_1': 'hero_section'
+    });
+  }
+};
+
+export const trackTrustBadgeClick = (badgeType: string, language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'trust_badge_click', {
+      'badge_type': badgeType,
+      'language': language,
+      'custom_parameter_1': 'hero_section'
+    });
+  }
+};
+
+export const trackSocialProofView = (language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'social_proof_view', {
+      'language': language,
+      'custom_parameter_1': 'hero_section'
+    });
+  }
+};
+
+// FAQ Analytics
+export const trackFAQSearch = (searchTerm: string, language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'faq_search', {
+      'search_term': searchTerm,
+      'language': language,
+      'custom_parameter_1': 'faq_section'
+    });
+  }
+};
+
+export const trackFAQClick = (question: string, language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'faq_click', {
+      'question': question,
+      'language': language,
+      'custom_parameter_1': 'faq_section'
+    });
+  }
+};
+
+export const trackFAQContactSupport = (language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'faq_contact_support', {
+      'language': language,
+      'custom_parameter_1': 'faq_section'
+    });
+  }
+};
+
 // Declaración para TypeScript
 declare global {
   interface Window {

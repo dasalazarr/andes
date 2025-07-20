@@ -20,7 +20,7 @@ const BotDemoOptions: React.FC<BotDemoOptionsProps> = ({ options, onSelect, disa
           key={option.payload}
           variant="outline"
           size="sm"
-          className="border-violet-400/50 bg-violet-950/20 text-violet-300 hover:bg-violet-900/50 hover:text-violet-200"
+          className="border-[#25d366] text-[#25d366] bg-transparent hover:bg-[#25d366] hover:text-black focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 transition-all duration-200"
           onClick={() => onSelect(option.payload, option.text)}
           disabled={disabled}>
           {option.text}

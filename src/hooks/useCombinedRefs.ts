@@ -1,22 +1,19 @@
-import { MutableRefObject, Ref, useCallback } from 'react';
+import { useRef, useEffect, RefObject, MutableRefObject } from 'react';
 
-/**
- * Combines multiple refs into a single callback ref.
- * This is useful when a component needs to both forward a ref and use a local ref.
- */
-export function useCombinedRefs<T>(...refs: (Ref<T> | undefined)[]): Ref<T> {
-  return useCallback(
-    (element: T) => {
-      refs.forEach(ref => {
-        if (!ref) return;
+export function useCombinedRefs<T>(...refs: (RefObject<T> | MutableRefObject<T> | ((instance: T) => void) | null)[]): RefObject<T> {
+  const targetRef = useRef<T>(null);
 
-        if (typeof ref === 'function') {
-          ref(element);
-        } else {
-          (ref as MutableRefObject<T | null>).current = element;
-        }
-      });
-    },
-    [refs]
-  );
+  useEffect(() => {
+    refs.forEach(ref => {
+      if (!ref) return;
+
+      if (typeof ref === 'function') {
+        ref(targetRef.current as T);
+      } else {
+        (ref as MutableRefObject<T>).current = targetRef.current as T;
+      }
+    });
+  }, [refs]);
+
+  return targetRef;
 }

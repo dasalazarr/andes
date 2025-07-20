@@ -70,43 +70,38 @@ const PricingSection: React.FC<PricingSectionProps> = ({
             const IconComponent = iconComponents[plan.iconName];
             const isPremium = plan.buttonVariant === 'primary'; // Corresponds to the second card (index 1)
 
-            let cardClasses = "p-8 rounded-xl flex flex-col relative border border-neutral-700 shadow-lg shadow-black/30 backdrop-blur-sm";
-            
-            if (index === 0) { // Card 1 (Gratis) - Origin at bottom
-              cardClasses += " bg-[radial-gradient(ellipse_at_50%_100%,theme(colors.bg-purple-light/60%)_0%,theme(colors.bg-purple-dark/50%)_75%)]";
-            } else { // Card 2 (Premium) - Origin at top
-              cardClasses += " bg-[radial-gradient(ellipse_at_50%_0%,theme(colors.fuchsia-gradient-start/60%)_0%,theme(colors.bg-purple-dark/50%)_75%)] ring-1 ring-electric-fuchsia/30";
+            let cardClasses = "p-8 rounded-2xl flex flex-col relative border border-[#1a1a1a] bg-neutral-950/90 shadow-none backdrop-blur-sm transition-all duration-300 hover:border-[#25d366]/60";
+            if (index === 0) {
+              cardClasses += ""; // Gratis: fondo neutro
+            } else {
+              cardClasses += " bg-gradient-to-br from-[#006b5b]/80 via-[#25d366]/40 to-[#000]/80 ring-1 ring-[#25d366]/10 hover:backdrop-blur-md hover:shadow-[0_0_32px_0_rgba(37,211,102,0.25)] hover:scale-[1.02]";
             }
 
             return (
               <div 
                 key={index} 
-                className={cardClasses}
+                className={cardClasses + (isPremium ? ' premium-card' : '')}
               >
                 {plan.isPopular && (
-                  <div className="absolute top-0 right-0 -mt-3 mr-3 bg-gradient-to-r from-electric-fuchsia to-fuchsia-gradient-end text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md animate-pulse-slow">
+                  <div className="absolute top-0 right-0 -mt-3 mr-3 bg-[#25d366] text-black text-xs font-semibold px-3 py-1 rounded-full border border-[#006b5b]">
                     {translations.popular[language as keyof typeof translations.popular]}
                   </div>
                 )}
 
                 <div className="flex items-center mb-5">
-                  {IconComponent && <IconComponent className={`w-8 h-8 mr-4 ${isPremium ? 'text-electric-fuchsia animate-icon-glow' : 'text-link-purple'}`} />}
+                  {IconComponent && <IconComponent className={`w-7 h-7 mr-3 ${isPremium ? 'text-[#25d366]' : 'text-[#006b5b]'}`} />}
                   <h3 className="text-2xl font-semibold text-white">{plan.name}</h3>
                 </div>
 
                 <div className="mb-6">
-                  <span className="text-5xl font-extrabold text-white">{plan.price}</span>
-                  {plan.priceDetail && <span className="text-lg text-gray-300 ml-1">{plan.priceDetail}</span>}
+                  <span className="text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">{plan.price}</span>
+                  {plan.priceDetail && <span className="text-lg text-white ml-1 drop-shadow-sm">{plan.priceDetail}</span>}
                 </div>
 
-                <p className="text-gray-300 mb-8 text-sm min-h-[40px]">{plan.description}</p>
+                <p className="text-white mb-8 text-base min-h-[40px] leading-relaxed drop-shadow-sm">{plan.description}</p>
                 
                 <button 
-                  className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 mb-8 transform hover:scale-105 
-                    ${isPremium // Premium plan button (index 1)
-                      ? 'bg-gradient-to-r from-neon-purple to-electric-fuchsia hover:from-fuchsia-gradient-start hover:to-purple-hover text-white shadow-lg hover:shadow-electric-fuchsia/50'
-                      // Gratis plan button (index 0)
-                      : 'bg-neutral-800 hover:bg-neutral-700 text-gray-300 shadow-md hover:shadow-neutral-700/40 border-t border-link-purple/20'}`}
+                  className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'}`}
                   onClick={() => {
                     if (isPremium) {
                       window.location.href = 'https://9968687471249.gumroad.com/l/andes';
@@ -118,13 +113,14 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                   {plan.ctaText}
                 </button>
 
-                <div className="mb-2 text-sm font-medium text-gray-100">
+                <div className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {translations.whatsIncluded[language as keyof typeof translations.whatsIncluded]}
                 </div>
-                <ul className="space-y-3 flex-grow text-sm pl-1">
+                <ul className="space-y-2 flex-grow text-sm pl-1">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="text-gray-300">
-                      {feature}
+                    <li key={fIndex} className="text-white flex items-center gap-2 drop-shadow-sm">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#25d366] opacity-70"></span>
+                      {typeof feature === 'string' ? feature.replace(/^[^a-zA-Z0-9]+/,'') : feature}
                     </li>
                   ))}
                 </ul>
@@ -133,6 +129,20 @@ const PricingSection: React.FC<PricingSectionProps> = ({
           })}
         </div>
       </div>
+      <style>{`
+  .premium-btn {
+    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  }
+  .premium-btn:hover,
+  .premium-card:hover .premium-btn {
+    background: #25d366 !important;
+    color: #000 !important;
+    box-shadow: 0 2px 16px 0 rgba(37,211,102,0.18);
+    transform: scale(1.04);
+    border-color: #25d366;
+    z-index: 2;
+  }
+`}</style>
     </section>
   );
 };

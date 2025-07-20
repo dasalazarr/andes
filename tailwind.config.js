@@ -114,17 +114,16 @@ module.exports = {
       }),
       colors: {
         // Colores existentes...
-        // Nuevos colores púrpura más vibrantes
-        'neon-purple': '#9B5DE5', // CTA base
-        'purple-hover': '#7F3BFF', // CTA hover
-        'link-purple': '#8C30FF', // Links
-        'link-purple-hover': '#671BFF', // Links hover
-        'bg-purple-dark': '#270046', // Deep background
-        'bg-purple-light': '#581B98', // Background gradient end
-        'electric-fuchsia': '#C32AFF', // Highlights base
-        'fuchsia-hover': '#A516FF', // Highlight hover
-        'fuchsia-gradient-start': '#BB29FF', // CTA gradient start
-        'fuchsia-gradient-end': '#FF5DF1', // Electric Fuchsia gradient end
+        // Paleta Andes: Verde base y resalte
+        'andes-green': '#006b5b', // Base
+        'andes-green-highlight': '#25d366', // Resalte electrizante
+        'andes-green-dark': '#005144', // Sombra/hover oscuro
+        'andes-green-light': '#25d366', // Para gradientes y hover
+        // Gradientes Andes
+        'andes-gradient-start': '#006b5b',
+        'andes-gradient-end': '#25d366',
+        // Sombra electrizante
+        'andes-shadow': 'rgba(37, 211, 102, 0.35)',
         'solar-yellow': '#FFC700', // Accent color
       },
       keyframes: {
@@ -138,12 +137,12 @@ module.exports = {
         },
         "pulse-gradient": {
           "0%, 100%": { 
-            background: "linear-gradient(135deg, #BB29FF, #7F3BFF)",
-            boxShadow: "0 0 15px rgba(155, 93, 229, 0.35)"
+            background: "linear-gradient(135deg, #006b5b, #25d366)",
+            boxShadow: "0 0 15px rgba(37, 211, 102, 0.35)"
           },
           "50%": { 
-            background: "linear-gradient(135deg, #7F3BFF, #BB29FF)",
-            boxShadow: "0 0 25px rgba(195, 42, 255, 0.5)"
+            background: "linear-gradient(135deg, #25d366, #006b5b)",
+            boxShadow: "0 0 25px rgba(37, 211, 102, 0.5)"
           },
         },
         "icon-glow": {

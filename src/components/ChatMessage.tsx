@@ -27,7 +27,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ sender, text, isTyping }) => 
         className={`max-w-xs rounded-2xl px-4 py-2.5 text-sm md:max-w-md lg:max-w-lg ${
           isBot
             ? 'rounded-bl-none bg-gray-700 text-white'
-            : 'rounded-br-none bg-violet-600 text-white'
+            : 'rounded-br-none bg-[#006b5b] text-white'
         }`}>
         {isTyping ? (
           <div className="flex items-center gap-1.5">

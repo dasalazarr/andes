@@ -44,6 +44,7 @@ export default defineConfig(({ mode }) => {
   build: {
     outDir: lang === 'es' ? 'dist/es' : 'dist',
     emptyOutDir: true, // Clean the output directory before building
+    sourcemap: true,
   }
   };
 });
