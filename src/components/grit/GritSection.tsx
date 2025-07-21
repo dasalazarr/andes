@@ -56,7 +56,7 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
   }, [controls, inView]);
 
   return (
-    <section id="grit-stories" className="py-16 bg-black" ref={setRefs}>
+    <section id="grit-stories" className="py-16 bg-gradient-to-b from-black via-gray-950 to-black" ref={setRefs}>
       <motion.div 
         className="container mx-auto px-4"
         initial="hidden"

@@ -136,6 +136,28 @@ export const trackFAQContactSupport = (language: 'en' | 'es') => {
   }
 };
 
+// Testimonials Analytics
+export const trackTestimonialView = (language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'testimonial_section_view', {
+      'language': language,
+      'custom_parameter_1': 'testimonials_section'
+    });
+  }
+};
+
+export const trackTestimonialCTAClick = (language: 'en' | 'es', ctaType: 'journey' | 'pricing') => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    const gtag = (window as any).gtag;
+    gtag('event', 'testimonial_cta_click', {
+      'language': language,
+      'cta_type': ctaType,
+      'custom_parameter_1': 'testimonials_section'
+    });
+  }
+};
+
 // Declaración para TypeScript
 declare global {
   interface Window {

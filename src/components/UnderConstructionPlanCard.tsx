@@ -59,7 +59,7 @@ const UnderConstructionPlanCard = ({
             </Badge>
           </div>
           <CardDescription className="text-sm text-gray-400 pt-1">
-            <p className="text-sm text-gray-400">{getText(duration)}</p>
+            {getText(duration)}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
@@ -76,9 +76,14 @@ const UnderConstructionPlanCard = ({
       {/* "Coming Soon" Overlay */}
       <div className="absolute inset-0 bg-black/70 rounded-lg flex flex-col items-center justify-center z-10 p-4 text-center">
         <Construction className="w-10 h-10 text-[#25d366] mb-4" />
-        <h3 className="text-lg font-bold text-white mb-1">Próximamente</h3>
+        <h3 className="text-lg font-bold text-white mb-1">
+          {language === 'es' ? 'Próximamente' : 'Coming Soon'}
+        </h3>
         <p className="text-sm text-gray-300">
-          Este plan de entrenamiento está en desarrollo.
+          {language === 'es' 
+            ? 'Este plan de entrenamiento está en desarrollo.'
+            : 'This training plan is currently under development.'
+          }
         </p>
       </div>
     </div>

@@ -90,19 +90,19 @@ export const testimonialsContent = {
     sectionTitle: "Lo Que Dicen Nuestros Corredores",
     testimonials: [
       {
-        quote: "¡Gracias a Andes Runners, completé mi primera maratón! El plan fue perfecto y la comunidad increíble.",
+        quote: "Completé mi primera maratón en 4:15 sin lesiones. El plan se adaptó perfectamente a mi horario de trabajo y el coaching 24/7 me mantuvo motivado durante los momentos difíciles.",
         author: "Ana Pérez",
-        detail: "Corredora de Maratón, Ciudad de México",
+        detail: "Maratonista, Ciudad de México • 42.2km en 4:15",
       },
       {
-        quote: "Mejoré mi tiempo en 10K significativamente. Los consejos de nutrición y entrenamiento fueron clave.",
+        quote: "Mejoré mi tiempo de 10K de 52 a 45 minutos en solo 3 meses. Los consejos de nutrición y el análisis de mi técnica fueron clave para este progreso.",
         author: "Carlos López",
-        detail: "Corredor de 10K, Santiago de Chile",
+        detail: "Corredor de 10K, Santiago de Chile • -7 min en 3 meses",
       },
       {
-        quote: "Empecé desde cero y ahora corro 5K sin problemas. ¡Totalmente recomendado!",
+        quote: "Empecé desde cero y ahora corro 5K sin problemas. La comunidad de WhatsApp me dio el apoyo que necesitaba para mantener la constancia.",
         author: "Sofía Gómez",
-        detail: "Principiante Feliz, Bogotá",
+        detail: "Principiante Feliz, Bogotá • 0 a 5K en 8 semanas",
       },
     ],
   },
@@ -110,19 +110,19 @@ export const testimonialsContent = {
     sectionTitle: "What Our Runners Say",
     testimonials: [
       {
-        quote: "Thanks to Andes Runners, I completed my first marathon! The plan was perfect and the community was incredible.",
+        quote: "I completed my first marathon in 4:15 injury-free. The plan adapted perfectly to my work schedule and the 24/7 coaching kept me motivated during tough moments.",
         author: "Ana Perez",
-        detail: "Marathon Runner, Mexico City",
+        detail: "Marathon Runner, Mexico City • 42.2km in 4:15",
       },
       {
-        quote: "I significantly improved my 10K time. The nutrition and training tips were key.",
+        quote: "I improved my 10K time from 52 to 45 minutes in just 3 months. The nutrition tips and technique analysis were key to this progress.",
         author: "Carlos Lopez",
-        detail: "10K Runner, Santiago, Chile",
+        detail: "10K Runner, Santiago, Chile • -7 min in 3 months",
       },
       {
-        quote: "I started from scratch and now I run 5K without any problems. Totally recommended!",
+        quote: "I started from scratch and now I run 5K without problems. The WhatsApp community gave me the support I needed to stay consistent.",
         author: "Sofia Gomez",
-        detail: "Happy Beginner, Bogota",
+        detail: "Happy Beginner, Bogota • 0 to 5K in 8 weeks",
       },
     ],
   },
@@ -771,6 +771,24 @@ export const trainingPlans = [
     duration: {
       es: "12 semanas",
       en: "12 weeks"
+    },
+    difficulty: "Intermediate" as const,
+    pdfUrl: "/plans/Andes_Runners_21K_Plan_Intermedio.pdf",
+    isLeadMagnet: false,
+  },
+  {
+    id: "marathon-plan",
+    title: {
+      es: "Plan de Maratón: Tu Gran Reto",
+      en: "Marathon Plan: Your Big Challenge"
+    },
+    description: {
+      es: "Prepárate para conquistar los 42K con un plan diseñado para el éxito.",
+      en: "Prepare to conquer 42K with a plan designed for success."
+    },
+    duration: {
+      es: "16 semanas",
+      en: "16 weeks"
     },
     difficulty: "Advanced" as const,
     pdfUrl: "#",
