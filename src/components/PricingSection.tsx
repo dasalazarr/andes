@@ -17,6 +17,7 @@ interface Plan {
   description: string;
   features: string[];
   ctaText: string;
+  href?: string; // Add href property
   isPopular?: boolean;
   buttonVariant?: 'primary' | 'secondary';
   onCtaClick?: () => void; // Kept for potential future use, but not primary for this redesign
@@ -103,7 +104,9 @@ const PricingSection: React.FC<PricingSectionProps> = ({
               <button 
                 className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'}`}
                 onClick={() => {
-                  if (isPremium) {
+                  if (plan.href) {
+                    window.location.href = plan.href;
+                  } else if (isPremium) {
                     window.location.href = 'https://9968687471249.gumroad.com/l/andes';
                   } else if (onGetFreePlanClick) {
                     onGetFreePlanClick();

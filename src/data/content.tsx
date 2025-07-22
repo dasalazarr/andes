@@ -137,6 +137,7 @@ interface PricingPlan {
   description: string;
   features: string[];
   ctaText: string;
+  href?: string; // Added href property
   isPopular: boolean;
   buttonVariant: 'primary' | 'secondary';
 }
@@ -167,6 +168,7 @@ export const pricingContent: {
           "Recursos gratuitos para corredores",
         ],
         ctaText: "Comienza Gratis",
+        href: "/start?flow=free",
         isPopular: false,
         buttonVariant: "secondary",
       },
@@ -185,6 +187,7 @@ export const pricingContent: {
           "Suscripción y Acceso vía WhatsApp: Comunicación directa y soporte 24/7",
         ],
         ctaText: "Obtén Premium",
+        href: "/start?flow=premium",
         isPopular: true,
         buttonVariant: "primary",
       },
@@ -206,6 +209,7 @@ export const pricingContent: {
           "Free resources for runners",
         ],
         ctaText: "Get Started Free",
+        href: "/start?flow=free",
         isPopular: false,
         buttonVariant: "secondary",
       },
@@ -224,6 +228,7 @@ export const pricingContent: {
           "Subscription & Access via WhatsApp: Direct communication and 24/7 support",
         ],
         ctaText: "Go Premium",
+        href: "/start?flow=premium",
         isPopular: true,
         buttonVariant: "primary",
       },
