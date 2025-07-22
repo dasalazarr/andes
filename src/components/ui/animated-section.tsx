@@ -4,23 +4,21 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
   id?: string;
-  ref?: React.Ref<HTMLElement>;
+  ref?: React.Ref<HTMLDivElement>;
   stagger?: boolean;
 }
 
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   children,
   className = '',
-  as: Component = 'div',
   id,
   ref,
   stagger = false,
   ...props
 }) => {
   const controls = useAnimation();
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   useEffect(() => {
@@ -58,7 +56,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   return (
     <motion.div
       ref={ref || sectionRef}
-      as={Component as any}
       id={id}
       className={className}
       initial="hidden"
