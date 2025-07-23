@@ -116,8 +116,18 @@ const StartPage: React.FC = () => {
 
   const getFlowAndLanguage = () => {
     const params = new URLSearchParams(location.search);
-    const flow = params.get('flow');
-    return { flow, language: isSpanish ? 'es' : 'en' };
+    let flow = params.get('flow');
+    let language = params.get('language') || (isSpanish ? 'es' : 'en');
+
+    // Handle fallback from simplified onboarding
+    if (!flow) {
+      const intent = params.get('intent');
+      if (intent && ['free', 'premium'].includes(intent)) {
+        flow = intent;
+      }
+    }
+
+    return { flow, language };
   };
 
   // Enhanced phone number validation

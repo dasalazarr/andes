@@ -101,19 +101,21 @@ const PricingSection: React.FC<PricingSectionProps> = ({
 
               <p className="text-white mb-8 text-base min-h-[40px] leading-relaxed drop-shadow-sm">{plan.description}</p>
               
-              <button 
-                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'}`}
-                onClick={() => {
-                  if (plan.href) {
-                    window.location.href = plan.href;
-                  } else if (isPremium) {
-                    window.location.href = 'https://9968687471249.gumroad.com/l/andes';
-                  } else if (onGetFreePlanClick) {
-                    onGetFreePlanClick();
-                  }
-                }}
+              <button
+                id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
+                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'} andes-onboarding-btn`}
+                data-intent={isPremium ? 'premium' : 'free'}
+                data-language={language}
+                type="button"
+                aria-label={isPremium
+                  ? (language === 'es' ? 'Comenzar entrenamiento premium' : 'Start premium training')
+                  : (language === 'es' ? 'Comenzar entrenamiento gratuito' : 'Start free training')
+                }
               >
-                {plan.ctaText}
+                <span className="btn-text">{plan.ctaText}</span>
+                <span className="btn-icon" style={{ marginLeft: '8px' }}>
+                  {isPremium ? '💎' : '🏃‍♂️'}
+                </span>
               </button>
 
               <div className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -143,6 +145,34 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     transform: scale(1.04);
     border-color: #25d366;
     z-index: 2;
+  }
+
+  /* Andes Onboarding Button States */
+  .andes-onboarding-btn.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .andes-onboarding-btn.loading .btn-text {
+    opacity: 0.7;
+  }
+
+  .andes-onboarding-btn.success {
+    background: #25d366 !important;
+    color: #000 !important;
+    border-color: #25d366;
+  }
+
+  .andes-onboarding-btn.error {
+    background: #ef4444 !important;
+    color: white !important;
+    border-color: #ef4444;
+  }
+
+  .andes-onboarding-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 `}</style>
     </>
