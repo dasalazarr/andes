@@ -1,0 +1,157 @@
+<!-- Andes Landing Page Buttons - Simplified Onboarding -->
+<!-- Replace your existing buttons with these -->
+
+<!-- Spanish Version -->
+<div class="andes-cta-buttons" data-language="es">
+  <!-- Free Plan Button -->
+  <button 
+    id="start-free-btn" 
+    class="btn btn-primary andes-start-btn"
+    type="button"
+    aria-label="Comenzar entrenamiento gratuito"
+  >
+    <span class="btn-icon">🏃‍♂️</span>
+    <span class="btn-text">Comenzar Gratis</span>
+  </button>
+
+  <!-- Premium Plan Button -->
+  <button 
+    id="start-premium-btn" 
+    class="btn btn-premium andes-start-btn"
+    type="button"
+    aria-label="Comenzar entrenamiento premium"
+  >
+    <span class="btn-icon">💎</span>
+    <span class="btn-text">Comenzar Premium</span>
+    <span class="btn-price">$9.99/mes</span>
+  </button>
+</div>
+
+<!-- English Version -->
+<div class="andes-cta-buttons" data-language="en" style="display: none;">
+  <!-- Free Plan Button -->
+  <button 
+    id="start-free-btn" 
+    class="btn btn-primary andes-start-btn"
+    type="button"
+    aria-label="Start free training"
+  >
+    <span class="btn-icon">🏃‍♂️</span>
+    <span class="btn-text">Start Free</span>
+  </button>
+
+  <!-- Premium Plan Button -->
+  <button 
+    id="start-premium-btn" 
+    class="btn btn-premium andes-start-btn"
+    type="button"
+    aria-label="Start premium training"
+  >
+    <span class="btn-icon">💎</span>
+    <span class="btn-text">Start Premium</span>
+    <span class="btn-price">$9.99/month</span>
+  </button>
+</div>
+
+<!-- CSS Styles -->
+<style>
+.andes-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.andes-start-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #25d366 0%, #20b358 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  color: #333;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.andes-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.andes-start-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  font-size: 1.2em;
+}
+
+.btn-price {
+  font-size: 0.9em;
+  opacity: 0.9;
+  margin-left: 0.5rem;
+}
+
+/* Loading state */
+.andes-start-btn.loading {
+  pointer-events: none;
+}
+
+.andes-start-btn.loading .btn-text {
+  opacity: 0.7;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .andes-cta-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .andes-start-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+</style>
+
+<!-- Alternative: Inline onclick handlers (if you prefer) -->
+<!--
+<button onclick="andesStartTraining('free')" class="btn btn-primary">
+  🏃‍♂️ Comenzar Gratis
+</button>
+
+<button onclick="andesStartTraining('premium')" class="btn btn-premium">
+  💎 Comenzar Premium - $9.99/mes
+</button>
+-->
+
+<!-- Script inclusion (add before closing </body> tag) -->
+<script src="landing-page-integration.js"></script>
+
+<!-- Or inline the script -->
+<script>
+// You can paste the content of landing-page-integration.js here
+// if you prefer inline scripts
+</script>
