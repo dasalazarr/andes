@@ -50,12 +50,13 @@ function testEndpoint(intent, language) {
 
 async function runTests() {
   console.log('🧪 Testing Andes Simplified Onboarding Endpoint\n');
-  
+  console.log('🔍 DEBUGGING PREMIUM BUTTON ISSUE\n');
+
   const tests = [
+    { intent: 'premium', language: 'es' }, // Test premium first
     { intent: 'free', language: 'es' },
-    { intent: 'premium', language: 'es' },
-    { intent: 'free', language: 'en' },
-    { intent: 'premium', language: 'en' }
+    { intent: 'premium', language: 'en' },
+    { intent: 'free', language: 'en' }
   ];
 
   for (const test of tests) {

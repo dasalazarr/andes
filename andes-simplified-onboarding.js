@@ -13,7 +13,7 @@
     FALLBACK_URL: '/start',
     DEFAULT_LANGUAGE: 'es',
     ANALYTICS_ENABLED: true,
-    DEBUG_MODE: false, // Set to true for development
+    DEBUG_MODE: true, // ENABLED FOR DEBUGGING
     RETRY_ATTEMPTS: 2,
     TIMEOUT_MS: 10000
   };

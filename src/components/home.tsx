@@ -6,7 +6,6 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
 import { trackABTest, trackHeroCTR, trackSocialProofView, trackTestimonialView, trackTestimonialCTAClick } from "../lib/analytics";
-import { useAndesOnboarding } from "../hooks/useAndesOnboarding";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,9 +56,6 @@ const Home = () => {
   const gritSectionRef = useRef<HTMLDivElement>(null);
   const planRequestFormRef = useRef<HTMLDivElement>(null);
   const pricingSectionRef = useRef<HTMLDivElement>(null);
-
-  // Initialize Andes Onboarding
-  useAndesOnboarding();
 
   useEffect(() => {
     initGA();
