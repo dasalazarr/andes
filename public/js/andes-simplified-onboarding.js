@@ -13,7 +13,7 @@
     FALLBACK_URL: '/start',
     DEFAULT_LANGUAGE: 'es',
     ANALYTICS_ENABLED: true,
-    DEBUG_MODE: true, // ENABLED FOR DEBUGGING
+    DEBUG_MODE: false, // Set to true for development
     RETRY_ATTEMPTS: 2,
     TIMEOUT_MS: 10000
   };
@@ -31,15 +31,11 @@
 
   // Language detection
   function getLanguage() {
-    // Check URL path
-    if (window.location.pathname.includes('/en')) return 'en';
-    if (window.location.pathname.includes('/es')) return 'es';
-    
-    // Check browser language
-    const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith('en')) return 'en';
-    
-    return CONFIG.DEFAULT_LANGUAGE;
+    // Check URL path - Spanish routes start with /es
+    if (window.location.pathname.startsWith('/es')) return 'es';
+
+    // Default to English for root path (/) or any other path
+    return 'en';
   }
 
   // Analytics tracking
@@ -226,30 +222,70 @@
   // Initialize system
   function init() {
     log('Initializing Andes Simplified Onboarding System');
-    
+    log('Current URL:', window.location.href);
+    log('Document ready state:', document.readyState);
+
     // Add event listeners to buttons
     const freeBtn = document.getElementById('start-free-btn');
     const premiumBtn = document.getElementById('start-premium-btn');
 
+    log('Button detection results:');
+    log('- Free button found:', !!freeBtn);
+    log('- Premium button found:', !!premiumBtn);
+
+    // Debug: Log all buttons on page
+    const allButtons = document.querySelectorAll('button');
+    log(`Total buttons on page: ${allButtons.length}`);
+
+    allButtons.forEach((btn, index) => {
+      if (btn.id.includes('start') || btn.className.includes('premium') || btn.className.includes('free') || btn.className.includes('andes')) {
+        log(`Button ${index}:`, {
+          id: btn.id,
+          className: btn.className,
+          textContent: btn.textContent?.trim().substring(0, 50)
+        });
+      }
+    });
+
     if (freeBtn) {
-      freeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        startTraining('free');
-      });
-      log('Free button initialized');
+      // Remove existing listeners to avoid duplicates
+      freeBtn.removeEventListener('click', handleFreeClick);
+      freeBtn.addEventListener('click', handleFreeClick);
+      log('✅ Free button initialized');
     } else {
-      error('Free button not found (ID: start-free-btn)');
+      error('❌ Free button not found (ID: start-free-btn)');
     }
 
     if (premiumBtn) {
-      premiumBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        startTraining('premium');
-      });
-      log('Premium button initialized');
+      // Remove existing listeners to avoid duplicates
+      premiumBtn.removeEventListener('click', handlePremiumClick);
+      premiumBtn.addEventListener('click', handlePremiumClick);
+      log('✅ Premium button initialized');
     } else {
-      error('Premium button not found (ID: start-premium-btn)');
+      error('❌ Premium button not found (ID: start-premium-btn)');
     }
+
+    // Also try data attribute method as backup
+    const onboardingButtons = document.querySelectorAll('.andes-onboarding-btn');
+    log(`Found ${onboardingButtons.length} buttons with .andes-onboarding-btn class`);
+
+    onboardingButtons.forEach((button, index) => {
+      const intent = button.getAttribute('data-intent');
+      if (intent && ['free', 'premium'].includes(intent)) {
+        log(`Button ${index}: intent="${intent}", id="${button.id}"`);
+
+        // Add event listener if not already added
+        if (!button.hasAttribute('data-andes-listener')) {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            log(`🔘 ${intent} button clicked via data attribute!`);
+            startTraining(intent);
+          });
+          button.setAttribute('data-andes-listener', 'true');
+          log(`✅ Event listener attached to ${intent} button via data attribute`);
+        }
+      }
+    });
 
     // Perform health check
     checkSystemHealth().then(isHealthy => {
@@ -260,6 +296,8 @@
     });
 
     // Track page load
+    const freeBtn = document.getElementById('start-free-btn');
+    const premiumBtn = document.getElementById('start-premium-btn');
     trackEvent('onboarding_page_loaded', 'unknown', getLanguage(), {
       hasFreeBtnBtn: !!freeBtn,
       hasPremiumBtn: !!premiumBtn,
@@ -267,11 +305,79 @@
     });
   }
 
-  // Auto-initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
+  // Event handler functions to avoid duplicates
+  function handleFreeClick(e) {
+    e.preventDefault();
+    log('🟢 Free button clicked!');
+    startTraining('free');
+  }
+
+  function handlePremiumClick(e) {
+    e.preventDefault();
+    log('🟡 Premium button clicked!');
+    startTraining('premium');
+  }
+
+  // Auto-initialize with multiple attempts for React compatibility
+  function initializeWithRetry() {
+    log('Starting initialization with retry logic...');
+
+    // Try immediately
     init();
+
+    // Try again after 100ms (for React rendering)
+    setTimeout(() => {
+      log('Retry initialization after 100ms...');
+      init();
+    }, 100);
+
+    // Try again after 500ms (for slower React components)
+    setTimeout(() => {
+      log('Retry initialization after 500ms...');
+      init();
+    }, 500);
+
+    // Try again after 1000ms (final attempt)
+    setTimeout(() => {
+      log('Final initialization attempt after 1000ms...');
+      init();
+    }, 1000);
+
+    // Watch for DOM changes (React route changes)
+    if (typeof MutationObserver !== 'undefined') {
+      const observer = new MutationObserver((mutations) => {
+        let shouldReinit = false;
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node;
+              if (element.id === 'start-free-btn' || element.id === 'start-premium-btn' ||
+                  element.querySelector && (element.querySelector('#start-free-btn') || element.querySelector('#start-premium-btn'))) {
+                shouldReinit = true;
+              }
+            }
+          });
+        });
+
+        if (shouldReinit) {
+          log('DOM changed, reinitializing buttons...');
+          setTimeout(init, 100); // Small delay to ensure DOM is stable
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+
+      log('MutationObserver set up for React compatibility');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeWithRetry);
+  } else {
+    initializeWithRetry();
   }
 
   // Expose global functions for manual calls
@@ -280,5 +386,15 @@
   window.andesConfig = CONFIG;
 
   log('Andes Simplified Onboarding System loaded');
+
+  // Add a global flag to indicate the script has loaded
+  window.andesOnboardingLoaded = true;
+
+  // Dispatch a custom event to notify that the script is ready
+  if (typeof CustomEvent !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('andesOnboardingReady', {
+      detail: { version: '1.0.0', config: CONFIG }
+    }));
+  }
 
 })();

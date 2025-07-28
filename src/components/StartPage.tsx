@@ -184,13 +184,7 @@ const StartPage: React.FC = () => {
     const cleanedPhone = phoneNumber.replace(/\D/g, '');
     const fullPhoneNumber = `${selectedCountry.dialCode}${cleanedPhone}`;
 
-    console.log('Submitting phone number:', {
-      rawInput: phoneNumber,
-      cleanedPhone,
-      dialCode: selectedCountry.dialCode,
-      fullPhoneNumber,
-      country: selectedCountry.name
-    });
+
 
     const { flow, language } = getFlowAndLanguage();
 
@@ -205,12 +199,7 @@ const StartPage: React.FC = () => {
     }
 
     try {
-      console.log('Sending request to backend:', {
-        url: `${API_BASE_URL}/${flow}`,
-        payload: { phoneNumber: fullPhoneNumber, language },
-        flow,
-        language
-      });
+
 
       const response = await fetch(`${API_BASE_URL}/${flow}`, {
         method: 'POST',
@@ -224,7 +213,7 @@ const StartPage: React.FC = () => {
       try {
         data = await response.json();
       } catch (parseError) {
-        console.error('Failed to parse response JSON:', parseError);
+
         setError(isSpanish
           ? 'Error del servidor. Por favor, inténtalo de nuevo más tarde.'
           : 'Server error. Please try again later.'
@@ -233,7 +222,7 @@ const StartPage: React.FC = () => {
         return;
       }
 
-      console.log('Backend response:', { status: response.status, data });
+
 
       if (response.ok) {
         if (flow === 'premium') {
@@ -242,7 +231,7 @@ const StartPage: React.FC = () => {
               ? '¡Perfecto! Activando tu coach premium...'
               : 'Perfect! Activating your premium coach...'
             );
-            console.log('Redirecting to Gumroad:', data.gumroadUrl);
+
             // Small delay to show success message
             setTimeout(() => {
               window.location.href = data.gumroadUrl;
@@ -259,7 +248,7 @@ const StartPage: React.FC = () => {
               ? '¡Excelente! Conectando con tu coach...'
               : 'Excellent! Connecting with your coach...'
             );
-            console.log('Redirecting to WhatsApp:', data.whatsappLink);
+
             // Small delay to show success message
             setTimeout(() => {
               window.location.href = data.whatsappLink;
@@ -296,7 +285,7 @@ const StartPage: React.FC = () => {
         }
       }
     } catch (err) {
-      console.error('Network error:', err);
+
       setError(isSpanish
         ? 'Error de conexión. Verifica tu internet e inténtalo de nuevo.'
         : 'Connection error. Please check your internet and try again.'

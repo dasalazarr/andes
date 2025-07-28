@@ -78,7 +78,7 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
           {content.stories.map((story, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-purple-500/50 hover:shadow-purple-500/20"
+              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-[0_0_15px_rgba(37,211,102,0.15)]"
               onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
             >
               <img
@@ -91,9 +91,11 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
               <div className="p-6">
                 <h3 className="text-2xl font-semibold text-white">{story.name}</h3>
                 <div className="mt-2 flex items-center justify-between">
-                  <p className="text-sm text-gray-400">{story.location}</p>
+                  <p className="text-sm text-gray-400">
+                    {story.location.split(',')[0].trim()}
+                  </p>
                   {story.keyMetric && (
-                    <span className="rounded bg-purple-500/20 px-2 py-1 text-sm font-bold text-purple-300">
+                    <span className="rounded bg-[#25d366]/20 px-2 py-1 text-sm font-bold text-[#25d366]">
                       {story.keyMetric}
                     </span>
                   )}

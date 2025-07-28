@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Rocket, Zap, Check, Icon as LucideIcon } from 'lucide-react';
 import AnimatedSection from "./AnimatedSection";
@@ -41,66 +41,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   const location = useLocation();
   // Use propLanguage if provided, otherwise detect from URL
   const language = propLanguage || (location.pathname.startsWith('/es') ? 'es' : 'en');
-
-  // Simplified onboarding function
-  const startTraining = async (intent: 'free' | 'premium', buttonId: string) => {
-    const button = document.getElementById(buttonId) as HTMLButtonElement;
-    if (!button) return;
-
-    const originalText = button.innerHTML;
-    const loadingText = intent === 'free'
-      ? (language === 'es' ? '🔄 Preparando entrenamiento...' : '🔄 Preparing training...')
-      : (language === 'es' ? '🔄 Activando Premium...' : '🔄 Activating Premium...');
-
-    console.log('🚀 startTraining called:', { intent, language, buttonId });
-
-    try {
-      // Update button state
-      button.innerHTML = loadingText;
-      button.disabled = true;
-      button.classList.add('loading');
-
-      // Call API
-      const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ intent, language })
-      });
-
-      const data = await response.json();
-      console.log('📡 API Response:', data);
-
-      if (data.success && data.whatsappLink) {
-        // Success
-        button.innerHTML = language === 'es'
-          ? '✅ Redirigiendo a WhatsApp...'
-          : '✅ Redirecting to WhatsApp...';
-        button.classList.remove('loading');
-        button.classList.add('success');
-
-        // Redirect after delay
-        setTimeout(() => {
-          window.location.href = data.whatsappLink;
-        }, 1000);
-
-      } else {
-        throw new Error(data.error || 'API returned unsuccessful response');
-      }
-
-    } catch (error) {
-      console.error('❌ Onboarding error:', error);
-
-      // Fallback to /start page
-      button.innerHTML = language === 'es'
-        ? '🔄 Redirigiendo...'
-        : '🔄 Redirecting...';
-      button.classList.remove('loading');
-
-      setTimeout(() => {
-        window.location.href = `/start?flow=${intent}&language=${language}`;
-      }, 500);
-    }
-  };
   
   // Bilingual text
   const translations = {
@@ -167,7 +107,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 data-intent={isPremium ? 'premium' : 'free'}
                 data-language={language}
                 type="button"
-                onClick={() => startTraining(isPremium ? 'premium' : 'free', isPremium ? 'start-premium-btn' : 'start-free-btn')}
                 aria-label={isPremium
                   ? (language === 'es' ? 'Comenzar entrenamiento premium' : 'Start premium training')
                   : (language === 'es' ? 'Comenzar entrenamiento gratuito' : 'Start free training')

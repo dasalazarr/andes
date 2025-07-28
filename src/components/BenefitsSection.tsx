@@ -43,8 +43,10 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ sectionTitle, section
               className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-neutral-900/60 border border-neutral-800 p-6 text-left shadow-lg transition-all duration-300 focus:ring-2 focus:ring-[#25d366] focus:outline-none ${isOpen ? 'border-[#25d366] shadow-[0_0_24px_rgba(37,211,102,0.25)] scale-105 z-10' : 'hover:border-[#25d366]/60 hover:shadow-[0_0_15px_rgba(37,211,102,0.15)]'}`}
             >
               {/* Micro-animación del ícono */}
-              <div className={`mb-4 flex items-center justify-center w-14 h-14 rounded-full bg-[#25d366]/10 transition-all duration-300 ${isOpen ? 'scale-110 bg-[#25d366]/20' : ''}`}>
-                <Icon className={`w-8 h-8 transition-transform duration-300 ${isOpen ? 'text-[#25d366] scale-110' : 'text-[#25d366]'}`} />
+              <div className="w-full flex justify-center">
+                <div className={`mb-4 flex items-center justify-center w-14 h-14 rounded-full bg-[#25d366]/10 transition-all duration-300 ${isOpen ? 'scale-110 bg-[#25d366]/20' : ''}`}>
+                  <Icon className={`w-8 h-8 transition-transform duration-300 ${isOpen ? 'text-[#25d366] scale-110' : 'text-[#25d366]'}`} />
+                </div>
               </div>
               <h3 className="text-xl font-bold mb-2 text-white text-center min-h-[56px]">{benefit.headline}</h3>
               <p className="text-gray-300 text-base text-center min-h-[72px]">{benefit.copy}</p>
