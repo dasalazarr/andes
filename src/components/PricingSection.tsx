@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Rocket, Zap, Check, Icon as LucideIcon } from 'lucide-react';
 import AnimatedSection from "./AnimatedSection";
@@ -41,7 +41,48 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   const location = useLocation();
   // Use propLanguage if provided, otherwise detect from URL
   const language = propLanguage || (location.pathname.startsWith('/es') ? 'es' : 'en');
-  
+
+  // State for button loading
+  const [buttonStates, setButtonStates] = useState<{[key: string]: 'idle' | 'loading' | 'success' | 'error'}>({});
+
+  // Onboarding function with fallback
+  const handleOnboarding = async (intent: 'free' | 'premium') => {
+    const buttonKey = `${intent}-btn`;
+    setButtonStates(prev => ({ ...prev, [buttonKey]: 'loading' }));
+
+    try {
+      // Call the API
+      const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intent, language })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.whatsappLink) {
+          setButtonStates(prev => ({ ...prev, [buttonKey]: 'success' }));
+
+          // Redirect to WhatsApp after brief delay
+          setTimeout(() => {
+            window.location.href = data.whatsappLink;
+          }, 1000);
+          return;
+        }
+      }
+
+      throw new Error('API call failed');
+    } catch (error) {
+      console.error('Onboarding error:', error);
+      setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
+
+      // Fallback to /start page
+      setTimeout(() => {
+        window.location.href = `/start?flow=${intent}&language=${language}`;
+      }, 1500);
+    }
+  };
+
   // Bilingual text
   const translations = {
     popular: {
@@ -103,19 +144,40 @@ const PricingSection: React.FC<PricingSectionProps> = ({
               
               <button
                 id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
-                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'} andes-onboarding-btn`}
+                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'} andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
                 data-intent={isPremium ? 'premium' : 'free'}
                 data-language={language}
                 type="button"
+                onClick={() => handleOnboarding(isPremium ? 'premium' : 'free')}
+                disabled={buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading'}
                 aria-label={isPremium
                   ? (language === 'es' ? 'Comenzar entrenamiento premium' : 'Start premium training')
                   : (language === 'es' ? 'Comenzar entrenamiento gratuito' : 'Start free training')
                 }
               >
-                <span className="btn-text">{plan.ctaText}</span>
-                <span className="btn-icon" style={{ marginLeft: '8px' }}>
-                  {isPremium ? '💎' : '🏃‍♂️'}
-                </span>
+                {buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? (
+                  <span className="btn-text">
+                    {isPremium
+                      ? (language === 'es' ? '🔄 Activando Premium...' : '🔄 Activating Premium...')
+                      : (language === 'es' ? '🔄 Preparando entrenamiento...' : '🔄 Preparing training...')
+                    }
+                  </span>
+                ) : buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'success' ? (
+                  <span className="btn-text">
+                    {language === 'es' ? '✅ Redirigiendo a WhatsApp...' : '✅ Redirecting to WhatsApp...'}
+                  </span>
+                ) : buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'error' ? (
+                  <span className="btn-text">
+                    {language === 'es' ? '🔄 Redirigiendo al formulario...' : '🔄 Redirecting to form...'}
+                  </span>
+                ) : (
+                  <>
+                    <span className="btn-text">{plan.ctaText}</span>
+                    <span className="btn-icon" style={{ marginLeft: '8px' }}>
+                      {isPremium ? '💎' : '🏃‍♂️'}
+                    </span>
+                  </>
+                )}
               </button>
 
               <div className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
