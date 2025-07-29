@@ -39,16 +39,43 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   language: propLanguage
 }) => {
   const location = useLocation();
-  // Use propLanguage if provided, otherwise detect from URL
   const language = propLanguage || (location.pathname.startsWith('/es') ? 'es' : 'en');
-
-  // State for button loading
   const [buttonStates, setButtonStates] = useState<{[key: string]: 'idle' | 'loading' | 'success' | 'error'}>({});
 
-  // Onboarding function with fallback
+  // Add UI state translations
+  const uiTranslations = {
+    loading: {
+      free: {
+        es: '🔄 Preparando entrenamiento...',
+        en: '🔄 Preparing training...'
+      },
+      premium: {
+        es: '🔄 Activando Premium...',
+        en: '🔄 Activating Premium...'
+      }
+    },
+    success: {
+      es: '✅ Redirigiendo a WhatsApp...',
+      en: '✅ Redirecting to WhatsApp...'
+    },
+    error: {
+      es: '🔄 Redirigiendo al formulario...',
+      en: '🔄 Redirecting to form...'
+    }
+  };
+
   const handleOnboarding = async (intent: 'free' | 'premium') => {
     const buttonKey = `${intent}-btn`;
     setButtonStates(prev => ({ ...prev, [buttonKey]: 'loading' }));
+
+    // Debug logging for API call
+    console.log('🚀 API Call Debug:', {
+      intent,
+      language,
+      pathname: location.pathname,
+      buttonKey,
+      apiPayload: { intent, language }
+    });
 
     try {
       const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
@@ -61,7 +88,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         const data = await response.json();
         if (data.success && data.whatsappLink) {
           setButtonStates(prev => ({ ...prev, [buttonKey]: 'success' }));
-          
+
           setTimeout(() => {
             window.location.href = data.whatsappLink;
           }, 1000);
@@ -73,10 +100,56 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     } catch (error) {
       console.error('Onboarding error:', error);
       setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
-      
+
       setTimeout(() => {
         window.location.href = `/start?flow=${intent}&language=${language}`;
       }, 1500);
+    }
+  };
+
+  // Update button rendering logic
+  const getButtonText = (plan: Plan, isPremium: boolean) => {
+    const currentState = buttonStates[`${isPremium ? 'premium' : 'free'}-btn`];
+
+    // Debug logging for language detection
+    if (currentState === 'loading' || currentState === 'success' || currentState === 'error') {
+      console.log('🔍 Button Text Debug:', {
+        currentState,
+        isPremium,
+        language,
+        pathname: location.pathname,
+        translations: uiTranslations
+      });
+    }
+
+    switch (currentState) {
+      case 'loading':
+        return (
+          <span className="btn-text">
+            {uiTranslations.loading[isPremium ? 'premium' : 'free'][language]}
+          </span>
+        );
+      case 'success':
+        return (
+          <span className="btn-text">
+            {uiTranslations.success[language]}
+          </span>
+        );
+      case 'error':
+        return (
+          <span className="btn-text">
+            {uiTranslations.error[language]}
+          </span>
+        );
+      default:
+        return (
+          <>
+            <span className="btn-text">{plan.ctaText}</span>
+            <span className="btn-icon" style={{ marginLeft: '8px' }}>
+              {isPremium ? '💎' : '🏃‍♂️'}
+            </span>
+          </>
+        );
     }
   };
 
@@ -152,29 +225,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                   : (language === 'es' ? 'Comenzar entrenamiento gratuito' : 'Start free training')
                 }
               >
-                {buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? (
-                  <span className="btn-text">
-                    {isPremium
-                      ? (language === 'es' ? '🔄 Activando Premium...' : '🔄 Activating Premium...')
-                      : (language === 'es' ? '🔄 Preparando entrenamiento...' : '🔄 Preparing training...')
-                    }
-                  </span>
-                ) : buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'success' ? (
-                  <span className="btn-text">
-                    {language === 'es' ? '✅ Redirigiendo a WhatsApp...' : '✅ Redirecting to WhatsApp...'}
-                  </span>
-                ) : buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'error' ? (
-                  <span className="btn-text">
-                    {language === 'es' ? '🔄 Redirigiendo al formulario...' : '🔄 Redirecting to form...'}
-                  </span>
-                ) : (
-                  <>
-                    <span className="btn-text">{plan.ctaText}</span>
-                    <span className="btn-icon" style={{ marginLeft: '8px' }}>
-                      {isPremium ? '💎' : '🏃‍♂️'}
-                    </span>
-                  </>
-                )}
+                {getButtonText(plan, isPremium)}
               </button>
 
               <div className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
