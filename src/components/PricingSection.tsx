@@ -68,14 +68,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     const buttonKey = `${intent}-btn`;
     setButtonStates(prev => ({ ...prev, [buttonKey]: 'loading' }));
 
-    // Debug logging for API call
-    console.log('🚀 API Call Debug:', {
-      intent,
-      language,
-      pathname: location.pathname,
-      buttonKey,
-      apiPayload: { intent, language }
-    });
+
 
     try {
       const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
@@ -111,16 +104,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   const getButtonText = (plan: Plan, isPremium: boolean) => {
     const currentState = buttonStates[`${isPremium ? 'premium' : 'free'}-btn`];
 
-    // Debug logging for language detection
-    if (currentState === 'loading' || currentState === 'success' || currentState === 'error') {
-      console.log('🔍 Button Text Debug:', {
-        currentState,
-        isPremium,
-        language,
-        pathname: location.pathname,
-        translations: uiTranslations
-      });
-    }
+
 
     switch (currentState) {
       case 'loading':

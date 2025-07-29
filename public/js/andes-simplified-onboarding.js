@@ -295,9 +295,7 @@
       }
     });
 
-    // Track page load
-    const freeBtn = document.getElementById('start-free-btn');
-    const premiumBtn = document.getElementById('start-premium-btn');
+    // Track page load (reuse existing button references)
     trackEvent('onboarding_page_loaded', 'unknown', getLanguage(), {
       hasFreeBtnBtn: !!freeBtn,
       hasPremiumBtn: !!premiumBtn,
