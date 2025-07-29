@@ -51,7 +51,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     setButtonStates(prev => ({ ...prev, [buttonKey]: 'loading' }));
 
     try {
-      // Call the API
       const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,8 +61,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         const data = await response.json();
         if (data.success && data.whatsappLink) {
           setButtonStates(prev => ({ ...prev, [buttonKey]: 'success' }));
-
-          // Redirect to WhatsApp after brief delay
+          
           setTimeout(() => {
             window.location.href = data.whatsappLink;
           }, 1000);
@@ -75,8 +73,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     } catch (error) {
       console.error('Onboarding error:', error);
       setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
-
-      // Fallback to /start page
+      
       setTimeout(() => {
         window.location.href = `/start?flow=${intent}&language=${language}`;
       }, 1500);
