@@ -77,7 +77,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         </div>
 
-        {/* Content Container - ensure it's above the video and overlay */}
+{/* Content Container - ensure it's above the video and overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center z-20">
           {/* Badges de confianza */}
           <div className="flex flex-wrap justify-center items-center gap-3 mb-6" role="group" aria-label={language === 'es' ? 'Badges de confianza' : 'Trust badges'}>

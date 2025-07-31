@@ -37,11 +37,11 @@ const SeoManager = lazy(() => import("./SeoManager"));
 import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent, testimonialsContent } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
+import { useLanguageDetection } from "../hooks/useLanguageDetection";
 
 const Home = () => {
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
-  const path = window.location.pathname;
-  const language = path.startsWith('/es') ? 'es' : 'en';
+  const { currentLanguage: language } = useLanguageDetection();
   // Lógica para A/B testing - alternar entre variantes
   const [abVariant] = useState<'A' | 'B'>(() => {
     // Simular A/B testing - en producción usar analytics
@@ -98,7 +98,6 @@ const Home = () => {
   };
 
   const handlePlanClick = (plan: any) => {
-    const language = window.location.pathname.startsWith('/es') ? 'es' : 'en';
     const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
     
     if (plan.isLeadMagnet) {
