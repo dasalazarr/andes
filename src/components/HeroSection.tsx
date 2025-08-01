@@ -8,6 +8,7 @@ interface HeroSectionProps {
   subtitle: string;
   ctaPrimaryText: string;
   ctaSecondaryText: string;
+  keyBenefits: string;
   onPrimaryClick: () => void;
   onSecondaryClick: () => void;
   videoSrc: string;
@@ -15,7 +16,7 @@ interface HeroSectionProps {
   abVariant?: 'A' | 'B';
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryText, ctaSecondaryText, onPrimaryClick, onSecondaryClick, videoSrc, language, abVariant = 'A' }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryText, ctaSecondaryText, keyBenefits, onPrimaryClick, onSecondaryClick, videoSrc, language, abVariant = 'A' }) => {
   const comp = useRef<HTMLDivElement>(null);
 
   // Lógica para manejar variantes A/B
@@ -73,54 +74,55 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
             {/* Fallback image */}
             <img src={`${videoSrc}.webp`} alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'} className="w-full h-full object-cover" />
           </video>
-          {/* Overlay oscuro para mejorar contraste */}
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          {/* Overlay oscuro para mejorar contraste - 50% dark overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+          {/* Gradient overlay at bottom for smooth transition to next section */}
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
         </div>
 
 {/* Content Container - ensure it's above the video and overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center z-20">
           {/* Badges de confianza */}
           <div className="flex flex-wrap justify-center items-center gap-3 mb-6" role="group" aria-label={language === 'es' ? 'Badges de confianza' : 'Trust badges'}>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
-              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
+              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
               {language === 'es' ? '+100 corredores' : '+100 runners'}
             </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
-              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
+              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
               {language === 'es' ? '98% éxito' : '98% success rate'}
             </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30">
-              <span className="w-2 h-2 bg-[#25d366] rounded-full mr-2"></span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
+              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
               {language === 'es' ? 'Coaches certificados + IA' : 'Certified coaches + AI'}
             </span>
           </div>
 
-          <h1 id="title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 whitespace-pre-line leading-tight">
+          <h1 id="title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 whitespace-pre-line leading-tight">
             {getTitle()}
           </h1>
 
-          <p id="subtitle" className="text-xl text-white/90 mb-10 max-w-4xl leading-relaxed">
+          <p id="subtitle" className="text-2xl text-[#27e97c] mb-8 font-medium">
             {subtitle}
           </p>
 
-          <div id="buttons" className="flex flex-col sm:flex-row sm:justify-center gap-6 w-full max-w-lg mx-auto">
+          <div id="buttons" className="w-full max-w-sm mx-auto mb-6">
             <Button
               size="lg"
-              className="w-full sm:w-auto px-8 py-4 font-semibold rounded-lg bg-[#25d366] text-[#f4f7f8] hover:bg-[#25d366]/90 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 shadow-lg hover:shadow-[#25d366]/25"
+              className="w-full px-8 py-4 text-lg font-semibold rounded-lg bg-[#27e97c] text-black hover:bg-[#27e97c]/90 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#27e97c] focus:ring-offset-2 shadow-lg hover:shadow-[#27e97c]/25 flex items-center justify-center"
               onClick={onPrimaryClick}
-              aria-label={language === 'es' ? 'Ver planes de entrenamiento' : 'View training plans'}
+              aria-label={language === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp'}
             >
+              <span className="mr-2">▶</span>
               {ctaPrimaryText}
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto px-8 py-4 font-semibold rounded-lg border-2 border-[#006b5b] bg-transparent text-white hover:bg-[#006b5b] hover:text-white transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#006b5b] focus:ring-offset-2"
-              onClick={onSecondaryClick}
-              aria-label={language === 'es' ? 'Unirse a la comunidad' : 'Join community'}
-            >
-              {ctaSecondaryText}
-            </Button>
+          </div>
+
+          {/* Key Benefits Micro-copy */}
+          <div id="key-benefits" className="text-center mb-8">
+            <p className="text-white/80 text-sm font-medium">
+              {keyBenefits}
+            </p>
           </div>
         </div>
       </div>

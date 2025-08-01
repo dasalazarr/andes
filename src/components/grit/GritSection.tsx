@@ -78,16 +78,38 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
           {content.stories.map((story, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-[0_0_15px_rgba(37,211,102,0.15)]"
+              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-xl"
               onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
             >
-              <img
-                src={runnerImages[story.imageKey]}
-                alt={story.name}
-                className="h-64 w-full object-cover object-top grayscale transition-all duration-300 group-hover:grayscale-0"
-                loading="lazy"
-              />
-              
+              {/* Image with overlay and hover effects */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={runnerImages[story.imageKey]}
+                  alt={story.name}
+                  className="h-full w-full object-cover object-top grayscale transition-all duration-300 group-hover:grayscale-0 group-hover:brightness-110"
+                  loading="lazy"
+                />
+                {/* 40% black overlay */}
+                <div className="absolute inset-0 bg-black/40 transition-opacity duration-300"></div>
+
+                {/* Hover CTA with Single Key KPI */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-out">
+                  <div className="bg-black/60 backdrop-blur-sm rounded-lg p-6 text-center text-white border border-[#25d366]/30 transform scale-95 group-hover:scale-100 transition-transform duration-150 ease-out">
+                    {/* KPI Label */}
+                    <div className="text-[#25d366] font-semibold text-sm uppercase tracking-wide mb-3">
+                      {language === 'es' ? 'KPI clave' : 'Key KPI'}
+                    </div>
+
+                    {/* Single Key Performance Indicator */}
+                    {(story as any).keyKpi && (
+                      <div className="text-white font-bold text-xl">
+                        {(story as any).keyKpi}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div className="p-6">
                 <h3 className="text-2xl font-semibold text-white">{story.name}</h3>
                 <div className="mt-2 flex items-center justify-between">

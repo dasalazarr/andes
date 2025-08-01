@@ -84,3 +84,83 @@
     color: hsl(var(--foreground));
   }
 }
+
+/* Custom animations for benefit cards */
+@keyframes click-bounce {
+  0% { transform: scale(1) translateY(0); }
+  25% { transform: scale(0.95) translateY(2px); }
+  50% { transform: scale(1.05) translateY(-4px); }
+  75% { transform: scale(0.98) translateY(1px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes click-wiggle {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-3deg) scale(1.02); }
+  50% { transform: rotate(3deg) scale(1.05); }
+  75% { transform: rotate(-2deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes click-pulse-scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.animate-click-bounce {
+  animation: click-bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-click-wiggle {
+  animation: click-wiggle 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-click-pulse-scale {
+  animation: click-pulse-scale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Unified background flow utilities */
+.section-separator {
+  position: relative;
+}
+
+.section-separator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(39, 233, 124, 0.3), transparent);
+}
+
+/* Subtle texture overlay for visual interest while maintaining black background */
+.black-texture {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(39, 233, 124, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(39, 233, 124, 0.02) 0%, transparent 50%),
+    #000000;
+}
+
+/* GRIT Stories hover animations */
+@keyframes grit-cta-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.grit-cta-hover {
+  animation: grit-cta-appear 150ms ease-out;
+}
+
+/* Enhanced brightness filter for hover */
+.grit-image-hover {
+  filter: brightness(1.1) grayscale(0);
+}

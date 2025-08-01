@@ -15,15 +15,15 @@ const WHATSAPP_CONFIG = {
   baseUrl: 'https://wa.me'
 };
 
-// Bilingual message templates
+// Bilingual message templates - Updated for marathon focus
 const MESSAGE_TEMPLATES = {
   free: {
-    es: '¡Hola! Quiero comenzar mi entrenamiento gratuito de running con Andes 🏃‍♂️',
-    en: 'Hi! I want to start my free running training with Andes 🏃‍♂️'
+    es: 'Hola Andes 👋, quiero mi plan para correr mi primera maratón.',
+    en: 'Hi Andes 👋, I\'d like my plan to run my first marathon.'
   },
   premium: {
-    es: '¡Hola! Quiero comenzar con Andes Premium ($9.99/mes) para mi entrenamiento de running 🏃‍♂️💎',
-    en: 'Hi! I want to start with Andes Premium ($9.99/month) for my running training 🏃‍♂️💎'
+    es: 'Hola Andes 👋, quiero mi plan para correr mi primera maratón.',
+    en: 'Hi Andes 👋, I\'d like my plan to run my first marathon.'
   }
 };
 

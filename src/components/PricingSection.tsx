@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Rocket, Zap, Check, Icon as LucideIcon } from 'lucide-react';
+import { Rocket, Zap } from 'lucide-react';
 import AnimatedSection from "./AnimatedSection";
 
 // Define a type for the icon components for cleaner mapping
@@ -161,44 +161,83 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         )}
       </AnimatedSection>
 
-      <AnimatedSection stagger className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <AnimatedSection stagger className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {plans.map((plan, index) => {
           const IconComponent = iconComponents[plan.iconName];
-          const isPremium = plan.buttonVariant === 'primary'; // Corresponds to the second card (index 1)
+          const isPremium = plan.buttonVariant === 'primary';
+          const isFree = index === 0;
 
-          let cardClasses = "p-8 rounded-2xl flex flex-col relative border border-[#1a1a1a] bg-neutral-950/90 shadow-none backdrop-blur-sm transition-all duration-300 hover:border-[#25d366]/60";
-          if (index === 0) {
-            cardClasses += ""; // Gratis: fondo neutro
+          let cardClasses = `p-6 lg:p-8 rounded-2xl flex flex-col relative transition-all duration-300 hover:-translate-y-1 min-h-[600px]`;
+
+          if (isFree) {
+            cardClasses += " border border-[#1a1a1a] bg-neutral-950/90 hover:border-[#27e97c]/40 hover:shadow-lg";
           } else {
-            cardClasses += " bg-gradient-to-br from-[#006b5b]/80 via-[#25d366]/40 to-[#000]/80 ring-1 ring-[#25d366]/10 hover:backdrop-blur-md hover:shadow-[0_0_32px_0_rgba(37,211,102,0.25)] hover:scale-[1.02]";
+            cardClasses += " bg-gradient-to-br from-white to-green-50 border-2 border-[#27e97c] shadow-xl hover:shadow-2xl hover:scale-105 text-gray-900 md:transform md:scale-105";
           }
 
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={cardClasses + (isPremium ? ' premium-card' : '')}
             >
               {plan.isPopular && (
-                <div className="absolute top-0 right-0 -mt-3 mr-3 bg-[#25d366] text-black text-xs font-semibold px-3 py-1 rounded-full border border-[#006b5b]">
-                  {translations.popular[language as keyof typeof translations.popular]}
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
+                  {(plan as any).popularBadge || translations.popular[language as keyof typeof translations.popular]}
                 </div>
               )}
 
-              <div className="flex items-center mb-5">
-                {IconComponent && <IconComponent className={`w-7 h-7 mr-3 ${isPremium ? 'text-[#25d366]' : 'text-[#006b5b]'}`} />}
-                <h3 className="text-2xl font-semibold text-white">{plan.name}</h3>
+              {/* Add top padding for popular badge */}
+              <div className={plan.isPopular ? "pt-4" : ""}>
+                {/* Urgency Text */}
+                {(plan as any).urgencyText && (
+                  <div className="text-center mb-4">
+                    <span className={`font-semibold text-sm ${isPremium ? 'text-red-600' : 'text-red-400'}`}>
+                      {(plan as any).urgencyText}
+                    </span>
+                  </div>
+                )}
               </div>
 
+              <div className="mb-5">
+                <div className="flex items-center gap-3">
+                  {IconComponent && (
+                    <div className="flex-shrink-0">
+                      <IconComponent className={`w-6 h-6 ${isPremium ? 'text-[#27e97c]' : 'text-[#27e97c]'}`} />
+                    </div>
+                  )}
+                  <h3 className={`text-lg lg:text-xl font-bold ${isPremium ? 'text-gray-900' : 'text-white'} leading-tight break-words`}>
+                    {plan.name}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Enhanced Pricing Display */}
               <div className="mb-6">
-                <span className="text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">{plan.price}</span>
-                {plan.priceDetail && <span className="text-lg text-white ml-1 drop-shadow-sm">{plan.priceDetail}</span>}
+                <div className="flex items-baseline">
+                  <span className={`text-4xl lg:text-5xl font-extrabold ${isPremium ? 'text-gray-900' : 'text-white'} tracking-tight`}>
+                    {plan.price}
+                  </span>
+                  {plan.priceDetail && (
+                    <span className={`text-lg ${isPremium ? 'text-gray-700' : 'text-white'} ml-1`}>
+                      {plan.priceDetail}
+                    </span>
+                  )}
+                </div>
+
+
               </div>
 
-              <p className="text-white mb-8 text-base min-h-[40px] leading-relaxed drop-shadow-sm">{plan.description}</p>
+              <p className={`${isPremium ? 'text-gray-700' : 'text-white'} mb-6 text-base leading-relaxed`}>
+                {plan.description}
+              </p>
               
               <button
                 id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
-                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 mb-8 border border-[#25d366] bg-transparent text-[#25d366] focus:outline-none focus:ring-2 focus:ring-[#25d366] focus:ring-offset-2 ${isPremium ? 'premium-btn' : 'border-opacity-40'} andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
+                className={`w-full font-bold py-4 px-6 rounded-lg transition-all duration-200 mb-4 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:-translate-y-0.5 ${
+                  isPremium
+                    ? 'bg-gradient-to-r from-[#27e97c] to-green-500 text-black hover:from-green-500 hover:to-[#27e97c] shadow-lg hover:shadow-xl focus:ring-[#27e97c]'
+                    : 'border-2 border-[#27e97c] bg-transparent text-[#27e97c] hover:bg-[#27e97c] hover:text-black focus:ring-[#27e97c]'
+                } andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
                 data-intent={isPremium ? 'premium' : 'free'}
                 data-language={language}
                 type="button"
@@ -212,16 +251,37 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 {getButtonText(plan, isPremium)}
               </button>
 
+              {/* CTA Disclaimer */}
+              {(plan as any).ctaDisclaimer && (
+                <p className={`text-center text-sm ${isPremium ? 'text-gray-600' : 'text-gray-400'} mb-4`}>
+                  {(plan as any).ctaDisclaimer}
+                </p>
+              )}
+
+              {/* Guarantee */}
+              {(plan as any).guarantee && (
+                <div className="text-center mb-4">
+                  <span className={`text-sm font-medium ${isPremium ? 'text-gray-700' : 'text-gray-300'}`}>
+                    {(plan as any).guarantee}
+                  </span>
+                </div>
+              )}
+
               <div className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {translations.whatsIncluded[language as keyof typeof translations.whatsIncluded]}
               </div>
-              <ul className="space-y-2 flex-grow text-sm pl-1">
-                {plan.features.map((feature, fIndex) => (
-                  <li key={fIndex} className="text-white flex items-center gap-2 drop-shadow-sm">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#25d366] opacity-70"></span>
-                    {typeof feature === 'string' ? feature.replace(/^[^a-zA-Z0-9]+/,'') : feature}
-                  </li>
-                ))}
+              <ul className="space-y-3 flex-grow text-sm">
+                {plan.features.map((feature, fIndex) => {
+                  const isHighlighted = isPremium && (fIndex === 0 || fIndex === 1); // Highlight first two features for premium
+                  return (
+                    <li key={fIndex} className={`flex items-start gap-3 ${isPremium ? 'text-gray-700' : 'text-white'} ${isHighlighted ? 'font-semibold' : ''}`}>
+                      <span className="inline-block w-2 h-2 rounded-full bg-[#27e97c] mt-1.5 flex-shrink-0"></span>
+                      <span className="leading-relaxed break-words overflow-hidden">
+                        {typeof feature === 'string' ? feature : feature}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           );
@@ -233,11 +293,11 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   }
   .premium-btn:hover,
   .premium-card:hover .premium-btn {
-    background: #25d366 !important;
+    background: #27e97c !important;
     color: #000 !important;
-    box-shadow: 0 2px 16px 0 rgba(37,211,102,0.18);
+    box-shadow: 0 2px 16px 0 rgba(39,233,124,0.18);
     transform: scale(1.04);
-    border-color: #25d366;
+    border-color: #27e97c;
     z-index: 2;
   }
 
@@ -253,9 +313,9 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   }
 
   .andes-onboarding-btn.success {
-    background: #25d366 !important;
+    background: #27e97c !important;
     color: #000 !important;
-    border-color: #25d366;
+    border-color: #27e97c;
   }
 
   .andes-onboarding-btn.error {

@@ -34,7 +34,7 @@ const ArticleModal = lazy(() => import('./ArticleModal'));
 // Non-critical components
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
-import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent, testimonialsContent } from "../data/content";
+import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent, testimonialsContent, howItWorksContent, liveDemoContent, leadMagnetContent } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
@@ -133,6 +133,7 @@ const Home = () => {
           subtitle={heroContent[language].subtitle}
           ctaPrimaryText={heroContent[language].ctaPrimaryText}
           ctaSecondaryText={heroContent[language].ctaSecondaryText}
+          keyBenefits={heroContent[language].keyBenefits}
           onPrimaryClick={scrollToPricing}
           onSecondaryClick={scrollToCommunity}
           videoSrc={heroContent[language].videoSrc}
@@ -140,10 +141,8 @@ const Home = () => {
           abVariant={abVariant}
         />
 
-
-
-        <section id="benefits" className="py-16 md:py-24 bg-black text-gray-200">
-          <div className="container mx-auto px-4">
+        <section id="benefits" className="relative py-16 md:py-24 bg-black text-gray-200">
+          <div className="container mx-auto px-4 relative z-0">
             <AnimatedSection>
               <Suspense fallback={<div className="text-center p-12">Cargando beneficios...</div>}>
                 <BenefitsSection
@@ -156,8 +155,25 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Secondary CTA Section - Below the Fold */}
+        <section className="relative py-16 bg-black section-separator">
+          <div className="container mx-auto px-4">
+            <AnimatedSection className="text-center">
+              <div className="max-w-md mx-auto">
+                <button
+                  onClick={scrollToPricing}
+                  className="w-full px-8 py-4 text-lg font-semibold rounded-lg bg-transparent border-2 border-[#27e97c] text-[#27e97c] hover:bg-[#27e97c] hover:text-black transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#27e97c] focus:ring-offset-2"
+                  aria-label={language === 'es' ? 'Quiero mi plan gratis' : 'I want my free plan'}
+                >
+                  {heroContent[language].ctaSecondaryText}
+                </button>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
         {/* Testimonios Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black via-gray-950 to-black">
+        <section className="relative py-16 md:py-24 bg-black section-separator">
           <div className="container mx-auto px-4">
             <AnimatedSection className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
@@ -172,15 +188,27 @@ const Home = () => {
             </AnimatedSection>
             <AnimatedSection stagger>
               <div className="w-full">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
                   {testimonialsContent[language].testimonials.map((testimonial, index) => (
-                    <div key={index} className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-8 text-center transition-all duration-300 hover:border-[#25d366]/50 hover:bg-neutral-800/60 hover:shadow-[0_0_20px_rgba(37,211,102,0.1)] group">
-                      {/* Avatar con gradiente mejorado */}
-                      <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <span className="text-white font-bold text-xl">{testimonial.author.charAt(0)}</span>
+                    <div key={index} className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-8 text-center transition-all duration-300 hover:border-[#25d366]/50 hover:bg-neutral-800/60 hover:shadow-[0_0_20px_rgba(37,211,102,0.1)] group flex flex-col h-full">
+                      {/* Avatar con foto real */}
+                      <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 border-2 border-[#25d366]/30">
+                        {(testimonial as any).image ? (
+                          <img
+                            src={(testimonial as any).image}
+                            alt={testimonial.author}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-[#006b5b] to-[#25d366] flex items-center justify-center">
+                            <span className="text-white font-bold text-xl">{testimonial.author.charAt(0)}</span>
+                          </div>
+                        )}
                       </div>
-                      {/* Quote con comillas decorativas */}
-                      <div className="relative mb-6">
+
+                      {/* Quote con comillas decorativas - flex-grow para ocupar espacio disponible */}
+                      <div className="relative mb-6 flex-grow flex flex-col justify-center">
                         <svg className="w-8 h-8 text-[#25d366]/30 absolute -top-2 -left-2" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                         </svg>
@@ -188,14 +216,18 @@ const Home = () => {
                           {testimonial.quote}
                         </blockquote>
                       </div>
-                      {/* Autor y detalles */}
-                      <div className="border-t border-neutral-700 pt-4">
+
+                      {/* Autor y detalles - siempre al final */}
+                      <div className="border-t border-neutral-700 pt-4 mt-auto">
                         <div className="text-[#25d366] font-semibold text-lg mb-1">{testimonial.author}</div>
-                        <div className="text-gray-500 text-sm">{testimonial.detail}</div>
-                      </div>
-                      {/* Estrellas de rating */}
-                      <div className="flex justify-center mt-4">
-                        <span className="text-[#25d366] text-lg">★★★★★</span>
+                        <div className="text-gray-500 text-sm mb-2">{testimonial.detail}</div>
+                        {/* Resultado cuantitativo en nueva línea y negrita */}
+                        <div className="text-white font-bold text-base mb-3">{(testimonial as any).result}</div>
+
+                        {/* Estrellas de rating */}
+                        <div className="flex justify-center">
+                          <span className="text-[#25d366] text-lg">★★★★★</span>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -229,9 +261,8 @@ const Home = () => {
             <GritSection ref={gritSectionRef} language={language} onStoryClick={openGritStoryModal} content={gritStoriesContent[language]} />
           </Suspense>
         </section>
-        
-        <section ref={pricingSectionRef}>
-          <section ref={pricingSectionRef} className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-950 text-gray-100">
+
+        <section ref={pricingSectionRef} className="py-16 md:py-24 bg-black text-gray-100 section-separator">
           <div className="container mx-auto px-4">
             <AnimatedSection>
               <Suspense fallback={<div className="text-center p-12">Cargando planes de precios...</div>}>
@@ -257,9 +288,8 @@ const Home = () => {
             </AnimatedSection>
           </div>
         </section>
-        </section>
 
-        <section id="training-plans" className="py-16 md:py-24 bg-gradient-to-b from-gray-950 to-black">
+        <section id="training-plans" className="py-16 md:py-24 bg-black section-separator">
           <div className="container mx-auto px-4">
             <AnimatedSection className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">

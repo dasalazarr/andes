@@ -9,6 +9,7 @@ describe('HeroSection Component', () => {
     subtitle: 'Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.',
     ctaPrimaryText: 'Get Your Beta Personalized Plan',
     ctaSecondaryText: 'Join Community',
+    keyBenefits: '100% personalized plans • Instant feedback • Daily motivation',
     onPrimaryClick: vi.fn(),
     onSecondaryClick: vi.fn(),
     videoSrc: '/videos/hero-video.mp4',

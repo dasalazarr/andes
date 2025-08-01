@@ -7,26 +7,75 @@ import { articleImages } from '../config/images';
 export const heroContent = {
   es: {
     title: {
-      variantA: "Tu Primer Maratón:\nGuía Inteligente con IA para Principiantes",
-      variantB: "Termina tu Primer Maratón\nSin Lesiones, Con IA"
+      variantA: "Conquista tu primera maratón sin lesiones",
+      variantB: "Conquista tu primera maratón sin lesiones"
     },
-    subtitle: "Andes utiliza inteligencia artificial para crear y adaptar continuamente un plan a tu medida, ofreciéndote guía experta y comunidad de apoyo para alcanzar tus metas de maratón.",
-    ctaPrimaryText: 'Ver Nuestros Planes',
-    ctaSecondaryText: "Únete a Nuestra Comunidad",
+    subtitle: "Tu coach inteligente 24/7 por WhatsApp",
+    ctaPrimaryText: 'Empieza gratis ahora',
+    ctaSecondaryText: "Quiero mi plan gratis",
+    keyBenefits: "Planes 100% personalizados • Feedback inmediato • Motivación diaria",
     videoSrc: '/videos/video1', // Extension will be handled in component
   },
   en: {
     title: {
-      variantA: "Your First Marathon:\nAI-Powered Guide for Beginners",
-      variantB: "Complete Your First Marathon\nInjury-Free, With AI"
+      variantA: "Crush your first marathon—injury-free",
+      variantB: "Crush your first marathon—injury-free"
     },
-    subtitle: "Andes uses artificial intelligence to tailor and continually adapt your training plan, offering expert guidance and a supportive community to achieve your marathon goals.",
-    ctaPrimaryText: 'See Our Plans',
-    ctaSecondaryText: "Join Our Community",
+    subtitle: "Your 24/7 smart coach on WhatsApp",
+    ctaPrimaryText: 'Start free now',
+    ctaSecondaryText: "I want my free plan",
+    keyBenefits: "100% personalized plans • Instant feedback • Daily motivation",
     videoSrc: '/videos/video2', // Extension will be handled in component
   },
 };
 
+// How It Works Section
+export const howItWorksContent = {
+  es: {
+    sectionTitle: "Cómo Funciona",
+    steps: [
+      "Responde 3 preguntas en WhatsApp.",
+      "Recibe tu plan en 1 minuto.",
+      "Ajustamos cada día según tu progreso."
+    ]
+  },
+  en: {
+    sectionTitle: "How It Works",
+    steps: [
+      "Answer 3 quick WhatsApp questions.",
+      "Get your plan in 1 minute.",
+      "We adapt it daily to your progress."
+    ]
+  }
+};
+
+// Live Demo Content
+export const liveDemoContent = {
+  es: {
+    chatBubble: "👟 ¡Excelente 5 K! Mañana 30 min suaves. ¿Listo?",
+    liveIndicators: {
+      runnersTraining: "6 782 corredores entrenando hoy",
+      goalsCrushed: "3 500 metas logradas ⭐"
+    }
+  },
+  en: {
+    chatBubble: "👟 Great 5 K! Tomorrow 30 min easy. Ready?",
+    liveIndicators: {
+      runnersTraining: "6,782 runners training today",
+      goalsCrushed: "3,500 goals crushed ⭐"
+    }
+  }
+};
+
+// Lead Magnet Content
+export const leadMagnetContent = {
+  es: {
+    title: "Descarga gratis: '10 errores que causan lesiones antes del KM 30'"
+  },
+  en: {
+    title: "Free download: '10 Mistakes That Cause Injuries Before Mile 20'"
+  }
+};
 
 export const benefitsContent = {
   es: {
@@ -34,23 +83,23 @@ export const benefitsContent = {
     sectionSubtitle: "Tecnología, ciencia y coaching de élite para transformar tu entrenamiento. Descubre por qué somos diferentes.",
     benefits: [
       {
-        icon: FaBrain,
-        headline: "Tu Científico Personal de Running",
-        copy: "Nuestra IA analiza 47 biomarcadores cada día para ajustar tu entrenamiento. Ningún día es igual, porque ningún corredor es igual.",
-        proof: "Usado por más de 500 atletas élite",
-        testimonial: "Sentí que el plan se adaptaba a mi cuerpo cada semana. — Laura, maratonista",
-      },
-      {
         icon: FaShieldAlt,
-        headline: "98% de Éxito Sin Lesiones",
-        copy: "Nuestro algoritmo exclusivo predice lesiones y previene el sobreentrenamiento antes de que ocurra. Tu cuerpo nos dice cuándo avanzar y cuándo recuperar.",
+        headline: "Evita lesiones desde el km 1",
+        copy: "Prevención basada en VDOT y feedback diario.",
         proof: "Más de 15,000 maratones completados sin lesiones",
         testimonial: "Por primera vez terminé una maratón sin molestias. — Carlos, corredor amateur",
       },
       {
+        icon: FaBrain,
+        headline: "Planes que evolucionan contigo",
+        copy: "Saltaste un día, se ajusta mañana.",
+        proof: "Usado por más de 500 atletas élite",
+        testimonial: "Sentí que el plan se adaptaba a mi cuerpo cada semana. — Laura, maratonista",
+      },
+      {
         icon: FaMedal,
-        headline: "Coaching Olímpico, Accesible",
-        copy: "Métodos de entrenamiento usados por coaches olímpicos, adaptados para corredores de todos los días. Obtén experiencia de clase mundial sin el precio de élite.",
+        headline: "Respuestas en <60 s, 24/7",
+        copy: "Respuestas en <2 s vía WhatsApp.",
         proof: "Desarrollado junto a 3 coaches olímpicos",
         testimonial: "Nunca imaginé tener acceso a este nivel de coaching. — Sofía, runner recreativa",
       },
@@ -61,23 +110,23 @@ export const benefitsContent = {
     sectionSubtitle: "Technology, science, and elite coaching to transform your training. Discover why we’re different.",
     benefits: [
       {
-        icon: FaBrain,
-        headline: "Your Personal Running Scientist",
-        copy: "Our AI analyzes 47 biomarkers daily to adjust your training. No two days are the same because no two runners are the same.",
-        proof: "Used by 500+ elite athletes",
-        testimonial: "I felt the plan adapted to my body every week. — Laura, marathoner",
-      },
-      {
         icon: FaShieldAlt,
-        headline: "98% Injury-Free Success Rate",
-        copy: "Our proprietary injury prediction algorithm prevents overtraining before it happens. Your body tells us when to push and when to recover.",
+        headline: "Avoid injuries from km 1",
+        copy: "VDOT-based prevention & daily feedback.",
         proof: "15,000+ injury-free marathons completed",
         testimonial: "For the first time, I finished a marathon pain-free. — Carlos, amateur runner",
       },
       {
+        icon: FaBrain,
+        headline: "Plans that evolve with you",
+        copy: "Skip a run? We auto-adjust.",
+        proof: "Used by 500+ elite athletes",
+        testimonial: "I felt the plan adapted to my body every week. — Laura, marathoner",
+      },
+      {
         icon: FaMedal,
-        headline: "Olympic-Level Coaching Made Simple",
-        copy: "Training methods used by Olympic coaches, adapted for everyday runners. Get world-class expertise without the world-class price.",
+        headline: "Answers in <60 s, 24/7",
+        copy: "Replies <2 s on WhatsApp.",
         proof: "Developed with 3 Olympic coaches",
         testimonial: "I never imagined having access to this level of coaching. — Sofía, recreational runner",
       },
@@ -92,17 +141,23 @@ export const testimonialsContent = {
       {
         quote: "Completé mi primera maratón en 4:15 sin lesiones. El plan se adaptó perfectamente a mi horario de trabajo y el coaching 24/7 me mantuvo motivado durante los momentos difíciles.",
         author: "Ana Pérez",
-        detail: "Maratonista, Ciudad de México • 42.2km en 4:15",
+        detail: "Maratonista, Ciudad de México",
+        result: "42.2km en 4:15",
+        image: "/images/testimonials/ana-perez.jpg",
       },
       {
         quote: "Mejoré mi tiempo de 10K de 52 a 45 minutos en solo 3 meses. Los consejos de nutrición y el análisis de mi técnica fueron clave para este progreso.",
         author: "Carlos López",
-        detail: "Corredor de 10K, Santiago de Chile • -7 min en 3 meses",
+        detail: "Corredor de 10K, Santiago de Chile",
+        result: "-7 min en 3 meses",
+        image: "/images/testimonials/carlos-lopez.jpg",
       },
       {
         quote: "Empecé desde cero y ahora corro 5K sin problemas. La comunidad de WhatsApp me dio el apoyo que necesitaba para mantener la constancia.",
         author: "Sofía Gómez",
-        detail: "Principiante Feliz, Bogotá • 0 a 5K en 8 semanas",
+        detail: "Principiante Feliz, Bogotá",
+        result: "0 a 5K en 8 semanas",
+        image: "/images/testimonials/sofia-gomez.jpg",
       },
     ],
   },
@@ -112,17 +167,23 @@ export const testimonialsContent = {
       {
         quote: "I completed my first marathon in 4:15 injury-free. The plan adapted perfectly to my work schedule and the 24/7 coaching kept me motivated during tough moments.",
         author: "Ana Perez",
-        detail: "Marathon Runner, Mexico City • 42.2km in 4:15",
+        detail: "Marathon Runner, Mexico City",
+        result: "42.2km in 4:15",
+        image: "/images/testimonials/ana-perez.jpg",
       },
       {
         quote: "I improved my 10K time from 52 to 45 minutes in just 3 months. The nutrition tips and technique analysis were key to this progress.",
         author: "Carlos Lopez",
-        detail: "10K Runner, Santiago, Chile • -7 min in 3 months",
+        detail: "10K Runner, Santiago, Chile",
+        result: "-7 min in 3 months",
+        image: "/images/testimonials/carlos-lopez.jpg",
       },
       {
         quote: "I started from scratch and now I run 5K without problems. The WhatsApp community gave me the support I needed to stay consistent.",
         author: "Sofia Gomez",
-        detail: "Happy Beginner, Bogota • 0 to 5K in 8 weeks",
+        detail: "Happy Beginner, Bogota",
+        result: "0 to 5K in 8 weeks",
+        image: "/images/testimonials/sofia-gomez.jpg",
       },
     ],
   },
@@ -134,17 +195,34 @@ interface PricingPlan {
   iconName: string;
   price: string;
   priceDetail: string;
+  annualPrice?: string;
+  annualPriceDetail?: string;
   description: string;
   features: string[];
   ctaText: string;
-  href?: string; // Added href property
+  ctaDisclaimer?: string;
+  ctaSecondaryText?: string;
+  comparisonPrice?: string;
+  savingsPercentage?: string;
+  urgencyText?: string;
+  popularBadge?: string;
+  guarantee?: string;
+  href?: string;
   isPopular: boolean;
   buttonVariant: 'primary' | 'secondary';
+}
+
+interface PricingContent {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  competitiveAnchor: string;
+  plans: PricingPlan[];
 }
 
 interface PricingContentStructure {
   sectionTitle: string;
   sectionSubtitle: string;
+  competitiveAnchor: string;
   plans: PricingPlan[];
 }
 
@@ -153,40 +231,50 @@ export const pricingContent: {
   en: PricingContentStructure;
 } = {
   es: {
-    sectionTitle: "El Mejor Entrenamiento, al Precio Justo",
-    sectionSubtitle: "Elige el plan que se adapte a tus necesidades y comienza a superar tus límites.",
+    sectionTitle: "Entrena Como un Profesional por Menos de lo que Gastas en Café",
+    sectionSubtitle: "Más de 500 corredores ya completaron su primera 5K sin lesiones usando nuestro método probado",
+    competitiveAnchor: "Un coach humano cuesta +USD 80/mes. Con Andes obtienes IA de élite por menos que un café al día",
     plans: [
       {
-        name: "Básico",
+        name: "Starter",
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Valor real desde el inicio. Ideal para empezar y explorar nuestros métodos.",
+        description: "Incluye 7 días gratis – cancela cuando quieras. Perfecto para descubrir cómo entrenar de forma inteligente.",
         features: [
-          "Acceso a la comunidad Andes",
-          "Contenido básico de entrenamiento",
-          "Recursos gratuitos para corredores",
+          "🎯 Tu primer plan personalizado",
+          "⏰ Respuestas el mismo día",
+          "🏃‍♂️ Guía para completar tu primera 5K",
+          "📱 Acceso básico por WhatsApp",
         ],
-        ctaText: "Comienza Gratis",
+        ctaText: "Empieza ahora en WhatsApp",
+        ctaDisclaimer: "7 días gratis",
         href: "/start?flow=free",
         isPopular: false,
         buttonVariant: "secondary",
       },
       {
-        name: "Premium",
+        name: "Pro Runner",
         iconName: "Zap",
-        price: "$4.99",
+        price: "$9.99",
         priceDetail: "/mes",
-        description: "Desbloquea todo tu potencial con funcionalidades avanzadas y soporte prioritario.",
+        annualPrice: "$8.49",
+        annualPriceDetail: "/mes (facturado anual)",
+        savingsPercentage: "Ahorra 15%",
+        popularBadge: "⭐ MÁS ELEGIDO",
+        description: "Todo lo que necesitas para entrenar como un profesional. Coaching personalizado que se adapta a ti cada día.",
         features: [
-          "Personalización y Planificación: Planes adaptados a tu estilo de vida y objetivos específicos",
-          "Seguimiento y Análisis: Monitoreo avanzado de tu progreso con métricas detalladas",
-          "Coaching Inteligente: IA que aprende de ti y ajusta tu entrenamiento en tiempo real",
-          "Bienestar y Recuperación: Guía personalizada para prevenir lesiones y optimizar recuperación",
-          "Comunidad y Responsabilidad: Conecta con otros corredores y mantén la motivación",
-          "Suscripción y Acceso vía WhatsApp: Comunicación directa y soporte 24/7",
+          "🚀 Coach IA que aprende de ti cada día",
+          "⚡ Respuestas instantáneas 24/7",
+          "🏆 Planes adaptativos según tu progreso",
+          "💪 Prevención de lesiones personalizada",
+          "🧘‍♀️ Módulo wellness: nutrición + mindfulness",
+          "🎯 Retos semanales y comunidad exclusiva",
+          "📊 Análisis avanzado de rendimiento",
+          "🏃‍♂️ Planes para 5K, 10K, 21K y maratón",
         ],
-        ctaText: "Obtén Premium",
+        ctaText: "Empieza ahora en WhatsApp",
+        guarantee: "🛡️ 30 días de garantía",
         href: "/start?flow=premium",
         isPopular: true,
         buttonVariant: "primary",
@@ -194,40 +282,50 @@ export const pricingContent: {
     ],
   },
   en: {
-    sectionTitle: "The Best Training, at the Right Price",
-    sectionSubtitle: "Choose the plan that fits your needs and start pushing your limits.",
+    sectionTitle: "Train Like a Pro for Less Than Your Coffee Budget",
+    sectionSubtitle: "Over 500 runners have completed their first 5K injury-free using our proven method",
+    competitiveAnchor: "A human coach costs +USD 80/month. With Andes you get elite AI for less than a coffee a day",
     plans: [
       {
-        name: "Basic",
+        name: "Starter",
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "Real value from the start. Perfect for exploring our methods.",
+        description: "Includes 7 days free – cancel anytime. Perfect for discovering how to train intelligently.",
         features: [
-          "Access to Andes community",
-          "Basic training content",
-          "Free resources for runners",
+          "🎯 Your first personalized plan",
+          "⏰ Same-day responses",
+          "🏃‍♂️ Guide to complete your first 5K",
+          "📱 Basic WhatsApp access",
         ],
-        ctaText: "Get Started Free",
+        ctaText: "Start now on WhatsApp",
+        ctaDisclaimer: "7 days free",
         href: "/start?flow=free",
         isPopular: false,
         buttonVariant: "secondary",
       },
       {
-        name: "Premium",
+        name: "Pro Runner",
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/month",
-        description: "Unlock your full potential with advanced features and priority support.",
+        annualPrice: "$8.49",
+        annualPriceDetail: "/month (billed annually)",
+        savingsPercentage: "Save 15%",
+        popularBadge: "⭐ MOST CHOSEN",
+        description: "Everything you need to train like a professional. Personalized coaching that adapts to you every day.",
         features: [
-          "Personalization & Planning: Plans adapted to your lifestyle and specific goals",
-          "Tracking & Analysis: Advanced progress monitoring with detailed metrics",
-          "Intelligent Coaching: AI that learns from you and adjusts your training in real-time",
-          "Well-being & Recovery: Personalized guidance to prevent injuries and optimize recovery",
-          "Community & Accountability: Connect with other runners and maintain motivation",
-          "Subscription & Access via WhatsApp: Direct communication and 24/7 support",
+          "🚀 AI Coach that learns from you daily",
+          "⚡ Instant 24/7 responses",
+          "🏆 Adaptive plans based on your progress",
+          "💪 Personalized injury prevention",
+          "🧘‍♀️ Wellness module: nutrition + mindfulness",
+          "🎯 Weekly challenges and exclusive community",
+          "📊 Advanced performance analytics",
+          "🏃‍♂️ Plans for 5K, 10K, 21K and marathon",
         ],
-        ctaText: "Go Premium",
+        ctaText: "Start now on WhatsApp",
+        guarantee: "🛡️ 30-day guarantee",
         href: "/start?flow=premium",
         isPopular: true,
         buttonVariant: "primary",
@@ -242,12 +340,12 @@ export const faqContent = {
     sectionSubtitle: "Resolvemos tus dudas para que solo te concentres en correr.",
     faqs: [
       {
-        question: "¿Cómo funciona el plan personalizado con IA?",
-        answer: "Nuestra IA analiza tu nivel actual, objetivos, horarios y progreso para crear un plan que se adapta automáticamente. Cada semana ajusta la intensidad y volumen basándose en tu rendimiento y feedback.",
+        question: "¿Y si no me gusta?",
+        answer: "Cancela en 1 clic desde WhatsApp.",
       },
       {
-        question: "¿Qué diferencia hay entre el plan gratuito y Premium?",
-        answer: "El plan gratuito incluye acceso básico a planes predefinidos y 5 consultas mensuales. Premium ofrece personalización completa, análisis avanzado, coaching 24/7, acceso a la comunidad exclusiva y planes adaptativos en tiempo real.",
+        question: "¿Necesito instalar otra app?",
+        answer: "No, solo WhatsApp.",
       },
       {
         question: "¿Puedo empezar si nunca he corrido antes?",
@@ -276,12 +374,12 @@ export const faqContent = {
     sectionSubtitle: "We answer your questions so you can just focus on running.",
     faqs: [
       {
-        question: "How does the AI personalized plan work?",
-        answer: "Our AI analyzes your current level, goals, schedule, and progress to create a plan that adapts automatically. Each week it adjusts intensity and volume based on your performance and feedback.",
+        question: "What if I don't like it?",
+        answer: "Cancel in 1 click from WhatsApp.",
       },
       {
-        question: "What's the difference between free and Premium plans?",
-        answer: "The free plan includes basic access to predefined plans and 5 monthly consultations. Premium offers complete personalization, advanced analytics, 24/7 coaching, exclusive community access, and real-time adaptive plans.",
+        question: "Do I need another app?",
+        answer: "Nope, just WhatsApp.",
       },
       {
         question: "Can I start if I've never run before?",
@@ -585,42 +683,76 @@ export const gritStoriesContent = {
         location: "Bogotá, Colombia",
         imageKey: "carlos", // Corresponds to keys in runnerImages
         achievement: "De sedentario a maratonista en 14 meses.",
-        fullStory: "La historia de Carlos es un testimonio de disciplina. Pasó de un estilo de vida completamente sedentario a correr su primera maratón en solo 14 meses, demostrando que con la guía correcta, cualquier meta es alcanzable."
+        fullStory: "La historia de Carlos es un testimonio de disciplina. Pasó de un estilo de vida completamente sedentario a correr su primera maratón en solo 14 meses, demostrando que con la guía correcta, cualquier meta es alcanzable.",
+        kpis: {
+          pace: "5:45 min/km",
+          vdot: "42",
+          maxDistance: "42.2 km",
+          trainingDays: "420 días",
+          weeklyKm: "45 km/sem"
+        },
+        keyKpi: "42.2 km en 4:15"
       },
       {
         name: "Ana",
         location: "Santiago, Chile",
         imageKey: "ana",
         achievement: "Completó su primera media maratón tras superar una depresión.",
-        fullStory: "Ana encontró en el running una herramienta poderosa para su salud mental. Canalizó su energía en el entrenamiento y no solo completó su primera media maratón, sino que redescubrió su fortaleza interior."
+        fullStory: "Ana encontró en el running una herramienta poderosa para su salud mental. Canalizó su energía en el entrenamiento y no solo completó su primera media maratón, sino que redescubrió su fortaleza interior.",
+        kpis: {
+          pace: "6:20 min/km",
+          vdot: "35",
+          maxDistance: "21.1 km",
+          trainingDays: "180 días",
+          weeklyKm: "25 km/sem"
+        },
+        keyKpi: "21.1 km sin lesiones"
       },
       {
         name: "Miguel",
         location: "Ciudad de México, México",
         imageKey: "miguel",
         achievement: "3 maratones entrenando a las 4:30 AM durante 5 años.",
-        fullStory: "Para Miguel, la disciplina es un estilo de vida. Durante 5 años, se ha levantado antes del amanecer para entrenar, completando tres maratones y convirtiéndose en una inspiración para toda la comunidad."
+        fullStory: "Para Miguel, la disciplina es un estilo de vida. Durante 5 años, se ha levantado antes del amanecer para entrenar, completando tres maratones y convirtiéndose en una inspiración para toda la comunidad.",
+        kpis: {
+          pace: "5:15 min/km",
+          vdot: "48",
+          maxDistance: "42.2 km",
+          trainingDays: "1,825 días",
+          weeklyKm: "65 km/sem"
+        },
+        keyKpi: "3 maratones en 5 años"
       },
       {
         name: "Carmen",
         location: "San José, Costa Rica",
         imageKey: "carmen",
         achievement: "Empezó a correr a los 45, ahora con 52 ha completado 6 maratones.",
-        fullStory: "Carmen demuestra que nunca es tarde para empezar. Inició su viaje en el running a los 45 años y, con una constancia admirable, ha completado seis maratones, rompiendo barreras de edad y estereotipos."
+        fullStory: "Carmen demuestra que nunca es tarde para empezar. Inició su viaje en el running a los 45 años y, con una constancia admirable, ha completado seis maratones, rompiendo barreras de edad y estereotipos.",
+        kpis: {
+          pace: "6:05 min/km",
+          vdot: "38",
+          maxDistance: "42.2 km",
+          trainingDays: "2,555 días",
+          weeklyKm: "35 km/sem"
+        },
+        keyKpi: "6 maratones a los 52"
       },
       {
         name: "Javier",
         location: "Montevideo, Uruguay",
         imageKey: "javier",
         achievement: "Transformó su rutina de vida a través del running después de su divorcio.",
-        fullStory: "Tras un difícil divorcio, Javier usó el running como un ancla para reconstruir su vida. El deporte le dio una nueva estructura, confianza y una comunidad que lo apoyó en cada paso."
+        fullStory: "Tras un difícil divorcio, Javier usó el running como un ancla para reconstruir su vida. El deporte le dio una nueva estructura, confianza y una comunidad que lo apoyó en cada paso.",
+        keyKpi: "Nueva vida a los 38"
       },
       {
         name: "María",
         location: "Medellín, Colombia",
         imageKey: "maria",
         achievement: "Madre de tres que clasificó para la Maratón de Boston después de 3 años de entrenamiento.",
-        fullStory: "Siendo madre de tres, María organizó su vida para perseguir un sueño: clasificar para Boston. Después de tres años de sacrificios y entrenamiento inteligente, logró su objetivo, inspirando a todos a su alrededor."
+        fullStory: "Siendo madre de tres, María organizó su vida para perseguir un sueño: clasificar para Boston. Después de tres años de sacrificios y entrenamiento inteligente, logró su objetivo, inspirando a todos a su alrededor.",
+        keyKpi: "Clasificó para Boston"
       }
     ]
   },
@@ -633,42 +765,69 @@ export const gritStoriesContent = {
         location: "Bogotá, Colombia",
         imageKey: "carlos",
         achievement: "From sedentary to marathoner in 14 months.",
-        fullStory: "Carlos's story is a testament to discipline. He went from a completely sedentary lifestyle to running his first marathon in just 14 months, proving that with the right guidance, any goal is achievable."
+        fullStory: "Carlos's story is a testament to discipline. He went from a completely sedentary lifestyle to running his first marathon in just 14 months, proving that with the right guidance, any goal is achievable.",
+        kpis: {
+          pace: "5:45 min/km",
+          vdot: "42",
+          maxDistance: "42.2 km",
+          trainingDays: "420 days",
+          weeklyKm: "45 km/week"
+        },
+        keyKpi: "42.2 km in 4:15"
       },
       {
         name: "Ana",
         location: "Santiago, Chile",
         imageKey: "ana",
         achievement: "Completed her first half marathon after overcoming depression.",
-        fullStory: "Ana found in running a powerful tool for her mental health. She channeled her energy into training and not only completed her first half marathon but also rediscovered her inner strength."
+        fullStory: "Ana found in running a powerful tool for her mental health. She channeled her energy into training and not only completed her first half marathon but also rediscovered her inner strength.",
+        kpis: {
+          pace: "6:20 min/km",
+          vdot: "35",
+          maxDistance: "21.1 km",
+          trainingDays: "180 days",
+          weeklyKm: "25 km/week"
+        },
+        keyKpi: "21.1 km injury-free"
       },
       {
         name: "Miguel",
         location: "Mexico City, Mexico",
         imageKey: "miguel",
         achievement: "3 marathons training at 4:30 AM for 5 years.",
-        fullStory: "For Miguel, discipline is a way of life. For 5 years, he has woken up before dawn to train, completing three marathons and becoming an inspiration to the entire community."
+        fullStory: "For Miguel, discipline is a way of life. For 5 years, he has woken up before dawn to train, completing three marathons and becoming an inspiration to the entire community.",
+        kpis: {
+          pace: "5:15 min/km",
+          vdot: "48",
+          maxDistance: "42.2 km",
+          trainingDays: "1,825 days",
+          weeklyKm: "65 km/week"
+        },
+        keyKpi: "3 marathons in 5 years"
       },
       {
         name: "Carmen",
         location: "San José, Costa Rica",
         imageKey: "carmen",
         achievement: "Started running at 45, now at 52 she has completed 6 marathons.",
-        fullStory: "Carmen proves that it's never too late to start. She began her running journey at 45 and, with admirable consistency, has completed six marathons, breaking age barriers and stereotypes."
+        fullStory: "Carmen proves that it's never too late to start. She began her running journey at 45 and, with admirable consistency, has completed six marathons, breaking age barriers and stereotypes.",
+        keyKpi: "6 marathons at 52"
       },
       {
         name: "Javier",
         location: "Montevideo, Uruguay",
         imageKey: "javier",
         achievement: "Transformed his life routine through running after his divorce.",
-        fullStory: "After a difficult divorce, Javier used running as an anchor to rebuild his life. The sport gave him a new structure, confidence, and a community that supported him every step of the way."
+        fullStory: "After a difficult divorce, Javier used running as an anchor to rebuild his life. The sport gave him a new structure, confidence, and a community that supported him every step of the way.",
+        keyKpi: "New life at 38"
       },
       {
         name: "María",
         location: "Medellín, Colombia",
         imageKey: "maria",
         achievement: "Mother of three who qualified for the Boston Marathon after 3 years of training.",
-        fullStory: "As a mother of three, Maria organized her life to pursue a dream: qualifying for Boston. After three years of sacrifice and smart training, she achieved her goal, inspiring everyone around her."
+        fullStory: "As a mother of three, Maria organized her life to pursue a dream: qualifying for Boston. After three years of sacrifice and smart training, she achieved her goal, inspiring everyone around her.",
+        keyKpi: "Qualified for Boston"
       }
     ]
   }
