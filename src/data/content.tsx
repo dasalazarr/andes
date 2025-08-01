@@ -14,7 +14,7 @@ export const heroContent = {
     ctaPrimaryText: 'Empieza gratis ahora',
     ctaSecondaryText: "Quiero mi plan gratis",
     keyBenefits: "Planes 100% personalizados • Feedback inmediato • Motivación diaria",
-    videoSrc: '/videos/video1', // Extension will be handled in component
+    videoSrc: '/videos/video3', // Extension will be handled in component
   },
   en: {
     title: {

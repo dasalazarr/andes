@@ -77,13 +77,14 @@ export const useLanguageDetection = (config: Partial<LanguageDetectionConfig> = 
     }
   };
 
-  // Check if this is the first visit (no stored preference and on root path)
+  // Check if this is the first visit (no stored preference and on root path only)
   const isFirstVisit = (): boolean => {
     const hasStoredPreference = getStoredLanguage() !== null;
     const isOnRootPath = location.pathname === '/';
-    const hasNoLanguageInURL = !location.pathname.startsWith('/es');
-    
-    return !hasStoredPreference && (isOnRootPath || hasNoLanguageInURL);
+
+    // Only consider it a first visit if user is on root path with no stored preference
+    // If user explicitly navigates to /es/, respect that choice
+    return !hasStoredPreference && isOnRootPath;
   };
 
   // Get target route for a language
@@ -153,13 +154,7 @@ export const useLanguageDetection = (config: Partial<LanguageDetectionConfig> = 
   useEffect(() => {
     if (hasDetected) return; // Prevent multiple detections
     
-    console.log('🔍 Starting language detection...', {
-      pathname: location.pathname,
-      isFirstVisit: isFirstVisit(),
-      browserLanguage: getBrowserLanguage(),
-      storedLanguage: getStoredLanguage(),
-      currentURLLanguage: getCurrentLanguageFromURL()
-    });
+
 
     // Get language preference priority:
     // 1. Stored user preference (highest priority)
@@ -171,30 +166,34 @@ export const useLanguageDetection = (config: Partial<LanguageDetectionConfig> = 
     const currentURLLanguage = getCurrentLanguageFromURL();
     
     let targetLanguage: SupportedLanguage;
-    
-    if (storedLanguage) {
-      // User has a stored preference
-      targetLanguage = storedLanguage;
-      console.log('✅ Using stored language preference:', targetLanguage);
-    } else if (isFirstVisit()) {
-      // First visit - use browser language
-      targetLanguage = browserLanguage;
-      console.log('🆕 First visit - using browser language:', targetLanguage);
-    } else {
-      // Use current URL language (user navigated manually)
-      targetLanguage = currentURLLanguage;
-      console.log('🔗 Using current URL language:', targetLanguage);
-      // Store this as preference
+
+    // Simplified logic: URL takes precedence over everything else
+    if (currentURLLanguage === 'es') {
+      // User explicitly navigated to Spanish version
+      targetLanguage = 'es';
       storeLanguagePreference(targetLanguage);
+
+    } else if (currentURLLanguage === 'en') {
+      // User is on English version (root or explicit)
+      targetLanguage = 'en';
+      if (location.pathname === '/' && isFirstVisit()) {
+        // First visit to root - check if we should redirect to Spanish
+        if (browserLanguage === 'es' && !storedLanguage) {
+          targetLanguage = 'es';
+          performAutoRedirect(targetLanguage);
+          return;
+        }
+      }
+      storeLanguagePreference(targetLanguage);
+
+    } else {
+      // Fallback
+      targetLanguage = storedLanguage || browserLanguage;
+
     }
-    
+
     setDetectedLanguage(targetLanguage);
-    
-    // Perform auto-redirect if needed
-    if (isFirstVisit() || (storedLanguage && storedLanguage !== currentURLLanguage)) {
-      performAutoRedirect(targetLanguage);
-    }
-    
+
     setHasDetected(true);
   }, [location.pathname]); // Re-run when pathname changes
 
