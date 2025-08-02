@@ -38,10 +38,18 @@ import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
+import { analytics, initializeAnalytics } from "../utils/analytics";
 
 const Home = () => {
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
   const { currentLanguage: language } = useLanguageDetection();
+
+  // Initialize analytics when language is detected
+  useEffect(() => {
+    if (language) {
+      initializeAnalytics(language);
+    }
+  }, [language]);
   // Lógica para A/B testing - alternar entre variantes
   const [abVariant] = useState<'A' | 'B'>(() => {
     // Simular A/B testing - en producción usar analytics
@@ -77,10 +85,12 @@ const Home = () => {
   const scrollToRequestPlan = () => planRequestFormRef.current?.scrollIntoView({ behavior: 'smooth' });
   const scrollToPricing = () => {
     trackHeroCTR(abVariant, language, 'primary');
+    analytics.trackCTAClick('primary', 'hero_section', language);
     pricingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const scrollToCommunity = () => {
     trackHeroCTR(abVariant, language, 'secondary');
+    analytics.trackCTAClick('secondary', 'hero_section', language);
     communityRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -99,7 +109,10 @@ const Home = () => {
 
   const handlePlanClick = (plan: any) => {
     const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
-    
+
+    // Track plan selection
+    analytics.trackPlanSelection('free', planTitle, language);
+
     if (plan.isLeadMagnet) {
       setSelectedPlan(plan);
       setLeadMagnetModalOpen(true);
@@ -107,12 +120,14 @@ const Home = () => {
     } else if (plan.pdfUrl && !plan.isUnderConstruction) {
       window.open(plan.pdfUrl, '_blank');
       trackPlanDownload(planTitle);
+      analytics.trackPDFDownload(planTitle, language);
     }
   };
 
   const handleOpenArticleModal = (article: Article) => {
     setActiveArticle(article);
     trackArticleView(article.title[language]);
+    analytics.trackArticleClick(article.id, article.title[language], language);
     setIsArticleModalOpen(true);
   };
 
@@ -396,6 +411,7 @@ const Home = () => {
             sectionTitle={cityCommunityContent[language].sectionTitle}
             sectionSubtitle={cityCommunityContent[language].sectionSubtitle}
             cities={cityCommunityContent[language].cities}
+            language={language}
           />
         </Suspense>
       </section>

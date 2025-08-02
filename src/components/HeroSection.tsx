@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
@@ -24,6 +24,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
     if (typeof title === 'string') return title;
     return title[`variant${abVariant}` as keyof typeof title] || title.variantA;
   };
+
+  // Log video source changes
+  useEffect(() => {
+    console.log('Video source changed to:', videoSrc);
+  }, [videoSrc]);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -56,23 +61,46 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
         {/* Background Video with Overlay */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Preload poster image for better LCP */}
-          <link rel="preload" as="image" href={`${videoSrc}.webp`} />
+          <link rel="preload" as="image" href={`${videoSrc}.jpg`} />
           <video
+            key={`${videoSrc}-video`}
             autoPlay
             loop
             muted
             playsInline
             preload="metadata"
             className="w-full h-full object-cover"
-            poster={`${videoSrc}.webp`}
+            poster={`${videoSrc}.jpg`}
             aria-label={language === 'es' ? 'Video de fondo: corredor entrenando en pista' : 'Background video: runner training on track'}
+            onError={(e) => {
+              console.warn('Video failed to load:', videoSrc, e);
+              // Fallback to poster image if video fails
+              const video = e.target as HTMLVideoElement;
+              const fallbackImg = video.parentElement?.querySelector('img');
+              if (fallbackImg) {
+                fallbackImg.style.display = 'block';
+                video.style.display = 'none';
+              }
+            }}
           >
-            <source src={`${videoSrc}.avif`} type="image/avif" />
-            <source src={`${videoSrc}.webp`} type="image/webp" />
-            <source src={`${videoSrc}.webm`} type="video/webm" />
-            <source src={`${videoSrc}.mp4`} type="video/mp4" />
+            <source src={`${videoSrc}.webm?t=${new Date().getTime()}`} type="video/webm" key={`${videoSrc}-webm`} />
+            <source src={`${videoSrc}.mp4?t=${new Date().getTime()}`} type="video/mp4" key={`${videoSrc}-mp4`} />
             {/* Fallback image */}
-            <img src={`${videoSrc}.webp`} alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'} className="w-full h-full object-cover" />
+            <img
+              src={`${videoSrc}.jpg?t=${new Date().getTime()}`}
+              alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'}
+              className="w-full h-full object-cover"
+              style={{ display: 'none' }}
+              onError={(e) => {
+                console.warn('Poster image failed to load:', `${videoSrc}.jpg`);
+                // Use a solid color background as final fallback
+                const img = e.target as HTMLImageElement;
+                img.style.display = 'none';
+                if (img.parentElement) {
+                  img.parentElement.style.backgroundColor = '#1a1a1a';
+                }
+              }}
+            />
           </video>
           {/* Overlay oscuro para mejorar contraste - 50% dark overlay */}
           <div className="absolute inset-0 bg-black/50"></div>
