@@ -5,10 +5,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 
-import { TempoDevtools } from "tempo-devtools";
-TempoDevtools.init();
-
-const basename = import.meta.env.BASE_URL;
+// Tempo devtools disabled for production build
+const basename = "/";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

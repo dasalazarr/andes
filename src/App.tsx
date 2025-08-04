@@ -5,7 +5,6 @@ import StartPage from "./components/StartPage";
 import LanguageDetector from "./components/LanguageDetector";
 import { HeroSkeleton } from "./components/ui/optimized-loading";
 import { performanceMonitor, trackPageLoad } from "./utils/performance";
-import routes from "tempo-routes";
 
 function App() {
   // Initialize performance monitoring
@@ -86,7 +85,7 @@ function App() {
             <Route path="/start" element={<StartPage />} />
             <Route path="/es/start" element={<StartPage />} />
           </Routes>
-          {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+          {/* Tempo routes disabled for production */}
         </>
       </Suspense>
     </LanguageDetector>

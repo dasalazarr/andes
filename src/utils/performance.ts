@@ -82,7 +82,7 @@ class PerformanceMonitor {
 
   public reportMetric(name: string, value: number) {
     // Only report in production
-    if (import.meta.env.PROD) {
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
       // Send to analytics
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'performance_metric', {
@@ -106,7 +106,7 @@ class PerformanceMonitor {
     }
 
     // Log in development
-    if (import.meta.env.DEV) {
+    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
       console.log(`🚀 Performance Metric - ${name}: ${Math.round(value)}ms`);
     }
   }
