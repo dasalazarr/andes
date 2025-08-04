@@ -1,22 +1,13 @@
 import React, { useState, lazy, Suspense, useEffect, useRef } from "react";
 import { AnimatePresence } from 'framer-motion';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
 import { trackABTest, trackHeroCTR, trackSocialProofView, trackTestimonialView, trackTestimonialCTAClick } from "../lib/analytics";
 
-// Lazy load GSAP only when needed for animations
-const loadGSAP = async () => {
-  const [gsapModule, scrollTriggerModule] = await Promise.all([
-    import("gsap"),
-    import("gsap/ScrollTrigger")
-  ]);
-
-  const gsap = gsapModule.gsap;
-  const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
-  gsap.registerPlugin(ScrollTrigger);
-  return { gsap, ScrollTrigger };
-};
+gsap.registerPlugin(ScrollTrigger);
 
 // Component Imports
 import HeroSection from "./HeroSection";
@@ -25,42 +16,33 @@ import TrainingPlanCard from "./TrainingPlanCard";
 import UnderConstructionPlanCard from "./UnderConstructionPlanCard";
 import ArticleCarousel from "./ArticleCarousel";
 
-// Progressive Component Loading Strategy
-// Critical above-the-fold components - load immediately
+// Lazy Loaded Components
+// Critical components - load immediately
 const BenefitsSection = lazy(() => import("./BenefitsSection"));
 const PricingSection = lazy(() => import("./PricingSection"));
 
-// Secondary components - load after user interaction or delay
+// Secondary components - lazy load
 const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
 const GritSection = lazy(() => import("./grit/GritSection"));
 const FAQSection = lazy(() => import("./FAQSection"));
 
-// Modal components - load only when needed
+// Modal components - load on demand
 const GritStoryModal = lazy(() => import("./grit/GritStoryModal"));
 const LeadMagnetModal = lazy(() => import("./LeadMagnetModal"));
 const ArticleModal = lazy(() => import('./ArticleModal'));
 
-// Non-critical below-the-fold components
+// Non-critical components
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
-
-// Skeleton components for better perceived performance
-const ComponentSkeleton = ({ height = "400px" }: { height?: string }) => (
-  <div className="animate-pulse" style={{ height }}>
-    <div className="bg-gray-200 rounded-lg h-full mx-4"></div>
-  </div>
-);
 import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent, testimonialsContent, howItWorksContent, liveDemoContent, leadMagnetContent } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
-import { analytics, initializeAnalytics, tiktokAnalytics } from "../utils/analytics";
+import { analytics, initializeAnalytics } from "../utils/analytics";
 
 const Home = () => {
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
   const { currentLanguage: language } = useLanguageDetection();
-
-
 
   // Initialize analytics when language is detected
   useEffect(() => {
@@ -68,8 +50,6 @@ const Home = () => {
       initializeAnalytics(language);
     }
   }, [language]);
-
-
   // Lógica para A/B testing - alternar entre variantes
   const [abVariant] = useState<'A' | 'B'>(() => {
     // Simular A/B testing - en producción usar analytics
@@ -106,27 +86,11 @@ const Home = () => {
   const scrollToPricing = () => {
     trackHeroCTR(abVariant, language, 'primary');
     analytics.trackCTAClick('primary', 'hero_section', language);
-    // TikTok tracking for primary CTA
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('ClickButton', {
-        content_type: 'cta',
-        content_name: 'hero_primary',
-        language: language
-      });
-    }
     pricingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const scrollToCommunity = () => {
     trackHeroCTR(abVariant, language, 'secondary');
     analytics.trackCTAClick('secondary', 'hero_section', language);
-    // TikTok tracking for secondary CTA
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('ClickButton', {
-        content_type: 'cta',
-        content_name: 'hero_secondary',
-        language: language
-      });
-    }
     communityRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -146,11 +110,8 @@ const Home = () => {
   const handlePlanClick = (plan: any) => {
     const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
 
-    // Track plan selection (Google Analytics)
+    // Track plan selection
     analytics.trackPlanSelection('free', planTitle, language);
-
-    // Track plan selection (TikTok)
-    tiktokAnalytics.trackPlanDownload(planTitle, language);
 
     if (plan.isLeadMagnet) {
       setSelectedPlan(plan);

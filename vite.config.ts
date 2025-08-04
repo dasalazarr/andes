@@ -1,6 +1,7 @@
 import path from "path";
 import { defineConfig, type Connect } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { tempo } from "tempo-devtools/dist/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,12 +14,11 @@ export default defineConfig(({ mode }) => {
   return {
   base: isDev ? '/' : (lang === 'es' ? '/es/' : '/'),
   optimizeDeps: {
-    entries: ["src/main.tsx"],
-    exclude: ["tempo-devtools", "tempo-routes"]
+    entries: ["src/main.tsx", "src/tempobook/**/*"],
   },
   plugins: [
     react(),
-    // tempo() disabled for production
+    tempo(),
   ],
   resolve: {
     preserveSymlinks: true,
@@ -43,27 +43,8 @@ export default defineConfig(({ mode }) => {
   },
   build: {
     outDir: lang === 'es' ? 'dist/es' : 'dist',
-    emptyOutDir: lang === 'es' ? false : true, // Don't empty when building ES version
-    sourcemap: false, // Disable sourcemaps in production for smaller bundles
-    minify: 'terser',
-    assetsDir: 'assets',
-    cssCodeSplit: true,
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-      },
-    },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Simplified vendor chunks to avoid React hook issues
-          'react-vendor': ['react', 'react-dom'],
-          'vendor': ['framer-motion', 'gsap', 'lucide-react', 'clsx', 'tailwind-merge'],
-        },
-      },
-    },
-    chunkSizeWarningLimit: 1000,
+    emptyOutDir: true, // Clean the output directory before building
+    sourcemap: true,
   }
   };
 });

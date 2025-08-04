@@ -1,17 +1,7 @@
 // Google Analytics utility functions
 // Provides type-safe event tracking for key user interactions
 
-// TikTok Analytics interface (gtag is already declared in src/lib/analytics.ts)
-declare global {
-  interface Window {
-    ttq: {
-      track: (event: string, properties?: Record<string, any>) => void;
-      page: () => void;
-      identify: (properties: Record<string, any>) => void;
-      instance: (pixelId: string) => any;
-    };
-  }
-}
+// Use existing gtag declaration from src/lib/analytics.ts
 
 // Event categories for organized tracking
 export const EventCategories = {
@@ -23,39 +13,15 @@ export const EventCategories = {
   DOWNLOAD: 'download'
 } as const;
 
-// Custom event tracking functions for both Google Analytics and TikTok
+// Custom event tracking functions
 export const trackEvent = (
   eventName: string,
   category: string,
   parameters?: Record<string, any>
 ) => {
-  // Google Analytics tracking
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, {
       event_category: category,
-      ...parameters
-    });
-  }
-
-  // TikTok Pixel tracking
-  if (typeof window !== 'undefined' && window.ttq) {
-    // Map event names to TikTok standard events
-    const tiktokEventMap: Record<string, string> = {
-      'cta_click': 'ClickButton',
-      'plan_selection': 'ViewContent',
-      'form_start': 'InitiateCheckout',
-      'form_complete': 'CompleteRegistration',
-      'whatsapp_click': 'Contact',
-      'pdf_download': 'Download',
-      'article_click': 'ViewContent',
-      'video_play': 'ViewContent',
-      'city_selection': 'ViewContent'
-    };
-
-    const tiktokEvent = tiktokEventMap[eventName] || 'CustomEvent';
-    window.ttq.track(tiktokEvent, {
-      content_type: category,
-      content_name: eventName,
       ...parameters
     });
   }
@@ -211,59 +177,4 @@ export const initializeAnalytics = (language: 'es' | 'en') => {
   }
 };
 
-// TikTok-specific tracking functions
-const tiktokAnalytics = {
-  // Track lead generation (form submissions)
-  trackLead: (formType: string, language: 'es' | 'en') => {
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('GenerateLead', {
-        content_type: 'form',
-        content_name: formType,
-        language: language,
-        value: 1,
-        currency: 'USD'
-      });
-    }
-  },
-
-  // Track plan downloads (high-value action)
-  trackPlanDownload: (planName: string, language: 'es' | 'en') => {
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('Download', {
-        content_type: 'training_plan',
-        content_name: planName,
-        language: language,
-        value: 25, // Estimated value of a plan download
-        currency: 'USD'
-      });
-    }
-  },
-
-  // Track WhatsApp clicks (conversion action)
-  trackWhatsAppConversion: (source: string, language: 'es' | 'en') => {
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('Contact', {
-        content_type: 'whatsapp_redirect',
-        content_name: source,
-        language: language,
-        value: 10, // Estimated value of WhatsApp contact
-        currency: 'USD'
-      });
-    }
-  },
-
-  // Track video engagement
-  trackVideoEngagement: (videoId: string, language: 'es' | 'en') => {
-    if (typeof window !== 'undefined' && window.ttq) {
-      window.ttq.track('ViewContent', {
-        content_type: 'video',
-        content_name: videoId,
-        language: language
-      });
-    }
-  }
-};
-
-// Export both analytics objects
 export default analytics;
-export { tiktokAnalytics };

@@ -1,20 +1,68 @@
-# Configuración de Netlify para Andes Runners
-# Configuración mínima para resolver problemas de MIME type
+# Configuración de Netlify para Andes Runners MVP
+# Optimizado para despliegue rápido y eficiente
 
 [build]
   publish = "dist"
-  command = "npm ci && npm run build"
+  command = "npm install --include=dev && npm install -g typescript && npm run build"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirecciones para SPA con soporte bilingüe
-[[redirects]]
-  from = "/es/*"
-  to = "/es/index.html"
-  status = 200
-
+# Redirecciones para SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Configuración de headers para optimización y seguridad
+[[headers]]
+  # Headers para HTML files (no cache for SPA routing)
+  for = "/*.html"
+    [headers.values]
+    # Seguridad
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Configuración específica para archivos estáticos
+[[headers]]
+  for = "*.js"
+    [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/javascript"
+
+# Specific headers for onboarding script
+[[headers]]
+  for = "/js/andes-simplified-onboarding.js"
+    [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/es/js/andes-simplified-onboarding.js"
+    [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+    Content-Type = "application/javascript"
+[[headers]]
+  for = "*.css"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "*.png"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "*.jpg"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "*.svg"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Configuración de plugins
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"

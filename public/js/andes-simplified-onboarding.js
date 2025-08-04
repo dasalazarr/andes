@@ -55,12 +55,12 @@
 
       log('Tracking event:', eventData);
 
-      // Send to backend analytics (disabled to avoid 404 errors)
-      // fetch(`${CONFIG.API_BASE_URL}/onboarding/analytics`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(eventData)
-      // }).catch(e => log('Analytics failed:', e));
+      // Send to backend analytics
+      fetch(`${CONFIG.API_BASE_URL}/onboarding/analytics`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(eventData)
+      }).catch(e => log('Analytics failed:', e));
 
       // Send to Google Analytics if available
       if (typeof gtag !== 'undefined') {
@@ -253,7 +253,7 @@
       freeBtn.addEventListener('click', handleFreeClick);
       log('✅ Free button initialized');
     } else {
-      log('⏳ Free button not found yet (ID: start-free-btn)');
+      error('❌ Free button not found (ID: start-free-btn)');
     }
 
     if (premiumBtn) {
@@ -262,7 +262,7 @@
       premiumBtn.addEventListener('click', handlePremiumClick);
       log('✅ Premium button initialized');
     } else {
-      log('⏳ Premium button not found yet (ID: start-premium-btn)');
+      error('❌ Premium button not found (ID: start-premium-btn)');
     }
 
     // Also try data attribute method as backup

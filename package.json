@@ -4,24 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx vite",
-    "build:en": "npx tsc --noEmit && npx vite build",
-    "build:es": "npx tsc --noEmit && VITE_APP_LANG=es npx vite build",
+    "dev": "vite",
+    "build:en": "npx tsc && vite build",
+    "build:es": "npx tsc && VITE_APP_LANG=es vite build",
     "build": "npm run build:en && npm run build:es",
-    "build:production": "NODE_ENV=production npm run build",
-    "build:netlify": "npm run type-check:production && npm run build",
-    "build:robust": "node scripts/build.js",
-    "build:analyze": "npm run build && node scripts/analyze-bundle.js",
-    "build-no-errors": "npx tsc --noEmit && npx vite build",
+    "build-no-errors": "npx tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "npx vite preview",
-    "type-check": "tsc --noEmit",
-    "type-check:production": "tsc --noEmit",
+    "preview": "vite preview",
     "types:supabase": "npx supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/supabase.ts",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest run --coverage",
-    "performance:audit": "npm run build:analyze"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -96,7 +89,6 @@
     "postcss": "^8.4.38",
     "tailwindcss": "3.4.1",
     "tempo-devtools": "^2.0.106",
-    "terser": "^5.43.1",
     "typescript": "^5.8.3",
     "vite": "^6.2.3",
     "vitest": "^3.2.0"

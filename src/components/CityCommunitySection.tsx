@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, MessageCircle } from 'lucide-react';
-import { analytics, tiktokAnalytics } from '../utils/analytics';
+import { analytics } from '../utils/analytics';
 
 export interface CityInfo {
   id: string;
@@ -49,8 +49,6 @@ const CityModal: React.FC<CityModalProps> = ({ city, isOpen, onClose, language }
 
   const handleWhatsAppClick = () => {
     analytics.trackWhatsAppClick('city_modal', city.name, language);
-    // TikTok tracking for WhatsApp conversion
-    tiktokAnalytics.trackWhatsAppConversion(`city_${city.name}`, language);
   };
 
   return (
