@@ -28,6 +28,34 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <link rel="icon" type="image/svg+xml" href="/andes.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Andes Runners</title>
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://analytics.tiktok.com">
+
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//api.tempolabs.ai">
+
+    <!-- Preload critical resources -->
+    <link rel="modulepreload" href="/src/main.tsx">
+    <link rel="preload" href="/videos/video2.webm" as="video" type="video/webm">
+
+    <!-- Critical CSS inline (will be handled by Vite) -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-size: 18px;
+        color: #10B981;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

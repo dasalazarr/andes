@@ -43,8 +43,29 @@ export default defineConfig(({ mode }) => {
   },
   build: {
     outDir: lang === 'es' ? 'dist/es' : 'dist',
-    emptyOutDir: true, // Clean the output directory before building
-    sourcemap: true,
+    emptyOutDir: true,
+    sourcemap: false, // Disable sourcemaps in production for smaller bundles
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs in production
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks
+          'react-vendor': ['react', 'react-dom'],
+          'router-vendor': ['react-router-dom'],
+          'animation-vendor': ['framer-motion', 'gsap'],
+          'ui-vendor': ['@radix-ui/react-accordion', '@radix-ui/react-alert-dialog', '@headlessui/react'],
+          'form-vendor': ['react-hook-form', '@hookform/resolvers'],
+          'utils-vendor': ['clsx', 'tailwind-merge', 'lucide-react'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   }
   };
 });

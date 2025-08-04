@@ -1,13 +1,17 @@
 import React, { useState, lazy, Suspense, useEffect, useRef } from "react";
 import { AnimatePresence } from 'framer-motion';
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
 import { trackABTest, trackHeroCTR, trackSocialProofView, trackTestimonialView, trackTestimonialCTAClick } from "../lib/analytics";
 
-gsap.registerPlugin(ScrollTrigger);
+// Lazy load GSAP only when needed for animations
+const loadGSAP = () => import("gsap").then(module => {
+  const gsap = module.gsap;
+  const ScrollTrigger = module.ScrollTrigger;
+  gsap.registerPlugin(ScrollTrigger);
+  return { gsap, ScrollTrigger };
+});
 
 // Component Imports
 import HeroSection from "./HeroSection";

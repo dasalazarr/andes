@@ -3,11 +3,16 @@
 
 [build]
   publish = "dist"
-  command = "npm install --include=dev && npm install -g typescript && npm run build"
+  command = "npm ci && npm run build"
   functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
+  NPM_VERSION = "9"
+  # Performance optimizations
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  # Enable build optimizations
+  NETLIFY_SKIP_EDGE_HANDLERS_INSTALL = "true"
 
 # Redirecciones para SPA
 [[redirects]]
@@ -28,12 +33,22 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://analytics.tiktok.com https://*.tiktok.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: https://*.tiktok.com; connect-src 'self' https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com; frame-src 'self' https://docs.google.com;"
 
-# Configuración específica para archivos estáticos
+# Configuración específica para archivos estáticos con optimización de performance
 [[headers]]
   for = "*.js"
     [headers.values]
-    Cache-Control = "public, max-age=3600"
+    Cache-Control = "public, max-age=31536000, immutable"
     Content-Type = "application/javascript"
+    # Performance headers
+    X-Content-Type-Options = "nosniff"
+
+# Preload critical resources
+[[headers]]
+  for = "/assets/*.js"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    # Enable compression
+    Content-Encoding = "gzip"
 
 # Specific headers for onboarding script
 [[headers]]
