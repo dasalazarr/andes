@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
   },
   build: {
     outDir: lang === 'es' ? 'dist/es' : 'dist',
-    emptyOutDir: true,
+    emptyOutDir: lang === 'es' ? false : true, // Don't empty when building ES version
     sourcemap: false, // Disable sourcemaps in production for smaller bundles
     minify: 'terser',
     terserOptions: {
