@@ -56,46 +56,10 @@ export default defineConfig(({ mode }) => {
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            if (id.includes('react-router')) {
-              return 'router-vendor';
-            }
-            if (id.includes('framer-motion') || id.includes('gsap')) {
-              return 'animation-vendor';
-            }
-            if (id.includes('@radix-ui') || id.includes('@headlessui')) {
-              return 'ui-vendor';
-            }
-            if (id.includes('react-hook-form') || id.includes('@hookform')) {
-              return 'form-vendor';
-            }
-            if (id.includes('lucide-react') || id.includes('clsx') || id.includes('tailwind-merge')) {
-              return 'utils-vendor';
-            }
-            // All other vendor dependencies
-            return 'vendor';
-          }
-
-          // Split large content files
-          if (id.includes('/data/content')) {
-            return 'content-data';
-          }
-
-          // Split components by section
-          if (id.includes('/components/') && !id.includes('/ui/')) {
-            if (id.includes('Hero') || id.includes('Benefits') || id.includes('Pricing')) {
-              return 'critical-components';
-            }
-            if (id.includes('Modal') || id.includes('Form')) {
-              return 'modal-components';
-            }
-            return 'secondary-components';
-          }
+        manualChunks: {
+          // Simplified vendor chunks to avoid React hook issues
+          'react-vendor': ['react', 'react-dom'],
+          'vendor': ['framer-motion', 'gsap', 'lucide-react', 'clsx', 'tailwind-merge'],
         },
       },
     },

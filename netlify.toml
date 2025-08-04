@@ -1,129 +1,20 @@
-# Configuración de Netlify para Andes Runners MVP
-# Optimizado para despliegue rápido y eficiente
+# Configuración de Netlify para Andes Runners
+# Configuración mínima para resolver problemas de MIME type
 
 [build]
   publish = "dist"
-  command = "npm ci --include=dev && npm run build:netlify"
-  functions = "netlify/functions"
+  command = "npm ci && npm run build"
 
 [build.environment]
   NODE_VERSION = "18"
-  NPM_VERSION = "9"
-  # Performance optimizations
-  NODE_OPTIONS = "--max-old-space-size=4096"
-  # Enable build optimizations
-  NETLIFY_SKIP_EDGE_HANDLERS_INSTALL = "true"
-  # Fix content encoding issues
-  NETLIFY_USE_EDGE = "false"
 
-# Redirecciones para SPA
+# Redirecciones para SPA con soporte bilingüe
+[[redirects]]
+  from = "/es/*"
+  to = "/es/index.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-# Configuración de headers para optimización y seguridad
-[[headers]]
-  # Headers para HTML files (no cache for SPA routing)
-  for = "/*.html"
-    [headers.values]
-    # Seguridad
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Cache-Control = "no-cache, no-store, must-revalidate"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://analytics.tiktok.com https://*.tiktok.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: https://*.tiktok.com; connect-src 'self' https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com; frame-src 'self' https://docs.google.com;"
-
-# JavaScript files configuration - Fix MIME type issues
-[[headers]]
-  for = "*.js"
-    [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-# Assets JavaScript files - Critical for Vite chunks
-[[headers]]
-  for = "/assets/*.js"
-    [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-# ES Module files
-[[headers]]
-  for = "*.mjs"
-    [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Specific headers for onboarding script
-[[headers]]
-  for = "/js/andes-simplified-onboarding.js"
-    [headers.values]
-    Cache-Control = "no-cache, must-revalidate"
-    Content-Type = "application/javascript"
-
-[[headers]]
-  for = "/es/js/andes-simplified-onboarding.js"
-    [headers.values]
-    Cache-Control = "no-cache, must-revalidate"
-    Content-Type = "application/javascript"
-[[headers]]
-  for = "*.css"
-    [headers.values]
-    Content-Type = "text/css; charset=utf-8"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.png"
-    [headers.values]
-    Content-Type = "image/png"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.jpg"
-    [headers.values]
-    Content-Type = "image/jpeg"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.svg"
-    [headers.values]
-    Content-Type = "image/svg+xml"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.webp"
-    [headers.values]
-    Content-Type = "image/webp"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.woff2"
-    [headers.values]
-    Content-Type = "font/woff2"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Processing settings to fix content encoding
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true
-
-# Configuración de plugins
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
