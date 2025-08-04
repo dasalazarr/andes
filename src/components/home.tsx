@@ -25,24 +25,31 @@ import TrainingPlanCard from "./TrainingPlanCard";
 import UnderConstructionPlanCard from "./UnderConstructionPlanCard";
 import ArticleCarousel from "./ArticleCarousel";
 
-// Lazy Loaded Components
-// Critical components - load immediately
+// Progressive Component Loading Strategy
+// Critical above-the-fold components - load immediately
 const BenefitsSection = lazy(() => import("./BenefitsSection"));
 const PricingSection = lazy(() => import("./PricingSection"));
 
-// Secondary components - lazy load
+// Secondary components - load after user interaction or delay
 const PlanRequestForm = lazy(() => import("./PlanRequestForm"));
 const GritSection = lazy(() => import("./grit/GritSection"));
 const FAQSection = lazy(() => import("./FAQSection"));
 
-// Modal components - load on demand
+// Modal components - load only when needed
 const GritStoryModal = lazy(() => import("./grit/GritStoryModal"));
 const LeadMagnetModal = lazy(() => import("./LeadMagnetModal"));
 const ArticleModal = lazy(() => import('./ArticleModal'));
 
-// Non-critical components
+// Non-critical below-the-fold components
 const CityCommunitySection = lazy(() => import("./CityCommunitySection"));
 const SeoManager = lazy(() => import("./SeoManager"));
+
+// Skeleton components for better perceived performance
+const ComponentSkeleton = ({ height = "400px" }: { height?: string }) => (
+  <div className="animate-pulse" style={{ height }}>
+    <div className="bg-gray-200 rounded-lg h-full mx-4"></div>
+  </div>
+);
 import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent, freePlansSectionContent, planRequestContent, articlesSectionContent, articlesContent, cityCommunityContent, gritStoriesContent, testimonialsContent, howItWorksContent, liveDemoContent, leadMagnetContent } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
@@ -53,12 +60,16 @@ const Home = () => {
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
   const { currentLanguage: language } = useLanguageDetection();
 
+
+
   // Initialize analytics when language is detected
   useEffect(() => {
     if (language) {
       initializeAnalytics(language);
     }
   }, [language]);
+
+
   // Lógica para A/B testing - alternar entre variantes
   const [abVariant] = useState<'A' | 'B'>(() => {
     // Simular A/B testing - en producción usar analytics

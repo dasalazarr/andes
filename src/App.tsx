@@ -4,9 +4,20 @@ import Home from "./components/home";
 import StartPage from "./components/StartPage";
 import LanguageDetector from "./components/LanguageDetector";
 import { HeroSkeleton } from "./components/ui/optimized-loading";
+import { performanceMonitor, trackPageLoad } from "./utils/performance";
 import routes from "tempo-routes";
 
 function App() {
+  // Initialize performance monitoring
+  useEffect(() => {
+    trackPageLoad();
+
+    // Cleanup on unmount
+    return () => {
+      performanceMonitor.disconnect();
+    };
+  }, []);
+
   // Load TikTok Pixel asynchronously after initial render to avoid blocking
   useEffect(() => {
     // Delay TikTok pixel loading to avoid blocking initial render

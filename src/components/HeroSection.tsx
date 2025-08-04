@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useEffect } from "react";
+import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
@@ -18,6 +18,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryText, ctaSecondaryText, keyBenefits, onPrimaryClick, onSecondaryClick, videoSrc, language, abVariant = 'A' }) => {
   const comp = useRef<HTMLDivElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   // Lógica para manejar variantes A/B
   const getTitle = () => {
@@ -25,10 +26,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
     return title[`variant${abVariant}` as keyof typeof title] || title.variantA;
   };
 
-  // Log video source changes
+  // Delay video loading to improve initial page load
   useEffect(() => {
-    console.log('Video source changed to:', videoSrc);
-  }, [videoSrc]);
+    const timer = setTimeout(() => {
+      setShouldLoadVideo(true);
+    }, 500); // Load video after 500ms
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -60,17 +65,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
       <div className="relative w-full h-full overflow-hidden">
         {/* Background Video with Overlay */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Preload poster image for better LCP */}
-          <link rel="preload" as="image" href={`${videoSrc}.jpg`} />
-          <video
-            key={`${videoSrc}-video`}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            className="w-full h-full object-cover"
-            poster={`${videoSrc}.jpg`}
+          {/* Show poster image immediately, load video after delay */}
+          {!shouldLoadVideo ? (
+            <img
+              src={`${videoSrc}.jpg`}
+              alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'}
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+          ) : (
+            <video
+              key={`${videoSrc}-video`}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="none"
+              className="w-full h-full object-cover"
+              poster={`${videoSrc}.jpg`}
             aria-label={language === 'es' ? 'Video de fondo: corredor entrenando en pista' : 'Background video: runner training on track'}
             onError={(e) => {
               console.warn('Video failed to load:', videoSrc, e);
@@ -83,25 +95,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
               }
             }}
           >
-            <source src={`${videoSrc}.webm?t=${new Date().getTime()}`} type="video/webm" key={`${videoSrc}-webm`} />
-            <source src={`${videoSrc}.mp4?t=${new Date().getTime()}`} type="video/mp4" key={`${videoSrc}-mp4`} />
-            {/* Fallback image */}
-            <img
-              src={`${videoSrc}.jpg?t=${new Date().getTime()}`}
-              alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'}
-              className="w-full h-full object-cover"
-              style={{ display: 'none' }}
-              onError={(e) => {
-                console.warn('Poster image failed to load:', `${videoSrc}.jpg`);
-                // Use a solid color background as final fallback
-                const img = e.target as HTMLImageElement;
-                img.style.display = 'none';
-                if (img.parentElement) {
-                  img.parentElement.style.backgroundColor = '#1a1a1a';
-                }
-              }}
-            />
-          </video>
+              <source src={`${videoSrc}.webm`} type="video/webm" />
+              <source src={`${videoSrc}.mp4`} type="video/mp4" />
+            </video>
+          )}
           {/* Overlay oscuro para mejorar contraste - 50% dark overlay */}
           <div className="absolute inset-0 bg-black/50"></div>
           {/* Gradient overlay at bottom for smooth transition to next section */}

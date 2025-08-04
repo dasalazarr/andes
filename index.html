@@ -41,20 +41,34 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
     <!-- Preload critical resources -->
     <link rel="modulepreload" href="/src/main.tsx">
-    <link rel="preload" href="/videos/video2.webm" as="video" type="video/webm">
+    <link rel="preload" href="/videos/video2.jpg" as="image" type="image/jpeg">
+    <link rel="preload" href="/andes.svg" as="image" type="image/svg+xml">
 
-    <!-- Critical CSS inline (will be handled by Vite) -->
+    <!-- Prefetch non-critical resources -->
+    <link rel="prefetch" href="/videos/video2.webm" as="video" type="video/webm">
+    <link rel="prefetch" href="/videos/video2.mp4" as="video" type="video/mp4">
+
+    <!-- Critical CSS inline for fastest rendering -->
     <style>
       /* Critical above-the-fold styles */
-      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
-      .loading-spinner {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-size: 18px;
-        color: #10B981;
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6; color: #333; background-color: #fff;
       }
+      .hero-container { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+      .hero-video-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+      .hero-video, .hero-poster { width: 100%; height: 100%; object-fit: cover; }
+      .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 2; }
+      .hero-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 20; padding: 1rem; }
+      .hero-title { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
+      .hero-subtitle { font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; max-width: 600px; }
+      .btn-primary { background: #27e97c; color: #000; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease; border: none; cursor: pointer; }
+      .btn-primary:hover { transform: scale(1.05); }
+      .loading-spinner { display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%); }
+      .spinner { width: 2rem; height: 2rem; border: 3px solid #27e97c; border-top: 3px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      @media (max-width: 768px) { .hero-title { font-size: 2rem; } .hero-subtitle { font-size: 1rem; } }
     </style>
   </head>
   <body>

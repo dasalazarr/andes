@@ -54,14 +54,46 @@ export default defineConfig(({ mode }) => {
     },
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // Vendor chunks
-          'react-vendor': ['react', 'react-dom'],
-          'router-vendor': ['react-router-dom'],
-          'animation-vendor': ['framer-motion', 'gsap'],
-          'ui-vendor': ['@radix-ui/react-accordion', '@radix-ui/react-alert-dialog', '@headlessui/react'],
-          'form-vendor': ['react-hook-form', '@hookform/resolvers'],
-          'utils-vendor': ['clsx', 'tailwind-merge', 'lucide-react'],
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('react-router')) {
+              return 'router-vendor';
+            }
+            if (id.includes('framer-motion') || id.includes('gsap')) {
+              return 'animation-vendor';
+            }
+            if (id.includes('@radix-ui') || id.includes('@headlessui')) {
+              return 'ui-vendor';
+            }
+            if (id.includes('react-hook-form') || id.includes('@hookform')) {
+              return 'form-vendor';
+            }
+            if (id.includes('lucide-react') || id.includes('clsx') || id.includes('tailwind-merge')) {
+              return 'utils-vendor';
+            }
+            // All other vendor dependencies
+            return 'vendor';
+          }
+
+          // Split large content files
+          if (id.includes('/data/content')) {
+            return 'content-data';
+          }
+
+          // Split components by section
+          if (id.includes('/components/') && !id.includes('/ui/')) {
+            if (id.includes('Hero') || id.includes('Benefits') || id.includes('Pricing')) {
+              return 'critical-components';
+            }
+            if (id.includes('Modal') || id.includes('Form')) {
+              return 'modal-components';
+            }
+            return 'secondary-components';
+          }
         },
       },
     },
