@@ -38,7 +38,7 @@ import { trainingPlans, heroContent, benefitsContent, pricingContent, ctaContent
 import AnimatedSection from "./ui/animated-section";
 import type { Language, Article } from "../data/content";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
-import { analytics, initializeAnalytics } from "../utils/analytics";
+import { analytics, initializeAnalytics, tiktokAnalytics } from "../utils/analytics";
 
 const Home = () => {
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
@@ -86,11 +86,27 @@ const Home = () => {
   const scrollToPricing = () => {
     trackHeroCTR(abVariant, language, 'primary');
     analytics.trackCTAClick('primary', 'hero_section', language);
+    // TikTok tracking for primary CTA
+    if (typeof window !== 'undefined' && window.ttq) {
+      window.ttq.track('ClickButton', {
+        content_type: 'cta',
+        content_name: 'hero_primary',
+        language: language
+      });
+    }
     pricingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const scrollToCommunity = () => {
     trackHeroCTR(abVariant, language, 'secondary');
     analytics.trackCTAClick('secondary', 'hero_section', language);
+    // TikTok tracking for secondary CTA
+    if (typeof window !== 'undefined' && window.ttq) {
+      window.ttq.track('ClickButton', {
+        content_type: 'cta',
+        content_name: 'hero_secondary',
+        language: language
+      });
+    }
     communityRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -110,8 +126,11 @@ const Home = () => {
   const handlePlanClick = (plan: any) => {
     const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
 
-    // Track plan selection
+    // Track plan selection (Google Analytics)
     analytics.trackPlanSelection('free', planTitle, language);
+
+    // Track plan selection (TikTok)
+    tiktokAnalytics.trackPlanDownload(planTitle, language);
 
     if (plan.isLeadMagnet) {
       setSelectedPlan(plan);
