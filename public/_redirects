@@ -1,0 +1,17 @@
+# Netlify _redirects file for SPA routing and proper handling
+
+# Spanish routes - redirect to Spanish version
+/es/* /es/index.html 200
+
+# API routes (if any) - prevent SPA fallback
+/api/* /api/:splat 404
+
+# Assets - serve directly
+/assets/* /assets/:splat 200
+/js/* /js/:splat 200
+/css/* /css/:splat 200
+/images/* /images/:splat 200
+/videos/* /videos/:splat 200
+
+# All other routes - SPA fallback to English
+/* /index.html 200

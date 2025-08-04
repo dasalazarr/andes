@@ -13,6 +13,8 @@
   NODE_OPTIONS = "--max-old-space-size=4096"
   # Enable build optimizations
   NETLIFY_SKIP_EDGE_HANDLERS_INSTALL = "true"
+  # Fix content encoding issues
+  NETLIFY_USE_EDGE = "false"
 
 # Redirecciones para SPA
 [[redirects]]
@@ -33,22 +35,28 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://analytics.tiktok.com https://*.tiktok.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: https://*.tiktok.com; connect-src 'self' https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com; frame-src 'self' https://docs.google.com;"
 
-# Configuración específica para archivos estáticos con optimización de performance
+# JavaScript files configuration - Fix MIME type issues
 [[headers]]
   for = "*.js"
     [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
     Cache-Control = "public, max-age=31536000, immutable"
-    Content-Type = "application/javascript"
-    # Performance headers
     X-Content-Type-Options = "nosniff"
 
-# Preload critical resources
+# Assets JavaScript files - Critical for Vite chunks
 [[headers]]
   for = "/assets/*.js"
     [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
     Cache-Control = "public, max-age=31536000, immutable"
-    # Enable compression
-    Content-Encoding = "gzip"
+    X-Content-Type-Options = "nosniff"
+
+# ES Module files
+[[headers]]
+  for = "*.mjs"
+    [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # Specific headers for onboarding script
 [[headers]]
@@ -65,19 +73,56 @@
 [[headers]]
   for = "*.css"
     [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Content-Type = "text/css; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "*.png"
     [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/png"
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "*.jpg"
     [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/jpeg"
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "*.svg"
     [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/svg+xml"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.webp"
+    [headers.values]
+    Content-Type = "image/webp"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.woff2"
+    [headers.values]
+    Content-Type = "font/woff2"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Processing settings to fix content encoding
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
 
 # Configuración de plugins
 [[plugins]]

@@ -46,6 +46,8 @@ export default defineConfig(({ mode }) => {
     emptyOutDir: lang === 'es' ? false : true, // Don't empty when building ES version
     sourcemap: false, // Disable sourcemaps in production for smaller bundles
     minify: 'terser',
+    assetsDir: 'assets',
+    cssCodeSplit: true,
     terserOptions: {
       compress: {
         drop_console: true, // Remove console.logs in production
