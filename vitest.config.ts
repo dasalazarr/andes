@@ -12,8 +12,20 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
+    setupFiles: ['./tests/setupTests.ts'],
     css: true,
+    include: [
+      'tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
+    ],
+    exclude: [
+      'node_modules',
+      'dist',
+      'build',
+      '.idea',
+      '.git',
+      '.cache'
+    ],
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
