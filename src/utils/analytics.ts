@@ -1,21 +1,15 @@
 // Google Analytics utility functions
 // Provides type-safe event tracking for key user interactions
 
-// Global declarations for analytics platforms
+// TikTok Analytics interface (gtag is already declared in src/lib/analytics.ts)
 declare global {
   interface Window {
-    gtag: (
-      command: 'config' | 'event' | 'js' | 'set',
-      targetId: string | Date,
-      config?: Record<string, any>
-    ) => void;
     ttq: {
       track: (event: string, properties?: Record<string, any>) => void;
       page: () => void;
       identify: (properties: Record<string, any>) => void;
       instance: (pixelId: string) => any;
     };
-    dataLayer: any[];
   }
 }
 
@@ -218,7 +212,7 @@ export const initializeAnalytics = (language: 'es' | 'en') => {
 };
 
 // TikTok-specific tracking functions
-export const tiktokAnalytics = {
+const tiktokAnalytics = {
   // Track lead generation (form submissions)
   trackLead: (formType: string, language: 'es' | 'en') => {
     if (typeof window !== 'undefined' && window.ttq) {
