@@ -6,12 +6,17 @@ import { initGA, trackArticleView, trackPlanDownload } from "../lib/analytics";
 import { trackABTest, trackHeroCTR, trackSocialProofView, trackTestimonialView, trackTestimonialCTAClick } from "../lib/analytics";
 
 // Lazy load GSAP only when needed for animations
-const loadGSAP = () => import("gsap").then(module => {
-  const gsap = module.gsap;
-  const ScrollTrigger = module.ScrollTrigger;
+const loadGSAP = async () => {
+  const [gsapModule, scrollTriggerModule] = await Promise.all([
+    import("gsap"),
+    import("gsap/ScrollTrigger")
+  ]);
+
+  const gsap = gsapModule.gsap;
+  const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
   gsap.registerPlugin(ScrollTrigger);
   return { gsap, ScrollTrigger };
-});
+};
 
 // Component Imports
 import HeroSection from "./HeroSection";
