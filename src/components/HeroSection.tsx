@@ -1,29 +1,53 @@
 import React, { useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
-import { Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+type HeroHeadlineVariant = {
+  lead: string;
+  accent: string;
+  trailing?: string;
+};
+
+type HeroHeadline =
+  | HeroHeadlineVariant
+  | { variantA: HeroHeadlineVariant; variantB: HeroHeadlineVariant };
 
 interface HeroSectionProps {
-  title: string | { variantA: string; variantB: string };
-  subtitle: string;
+  preheading: string;
+  headline: HeroHeadline;
+  description: string;
   ctaPrimaryText: string;
-  ctaSecondaryText: string;
   keyBenefits: string;
   onPrimaryClick: () => void;
-  onSecondaryClick: () => void;
   videoSrc: string;
   language: 'en' | 'es';
   abVariant?: 'A' | 'B';
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryText, ctaSecondaryText, keyBenefits, onPrimaryClick, onSecondaryClick, videoSrc, language, abVariant = 'A' }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({
+  preheading,
+  headline,
+  description,
+  ctaPrimaryText,
+  keyBenefits,
+  onPrimaryClick,
+  videoSrc,
+  language,
+  abVariant = 'A',
+}) => {
   const comp = useRef<HTMLDivElement>(null);
 
   // Lógica para manejar variantes A/B
-  const getTitle = () => {
-    if (typeof title === 'string') return title;
-    return title[`variant${abVariant}` as keyof typeof title] || title.variantA;
+  const resolveHeadline = (): HeroHeadlineVariant => {
+    if ('variantA' in headline) {
+      const variant = headline[`variant${abVariant}` as keyof typeof headline];
+      return (variant as HeroHeadlineVariant) || headline.variantA;
+    }
+    return headline as HeroHeadlineVariant;
   };
+
+  const currentHeadline = resolveHeadline();
 
   // Log video source changes
   useEffect(() => {
@@ -33,22 +57,34 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      tl.from("#title", {
+      tl.from("#preheading", {
+        opacity: 0,
+        y: '+=16',
+        duration: 0.8,
+      })
+      .from("#headline", {
         opacity: 0,
         y: '+=30',
         duration: 1,
+        delay: -0.3,
       })
-      .from("#subtitle", {
+      .from("#description", {
         opacity: 0,
         y: '+=20',
         duration: 0.8,
-        delay: -0.5 // Overlap with previous animation
+        delay: -0.5,
       })
-      .from("#buttons", {
+      .from("#cta", {
         opacity: 0,
         y: '+=20',
         duration: 0.8,
-        delay: -0.4 // Overlap
+        delay: -0.4,
+      })
+      .from("#key-benefits", {
+        opacity: 0,
+        y: '+=16',
+        duration: 0.6,
+        delay: -0.3,
       });
     }, comp);
 
@@ -108,49 +144,45 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, ctaPrimaryTe
           <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
         </div>
 
-{/* Content Container - ensure it's above the video and overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center z-20">
-          {/* Badges de confianza */}
-          <div className="flex flex-wrap justify-center items-center gap-3 mb-6" role="group" aria-label={language === 'es' ? 'Badges de confianza' : 'Trust badges'}>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
-              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
-              {language === 'es' ? '+100 corredores' : '+100 runners'}
-            </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
-              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
-              {language === 'es' ? '98% éxito' : '98% success rate'}
-            </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#27e97c]/20 text-[#27e97c] border border-[#27e97c]/30">
-              <span className="w-2 h-2 bg-[#27e97c] rounded-full mr-2"></span>
-              {language === 'es' ? 'Coaches certificados + IA' : 'Certified coaches + AI'}
-            </span>
-          </div>
+        {/* Content Container - ensure it's above the video and overlay */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-20 text-white sm:px-8">
+            <div id="preheading" className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/70">
+              <span className="h-px w-10 bg-white/40" aria-hidden="true"></span>
+              <span>{preheading}</span>
+            </div>
 
-          <h1 id="title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 whitespace-pre-line leading-tight">
-            {getTitle()}
-          </h1>
+            <h1 id="headline" className="text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl">
+              <span className="block">{currentHeadline.lead}</span>
+              <span className="mt-2 block text-white">
+                <span className="relative inline-flex items-center">
+                  <span className="absolute inset-x-0 bottom-1 h-3 bg-[#27e97c]/30" aria-hidden="true"></span>
+                  <span className="relative text-[#27e97c]">{currentHeadline.accent}</span>
+                </span>
+                {currentHeadline.trailing ? (
+                  <span className="ml-2">{currentHeadline.trailing}</span>
+                ) : null}
+              </span>
+            </h1>
 
-          <p id="subtitle" className="text-2xl text-[#27e97c] mb-8 font-medium">
-            {subtitle}
-          </p>
-
-          <div id="buttons" className="w-full max-w-sm mx-auto mb-6">
-            <Button
-              size="lg"
-              className="w-full px-8 py-4 text-lg font-semibold rounded-lg bg-[#27e97c] text-black hover:bg-[#27e97c]/90 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#27e97c] focus:ring-offset-2 shadow-lg hover:shadow-[#27e97c]/25 flex items-center justify-center"
-              onClick={onPrimaryClick}
-              aria-label={language === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp'}
-            >
-              <span className="mr-2">▶</span>
-              {ctaPrimaryText}
-            </Button>
-          </div>
-
-          {/* Key Benefits Micro-copy */}
-          <div id="key-benefits" className="text-center mb-8">
-            <p className="text-white/80 text-sm font-medium">
-              {keyBenefits}
+            <p id="description" className="max-w-2xl text-base text-white/80 sm:text-lg">
+              {description}
             </p>
+
+            <div id="cta" className="flex flex-col items-start gap-8">
+              <Button
+                size="lg"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#27e97c] px-8 py-4 text-lg font-semibold text-black shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:bg-[#27e97c]/90 hover:shadow-[#27e97c]/30 focus-visible:ring-[#27e97c]"
+                onClick={onPrimaryClick}
+                aria-label={language === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp'}
+              >
+                <span>{ctaPrimaryText}</span>
+                <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+              </Button>
+              <div id="key-benefits" className="text-sm font-medium tracking-[0.2em] text-white/60">
+                {keyBenefits}
+              </div>
+            </div>
           </div>
         </div>
       </div>

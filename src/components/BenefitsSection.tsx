@@ -44,7 +44,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ sectionTitle, section
               aria-expanded={isOpen}
               onClick={() => setExpanded(isOpen ? null : index)}
               onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setExpanded(isOpen ? null : index)}
-              className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-neutral-900/60 border border-neutral-800 p-6 text-left shadow-lg transition-all duration-200 ease-out focus:ring-2 focus:ring-[#16a34a] focus:outline-none transform ${isOpen ? 'border-[#16a34a] shadow-[0_0_24px_rgba(22,163,74,0.25)] scale-105 z-10 -translate-y-1' : 'hover:border-[#16a34a]/60 hover:shadow-lg hover:-translate-y-1'}`}
+              className={`group relative cursor-pointer overflow-hidden rounded-[24px] bg-neutral-900/60 border border-neutral-800 p-6 text-left shadow-lg transition-all duration-200 ease-out focus:ring-2 focus:ring-[#16a34a] focus:outline-none transform ${isOpen ? 'border-[#16a34a] shadow-[0_0_24px_rgba(22,163,74,0.25)] scale-105 z-10 -translate-y-1' : 'hover:border-[#16a34a]/60 hover:shadow-lg hover:-translate-y-1'}`}
             >
               {/* Standardized icon with unified green color */}
               <div className="w-full flex justify-center">
@@ -60,7 +60,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ sectionTitle, section
               </p>
               {/* Card expandible */}
               <div className={`transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-40 opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}`}>
-                <div className="bg-black/60 rounded-xl p-4 border border-[#16a34a]/20 shadow-inner flex flex-col items-center w-full">
+                <div className="bg-black/60 rounded-[20px] p-4 border border-[#16a34a]/20 shadow-inner flex flex-col items-center w-full">
                   <div className="text-[#16a34a] font-semibold text-sm mb-2 text-center">{benefit.proof}</div>
                   <blockquote className="text-gray-400 italic text-center text-sm max-w-xs">
                     {benefit.testimonial}

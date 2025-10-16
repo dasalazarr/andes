@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:en": "npx tsc --noEmit && vite build",
-    "build:es": "npx tsc --noEmit && VITE_APP_LANG=es vite build",
+    "build:en": "node scripts/generate-sitemap.js && npx tsc --noEmit && vite build",
+    "build:es": "node scripts/generate-sitemap.js && npx tsc --noEmit && VITE_APP_LANG=es vite build",
     "build": "npm run build:en && npm run build:es",
     "build-no-errors": "npx tsc --noEmit && vite build",
     "type-check": "npx tsc --noEmit",
