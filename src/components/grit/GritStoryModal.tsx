@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { getPathForCanonicalId } from '@/features/blog/lib/contentLoader';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -9,6 +11,7 @@ interface GritStoryModalProps {
     image: string;
     fullStory: string;
     location: string;
+    blogCanonicalId?: string;
   };
 }
 
@@ -28,6 +31,9 @@ const modal = {
 };
 
 const GritStoryModal: React.FC<GritStoryModalProps> = ({ onClose, story }) => {
+  const { pathname } = useLocation();
+  const lang = pathname.startsWith('/es') ? 'es' : 'en';
+  const blogPath = story.blogCanonicalId ? getPathForCanonicalId(lang as any, story.blogCanonicalId) : null;
   return (
     <motion.div
       className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
@@ -55,6 +61,16 @@ const GritStoryModal: React.FC<GritStoryModalProps> = ({ onClose, story }) => {
               <p key={index}>{paragraph}</p>
             ))}
           </div>
+          {blogPath && (
+            <div className="mt-6">
+              <Link
+                to={blogPath}
+                className="inline-block bg-black text-white border border-black rounded px-4 py-2 hover:bg-gray-900"
+              >
+                {lang === 'es' ? 'Leer caso completo' : 'Read full case'}
+              </Link>
+            </div>
+          )}
         </div>
       </motion.div>
     </motion.div>

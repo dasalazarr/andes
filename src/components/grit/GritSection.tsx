@@ -78,7 +78,7 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
           {content.stories.map((story, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-lg bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-xl"
+              className="group relative cursor-pointer overflow-hidden rounded-[20px] bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-xl"
               onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
             >
               {/* Image with overlay and hover effects */}

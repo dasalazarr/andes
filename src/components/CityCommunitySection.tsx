@@ -159,15 +159,14 @@ const CityCommunitySection: React.FC<CityCommunitySectionProps> = ({ sectionTitl
               <img
                 src={city.imageSrc}
                 alt={city.name}
-                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-auto transition-transform duration-300"
               />
               {/* 10% white overlay */}
-              <div className="absolute inset-0 bg-white/10 transition-opacity duration-300 group-hover:bg-white/20"></div>
+              <div className="absolute inset-0 bg-white/10"></div>
 
               {/* City name with location icon */}
               <div className="absolute bottom-4 left-4 flex items-center text-white">
                 <MapPin className="h-5 w-5 mr-2 text-[#25d366]" />
-                <span className="text-lg font-semibold drop-shadow-lg">{city.name}</span>
               </div>
             </div>
           ))}
