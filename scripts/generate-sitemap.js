@@ -4,8 +4,8 @@
  * - Parses minimal frontmatter
  * - Emits public/sitemap.xml and public/robots.txt
  */
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const BASE_URL = 'https://andesrunners.com';
 const CONTENT_DIR = path.resolve(__dirname, '..', 'content', 'blog');
