@@ -10,14 +10,14 @@ export const heroContent = {
     headline: {
       variantA: {
         lead: "Conquista tu primera maratón",
-        accent: "sin lesiones",
+        accent: "paso a paso",
       },
       variantB: {
         lead: "Conquista tu primera maratón",
-        accent: "sin lesiones",
+        accent: "paso a paso",
       },
     },
-    description: "Tu coach inteligente está siempre en WhatsApp para ajustar tu plan minuto a minuto y mantenerte motivado hasta la meta.",
+    description: "¿Nunca has corrido? Perfecto. ¿Corres 10K a veces? Genial. \n Te encontramos exactamente donde estás y te guiamos.",
     ctaPrimaryText: 'Empieza en WhatsApp',
     ctaSecondaryText: "Quiero mi plan gratis",
     keyBenefits: "Planes 100% personalizados • Feedback inmediato • Motivación diaria",
@@ -28,14 +28,14 @@ export const heroContent = {
     headline: {
       variantA: {
         lead: "Crush your first marathon",
-        accent: "injury-free",
+        accent: "step-by-step",
       },
       variantB: {
         lead: "Crush your first marathon",
-        accent: "injury-free",
+        accent: "step-by-step",
       },
     },
-    description: "Your coach lives on WhatsApp, adapting every workout in minutes and keeping you locked in all the way to race day.",
+    description: "Never run before? Perfect. Run 10K sometimes? Great. \n We meet you exactly where you are and guide you.",
     ctaPrimaryText: 'Start on WhatsApp',
     ctaSecondaryText: "I want my free plan",
     keyBenefits: "100% personalized plans • Instant feedback • Daily motivation",
@@ -112,9 +112,9 @@ export const benefitsContent = {
       },
       {
         icon: FaChartLine,
-        headline: "Progreso con datos reales",
-        copy: "Antes de responder, consultamos tus últimas semanas (7 y 28 días).",
-        proof: "Recomendaciones basadas en ACWR, volumen y ritmo medio",
+        headline: "De 0 A 42 k",
+        copy: "Tu objetivo es terminar, no competir. Personalizamos cada semana a tu progreso real, sin presión, sin comparaciones.",
+        proof: "Acompañamiento personalizado desde tu primer kilómetro",
         testimonial: "La combinación perfecta: respuestas rápidas de IA y consejos expertos cuando los necesito. — Sofía, maratonista",
       },
     ],
@@ -139,9 +139,9 @@ export const benefitsContent = {
       },
       {
         icon: FaChartLine,
-        headline: "Progress with real data",
-        copy: "Before responding, we check your last weeks (7 and 28 days).",
-        proof: "Recommendations based on ACWR, volume, and average pace",
+        headline: "From 0 To 42k",
+        copy: "Your goal is to finish, not to compete. We personalize each week to your actual progress, no pressure, no comparisons.",
+        proof: "Personalized guidance from your very first kilometer",
         testimonial: "The perfect blend: quick AI responses and expert advice when I need it. — Sofia, marathoner",
       },
     ],
