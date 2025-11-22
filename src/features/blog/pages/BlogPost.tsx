@@ -64,7 +64,7 @@ const BlogPost: React.FC = () => {
         const label = line.replace(/^##\s+/, '').trim();
         return { id: slugify(label), label };
       }),
-  [body]);
+    [body]);
 
   if (typeof window !== 'undefined') {
     analytics.trackPageView(window.location.pathname, lang);
@@ -84,9 +84,9 @@ const BlogPost: React.FC = () => {
         publishedTime={meta.date}
         modifiedTime={meta.updated}
       />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-12 lg:flex-row">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:gap-10 px-4 py-8 md:py-12 lg:flex-row">
         {tableOfContents.length > 0 && (
-          <aside className="lg:w-64">
+          <aside className="hidden lg:block lg:w-64">
             <div className="sticky top-28 rounded-3xl border border-white/10 bg-neutral-900/60 px-6 py-6 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
               <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#25d366]/70">
                 {lang === 'es' ? 'Contenido' : 'Contents'}
@@ -106,10 +106,10 @@ const BlogPost: React.FC = () => {
           </aside>
         )}
         <article className="flex-1">
-          <header className="mb-10 rounded-[32px] border border-white/10 bg-neutral-900/70 px-8 py-10 shadow-[0_25px_60px_rgba(0,0,0,0.45)]">
-            <div className="flex flex-wrap items-start justify-between gap-6">
+          <header className="mb-8 md:mb-10 rounded-3xl md:rounded-[32px] border border-white/10 bg-neutral-900/70 px-6 md:px-8 py-8 md:py-10 shadow-[0_25px_60px_rgba(0,0,0,0.45)]">
+            <div className="flex flex-wrap items-start justify-between gap-4 md:gap-6">
               <div>
-                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-[#25d366]/70">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3 text-[10px] sm:text-xs uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#25d366]/70">
                   {meta.category && <span>{mapCategory(meta.category, lang)}</span>}
                   <span aria-hidden>•</span>
                   <span>{lang === 'es' ? `${readingMinutes} min de lectura` : `${readingMinutes} min read`}</span>
@@ -120,15 +120,15 @@ const BlogPost: React.FC = () => {
                     </>
                   )}
                 </div>
-                <h1 className="mt-4 text-3xl font-bold md:text-4xl">{title}</h1>
+                <h1 className="mt-3 md:mt-4 text-2xl sm:text-3xl md:text-4xl font-bold">{title}</h1>
                 {meta.description && (
-                  <p className="mt-4 text-base text-gray-400">{meta.description}</p>
+                  <p className="mt-3 md:mt-4 text-sm md:text-base text-gray-400">{meta.description}</p>
                 )}
               </div>
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex w-full sm:w-auto shrink-0 items-center gap-2 mt-4 sm:mt-0">
                 <Link
                   to={lang === 'es' ? '/es/blog' : '/blog'}
-                  className="rounded-full border border-[#25d366]/50 px-4 py-1.5 text-sm font-semibold text-[#25d366] transition hover:border-[#25d366] hover:bg-[#25d366] hover:text-black"
+                  className="flex-1 sm:flex-initial rounded-full border border-[#25d366]/50 px-4 py-2 text-xs sm:text-sm font-semibold text-[#25d366] transition hover:border-[#25d366] hover:bg-[#25d366] hover:text-black text-center min-h-[40px] inline-flex items-center justify-center"
                 >
                   {lang === 'es' ? 'Volver al blog' : 'Back to blog'}
                 </Link>
@@ -145,7 +145,7 @@ const BlogPost: React.FC = () => {
                   const text = String(children);
                   const id = slugify(text);
                   return (
-                    <h2 id={id} className="mt-12 text-3xl font-semibold text-white" {...props}>
+                    <h2 id={id} className="mt-10 md:mt-12 text-2xl md:text-3xl font-semibold text-white" {...props}>
                       {children}
                     </h2>
                   );
@@ -154,7 +154,7 @@ const BlogPost: React.FC = () => {
                   const text = String(children);
                   const id = slugify(text);
                   return (
-                    <h3 id={id} className="mt-8 text-2xl font-semibold text-white" {...props}>
+                    <h3 id={id} className="mt-6 md:mt-8 text-xl md:text-2xl font-semibold text-white" {...props}>
                       {children}
                     </h3>
                   );
@@ -178,18 +178,18 @@ const BlogPost: React.FC = () => {
             </ReactMarkdown>
           </div>
 
-          <footer className="mt-12 flex flex-wrap items-center gap-3">
+          <footer className="mt-10 md:mt-12 flex flex-wrap items-center gap-2 md:gap-3">
             {altPath && (
               <Link
                 to={altPath}
-                className="rounded-full border border-[#25d366]/50 px-4 py-1.5 text-sm font-semibold text-[#25d366] transition hover:border-[#25d366] hover:bg-[#25d366] hover:text-black"
+                className="rounded-full border border-[#25d366]/50 px-4 py-2 text-xs sm:text-sm font-semibold text-[#25d366] transition hover:border-[#25d366] hover:bg-[#25d366] hover:text-black min-h-[40px] inline-flex items-center"
               >
                 {lang === 'es' ? 'Leer en English' : 'Read in Español'}
               </Link>
             )}
             <Link
               to={lang === 'es' ? '/es/blog' : '/blog'}
-              className="rounded-full border border-white/20 px-4 py-1.5 text-sm font-semibold text-white/80 transition hover:border-white hover:text-white"
+              className="rounded-full border border-white/20 px-4 py-2 text-xs sm:text-sm font-semibold text-white/80 transition hover:border-white hover:text-white min-h-[40px] inline-flex items-center"
             >
               {lang === 'es' ? 'Ver más notas' : 'More articles'}
             </Link>

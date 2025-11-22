@@ -56,6 +56,10 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
     const track = trackRef.current;
     if (!track || filtered.length <= 1) return;
 
+    // Only animate on desktop
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) return;
+
     let frameId = 0;
     let position = 0;
     const speed = 0.15; // pixels per frame ~9px/s at 60fps
@@ -85,23 +89,22 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
 
   return (
     <div className="rounded-[20px] shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-      <header className="mb-8 text-center">
-        <h2 className="text-3xl font-bold text-white md:text-4xl">{heading}</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-base text-gray-300 md:text-lg">{subtitle}</p>
+      <header className="mb-6 md:mb-8 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white md:text-4xl">{heading}</h2>
+        <p className="mx-auto mt-2 md:mt-3 max-w-2xl text-sm md:text-base text-gray-300 md:text-lg">{subtitle}</p>
       </header>
 
-      <div className="mb-7 flex flex-wrap justify-center gap-2">
+      <div className="mb-6 md:mb-7 flex flex-wrap justify-center gap-2">
         {tabs.map((t) => {
           const selected = tab === t.key;
           return (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`text-sm rounded-full px-4 py-2 transition ${
-                selected
+              className={`text-xs md:text-sm rounded-full px-3 md:px-4 py-1.5 md:py-2 transition ${selected
                   ? 'bg-[#25d366] text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)]'
                   : 'border border-[#25d366]/40 text-[#25d366] hover:border-[#25d366] hover:text-white'
-              }`}
+                }`}
             >
               {lang === 'es' ? t.labelEs : t.labelEn}
             </button>
@@ -117,8 +120,11 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
         <div className="relative overflow-hidden">
           <div
             ref={trackRef}
-            className="flex gap-6 pb-6 will-change-transform"
-            style={{ transform: 'translateX(0px)' }}
+            className="flex gap-4 md:gap-6 pb-6 overflow-x-auto snap-x md:overflow-visible md:snap-none scrollbar-hide px-4 md:px-0"
+            style={{
+              // Reset transform on mobile via style prop if needed, though JS check handles it
+              transform: typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches ? 'none' : 'translateX(0px)'
+            }}
           >
             {loopSlides.map((p, idx) => {
               const readLabel = p.readingMinutes
@@ -126,12 +132,16 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
                   ? `${p.readingMinutes} min lectura`
                   : `${p.readingMinutes} min read`
                 : null;
+
+              // Don't render duplicates on mobile to avoid confusion in native scroll
+              if (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches && idx >= filtered.length) return null;
+
               return (
                 <Link
                   key={`${p.slug}-${idx}`}
                   to={p.href}
                   data-slide
-                  className="group relative h-[450px] w-[630px] shrink-0 snap-center overflow-hidden rounded-[20px] bg-neutral-900"
+                  className="group relative h-[400px] w-[85vw] sm:w-[400px] md:h-[450px] md:w-[630px] shrink-0 snap-center overflow-hidden rounded-[20px] bg-neutral-900"
                 >
                   {p.cover ? (
                     <img
@@ -146,16 +156,16 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 space-y-3 text-white">
+                  <div className="absolute bottom-5 left-5 right-5 md:bottom-6 md:left-6 md:right-6 space-y-2 md:space-y-3 text-white">
                     {p.category && (
-                      <span className="inline-flex items-center rounded-full bg-[#25d366]/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-black shadow-sm">
+                      <span className="inline-flex items-center rounded-full bg-[#25d366]/90 px-2.5 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-semibold uppercase tracking-wide text-black shadow-sm">
                         {getCategoryLabel(lang, p.category)}
                       </span>
                     )}
-                    <h3 className="text-2xl font-semibold leading-snug text-white drop-shadow-[0_12px_20px_rgba(0,0,0,0.45)]">
+                    <h3 className="text-xl md:text-2xl font-semibold leading-snug text-white drop-shadow-[0_12px_20px_rgba(0,0,0,0.45)] line-clamp-2 md:line-clamp-none">
                       {p.title}
                     </h3>
-                    <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                    <div className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                       {readLabel && <span>{readLabel}</span>}
                       {p.date && (
                         <time dateTime={p.date}>
@@ -171,8 +181,8 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
               );
             })}
           </div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent" />
+          <div className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent" />
+          <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent" />
         </div>
       )}
 

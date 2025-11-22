@@ -92,8 +92,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   }, []);
 
   return (
-    <div className="w-full h-screen" ref={comp}>
-      <div className="relative w-full h-full overflow-hidden">
+    <div className="w-full min-h-screen md:h-screen" ref={comp}>
+      <div className="relative w-full h-full min-h-[600px] sm:min-h-[700px] md:min-h-screen overflow-hidden">
         {/* Background Video with Overlay */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Preload poster image for better LCP */}
@@ -146,17 +146,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Content Container - ensure it's above the video and overlay */}
         <div className="absolute inset-0 flex items-center">
-          <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-20 text-white sm:px-8">
-            <div id="preheading" className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/70">
-              <span className="h-px w-10 bg-white/40" aria-hidden="true"></span>
+          <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-4 sm:gap-6 px-4 sm:px-6 py-16 sm:py-20 text-white">
+            <div id="preheading" className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/70">
+              <span className="h-px w-8 sm:w-10 bg-white/40" aria-hidden="true"></span>
               <span>{preheading}</span>
             </div>
 
-            <h1 id="headline" className="text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl">
+            <h1 id="headline" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
               <span className="block">{currentHeadline.lead}</span>
               <span className="mt-2 block text-white">
                 <span className="relative inline-flex items-center">
-                  <span className="absolute inset-x-0 bottom-1 h-3 bg-[#27e97c]/30" aria-hidden="true"></span>
+                  <span className="absolute inset-x-0 bottom-1 h-2 sm:h-3 bg-[#27e97c]/30" aria-hidden="true"></span>
                   <span className="relative text-[#27e97c]">{currentHeadline.accent}</span>
                 </span>
                 {currentHeadline.trailing ? (
@@ -165,21 +165,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </span>
             </h1>
 
-            <p id="description" className="max-w-2xl text-base text-white/80 sm:text-lg">
-              {description}
+            <p id="description" className="max-w-2xl text-sm sm:text-base md:text-lg text-white/80 leading-relaxed">
+              {description.split('\n').map((line, index) => (
+                <span key={index}>
+                  {line}
+                  {index < description.split('\n').length - 1 && <br />}
+                </span>
+              ))}
             </p>
 
-            <div id="cta" className="flex flex-col items-start gap-8">
+            <div id="cta" className="flex flex-col items-start gap-4 sm:gap-6 md:gap-8 mt-2">
               <Button
                 size="lg"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#27e97c] px-8 py-4 text-lg font-semibold text-black shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:bg-[#27e97c]/90 hover:shadow-[#27e97c]/30 focus-visible:ring-[#27e97c]"
+                className="group inline-flex items-center gap-2 sm:gap-3 rounded-full bg-[#27e97c] px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-black shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:bg-[#27e97c]/90 hover:shadow-[#27e97c]/30 focus-visible:ring-[#27e97c] min-h-[48px]"
                 onClick={onPrimaryClick}
                 aria-label={language === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp'}
               >
                 <span>{ctaPrimaryText}</span>
-                <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
-              <div id="key-benefits" className="text-sm font-medium tracking-[0.2em] text-white/60">
+              <div id="key-benefits" className="text-xs sm:text-sm font-medium tracking-[0.15em] sm:tracking-[0.2em] text-white/60">
                 {keyBenefits}
               </div>
             </div>
