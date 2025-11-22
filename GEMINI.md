@@ -2,58 +2,50 @@
 
 ## Project Overview
 
-This is a web application for "Andes Runners," a service that provides personalized training plans for runners. The application is built with **React**, **TypeScript**, and **Vite**, and styled with **Tailwind CSS**. It supports both English and Spanish languages. A key feature is a simplified onboarding process that integrates with WhatsApp to improve user conversion.
+**Andes Runners** is a bilingual (English/Spanish) web application for personalized running training plans. It targets "Sedentary Dreamers" and "Occasional Athletes," offering a supportive, coach-like experience.
 
-The target audience includes two main profiles:
-*   **The Sedentary Dreamer:** Someone who has never run seriously but dreams of completing a race.
-*   **The Occasional Athlete:** A casual runner who wants to tackle a new challenge like a marathon.
+**Tech Stack:**
+*   **Framework:** React + Vite
+*   **Language:** TypeScript
+*   **Styling:** Tailwind CSS + Framer Motion + GSAP
+*   **Routing:** React Router DOM
+*   **Deployment:** Netlify
+*   **CMS/Content:** Hardcoded in `src/data/content.tsx` (for now)
 
-The core value proposition is to provide a transformative experience, focusing on the user's personal journey and achievement, rather than just the technology behind the app. The goal is to be a motivational and supportive coach, helping users overcome their fears and achieve their goals.
+## Key Features
+*   **Bilingual Support:** URL-based routing (`/es`, `/en`) with auto-detection.
+*   **Mobile-First Design:** Optimized specifically for mobile UX (horizontal carousels, touch-friendly).
+*   **WhatsApp Onboarding:** Simplified flow to convert users via WhatsApp.
+*   **Blog System:** Markdown-based blog with categories, reading time, and SEO optimization.
 
-## Building and Running
+## Project Structure
 
-### Development
-
-To run the development server:
-
-```bash
-npm run dev
+```
+/
+├── src/
+│   ├── components/     # Shared UI components (Hero, Buttons, etc.)
+│   ├── features/       # Feature-specific modules (Blog, Onboarding)
+│   ├── data/          # Content strings and blog posts
+│   ├── hooks/         # Custom hooks (useLanguage, etc.)
+│   └── lib/           # Utilities (analytics, formatting)
+├── public/            # Static assets, robots.txt, sitemap.xml
+├── docs/              # Documentation (Strategy, Ideas, Legacy)
+└── scripts/           # Build scripts (sitemap generation)
 ```
 
-The application will be available at `http://localhost:5173`.
+## Development
 
-### Building for Production
+### Commands
+*   `npm run dev`: Start local server.
+*   `npm run build`: Build for production (generates `dist/`).
+*   `npm test`: Run tests.
 
-To build the application for production:
+### Content Strategy
+*   **Voice:** The Empathetic Coach.
+*   **Focus:** Transformation, overcoming fear, and "Zero to Hero" stories.
+*   **Blog:** Located in `src/features/blog`. Content managed in `src/data/blog-posts.ts`.
 
-```bash
-npm run build
-```
-
-This command builds both the English and Spanish versions of the site. The output is generated in the `dist` directory, with the Spanish version in `dist/es`.
-
-### Testing
-
-To run the test suite:
-
-```bash
-npm test
-```
-
-Tests are written with [Vitest](https://vitest.dev/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
-
-## Development Conventions
-
-*   **Languages**: The application is fully localized in English and Spanish. Content is managed in `src/data/content.tsx`.
-*   **Styling**: The project uses Tailwind CSS for styling. Configuration is in `tailwind.config.js`.
-*   **Onboarding**: A simplified onboarding flow using WhatsApp is implemented in `public/js/andes-simplified-onboarding.js`. This is a key feature of the application.
-*   **Deployment**: The project is deployed on Netlify. The configuration is in `netlify.toml`.
-
-### Content and Copywriting
-
-The content strategy is centered on the user's motivations, ambitions, and fears. The tone should be friendly, encouraging, and human, like a personal coach.
-
-*   **Focus on Benefits:** Emphasize the transformative benefits of the training, such as preventing injuries, gaining confidence, and achieving personal goals.
-*   **Address Fears:** Directly address common fears and mental barriers, such as the belief that one is not "a runner."
-*   **Social Proof:** Incorporate testimonials and success stories to build trust and inspire new users.
-*   **Clear Calls to Action:** Use value-oriented calls to action that clearly communicate the benefit to the user.
+## Optimization & SEO
+*   **SEO:** `react-helmet-async` for dynamic meta tags. `sitemap.xml` and `robots.txt` included.
+*   **Performance:** Code splitting via Vite. Lazy loading for heavy components.
+*   **Mobile:** Horizontal scroll snapping for lists, optimized touch targets.

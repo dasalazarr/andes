@@ -62,37 +62,37 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         y: '+=16',
         duration: 0.8,
       })
-      .from("#headline", {
-        opacity: 0,
-        y: '+=30',
-        duration: 1,
-        delay: -0.3,
-      })
-      .from("#description", {
-        opacity: 0,
-        y: '+=20',
-        duration: 0.8,
-        delay: -0.5,
-      })
-      .from("#cta", {
-        opacity: 0,
-        y: '+=20',
-        duration: 0.8,
-        delay: -0.4,
-      })
-      .from("#key-benefits", {
-        opacity: 0,
-        y: '+=16',
-        duration: 0.6,
-        delay: -0.3,
-      });
+        .from("#headline", {
+          opacity: 0,
+          y: '+=30',
+          duration: 1,
+          delay: -0.3,
+        })
+        .from("#description", {
+          opacity: 0,
+          y: '+=20',
+          duration: 0.8,
+          delay: -0.5,
+        })
+        .from("#cta", {
+          opacity: 0,
+          y: '+=20',
+          duration: 0.8,
+          delay: -0.4,
+        })
+        .from("#key-benefits", {
+          opacity: 0,
+          y: '+=16',
+          duration: 0.6,
+          delay: -0.3,
+        });
     }, comp);
 
     return () => ctx.revert(); // Cleanup
   }, []);
 
   return (
-    <div className="w-full min-h-screen md:h-screen" ref={comp}>
+    <div className="w-full h-screen min-h-[100dvh]" ref={comp}>
       <div className="relative w-full h-full min-h-[600px] sm:min-h-[700px] md:min-h-screen overflow-hidden">
         {/* Background Video with Overlay */}
         <div className="absolute inset-0 overflow-hidden">
