@@ -127,7 +127,7 @@ const Home = () => {
           />
         </section>
 
-        <section id="benefits" className="relative py-16 md:py-24 bg-black text-gray-200">
+        <section id="benefits" className="relative py-8 md:py-20 lg:py-24 bg-black text-gray-200">
           <div className="container mx-auto px-4 relative z-0">
             <AnimatedSection>
               <Suspense fallback={<div className="text-center p-12">Cargando beneficios...</div>}>
@@ -141,7 +141,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="relative py-16 md:py-24 bg-black section-separator">
+        <section className="relative py-12 md:py-20 lg:py-24 bg-black section-separator">
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="text-center p-12">Cargando indicadores...</div>}>
               <ImpactIndicatorsSection
@@ -156,14 +156,14 @@ const Home = () => {
         </section>
 
         {/* Testimonios Section */}
-        <section id="reviews" className="relative py-16 md:py-24 bg-black section-separator">
+        <section id="reviews" className="relative py-12 md:py-20 lg:py-24 bg-black section-separator">
           <div className="container mx-auto px-4">
-            <AnimatedSection className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            <AnimatedSection className="text-center mb-10 md:mb-14 lg:mb-16 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 text-white">
                 {testimonialsContent[language].sectionTitle}
               </h2>
-              <p className="text-lg md:text-xl text-gray-400">
-                {language === 'es' 
+              <p className="text-base md:text-lg lg:text-xl text-gray-400">
+                {language === 'es'
                   ? 'Descubre cómo Andes ha transformado las vidas de corredores como tú'
                   : 'Discover how Andes has transformed the lives of runners like you'
                 }
@@ -171,35 +171,34 @@ const Home = () => {
             </AnimatedSection>
             <AnimatedSection>
               {testimonialsContent[language].testimonials.length > 0 && (
-                <div className="mx-auto max-w-4xl rounded-[24px] border border-white/10 bg-neutral-900/70 px-8 py-12 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-                  <div className="flex justify-center gap-1 text-[#f5c451] text-xl mb-6" aria-hidden>
+                <div className="mx-auto max-w-4xl rounded-2xl md:rounded-[24px] border border-white/10 bg-neutral-900/70 px-6 md:px-8 py-10 md:py-12 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
+                  <div className="flex justify-center gap-1 text-[#f5c451] text-lg md:text-xl mb-5 md:mb-6" aria-hidden>
                     {Array.from({ length: 5 }).map((_, idx) => (
                       <span key={idx}>★</span>
                     ))}
                   </div>
-                  <blockquote className="text-2xl md:text-3xl font-semibold leading-snug text-white">
-                    “{testimonialsContent[language].testimonials[activeTestimonialIndex].quote}”
+                  <blockquote className="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug text-white">
+                    "{testimonialsContent[language].testimonials[activeTestimonialIndex].quote}"
                   </blockquote>
-                  <div className="mt-6 text-sm uppercase tracking-[0.3em] text-[#25d366]/80">
+                  <div className="mt-5 md:mt-6 text-xs md:text-sm uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#25d366]/80">
                     {testimonialsContent[language].testimonials[activeTestimonialIndex].result}
                   </div>
-                  <div className="mt-4 text-white font-semibold text-lg">
+                  <div className="mt-3 md:mt-4 text-white font-semibold text-base md:text-lg">
                     {testimonialsContent[language].testimonials[activeTestimonialIndex].author}
                   </div>
                   <div className="text-gray-400 text-sm">
                     {testimonialsContent[language].testimonials[activeTestimonialIndex].detail}
                   </div>
-                  <div className="mt-10 flex justify-center gap-4">
+                  <div className="mt-8 md:mt-10 flex justify-center gap-3 md:gap-4 flex-wrap">
                     {testimonialsContent[language].testimonials.map((testimonial, index) => (
                       <button
                         key={testimonial.author}
                         type="button"
                         onClick={() => setActiveTestimonialIndex(index)}
-                        className={`relative h-14 w-14 rounded-full border transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] ${
-                          index === activeTestimonialIndex
-                            ? 'border-[#25d366] shadow-[0_0_25px_rgba(37,211,102,0.35)]'
-                            : 'border-white/10 hover:border-[#25d366]/60'
-                        }`}
+                        className={`relative h-12 w-12 md:h-14 md:w-14 rounded-full border transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] ${index === activeTestimonialIndex
+                          ? 'border-[#25d366] shadow-[0_0_25px_rgba(37,211,102,0.35)]'
+                          : 'border-white/10 hover:border-[#25d366]/60'
+                          }`}
                         aria-label={`${testimonial.author} testimonial`}
                       >
                         {(testimonial as any).image ? (
@@ -210,7 +209,7 @@ const Home = () => {
                             loading="lazy"
                           />
                         ) : (
-                          <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-white font-bold">
+                          <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-white font-bold text-sm md:text-base">
                             {testimonial.author.charAt(0)}
                           </span>
                         )}
@@ -230,13 +229,13 @@ const Home = () => {
         </section>
 
         {/* Aprende y Mejora (destacados del blog) */}
-        <section className="py-12 md:py-16 bg-black">
+        <section className="py-8 md:py-14 lg:py-16 bg-black">
           <Suspense fallback={<div className="text-center p-12">Cargando blog...</div>}>
             <BlogHighlights lang={language} limit={4} />
           </Suspense>
         </section>
 
-        <section id="pricing" ref={pricingSectionRef} className="py-16 md:py-24 bg-black text-gray-100 section-separator">
+        <section id="pricing" ref={pricingSectionRef} className="py-12 md:py-20 lg:py-24 bg-black text-gray-100 section-separator">
           <div className="container mx-auto px-4">
             <AnimatedSection>
               <Suspense fallback={<div className="text-center p-12">Cargando planes de precios...</div>}>
@@ -249,13 +248,13 @@ const Home = () => {
                     onCtaClick: index === 0
                       ? undefined
                       : () => {
-                          if (index === 1) {
-                            const gritSection = document.getElementById('grit-stories');
-                            if (gritSection) {
-                              gritSection.scrollIntoView({ behavior: 'smooth' });
-                            }
+                        if (index === 1) {
+                          const gritSection = document.getElementById('grit-stories');
+                          if (gritSection) {
+                            gritSection.scrollIntoView({ behavior: 'smooth' });
                           }
                         }
+                      }
                   }))}
                 />
               </Suspense>
@@ -308,7 +307,7 @@ const Home = () => {
         </Suspense>
       </section>
 
-      <section className="relative overflow-hidden py-32 md:py-48">
+      <section className="relative overflow-hidden py-20 md:py-32 lg:py-48">
         <div className="absolute inset-0">
           <img
             src="/images/background.png"
@@ -321,13 +320,13 @@ const Home = () => {
         <div className="relative">
           <div className="container mx-auto px-4">
             <AnimatedSection className="mx-auto max-w-3xl text-center text-white">
-              <h2 className="mt-6 text-4xl font-bold md:text-5xl leading-tight">
+              <h2 className="mt-4 md:mt-6 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                 {language === 'es' ? '¿Listo para lograr tus metas?' : 'Ready to Achieve Your Goals?'}
               </h2>
-              <div className="mt-8 flex justify-center">
+              <div className="mt-6 md:mt-8 flex justify-center">
                 <Link
                   to={language === 'es' ? '/es/start' : '/start'}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-8 py-3 text-base font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-7 md:px-8 py-3 text-sm md:text-base font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869] min-h-[48px]"
                 >
                   {language === 'es' ? 'Comienza ahora' : 'Start now'}
                   <span aria-hidden>→</span>

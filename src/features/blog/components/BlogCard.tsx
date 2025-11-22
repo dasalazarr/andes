@@ -40,17 +40,17 @@ const BlogCard: React.FC<BlogCardProps> = ({
   const readMoreClass = isLight ? 'text-[#0F5132] hover:text-neutral-900' : 'text-[#25d366] hover:text-white';
   const formattedDate = date
     ? new Date(date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
     : undefined;
   const updatedDate = updated && updated !== date
     ? new Date(updated).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
     : undefined;
   const readingLabel = readingMinutes
     ? lang === 'es'
@@ -62,9 +62,9 @@ const BlogCard: React.FC<BlogCardProps> = ({
   const updatedLabel = updatedDate ? (lang === 'es' ? 'Actualizado' : 'Updated') : undefined;
 
   return (
-    <li className={`rounded-2xl overflow-hidden transition ${containerClasses}`}>
+    <li className={`rounded-xl md:rounded-2xl overflow-hidden transition ${containerClasses}`}>
       <article className="flex h-full flex-col">
-        <Link to={href} className="block aspect-[4/3] overflow-hidden bg-neutral-800">
+        <Link to={href} className="block aspect-[16/10] sm:aspect-[4/3] overflow-hidden bg-neutral-800">
           {cover ? (
             <img
               src={cover}
@@ -73,16 +73,16 @@ const BlogCard: React.FC<BlogCardProps> = ({
               loading="lazy"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#1F1F1F] to-[#2A2A2A] text-sm text-gray-400">
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#1F1F1F] to-[#2A2A2A] text-xs sm:text-sm text-gray-400 p-4 text-center">
               {title}
             </div>
           )}
         </Link>
 
-        <div className="flex flex-1 flex-col px-6 py-5">
-          <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="flex flex-1 flex-col px-5 md:px-6 py-4 md:py-5">
+          <div className="flex flex-wrap items-center justify-between gap-2 md:gap-3 text-[10px] sm:text-xs">
             {category ? <TagChip label={category} variant={isLight ? 'light' : 'dark'} /> : <span />}
-            <div className={`flex flex-wrap items-center gap-2 ${metaTextClass}`}>
+            <div className={`flex flex-wrap items-center gap-1.5 md:gap-2 ${metaTextClass}`}>
               {readingLabel && <span>{readingLabel}</span>}
               {formattedDate && (
                 <>
@@ -103,20 +103,20 @@ const BlogCard: React.FC<BlogCardProps> = ({
             </div>
           </div>
 
-          <h3 className="mt-4 text-xl font-semibold">
+          <h3 className="mt-3 md:mt-4 text-lg md:text-xl font-semibold leading-tight">
             <Link className={headingClass} to={href}>
               {title}
             </Link>
           </h3>
 
           {description && (
-            <p className={`mt-3 text-sm leading-relaxed line-clamp-3 ${bodyTextClass}`}>
+            <p className={`mt-2 md:mt-3 text-xs sm:text-sm leading-relaxed line-clamp-3 ${bodyTextClass}`}>
               {description}
             </p>
           )}
 
-          <div className="mt-auto pt-5">
-            <Link className={`inline-flex items-center text-sm font-semibold ${readMoreClass}`} to={href} aria-label={readMoreLabel}>
+          <div className="mt-auto pt-4 md:pt-5">
+            <Link className={`inline-flex items-center text-xs sm:text-sm font-semibold ${readMoreClass} min-h-[32px]`} to={href} aria-label={readMoreLabel}>
               {readMoreLabel}
               <span className="ml-1" aria-hidden>
                 →
