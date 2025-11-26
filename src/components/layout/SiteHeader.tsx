@@ -42,7 +42,8 @@ const SiteHeader: React.FC = () => {
       const currentY = window.scrollY;
 
       // Solo mostrar el header cuando esté en la parte superior (scrollY === 0)
-      setIsHidden(currentY > 0);
+      // Relaxed threshold to 10px to avoid flickering on mobile bounce
+      setIsHidden(currentY > 10);
 
       setIsElevated(currentY > 0);
 
@@ -144,7 +145,7 @@ const SiteHeader: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             type="button"
-            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full text-white sm:hidden"
+            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-black/40 sm:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
