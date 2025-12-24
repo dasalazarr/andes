@@ -55,7 +55,7 @@ const BlogList: React.FC = () => {
   const eyebrow = lang === 'es' ? 'ANDES BLOG' : 'ANDES BLOG';
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0c0f0d] via-[#0a0c0b] to-[#050505] text-white pt-20 sm:pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0a1510] to-[#050505] text-white pt-20 sm:pt-24">
       <BlogSeo
         type="list"
         lang={lang}
@@ -67,7 +67,7 @@ const BlogList: React.FC = () => {
 
       <section className="px-4 py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-3xl md:rounded-[36px] border border-white/10 bg-neutral-950/75 p-6 md:p-10 lg:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.4)]">
+          <div className="rounded-3xl md:rounded-[36px] border border-white/10 bg-white/5 backdrop-blur-xl p-6 md:p-10 lg:p-12 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
             <header className="text-center">
               <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] md:tracking-[0.35em] text-white/40">
                 <span>{eyebrow}</span>
@@ -92,8 +92,8 @@ const BlogList: React.FC = () => {
                         key={filter.key || 'all'}
                         to={href}
                         className={`flex-shrink-0 rounded-full px-4 md:px-5 py-2 text-xs md:text-sm font-semibold transition whitespace-nowrap min-h-[40px] inline-flex items-center gap-2 ${active
-                            ? 'bg-[#25d366] text-black shadow-[0_18px_35px_rgba(37,211,102,0.3)]'
-                            : 'border border-[#25d366]/40 text-[#25d366] hover:border-[#25d366] hover:text-white'
+                          ? 'bg-[#25d366] text-black shadow-[0_18px_35px_rgba(37,211,102,0.3)]'
+                          : 'border border-[#25d366]/40 text-[#25d366] hover:border-[#25d366] hover:text-white'
                           }`}
                       >
                         <span>{lang === 'es' ? filter.labelEs : filter.labelEn}</span>
@@ -106,7 +106,7 @@ const BlogList: React.FC = () => {
             </header>
 
             {posts.length === 0 ? (
-              <p className="mt-10 md:mt-12 rounded-3xl md:rounded-[28px] border border-dashed border-white/20 bg-neutral-900/60 p-8 md:p-10 text-center text-sm md:text-base text-gray-400">
+              <p className="mt-10 md:mt-12 rounded-3xl md:rounded-[28px] border border-dashed border-white/20 bg-white/5 backdrop-blur-md p-8 md:p-10 text-center text-sm md:text-base text-gray-400">
                 {lang === 'es'
                   ? 'Aún no tenemos artículos para esta categoría. Vuelve pronto.'
                   : 'We do not have articles in this category yet. Check back soon.'}
@@ -141,13 +141,13 @@ const BlogList: React.FC = () => {
                   ? 'Solicita un plan personalizado por WhatsApp con ajustes diarios de Andes.'
                   : 'Request a personalised WhatsApp plan from Andes with daily adjustments.'}
               </p>
-              <Link
-                to={lang === 'es' ? '/es/start' : '/start'}
+              <a
+                href={lang === 'es' ? '/es#pricing' : '/#pricing'}
                 className="mt-4 md:mt-5 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white px-5 py-2 text-xs md:text-sm font-semibold text-black transition hover:bg-neutral-100 min-h-[40px]"
               >
                 {lang === 'es' ? 'Solicitar plan gratuito' : 'Get your free plan'}
                 <span aria-hidden>→</span>
-              </Link>
+              </a>
             </div>
           </div>
         </div>

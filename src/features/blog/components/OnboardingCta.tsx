@@ -8,7 +8,7 @@ interface OnboardingCtaProps {
 }
 
 const OnboardingCta: React.FC<OnboardingCtaProps> = ({ lang, location }) => {
-  const href = lang === 'es' ? '/es/start?flow=blog&utm_source=blog&utm_medium=cta&utm_campaign=blog_to_onboarding' : '/start?flow=blog&utm_source=blog&utm_medium=cta&utm_campaign=blog_to_onboarding';
+  const href = '#pricing';
   const label = lang === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp';
 
   const onClick = () => {

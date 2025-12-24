@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import type { Language } from '../../../data/content';
 import ReactMarkdown from 'react-markdown';
@@ -10,6 +10,7 @@ import ShareButtons from '../components/ShareButtons';
 import RelatedPosts from '../components/RelatedPosts';
 import OnboardingCta from '../components/OnboardingCta';
 import analytics from '@/utils/analytics';
+import { Helmet } from 'react-helmet-async';
 
 const slugify = (value: string) =>
   value
@@ -30,6 +31,7 @@ const BlogPost: React.FC = () => {
   const lang: Language = pathname.startsWith('/es') ? 'es' as Language : 'en';
   const { slug = '' } = useParams();
   const doc = getPostByLangAndSlug(lang, slug);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   if (!doc) {
     return (
@@ -49,7 +51,13 @@ const BlogPost: React.FC = () => {
     );
   }
 
-  const { meta, body } = doc;
+  const { meta, body: rawBody } = doc;
+
+  // Extract JSON-LD script from body and clean body content
+  const jsonLdMatch = rawBody.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  const jsonLdContent = jsonLdMatch ? jsonLdMatch[1].trim() : null;
+  const body = rawBody.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '').trim();
+
   const title = meta.title;
   const altDoc = getAlternateFor(doc);
   const altPath = altDoc ? (altDoc.meta.lang === 'es' ? '/es/blog/' : '/blog/') + altDoc.meta.slug : null;
@@ -66,13 +74,120 @@ const BlogPost: React.FC = () => {
       }),
     [body]);
 
+  const navRefs = React.useRef<{ [key: string]: HTMLAnchorElement | null }>({});
+  const beamRef = React.useRef<HTMLDivElement>(null);
+
+  // Continuous fluid beam effect
+  useEffect(() => {
+    if (tableOfContents.length === 0) return;
+
+    let ticking = false;
+
+    const updateBeam = () => {
+      const scrollY = window.scrollY;
+      // Offset for trigger point (e.g. 20% down the viewport)
+      const offset = window.innerHeight * 0.2;
+      const triggerPoint = scrollY + offset;
+
+      // Calculate total article height context if needed, but relative section progress is better
+      // Find current section and next section
+      let currentIndex = -1;
+
+      for (let i = 0; i < tableOfContents.length; i++) {
+        const item = tableOfContents[i];
+        const element = document.getElementById(item.id);
+        if (element && triggerPoint >= element.offsetTop) {
+          currentIndex = i;
+        } else if (element && triggerPoint < element.offsetTop) {
+          break;
+        }
+      }
+
+      // Update active text state (discrete)
+      if (currentIndex >= 0) {
+        setActiveSection(tableOfContents[currentIndex].id);
+      } else {
+        setActiveSection('');
+      }
+
+      // Update beam position (continuous)
+      if (beamRef.current && currentIndex >= 0) {
+        const currentItem = tableOfContents[currentIndex];
+        const currentElement = document.getElementById(currentItem.id);
+
+        let progress = 0; // 0 to 1 representing progress through current section
+
+        if (currentElement) {
+          const nextItem = tableOfContents[currentIndex + 1];
+          const nextElement = nextItem ? document.getElementById(nextItem.id) : null;
+
+          const sectionTop = currentElement.offsetTop;
+          // Use end of container or next element
+          const sectionBottom = nextElement ? nextElement.offsetTop : (currentElement.offsetTop + currentElement.offsetHeight);
+
+          const sectionHeight = sectionBottom - sectionTop;
+          // Calculate progress
+          progress = Math.max(0, Math.min(1, (triggerPoint - sectionTop) / sectionHeight));
+        }
+
+        // Map progress to TOC item positions
+        const currentLink = navRefs.current[currentItem.id];
+        const nextLink = tableOfContents[currentIndex + 1] ? navRefs.current[tableOfContents[currentIndex + 1].id] : null;
+
+        if (currentLink) {
+          const startTop = currentLink.offsetTop;
+          // If it's the last item, clamp to its own height, don't overshoot
+          const endTop = nextLink ? nextLink.offsetTop : (startTop + currentLink.offsetHeight * 0.5); // Move slightly down but not fully to the next "imaginary" item
+
+          // Interpolate 
+          const currentTop = startTop + (endTop - startTop) * progress;
+
+          const beamHeight = 24;
+          const centeredTop = currentTop + (currentLink.offsetHeight - beamHeight) / 2;
+
+          // Clamp the final position to not exceed the last item's bounds if it is the last item
+          const maxTop = navRefs.current[tableOfContents[tableOfContents.length - 1].id]?.offsetTop || 9999;
+
+          // Ensure it doesn't go below the last item
+          const finalTop = Math.min(centeredTop, maxTop + (currentLink.offsetHeight - beamHeight) / 2);
+
+          beamRef.current.style.transform = `translateY(${finalTop}px)`;
+          beamRef.current.style.opacity = '1';
+        }
+      } else if (beamRef.current) {
+        // Hide beam if before first section
+        beamRef.current.style.opacity = '0';
+      }
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateBeam);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Initial call
+    updateBeam();
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [tableOfContents]);
+
   if (typeof window !== 'undefined') {
     analytics.trackPageView(window.location.pathname, lang);
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#050505] via-[#0a0c0b] to-[#050505] text-white pt-20 sm:pt-24 pb-12">
+    <main className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0a1510] to-[#050505] text-white pt-20 sm:pt-24 pb-12">
       <ReadingProgress />
+      {jsonLdContent && (
+        <Helmet>
+          <script type="application/ld+json">{jsonLdContent}</script>
+        </Helmet>
+      )}
       <BlogSeo
         type="post"
         lang={meta.lang}
@@ -87,26 +202,51 @@ const BlogPost: React.FC = () => {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:gap-10 px-4 py-8 md:py-12 lg:flex-row">
         {tableOfContents.length > 0 && (
           <aside className="hidden lg:block lg:w-64">
-            <div className="sticky top-28 rounded-3xl border border-white/10 bg-neutral-900/60 px-6 py-6 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
+            <div className="sticky top-28 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-5 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
               <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#25d366]/70">
                 {lang === 'es' ? 'Contenido' : 'Contents'}
               </p>
-              <nav className="space-y-2">
-                {tableOfContents.map((item) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    className="block rounded-xl border border-transparent px-3 py-2 text-sm text-gray-300 transition hover:border-[#25d366]/40 hover:bg-white/5 hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
+              <div className="relative">
+                {/* 
+                  Fluid active indicator (The "Beam")
+                  - Moved via Ref for performance (bypassing React render cycle)
+                  - No transition class to allow instant frame-by-frame updates
+                  - Gradient to-t (bottom green, top transparent)
+                */}
+                <div
+                  ref={beamRef}
+                  className="absolute left-0 w-[2px] bg-gradient-to-t from-[#25d366] to-transparent ease-linear will-change-transform"
+                  style={{
+                    height: '24px',
+                    top: '0px',
+                    opacity: 0,
+                    // transform is set by JS
+                  }}
+                >
+                </div>
+
+                <nav className="space-y-0 border-l border-white/10 relative z-10">
+                  {tableOfContents.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      ref={(el) => (navRefs.current[item.id] = el)}
+                      className={`block pl-4 py-2 text-sm transition-colors duration-300 ${activeSection === item.id
+                        ? 'text-white font-medium'
+                        : 'text-gray-400 hover:text-white'
+                        }`}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
             </div>
           </aside>
         )}
+
         <article className="flex-1">
-          <header className="mb-8 md:mb-10 rounded-3xl md:rounded-[32px] border border-white/10 bg-neutral-900/70 px-6 md:px-8 py-8 md:py-10 shadow-[0_25px_60px_rgba(0,0,0,0.45)]">
+          <header className="mb-8 md:mb-10 rounded-3xl md:rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl px-6 md:px-8 py-8 md:py-10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
             <div className="flex flex-wrap items-start justify-between gap-4 md:gap-6">
               <div>
                 <div className="flex flex-wrap items-center gap-2 md:gap-3 text-[10px] sm:text-xs uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#25d366]/70">

@@ -324,13 +324,13 @@ const Home = () => {
                 {language === 'es' ? '¿Listo para lograr tus metas?' : 'Ready to Achieve Your Goals?'}
               </h2>
               <div className="mt-6 md:mt-8 flex justify-center">
-                <Link
-                  to={language === 'es' ? '/es/start' : '/start'}
+                <button
+                  onClick={scrollToPricing}
                   className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-7 md:px-8 py-3 text-sm md:text-base font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869] min-h-[48px]"
                 >
                   {language === 'es' ? 'Comienza ahora' : 'Start now'}
                   <span aria-hidden>→</span>
-                </Link>
+                </button>
               </div>
             </AnimatedSection>
           </div>

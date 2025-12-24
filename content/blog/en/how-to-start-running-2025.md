@@ -3,13 +3,16 @@ title: "How to Start Running from Scratch – Complete 2025 Guide"
 description: "Step-by-step advice to start running safely, avoid injuries, and finish your first 5K with Andes coaching."
 slug: "how-to-start-running-2025"
 date: "2025-02-05"
+updated: "2025-12-24"
 tags: [beginners, guide, how-to-start-running, 5k]
 category: "training"
-cover: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=1600&q=80"
-coverAlt: "Beginner runner warming up in a city park at sunrise"
+cover: "/images/blog/how-to-start-running-2025/cover.jpg"
+coverAlt: "Beginner runner warming up in Mexico City at sunrise"
 canonicalId: "start-running-2025"
 lang: "en"
 published: true
+locale: en-US
+geoTarget: ["Mexico City", "CDMX"]
 ---
 
 # How to Start Running From Scratch
@@ -22,9 +25,15 @@ Thousands of new runners in Latin America start every year, and with the right g
 
 This 2025 guide walks you through each step so you can run safely, stay motivated, and reach the finish line without injuries.
 
+From our experience coaching beginners in Chapultepec and Viveros, the fastest progress comes from simple plans and steady habit-building.
+
 [Chat with Andes on WhatsApp and unlock your free personalized plan →](https://wa.me/5215555555555)
 
 ## Why 2025 Is the Perfect Year to Start
+
+2025 is a great year to begin because local races, communities, and beginner-friendly routes keep growing.
+
+What matters most is starting with a realistic plan and a safe route like Chapultepec or Reforma on Sundays.
 
 Running events in Mexico continue to grow, from Mexico City to León and Aguascalientes.
 
@@ -40,6 +49,10 @@ The sport is booming because it delivers real gains.
 You do not need the perfect gear — only a basic pair of shoes and twenty focused minutes." — Andes Coaching Team
 
 ## Prepare Before Your First Run
+
+Preparation means knowing your baseline, choosing simple gear, and setting realistic milestones.
+
+This lowers injury risk and keeps motivation high in the first month.
 
 ### Check your baseline
 
@@ -60,6 +73,10 @@ You do not need the perfect gear — only a basic pair of shoes and twenty focus
 - Weeks 9-12: complete your first 5K.
 
 ## Training Plan Roadmap
+
+This roadmap blends walking and running to build endurance without overload.
+
+It is ideal if you are starting from zero and want a safe first 5K.
 
 ### Weeks 1-2: Build the habit
 
@@ -86,6 +103,10 @@ Add low-impact cross training or yoga once per week.
 
 ## What Makes Andes Different
 
+Andes combines human coaching with real-time WhatsApp adjustments.
+
+That means your plan changes when life changes, not weeks later.
+
 Traditional apps hand you a fixed plan.
 
 Andes adapts daily through WhatsApp conversations.
@@ -95,6 +116,10 @@ Andes adapts daily through WhatsApp conversations.
 - Real coaches available 24/7 for questions.
 
 ## Injury Prevention Essentials
+
+Injury prevention is the difference between quitting and staying consistent.
+
+Small strength habits protect your knees, shins, and feet over time.
 
 Up to 70% of runners get injured each year.
 
@@ -111,11 +136,19 @@ Avoid the most common issues with smart progressions.
 
 ## Fuel and Hydrate Correctly
 
+Simple fueling is enough to support beginner training.
+
+Consistency beats complicated supplements.
+
 - Two hours before: light carbs such as oats, banana, or toast.
 - During sessions under 60 minutes: water is enough.
 - Within 30 minutes after: hydrate and combine carbs with protein.
 
 ## Stay Motivated
+
+Motivation grows from small wins, not perfect weeks.
+
+Focus on showing up and the results follow.
 
 - Define a meaningful reason for running.
 - Join a community or training buddy for accountability.
@@ -129,8 +162,15 @@ Thousands of beginners already trust Andes to reach their first medal.
 - Daily adjustments and injury prevention guidance.
 - Ongoing motivation through real conversations.
 
+## Related reading
+
+- [Free 5K training plan](/blog/free-5k-training-plan)
+- [How to choose running shoes](/blog/how-to-choose-running-shoes)
+
 [Start your free Andes plan today →](https://wa.me/5215555555555)
 
 > "I kept postponing running for years.
 
 With Andes I completed my first 5K in eight weeks and stayed injury-free." — Maria Gonzalez, Mexico City
+
+> ⚠️ **Important:** This information is educational and does not replace medical advice. If you feel persistent pain, consult a sports health professional.

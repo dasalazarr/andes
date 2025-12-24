@@ -1,72 +1,74 @@
 ---
-title: "Correr en Bogotá: Parque Simón Bolívar"
-description: "Explora cómo entrenar en el Parque Simón Bolívar: rutas, eventos y tips para correr a 2 600 m con el acompañamiento de Andes."
+title: "Correr en Bogotá: Parque Simón Bolívar y altitud sin drama"
+description: "Guía para correr en el Parque Simón Bolívar: rutas, altitud y tips locales con acompañamiento de Andes por WhatsApp."
 slug: "correr-en-bogota-parque-simon-bolivar"
 date: "2025-02-18"
+updated: "2025-12-24"
 tags: [bogota, colombia, rutas, altura]
 category: "routes"
-cover: "https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&w=1600&q=80"
-coverAlt: "Corredores rodeando el lago del Parque Simón Bolívar en Bogotá"
+cover: "/images/blog/correr-en-bogota-parque-simon-bolivar/cover.jpg"
+coverAlt: "Corredores alrededor del lago del Parque Simón Bolívar"
 canonicalId: "routes-bogota"
 lang: "es"
 published: true
-metaTitle: "Correr en Bogotá: rutas del Parque Simón Bolívar"
-metaDescription: "Guía Andes para correr en el Parque Simón Bolívar: rutas, eventos culturales, altitud y CTAs para planes Freemium y Premium."
-schema:
-  type: HowTo
-  mainEntityOfPage: "https://andes.run/es/blog/correr-en-bogota-parque-simon-bolivar"
+locale: es-CO
+geoTarget: ["Bogotá", "Colombia"]
 ---
 
-# Parque Simón Bolívar: corazón runner de Bogotá
+# Correr en Bogotá: Parque Simón Bolívar y altitud sin drama
 
-A 2 600 metros sobre el nivel del mar, Bogotá exige respeto y estrategia.
+A 2,600 metros de altitud, Bogotá exige paciencia y ritmo controlado.
 
-El Parque Simón Bolívar ofrece 400 hectáreas de caminos, arboledas y cultura que lo convierten en el pulmón ideal para tus tiradas largas.
-
-Andes te explica cómo dominar la altitud y mantener la motivación con coaching diario por WhatsApp.
+En nuestra experiencia con corredores que entrenan en el Simón Bolívar, la clave es progresar con calma y dominar la respiración desde la primera semana.
 
 > CTA inicial · Comienza tu plan gratuito adaptado a la altitud: [Escríbenos](https://wa.me/573000000000)
 
-## Rutas claves en el Parque
+## Rutas clave en el Parque Simón Bolívar
 
-| Segmento | Distancia | Tipo de superficie | Notas |
+Estas rutas son seguras, accesibles y perfectas para entrenamientos variados.
+
+Si estás empezando, elige superficies suaves y evita los cambios bruscos de ritmo.
+
+| Segmento | Distancia | Superficie | Notas |
 | --- | --- | --- | --- |
-| Ciclopista perimetral | 3,2 km | Asfalto liso | Ideal para series cortas |
+| Ciclopista perimetral | 3,2 km | Asfalto liso | Series cortas y tempo |
 | Senderos internos | 5 km | Tierra + grava | Conexión con Jardín Botánico |
-| Conexión parque lineal | 8 km | Mixta | Une con Virgilio Barco y Tunal |
+| Conexión parque lineal | 8 km | Mixta | Une con Virgilio Barco |
 
-*Fuentes: [MyPacer](https://mypacer.com), [The Running Ginger](https://the-running-ginger.blog), [Wikipedia](https://es.wikipedia.org/wiki/Parque_Metropolitano_Sim%C3%B3n_Bol%C3%ADvar)*
+## Tips Andes para correr a 2,600 m
 
-## Tips Andes para correr a 2 600 m
+La altitud aumenta la percepción de esfuerzo y puede elevar tu frecuencia cardiaca.
 
-- **Aclimatación**: incrementa el volumen semanal un 5 % y monitoriza tu frecuencia cardiaca para evitar sobreesfuerzo.
-- **Protección solar**: usa bloqueador FPS 50+ y gorra incluso en días nublados.
-- **Hidratación**: bebe cada 15 minutos; la altitud acelera la deshidratación ([The Running Ginger](https://the-running-ginger.blog)).
-- **Superficies mixtas**: alterna tenis con mayor amortiguación para los senderos internos.
+Ajustar ritmo y descanso es más importante que “aguantar”.
 
-Consulta nuestra guía para [evitar lesiones en 10K](/blog/errores-10k-lesiones) y complementa con fortalecimiento.
+- Incrementa volumen con solo 5% semanal.
+- Usa bloqueador y gorra, incluso en días nublados.
+- Hidrátate cada 15-20 minutos si la sesión supera 45 minutos.
+- Alterna tenis con buena amortiguación en los senderos internos.
 
-> CTA intermedio · Andes Premium monitoriza tu frecuencia cardiaca y adapta la carga automáticamente. [Cotiza aquí](https://wa.me/573000000000)
+Consulta también nuestra guía para [evitar lesiones en 10K](/es/blog/errores-10k-lesiones) y complementa con fuerza básica.
 
-## Eventos y cultura bogotana
+> CTA intermedio · Andes Premium monitoriza tu frecuencia cardiaca y adapta la carga. [Cotiza aquí](https://wa.me/573000000000)
 
-- **Media Maratón de Bogotá**: clásica a 2 600 m, perfecta para runners que buscan reto.
-- **Carrera por los Héroes** y **Carrera Verde** con recorridos en el parque.
-- Festivales como **Rock al Parque** y **Festival de Verano** conviven con entrenos dominicales.
-- Recupera con una arepa con queso o una bandeja paisa para recargar carbohidratos y proteínas.
+## Eventos y cultura runner en Bogotá
 
-## Testimonio Andes
+La ciudad tiene carreras icónicas que ayudan a mantener la motivación.
 
-**Paula Martínez, 29 años** — “Antes me ahogaba a los 2 km en el Simón Bolívar. Con Andes ajusté ritmos según mi pulso y terminé la Media Maratón con fuerza.”
+Participar en ellas te da un objetivo claro y medible.
 
-## Disclaimer
+- **Media Maratón de Bogotá**: reto clásico a gran altitud.
+- **Carrera por los Héroes** y **Carrera Verde** con recorridos urbanos.
+- Festivales como **Rock al Parque** que convierten el parque en un epicentro deportivo.
 
-Esta guía no sustituye recomendaciones médicas.
+## Tu siguiente paso
+
+Correr en Bogotá puede ser retador, pero con estrategia se vuelve disfrutable.
+
+## También te puede servir
+
+- [Errores que lesionan al preparar un 10K](/es/blog/errores-10k-lesiones)
+- [Nutrición para corredores](/es/blog/nutricion-para-corredores)
 
 > CTA final · ¿Listo para dominar la altitud? [Plan Freemium](https://wa.me/573000000000) o [Premium con métricas avanzadas](/start?plan=premium-altitud).
 
-### Referencias
-
-- Información del parque – [Wikipedia](https://es.wikipedia.org/wiki/Parque_Metropolitano_Sim%C3%B3n_Bol%C3%ADvar)
-- Recomendaciones de aclimatación – [The Running Ginger](https://the-running-ginger.blog)
-- Longitud de pistas – [MyPacer](https://mypacer.com)
+> ⚠️ **Nota importante:** Esta información es orientativa y no reemplaza el consejo de un profesional médico.

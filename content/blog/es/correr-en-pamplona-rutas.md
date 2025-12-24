@@ -1,80 +1,71 @@
 ---
-title: "Correr en Pamplona: Rutas y eventos 2025"
-description: "Descubre las mejores rutas para correr en Pamplona, consejos de entrenamiento y eventos clave para planear tu temporada con Andes."
+title: "Correr en Pamplona: rutas seguras y eventos 2025"
+description: "Guía 2025 para correr en Pamplona con rutas urbanas, consejos de entrenamiento y eventos clave, con apoyo de Andes por WhatsApp."
 slug: "correr-en-pamplona-rutas"
 date: "2025-02-18"
+updated: "2025-12-24"
 tags: [pamplona, rutas, españa, turismo-runner]
 category: "routes"
-cover: "https://images.unsplash.com/photo-1525876184539-1500d3ec9f23?auto=format&fit=crop&w=1600&q=80"
-coverAlt: "Corredores pasando frente a las murallas de Pamplona al amanecer"
+cover: "/images/blog/correr-en-pamplona-rutas/cover.jpg"
+coverAlt: "Corredores frente a las murallas de Pamplona al amanecer"
 canonicalId: "routes-pamplona"
 lang: "es"
 published: true
-metaTitle: "Correr en Pamplona: rutas seguras y eventos"
-metaDescription: "Guía 2025 para correr en Pamplona: rutas urbanas, eventos como la San Silvestre, consejos de entrenamiento y CTA para un plan gratuito con Andes."
-schema:
-  type: HowTo
-  mainEntityOfPage: "https://andes.run/es/blog/correr-en-pamplona-rutas"
+locale: es-ES
+geoTarget: ["Pamplona", "Navarra", "España"]
 ---
 
-# Correr en Pamplona con espíritu Andes
+# Correr en Pamplona: rutas seguras y eventos 2025
 
-Pamplona no solo vibra con los Sanfermines.
+Pamplona combina patrimonio, parques y rutas cómodas para correr todo el año.
 
-Su trazado histórico, sus murallas y los parques que abrazan al río Arga la convierten en una ciudad perfecta para correr todo el año.
-
-Si quieres entrenar con tradición navarra y un plan personalizado por WhatsApp, esta guía de Andes te coloca en la línea de salida.
+Si quieres entrenar con un plan claro y ajustes por WhatsApp, esta guía te deja listo para empezar.
 
 > CTA · Empieza hoy mismo: [Recibe tu plan gratuito por WhatsApp](https://wa.me/34600000000)
 
 ## Rutas imprescindibles en Pamplona
 
-| Ruta | Distancia | Superficie | Desnivel estimado |
+Estas rutas son accesibles, seguras y perfectas para rodajes constantes.
+
+Elige superficies mixtas si estás empezando y evita horas de máxima afluencia.
+
+| Ruta | Distancia | Superficie | Desnivel |
 | --- | --- | --- | --- |
-| Vuelta al Castillo | 5,0 km | Mixta (tierra compacta + asfalto) | +40 m |
+| Vuelta al Castillo | 5,0 km | Mixta | +40 m |
 | Paseo del Arga | 7,5 km | Tierra compacta | +65 m |
 | Murallas y Casco Antiguo | 4,2 km | Adoquín + asfalto | +55 m |
 
-*Fuente: [navarra.okdiario.com](https://navarra.okdiario.com)*
+## Entrenamiento recomendado
 
-## Entrena con ciencia y cultura navarra
+Un plan equilibrado combina rodajes fáciles, técnica y un día de fuerza semanal.
 
-### Calentamiento dinámico obligado
+La regularidad gana a la intensidad cuando estás construyendo base.
 
-- Realiza 8-10 minutos de movilidad articular y skips antes de cada sesión para activar la musculatura y reducir lesiones.
-- Investigaciones sobre calentamientos dinámicos demuestran mejoras en potencia y prevención de lesiones ([No Limits Endurance](https://www.nolimitsendurance.com/dynamic-warm-up-for-runners)).
-
-### Progresión y técnica
-
-- Alterna días de rodaje suave con fartlek ligero en el Paseo del Arga.
-- Aprovecha los repechos de las murallas para trabajar fuerza-resistencia.
-- Checa nuestra [guía de planes 5K gratuitos](/blog/plan-entrenamiento-5k-gratis) para combinar estas rutas con un ciclo de ocho semanas.
-
-### Hidratación y clima
-
-- Lleva agua o isotónico en tiradas mayores a 45 minutos.
-- En invierno, protege manos y orejas; en verano, evita entrenar a mediodía.
+- Calienta 8-10 minutos con movilidad y skipping.
+- Añade fartlek suave en el Paseo del Arga una vez por semana.
+- Usa zapatillas con buena amortiguación para adoquín y asfalto.
 
 ## Eventos y cultura runner
 
-- **San Silvestre Pamplonesa** (31 de diciembre): 6,6 km por el centro histórico.
-- Carreras de barrio (San Juan, Rochapea) perfectas para testear ritmos.
-- Recupera con pintxos clásicos (chistorra, queso Idiazábal) para reponer sales y proteína.
+Las carreras locales son el mejor objetivo para mantenerte constante.
+
+Elige una distancia y conviértela en tu foco de 8 a 12 semanas.
+
+- **San Silvestre Pamplonesa** (31 de diciembre): 6,6 km por el centro.
+- Carreras de barrio en San Juan y Rochapea.
+- Recupera con pintxos y buena hidratación tras las tiradas largas.
 
 > CTA · Conoce cómo Andes ajusta tus entrenamientos cada día vía WhatsApp: [Ver cómo funciona](https://wa.me/34600000000)
 
-## Testimonios reales
+## Tu siguiente paso
 
-- **María Elizalde, 38 años**: “Con Andes organicé mis rodajes en la Vuelta al Castillo y bajé mi 10K en 3 minutos. El seguimiento por WhatsApp es oro puro”.
-- **Equipo Pamplona Night Run**: “Coordinamos entrenos nocturnos seguros gracias a los recordatorios y análisis de carga de Andes”.
+Pamplona tiene rutas de sobra, ahora necesitas un plan.
 
-## Disclaimer médico
+## También te puede servir
 
-La información de este artículo es educativa y no sustituye la valoración de un profesional sanitario.
+- [Plan de entrenamiento 5K gratis](/es/blog/plan-entrenamiento-5k-gratis)
+- [Nutrición para corredores](/es/blog/nutricion-para-corredores)
 
-> CTA final · ¿Listo para subir de nivel? [Plan Freemium](https://wa.me/34600000000) para comenzar sin coste o [Andes Premium](/start?plan=premium) con análisis avanzado y planes para media maratón.
+> CTA final · ¿Listo para subir de nivel? [Plan Freemium](https://wa.me/34600000000) o [Andes Premium](/start?plan=premium).
 
-### Referencias
-
-- Guía de rutas urbanas de Pamplona – [navarra.okdiario.com](https://navarra.okdiario.com)
-- Beneficios del calentamiento dinámico – [No Limits Endurance](https://www.nolimitsendurance.com/dynamic-warm-up-for-runners)
+> ⚠️ **Nota importante:** Esta información es orientativa y no reemplaza el consejo de un profesional médico.

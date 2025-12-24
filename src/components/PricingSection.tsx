@@ -91,9 +91,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({
       console.error('Onboarding error:', error);
       setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
 
-      setTimeout(() => {
-        window.location.href = `/start?flow=${intent}&language=${language}`;
-      }, 1500);
+      // Fallback removed as /start page is deleted
+      // The user will see the error state on the button
     }
   };
 
@@ -210,11 +209,10 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                     <div>
                       <button
                         id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
-                        className={`w-full rounded-full px-6 py-4 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                          isPremium
+                        className={`w-full rounded-full px-6 py-4 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${isPremium
                             ? 'bg-[#27e97c] text-black shadow-lg hover:bg-[#1fc869] focus:ring-[#27e97c]'
                             : 'border border-[#27e97c] text-[#27e97c] hover:bg-[#27e97c] hover:text-black focus:ring-[#27e97c]'
-                        } andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
+                          } andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
                         data-intent={isPremium ? 'premium' : 'free'}
                         data-language={language}
                         type="button"

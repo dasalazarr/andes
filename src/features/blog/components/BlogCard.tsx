@@ -33,7 +33,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   const isLight = variant === 'light';
   const containerClasses = isLight
     ? 'bg-white border border-neutral-200 shadow-sm hover:shadow-md'
-    : 'bg-neutral-900/60 border border-white/10 hover:border-[#25d366]/60';
+    : 'bg-white/5 backdrop-blur-lg border border-white/10 hover:border-[#25d366]/50 hover:bg-white/10';
   const headingClass = isLight ? 'text-neutral-900 hover:text-neutral-700' : 'text-white hover:text-[#25d366]';
   const bodyTextClass = isLight ? 'text-neutral-600' : 'text-gray-400';
   const metaTextClass = isLight ? 'text-neutral-500' : 'text-gray-500';
