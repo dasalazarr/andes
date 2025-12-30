@@ -155,8 +155,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({
           const isPremium = plan.buttonVariant === 'primary';
 
           const wrapperClasses = index === 0
-            ? 'sticky top-24 md:top-32 z-20 pb-24'
-            : 'sticky top-24 md:top-32 -mt-16 md:-mt-24 z-30 pb-24';
+            ? 'relative md:sticky md:top-32 z-20 md:pb-24'
+            : 'relative md:sticky md:top-32 md:-mt-24 z-30 md:pb-24';
 
           // Base geometry for both cards
           const cardBase = `overflow-hidden rounded-[32px] border transition-all duration-500 backdrop-blur-md`;
@@ -169,14 +169,14 @@ const PricingSection: React.FC<PricingSectionProps> = ({
             : `${cardBase} bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10 text-white shadow-2xl`;
 
           return (
-            <div key={plan.name} className={wrapperClasses + (index === 0 ? '' : ' mt-64 md:mt-80')}>
+            <div key={plan.name} className={wrapperClasses + (index === 0 ? '' : ' mt-8 md:mt-80')}>
               <article className={`${cardClasses} ${isPremium ? 'ring-1 ring-[#27e97c]/50' : ''}`}>
                 <div className="md:grid md:grid-cols-[minmax(260px,0.95fr)_1.35fr] md:gap-10">
-                  <div className="relative h-56 w-full overflow-hidden md:h-full group border-b md:border-b-0 md:border-r border-white/5">
+                  <div className="relative h-96 w-full overflow-hidden md:h-full group border-b md:border-b-0 md:border-r border-white/5">
                     <img
                       src={plan.image || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'}
                       alt={plan.imageAlt || plan.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                      className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                       loading="lazy"
                     />
                     {/* Unified Overlay for both to ensure text readability if overlaid, but here images are side panels */}
