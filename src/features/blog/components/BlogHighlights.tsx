@@ -9,31 +9,38 @@ interface BlogHighlightsProps {
   limit?: number;
 }
 
-const tabs = [
-  { key: 'all', labelEs: 'Todos', labelEn: 'All' },
-  { key: 'guides', labelEs: 'Guías', labelEn: 'Guides' },
-  { key: 'injuries', labelEs: 'Lesiones', labelEn: 'Injuries' },
-  { key: 'nutrition', labelEs: 'Nutrición', labelEn: 'Nutrition' },
-  { key: 'routes', labelEs: 'Rutas', labelEn: 'Routes' },
-];
-
 const normalizeCategory = (c?: string) => (c || '').toLowerCase();
 
 const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
-  const [tab, setTab] = useState<string>('all');
   const all = useMemo(() => getSummaries(lang), [lang]);
   const filtered = useMemo(() => {
-    if (tab === 'all') return all.slice(0, limit);
-    return all
-      .filter((p) => {
-        const cat = normalizeCategory(p.category);
-        const tags = (p.tags || []).map((t: string) => t.toLowerCase());
-        if (tab === 'guides') return cat === 'training' || tags.includes('guide') || tags.includes('training');
-        if (tab === 'routes') return cat === 'routes' || tags.includes('routes') || tags.includes('rutas');
-        return cat === tab || tags.includes(tab);
-      })
-      .slice(0, limit);
-  }, [all, tab, limit]);
+    const featuredSlugs = lang === 'es'
+      ? ['nutricion-para-corredores', 'como-empezar-a-correr-2025']
+      : ['nutrition-for-runners', 'how-to-start-running-2025'];
+
+    // Sort: 
+    // 1. Featured slugs first (in their defined order)
+    // 2. Then guides/training
+    // 3. Then by date (default)
+    return [...all].sort((a, b) => {
+      const aFeaturedIndex = featuredSlugs.indexOf(a.slug);
+      const bFeaturedIndex = featuredSlugs.indexOf(b.slug);
+
+      // If both are featured, sort by their index in FEATURED_SLUGS
+      if (aFeaturedIndex !== -1 && bFeaturedIndex !== -1) return aFeaturedIndex - bFeaturedIndex;
+      // If only one is featured, it goes first
+      if (aFeaturedIndex !== -1) return -1;
+      if (bFeaturedIndex !== -1) return 1;
+
+      // Fallback to previous "smart" logic
+      const aIsGuide = a.category?.includes('training') || a.tags?.includes('guide');
+      const bIsGuide = b.category?.includes('training') || b.tags?.includes('guide');
+      if (aIsGuide && !bIsGuide) return -1;
+      if (!aIsGuide && bIsGuide) return 1;
+
+      return 0;
+    }).slice(0, limit);
+  }, [all, limit, lang]);
 
   const slidesKey = useMemo(() => filtered.map((p) => p.slug).join('|'), [filtered]);
   const loopSlides = useMemo(() => (filtered.length ? [...filtered, ...filtered] : []), [filtered]);
@@ -88,39 +95,22 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
   }, [slidesKey, filtered.length]);
 
   return (
-    <div className="rounded-[20px] shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-      <header className="mb-6 md:mb-8 text-center">
+    <div className="overflow-hidden">
+      <header className="mb-6 md:mb-8 text-center pt-8 md:pt-10">
         <h2 className="text-2xl sm:text-3xl font-bold text-white md:text-4xl">{heading}</h2>
-        <p className="mx-auto mt-2 md:mt-3 max-w-2xl text-sm md:text-base text-gray-300 md:text-lg">{subtitle}</p>
+        <p className="mx-auto mt-2 md:mt-3 max-w-2xl text-sm md:text-base text-gray-300 md:text-lg px-4">{subtitle}</p>
       </header>
 
-      <div className="mb-6 md:mb-7 flex flex-wrap justify-center gap-2">
-        {tabs.map((t) => {
-          const selected = tab === t.key;
-          return (
-            <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
-              className={`text-xs md:text-sm rounded-full px-3 md:px-4 py-1.5 md:py-2 transition ${selected
-                  ? 'bg-[#25d366] text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)]'
-                  : 'border border-[#25d366]/40 text-[#25d366] hover:border-[#25d366] hover:text-white'
-                }`}
-            >
-              {lang === 'es' ? t.labelEs : t.labelEn}
-            </button>
-          );
-        })}
-      </div>
 
       {filtered.length === 0 ? (
-        <p className="text-center text-gray-400">
+        <p className="text-center text-gray-400 pb-10">
           {lang === 'es' ? 'Pronto más artículos.' : 'Articles coming soon.'}
         </p>
       ) : (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden pb-8 md:pb-12">
           <div
             ref={trackRef}
-            className="flex gap-4 md:gap-6 pb-6 overflow-x-auto snap-x md:overflow-visible md:snap-none scrollbar-hide px-4 md:px-0"
+            className="flex gap-4 md:gap-6 pb-6 overflow-x-auto snap-x md:overflow-visible md:snap-none scrollbar-hide px-4 md:px-8"
             style={{
               // Reset transform on mobile via style prop if needed, though JS check handles it
               transform: typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches ? 'none' : 'translateX(0px)'
@@ -141,39 +131,44 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
                   key={`${p.slug}-${idx}`}
                   to={p.href}
                   data-slide
-                  className="group relative h-[400px] w-[85vw] sm:w-[400px] md:h-[450px] md:w-[630px] shrink-0 snap-center overflow-hidden rounded-[20px] bg-neutral-900"
+                  className="group relative h-[400px] w-[85vw] sm:w-[400px] md:h-[450px] md:w-[630px] shrink-0 snap-center overflow-hidden rounded-[24px] glass-panel border-white/5 transition-all duration-500 hover:border-[#27e97c]/50 hover:shadow-[0_0_30px_rgba(39,233,124,0.15)]"
                 >
                   {p.cover ? (
                     <img
                       src={p.cover}
                       alt={p.coverAlt || p.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110 filter brightness-90 group-hover:brightness-100"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-700 text-sm text-neutral-300">
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-800 text-sm text-neutral-300">
                       {p.title}
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-transparent" />
-                  <div className="absolute bottom-5 left-5 right-5 md:bottom-6 md:left-6 md:right-6 space-y-2 md:space-y-3 text-white">
+                  {/* Glass Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-all duration-300 group-hover:from-black/80" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3 md:space-y-4">
                     {p.category && (
-                      <span className="inline-flex items-center rounded-full bg-[#25d366]/90 px-2.5 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-semibold uppercase tracking-wide text-black shadow-sm">
+                      <span className="inline-flex items-center rounded-full bg-[#27e97c] px-3 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-black shadow-[0_0_10px_rgba(39,233,124,0.4)]">
                         {getCategoryLabel(lang, p.category)}
                       </span>
                     )}
-                    <h3 className="text-xl md:text-2xl font-semibold leading-snug text-white drop-shadow-[0_12px_20px_rgba(0,0,0,0.45)] line-clamp-2 md:line-clamp-none">
+                    <h3 className="text-xl md:text-3xl font-bold leading-tight text-white drop-shadow-md line-clamp-2 md:line-clamp-none group-hover:text-[#27e97c] transition-colors duration-300">
                       {p.title}
                     </h3>
-                    <div className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                    <div className="flex items-center gap-3 md:gap-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-gray-300 group-hover:text-white transition-colors">
                       {readLabel && <span>{readLabel}</span>}
                       {p.date && (
-                        <time dateTime={p.date}>
-                          {new Date(p.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                          })}
-                        </time>
+                        <>
+                          <span className="w-1 h-1 rounded-full bg-[#27e97c]" />
+                          <time dateTime={p.date}>
+                            {new Date(p.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                            })}
+                          </time>
+                        </>
                       )}
                     </div>
                   </div>
@@ -181,15 +176,15 @@ const BlogHighlights: React.FC<BlogHighlightsProps> = ({ lang, limit = 4 }) => {
               );
             })}
           </div>
-          <div className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent" />
-          <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent" />
+          <div className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black/80 to-transparent z-10" />
+          <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/80 to-transparent z-10" />
         </div>
       )}
 
-      <div className="mt-8 flex justify-center">
+      <div className="pb-8 md:pb-10 flex justify-center">
         <Link
           to={blogBase}
-          className="inline-flex items-center gap-2 rounded-full border border-[#25d366]/50 bg-[#25d366] px-6 py-2 text-sm font-semibold text-black shadow-[0_15px_30px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869]"
+          className="inline-flex items-center gap-2 rounded-full glass-button px-8 py-3 text-sm font-bold text-white hover:bg-[#27e97c] hover:text-black hover:border-[#27e97c] transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(39,233,124,0.4)]"
         >
           {lang === 'es' ? 'Ver todo el contenido' : 'Browse the full blog'}
           <span aria-hidden>→</span>

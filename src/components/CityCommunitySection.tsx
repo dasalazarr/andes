@@ -164,9 +164,12 @@ const CityCommunitySection: React.FC<CityCommunitySectionProps> = ({ sectionTitl
               {/* 10% white overlay */}
               <div className="absolute inset-0 bg-white/10"></div>
 
-              {/* City name with location icon */}
-              <div className="absolute bottom-4 left-4 flex items-center text-white">
-                <MapPin className="h-5 w-5 mr-2 text-[#25d366]" />
+              {/* Glass Pill Label with Location */}
+              <div className="absolute bottom-6 left-6 flex items-center">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-white/20 bg-neutral-900/60 backdrop-blur-md transition-all duration-300 group-hover:bg-[#27e97c]/20 group-hover:border-[#27e97c]/50 group-hover:scale-105">
+                  <MapPin className="h-4 w-4 text-[#27e97c]" />
+                  <span className="text-white font-bold tracking-wide text-sm uppercase">{city.name}</span>
+                </div>
               </div>
             </div>
           ))}

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Rocket, Zap } from 'lucide-react';
+import { Rocket, Zap, HelpCircle } from 'lucide-react';
 import AnimatedSection from "./AnimatedSection";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const iconComponents: { [key: string]: React.ElementType } = {
   Rocket,
@@ -14,7 +20,7 @@ interface Plan {
   price: string;
   priceDetail: string;
   description: string;
-  features: string[];
+  features: (string | { text: string; tooltip: string })[];
   ctaText: string;
   href?: string;
   isPopular?: boolean;
@@ -90,9 +96,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     } catch (error) {
       console.error('Onboarding error:', error);
       setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
-
-      // Fallback removed as /start page is deleted
-      // The user will see the error state on the button
     }
   };
 
@@ -135,12 +138,12 @@ const PricingSection: React.FC<PricingSectionProps> = ({
 
   return (
     <>
-      <AnimatedSection className="text-center mb-12 md:mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+      <AnimatedSection className="mb-6 md:mb-8 text-center pt-8 md:pt-10">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white md:text-4xl">
           {sectionTitle}
         </h2>
         {sectionSubtitle && (
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="mx-auto mt-2 md:mt-3 max-w-2xl text-sm md:text-base text-gray-300 md:text-lg px-4">
             {sectionSubtitle}
           </p>
         )}
@@ -155,31 +158,35 @@ const PricingSection: React.FC<PricingSectionProps> = ({
             ? 'sticky top-24 md:top-32 z-20 pb-24'
             : 'sticky top-24 md:top-32 -mt-16 md:-mt-24 z-30 pb-24';
 
-          const cardBase = `overflow-hidden rounded-[32px] border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.45)] backdrop-blur transition-all duration-300`;
+          // Base geometry for both cards
+          const cardBase = `overflow-hidden rounded-[32px] border transition-all duration-500 backdrop-blur-md`;
+
+          // Distinct styles sharing the same geometry
           const cardClasses = isPremium
-            ? `${cardBase} bg-gradient-to-br from-white to-[#e9ffe8] text-gray-900 border border-[#27e97c]/40`
-            : `${cardBase} bg-neutral-950/90 text-white hover:border-[#27e97c]/35`;
+            // Pro: Glowing Green Glass (Dark base + Green Gradient)
+            ? `${cardBase} bg-gradient-to-br from-[#0a0a0a]/90 to-[#0f3522]/90 border-[#27e97c] shadow-[0_0_60px_rgba(39,233,124,0.15)] text-white`
+            // Free: Frosted Dark Glass
+            : `${cardBase} bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10 text-white shadow-2xl`;
 
           return (
             <div key={plan.name} className={wrapperClasses + (index === 0 ? '' : ' mt-64 md:mt-80')}>
-              <article className={`${cardClasses}${isPremium ? ' premium-card' : ''}`}>
+              <article className={`${cardClasses} ${isPremium ? 'ring-1 ring-[#27e97c]/50' : ''}`}>
                 <div className="md:grid md:grid-cols-[minmax(260px,0.95fr)_1.35fr] md:gap-10">
-                  <div className="relative h-56 w-full overflow-hidden md:h-full">
+                  <div className="relative h-56 w-full overflow-hidden md:h-full group border-b md:border-b-0 md:border-r border-white/5">
                     <img
                       src={plan.image || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'}
                       alt={plan.imageAlt || plan.name}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                       loading="lazy"
                     />
-                    {!isPremium && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent md:bg-gradient-to-l md:from-black/35 md:via-black/10 md:to-transparent" />
-                    )}
+                    {/* Unified Overlay for both to ensure text readability if overlaid, but here images are side panels */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   </div>
 
                   <div className="flex flex-col gap-6 p-6 md:p-10">
                     {(plan as any).urgencyText && (
                       <div className="text-center md:text-left">
-                        <span className={`text-sm font-semibold ${isPremium ? 'text-red-600' : 'text-red-400'}`}>
+                        <span className="text-sm font-bold uppercase tracking-wider text-[#27e97c] drop-shadow-[0_0_10px_rgba(39,233,124,0.5)]">
                           {(plan as any).urgencyText}
                         </span>
                       </div>
@@ -187,31 +194,31 @@ const PricingSection: React.FC<PricingSectionProps> = ({
 
                     <div className="flex items-center gap-3">
                       {IconComponent && (
-                        <span className={`flex h-10 w-10 items-center justify-center rounded-full ${isPremium ? 'bg-[#27e97c]/20 text-[#0f5132]' : 'bg-[#27e97c]/15 text-[#27e97c]'}`}>
-                          <IconComponent className="h-5 w-5" />
+                        <span className={`flex h-12 w-12 items-center justify-center rounded-xl backdrop-blur-md border ${isPremium ? 'bg-[#27e97c]/20 border-[#27e97c] text-[#27e97c] shadow-[0_0_15px_rgba(39,233,124,0.3)]' : 'bg-white/5 border-white/10 text-white'}`}>
+                          <IconComponent className="h-6 w-6" />
                         </span>
                       )}
                       <div>
-                        <h3 className={`text-2xl font-bold ${isPremium ? 'text-gray-900' : 'text-white'}`}>{plan.name}</h3>
+                        <h3 className="text-2xl font-black text-white tracking-tight">{plan.name}</h3>
                       </div>
                     </div>
 
                     <div>
                       <div className="flex items-baseline gap-2">
-                        <span className={`text-4xl font-extrabold ${isPremium ? 'text-gray-900' : 'text-white'}`}>{plan.price}</span>
+                        <span className="text-5xl font-black tracking-tight text-white">{plan.price}</span>
                         {plan.priceDetail && (
-                          <span className={`text-lg ${isPremium ? 'text-gray-700' : 'text-gray-300'}`}>{plan.priceDetail}</span>
+                          <span className="text-lg font-medium text-gray-400">{plan.priceDetail}</span>
                         )}
                       </div>
-                      <p className={`${isPremium ? 'text-gray-700' : 'text-gray-200'} mt-4 text-base leading-relaxed`}>{plan.description}</p>
+                      <p className="mt-4 text-base leading-relaxed font-medium text-gray-300">{plan.description}</p>
                     </div>
 
                     <div>
                       <button
                         id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
-                        className={`w-full rounded-full px-6 py-4 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${isPremium
-                            ? 'bg-[#27e97c] text-black shadow-lg hover:bg-[#1fc869] focus:ring-[#27e97c]'
-                            : 'border border-[#27e97c] text-[#27e97c] hover:bg-[#27e97c] hover:text-black focus:ring-[#27e97c]'
+                        className={`w-full rounded-2xl px-6 py-4 text-base font-bold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black ${isPremium
+                          ? 'bg-[#27e97c] text-black hover:bg-[#1fc869] focus:ring-[#27e97c] shadow-[0_0_20px_rgba(39,233,124,0.4)] hover:shadow-[0_0_35px_rgba(39,233,124,0.6)]'
+                          : 'glass-button text-white hover:text-[#27e97c] hover:border-[#27e97c]/50 focus:ring-white/20'
                           } andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
                         data-intent={isPremium ? 'premium' : 'free'}
                         data-language={language}
@@ -226,28 +233,48 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                         {getButtonText(plan, isPremium)}
                       </button>
                       {(plan as any).ctaDisclaimer && (
-                        <p className={`mt-3 text-center text-sm ${isPremium ? 'text-gray-600' : 'text-gray-400'}`}>
+                        <p className="mt-3 text-center text-xs uppercase tracking-wider font-bold text-gray-500">
                           {(plan as any).ctaDisclaimer}
                         </p>
                       )}
                       {(plan as any).guarantee && (
-                        <p className={`mt-2 text-center text-sm font-medium ${isPremium ? 'text-gray-700' : 'text-gray-300'}`}>
+                        <p className="mt-2 text-center text-sm font-medium text-gray-400">
                           {(plan as any).guarantee}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <div className={`mb-2 text-xs font-semibold uppercase tracking-[0.3em] ${isPremium ? 'text-[#0f5132]' : 'text-gray-400'}`}>
+                      <div className={`mb-4 text-xs font-bold uppercase tracking-[0.2em] ${isPremium ? 'text-[#27e97c]' : 'text-gray-500'}`}>
                         {translations.whatsIncluded[language as keyof typeof translations.whatsIncluded]}
                       </div>
-                      <ul className="space-y-3 text-sm">
+                      <ul className="space-y-4 text-sm">
                         {plan.features.map((feature, fIndex) => {
+                          const isFeatureObject = typeof feature === 'object';
+                          const featureText = isFeatureObject ? feature.text : feature;
+                          const featureTooltip = isFeatureObject ? feature.tooltip : null;
                           const isHighlighted = isPremium && (fIndex === 0 || fIndex === 1);
+
                           return (
-                            <li key={fIndex} className={`flex items-start gap-3 ${isPremium ? 'text-gray-700' : 'text-gray-200'} ${isHighlighted ? 'font-semibold' : ''}`}>
-                              <span className="mt-1.5 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-[#27e97c]" />
-                              <span className="leading-relaxed break-words">{feature}</span>
+                            <li key={fIndex} className={`flex items-start ${isHighlighted ? 'text-white font-bold' : 'text-gray-300 font-medium'} list-none group/feature`}>
+                              <span className="leading-relaxed break-words flex-1 transition-colors duration-200 group-hover/feature:text-white">
+                                {featureText}
+                                {featureTooltip && (
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <button className="inline-flex align-middle ml-1.5 text-gray-500 hover:text-[#27e97c] transition-colors">
+                                          <HelpCircle className="h-4 w-4" />
+                                          <span className="sr-only">Info</span>
+                                        </button>
+                                      </TooltipTrigger>
+                                      <TooltipContent className="glass-card-dark text-white border-white/10 max-w-[250px]">
+                                        <p>{featureTooltip}</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                )}
+                              </span>
                             </li>
                           );
                         })}

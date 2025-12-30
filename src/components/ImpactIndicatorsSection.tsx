@@ -86,8 +86,8 @@ const ImpactIndicatorsSection: React.FC<ImpactIndicatorsSectionProps> = ({
             <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-black/10 to-transparent" />
           </div>
         </div>
-        <div>
-          <dl className="grid grid-cols-1 divide-y divide-black/10 md:grid-cols-4 md:divide-x md:divide-y-0">
+        <div className="glass-panel rounded-3xl overflow-hidden mt-8">
+          <dl className="grid grid-cols-1 divide-y divide-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
             {stats.map((stat) => (
               <AnimatedStat key={stat.label} stat={stat} />
             ))}

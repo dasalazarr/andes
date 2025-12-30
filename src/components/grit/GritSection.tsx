@@ -57,7 +57,7 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
 
   return (
     <section id="grit-stories" className="py-16 bg-gradient-to-b from-black via-gray-950 to-black" ref={setRefs}>
-      <motion.div 
+      <motion.div
         className="container mx-auto px-4"
         initial="hidden"
         animate={controls}
@@ -71,14 +71,14 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
             {content.sectionSubtitle}
           </p>
         </div>
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={staggerContainer}
         >
           {content.stories.map((story, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-[20px] bg-neutral-900/50 border border-neutral-800 shadow-lg transition-all duration-300 hover:border-[#25d366]/60 hover:shadow-xl"
+              className="group relative cursor-pointer overflow-hidden rounded-[20px] glass-panel transition-all duration-300 hover:shadow-[0_0_40px_rgba(39,233,124,0.15)] hover:border-[#27e97c]/50"
               onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
             >
               {/* Image with overlay and hover effects */}
@@ -86,23 +86,27 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
                 <img
                   src={runnerImages[story.imageKey]}
                   alt={story.name}
-                  className="h-full w-full object-cover object-top grayscale transition-all duration-300 group-hover:grayscale-0 group-hover:brightness-110"
+                  className="h-full w-full object-cover object-top filter grayscale-[0.5] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
                   loading="lazy"
                 />
-                {/* 40% black overlay */}
-                <div className="absolute inset-0 bg-black/40 transition-opacity duration-300"></div>
 
-                {/* Hover CTA with Single Key KPI */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-out">
-                  <div className="bg-black/60 backdrop-blur-sm rounded-lg p-6 text-center text-white border border-[#25d366]/30 transform scale-95 group-hover:scale-100 transition-transform duration-150 ease-out">
+                {/* Advanced Glass Gradients */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-60"></div>
+
+                {/* Frost effect on hover */}
+                <div className="absolute inset-0 backdrop-blur-[0px] transition-all duration-500 group-hover:backdrop-blur-[2px] bg-white/0 group-hover:bg-white/5"></div>
+
+                {/* Hover CTA with Glass Card */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out transform translate-y-4 group-hover:translate-y-0">
+                  <div className="glass-card-dark rounded-xl p-6 text-center text-white border-white/10 ring-1 ring-[#27e97c]/30 shadow-2xl transform scale-95 group-hover:scale-100 transition-transform duration-200">
                     {/* KPI Label */}
-                    <div className="text-[#25d366] font-semibold text-sm uppercase tracking-wide mb-3">
+                    <div className="text-[#27e97c] font-bold text-xs uppercase tracking-[0.2em] mb-2 drop-shadow-md">
                       {language === 'es' ? 'KPI clave' : 'Key KPI'}
                     </div>
 
                     {/* Single Key Performance Indicator */}
                     {(story as any).keyKpi && (
-                      <div className="text-white font-bold text-xl">
+                      <div className="text-white font-black text-2xl tracking-tight">
                         {(story as any).keyKpi}
                       </div>
                     )}

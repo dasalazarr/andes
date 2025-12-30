@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./ui/button";
+import { Quote } from "lucide-react";
 import { initGA, trackPlanDownload } from "../lib/analytics";
 import { trackABTest, trackHeroCTR, trackSocialProofView, trackTestimonialView, trackTestimonialCTAClick } from "../lib/analytics";
 
@@ -171,50 +172,57 @@ const Home = () => {
             </AnimatedSection>
             <AnimatedSection>
               {testimonialsContent[language].testimonials.length > 0 && (
-                <div className="mx-auto max-w-4xl rounded-2xl md:rounded-[24px] border border-white/10 bg-neutral-900/70 px-6 md:px-8 py-10 md:py-12 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-                  <div className="flex justify-center gap-1 text-[#f5c451] text-lg md:text-xl mb-5 md:mb-6" aria-hidden>
-                    {Array.from({ length: 5 }).map((_, idx) => (
-                      <span key={idx}>★</span>
-                    ))}
+                <div className="mx-auto max-w-4xl rounded-2xl md:rounded-[24px] glass-panel px-6 md:px-8 py-10 md:py-12 text-center relative overflow-hidden group">
+                  {/* Watermark Quote Icon */}
+                  <div className="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/5 pointer-events-none select-none transition-transform duration-500 group-hover:scale-110">
+                    <Quote size={180} fill="currentColor" />
                   </div>
-                  <blockquote className="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug text-white">
-                    "{testimonialsContent[language].testimonials[activeTestimonialIndex].quote}"
-                  </blockquote>
-                  <div className="mt-5 md:mt-6 text-xs md:text-sm uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#25d366]/80">
-                    {testimonialsContent[language].testimonials[activeTestimonialIndex].result}
-                  </div>
-                  <div className="mt-3 md:mt-4 text-white font-semibold text-base md:text-lg">
-                    {testimonialsContent[language].testimonials[activeTestimonialIndex].author}
-                  </div>
-                  <div className="text-gray-400 text-sm">
-                    {testimonialsContent[language].testimonials[activeTestimonialIndex].detail}
-                  </div>
-                  <div className="mt-8 md:mt-10 flex justify-center gap-3 md:gap-4 flex-wrap">
-                    {testimonialsContent[language].testimonials.map((testimonial, index) => (
-                      <button
-                        key={testimonial.author}
-                        type="button"
-                        onClick={() => setActiveTestimonialIndex(index)}
-                        className={`relative h-12 w-12 md:h-14 md:w-14 rounded-full border transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] ${index === activeTestimonialIndex
-                          ? 'border-[#25d366] shadow-[0_0_25px_rgba(37,211,102,0.35)]'
-                          : 'border-white/10 hover:border-[#25d366]/60'
-                          }`}
-                        aria-label={`${testimonial.author} testimonial`}
-                      >
-                        {(testimonial as any).image ? (
-                          <img
-                            src={(testimonial as any).image}
-                            alt={testimonial.author}
-                            className="h-full w-full rounded-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-white font-bold text-sm md:text-base">
-                            {testimonial.author.charAt(0)}
-                          </span>
-                        )}
-                      </button>
-                    ))}
+
+                  <div className="relative z-10">
+                    <div className="flex justify-center gap-1 text-[#27e97c] text-lg md:text-xl mb-5 md:mb-6" aria-hidden>
+                      {Array.from({ length: 5 }).map((_, idx) => (
+                        <span key={idx} className="drop-shadow-[0_0_8px_rgba(39,233,124,0.4)]">★</span>
+                      ))}
+                    </div>
+                    <blockquote className="text-xl md:text-2xl lg:text-3xl font-bold leading-snug text-white drop-shadow-sm">
+                      "{testimonialsContent[language].testimonials[activeTestimonialIndex].quote}"
+                    </blockquote>
+                    <div className="mt-5 md:mt-6 text-xs md:text-sm uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#27e97c] font-bold">
+                      {testimonialsContent[language].testimonials[activeTestimonialIndex].result}
+                    </div>
+                    <div className="mt-3 md:mt-4 text-white font-semibold text-base md:text-lg">
+                      {testimonialsContent[language].testimonials[activeTestimonialIndex].author}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      {testimonialsContent[language].testimonials[activeTestimonialIndex].detail}
+                    </div>
+                    <div className="mt-8 md:mt-10 flex justify-center gap-3 md:gap-4 flex-wrap">
+                      {testimonialsContent[language].testimonials.map((testimonial, index) => (
+                        <button
+                          key={testimonial.author}
+                          type="button"
+                          onClick={() => setActiveTestimonialIndex(index)}
+                          className={`relative h-12 w-12 md:h-14 md:w-14 rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#27e97c] ${index === activeTestimonialIndex
+                            ? 'border-[#27e97c] shadow-[0_0_20px_rgba(39,233,124,0.5)] scale-110'
+                            : 'border-white/10 hover:border-[#27e97c]/60 hover:shadow-[0_0_15px_rgba(39,233,124,0.2)]'
+                            }`}
+                          aria-label={`${testimonial.author} testimonial`}
+                        >
+                          {(testimonial as any).image ? (
+                            <img
+                              src={(testimonial as any).image}
+                              alt={testimonial.author}
+                              className="h-full w-full rounded-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-white font-bold text-sm md:text-base">
+                              {testimonial.author.charAt(0)}
+                            </span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

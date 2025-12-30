@@ -151,8 +151,8 @@ export const benefitsContent = {
 export const indicatorsContent = {
   es: {
     preheading: "Nuestro impacto en números",
-    title: "Desde tu primer 5K hasta tu récord en maratón, afinamos cada detalle para que avances sin lesiones.",
-    highlight: "Entrenamiento inteligente y humano en cada kilómetro.",
+    title: "De tu primer 5K a tu primer maratón.",
+    highlight: "Ajustamos lo importante—ritmos, entrenos y recuperación—para mejorar sin sobrecargas.",
     image: {
       src: "/coaching.avif",
       alt: "Entrenador conversando con una corredora durante una sesión al aire libre",
@@ -166,8 +166,8 @@ export const indicatorsContent = {
   },
   en: {
     preheading: "Our impact in numbers",
-    title: "From your first 5K to your next PR, we fine-tune every detail so you progress injury-free.",
-    highlight: "Smart, human coaching in every kilometer.",
+    title: "From your first 5K to your first marathon.",
+    highlight: "We fine-tune the right details—paces, workouts, recovery—so you improve without breaking down.",
     image: {
       src: "/coaching.avif",
       alt: "Coach guiding a runner during an outdoor session",
@@ -245,7 +245,7 @@ interface PricingPlan {
   annualPrice?: string;
   annualPriceDetail?: string;
   description: string;
-  features: string[];
+  features: (string | { text: string; tooltip: string })[];
   ctaText: string;
   ctaDisclaimer?: string;
   ctaSecondaryText?: string;
@@ -280,24 +280,27 @@ export const pricingContent: {
   en: PricingContentStructure;
 } = {
   es: {
-    sectionTitle: "Entrena Como un Profesional por Menos de lo que Gastas en Café",
-    sectionSubtitle: "Más de 500 corredores ya completaron su primera 5K sin lesiones usando nuestro método probado",
-    competitiveAnchor: "Un coach humano cuesta +USD 80/mes. Con Andes obtienes IA de élite por menos que un café al día",
+    sectionTitle: "Empieza gratis. Pásate a Pro cuando sientas la diferencia.",
+    sectionSubtitle: "Registra tus corridas ilimitadas. Prueba una muestra real de nuestro coaching inteligente y decide.",
+    competitiveAnchor: "", // Removed or kept empty as it wasn't in the new copy request, keeping structure compatible
     plans: [
       {
         name: "Starter",
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Incluye 7 días gratis – cancela cuando quieras. Perfecto para descubrir cómo entrenar de forma inteligente.",
+        description: "Gratis para siempre. Registra tus corridas y prueba el coaching inteligente con una muestra finita.",
         features: [
-          "🎯 Tu primer plan personalizado",
-          "⏰ Respuestas el mismo día",
-          "🏃‍♂️ Guía para completar tu primera 5K",
-          "📱 Acceso básico por WhatsApp",
+          "✅ Registro ilimitado de corridas (sin costo de IA)",
+          "✅ Tu primer plan VDOT (base)",
+          {
+            text: "✔️ 30 consultas inteligentes (de por vida)",
+            tooltip: "Las 'consultas inteligentes' se usan para preguntas de coaching, feedback y explicaciones. Cuando se terminan, sigues registrando corridas gratis para siempre."
+          },
+          "✅ Acceso a progreso básico (ritmo, racha, km)",
         ],
-        ctaText: "Empieza en WhatsApp",
-        ctaDisclaimer: "7 días gratis",
+        ctaText: "Empezar en WhatsApp",
+        ctaDisclaimer: "Sin tarjeta • Gratis para siempre",
         href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
@@ -305,7 +308,7 @@ export const pricingContent: {
         imageAlt: "Corredora entrenando en un lago al amanecer",
       },
       {
-        name: "Pro Runner",
+        name: "Pro Coach",
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/mes",
@@ -313,19 +316,17 @@ export const pricingContent: {
         annualPriceDetail: "/mes (facturado anual)",
         savingsPercentage: "Ahorra 15%",
         popularBadge: "⭐ MÁS ELEGIDO",
-        description: "Todo lo que necesitas para entrenar como un profesional. Coaching personalizado que se adapta a ti cada día.",
+        description: "Tu coach en WhatsApp para entrenar como profesional: respuestas más profundas, memoria y ajustes según tu progreso.",
         features: [
-          "🚀 Coach IA que aprende de ti cada día",
-          "⚡ Respuestas instantáneas 24/7",
-          "🏆 Planes adaptativos según tu progreso",
-          "💪 Prevención de lesiones personalizada",
-          "🧘‍♀️ Módulo wellness: nutrición + mindfulness",
-          "🎯 Retos semanales y comunidad exclusiva",
-          "📊 Análisis avanzado de rendimiento",
-          "🏃‍♂️ Planes para 5K, 10K, 21K y maratón",
+          "🧠 Coaching ilimitado (fair use)",
+          "📈 Plan que se ajusta con tus corridas",
+          "🗂️ Memoria de atleta (historial, metas, contexto)",
+          "🛡️ Coaching consciente de molestias y carga (prevención)",
+          "📊 Insights avanzados (tendencias, racha, ACWR)",
+          "🏅 Más claridad para mejorar (no solo ‘registrar’)",
         ],
-        ctaText: "Empieza en WhatsApp",
-        guarantee: "🛡️ 30 días de garantía",
+        ctaText: "Activar Pro Coach", // Icon added in component
+        ctaDisclaimer: "Cancela cuando quieras",
         href: "#pricing",
         isPopular: true,
         buttonVariant: "primary",
@@ -335,24 +336,27 @@ export const pricingContent: {
     ],
   },
   en: {
-    sectionTitle: "Train Like a Pro for Less Than Your Coffee Budget",
-    sectionSubtitle: "Over 500 runners have completed their first 5K injury-free using our proven method",
-    competitiveAnchor: "A human coach costs +USD 80/month. With Andes you get elite AI for less than a coffee a day",
+    sectionTitle: "Start free. Go Pro when you feel the difference.",
+    sectionSubtitle: "Unlimited run logging. Try a finite sample of real coaching and decide.",
+    competitiveAnchor: "",
     plans: [
       {
         name: "Starter",
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "Includes 7 days free – cancel anytime. Perfect for discovering how to train intelligently.",
+        description: "Free forever. Log every run and try a finite sample of smart coaching.",
         features: [
-          "🎯 Your first personalized plan",
-          "⏰ Same-day responses",
-          "🏃‍♂️ Guide to complete your first 5K",
-          "📱 Basic WhatsApp access",
+          "✅ Unlimited run logging (no AI cost)",
+          "✅ Your first VDOT plan (baseline)",
+          {
+            text: "✅ 30 Smart Coaching messages (lifetime)",
+            tooltip: "Smart Coaching is used for coaching questions, feedback and explanations. After you use them, run logging stays free forever."
+          },
+          "✅ Basic progress (pace, streak, km)",
         ],
         ctaText: "Start on WhatsApp",
-        ctaDisclaimer: "7 days free",
+        ctaDisclaimer: "No card • Free forever",
         href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
@@ -360,7 +364,7 @@ export const pricingContent: {
         imageAlt: "Athlete swimming in open water at sunrise",
       },
       {
-        name: "Pro Runner",
+        name: "Pro Coach",
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/month",
@@ -368,19 +372,17 @@ export const pricingContent: {
         annualPriceDetail: "/month (billed annually)",
         savingsPercentage: "Save 15%",
         popularBadge: "⭐ MOST CHOSEN",
-        description: "Everything you need to train like a professional. Personalized coaching that adapts to you every day.",
+        description: "Your WhatsApp coach to train like a pro: deeper answers, memory, and plan adjustments as you progress.",
         features: [
-          "🚀 AI Coach that learns from you daily",
-          "⚡ Instant 24/7 responses",
-          "🏆 Adaptive plans based on your progress",
-          "💪 Personalized injury prevention",
-          "🧘‍♀️ Wellness module: nutrition + mindfulness",
-          "🎯 Weekly challenges and exclusive community",
-          "📊 Advanced performance analytics",
-          "🏃‍♂️ Plans for 5K, 10K, 21K and marathon",
+          "🧠 Unlimited coaching (fair use)",
+          "📈 Plan adjusts with your runs",
+          "🗂️ Athlete memory (goals, history, context)",
+          "🛡️ Injury-aware guidance (aches + load)",
+          "📊 Advanced insights (trends, streak, ACWR)",
+          "🏅 Train smarter, not just track",
         ],
-        ctaText: "Start on WhatsApp",
-        guarantee: "🛡️ 30-day guarantee",
+        ctaText: "Unlock Pro Coach", // Icon added in component
+        ctaDisclaimer: "Cancel anytime",
         href: "#pricing",
         isPopular: true,
         buttonVariant: "primary",
@@ -397,32 +399,32 @@ export const faqContent = {
     sectionSubtitle: "Todo lo que necesitas saber",
     faqs: [
       {
-        question: "¿Y si no me gusta?",
-        answer: "Cancela en 1 clic desde WhatsApp.",
-      },
-      {
-        question: "¿Necesito instalar otra app?",
-        answer: "No, solo WhatsApp.",
-      },
-      {
-        question: "¿Puedo empezar si nunca he corrido antes?",
+        question: "¿Es para principiantes?",
         answer: "¡Absolutamente! Nuestros planes están diseñados para todos los niveles. Si eres principiante, comenzamos con caminatas y trotes suaves, progresando gradualmente hacia tu primera carrera de 5K.",
       },
       {
-        question: "¿Cómo funciona la comunidad de WhatsApp?",
-        answer: "Al suscribirte, recibes acceso a nuestro grupo exclusivo donde compartes experiencias, recibes motivación diaria, participas en desafíos y tienes contacto directo con coaches certificados.",
+        question: "¿Cómo funciona por WhatsApp?",
+        answer: "Es simple. Tienes un chat directo con tu Coach IA. Registras tus carreras, recibes feedback instantáneo, tu plan diario y resuelves dudas—todo dentro de WhatsApp. Sin descargar apps nuevas.",
       },
       {
-        question: "¿Qué pasa si me lesiono durante el entrenamiento?",
-        answer: "Nuestra IA detecta señales de sobreentrenamiento y ajusta automáticamente tu plan. Si te lesionas, nuestros coaches te ayudan a modificar el entrenamiento para recuperarte de forma segura.",
+        question: "¿Necesito reloj?",
+        answer: "No, no necesitas un reloj GPS. Puedes registrar tus carreras con una app en tu móvil (como Strava) o simplemente con un cronómetro si corres por tiempo.",
       },
       {
-        question: "¿Puedo cancelar mi suscripción cuando quiera?",
-        answer: "Sí, puedes cancelar en cualquier momento desde tu cuenta. Mantendrás acceso hasta el final del período facturado y no hay penalizaciones.",
+        question: "¿Y si fallo un entreno?",
+        answer: "La vida pasa. Solo dile a tu coach 'hoy no pude correr' y ajustaremos automáticamente tu calendario para que sigas progresando sin sobrecargas.",
       },
       {
-        question: "¿Los coaches están certificados?",
-        answer: "Sí, todos nuestros coaches tienen certificaciones internacionales en running, nutrición deportiva y prevención de lesiones. Combinamos experiencia humana con tecnología de IA.",
+        question: "Diferencia Gratis vs Pro",
+        answer: "El plan Gratis te da una estructura estática para empezar. El Pro incluye adaptaciones en tiempo real por IA, monitoreo de prevención de lesiones, chat de coaching 24/7 y análisis profundo de rendimiento.",
+      },
+      {
+        question: "Cancelación y garantía",
+        answer: "Cancela cuando quieras en 1 clic desde WhatsApp. Si no ves resultados en 30 días, te devolvemos tu dinero.",
+      },
+      {
+        question: "Idiomas",
+        answer: "Actualmente, Andes está disponible en Español e Inglés. Puedes cambiar el idioma en cualquier momento.",
       },
     ],
   },
@@ -431,32 +433,32 @@ export const faqContent = {
     sectionSubtitle: "Everything you need to know",
     faqs: [
       {
-        question: "What if I don't like it?",
-        answer: "Cancel in 1 click from WhatsApp.",
-      },
-      {
-        question: "Do I need another app?",
-        answer: "Nope, just WhatsApp.",
-      },
-      {
-        question: "Can I start if I've never run before?",
+        question: "Is this for beginners?",
         answer: "Absolutely! Our plans are designed for all levels. If you're a beginner, we start with walking and light jogging, gradually progressing toward your first 5K race.",
       },
       {
-        question: "How does the WhatsApp community work?",
-        answer: "When you subscribe, you get access to our exclusive group where you share experiences, receive daily motivation, participate in challenges, and have direct contact with certified coaches.",
+        question: "How does WhatsApp coaching work?",
+        answer: "It's simple. You have a direct chat with your AI Coach. You log your runs, get instant feedback, receive your daily plan, and ask any questions—all within WhatsApp. No new apps to download.",
       },
       {
-        question: "What if I get injured during training?",
-        answer: "Our AI detects overtraining signals and automatically adjusts your plan. If you get injured, our coaches help you modify training for safe recovery.",
+        question: "Do I need a watch?",
+        answer: "No, a GPS watch is not required. You can track your runs with a phone app (like Strava) or just a simple stopwatch if you run by time.",
       },
       {
-        question: "Can I cancel my subscription anytime?",
-        answer: "Yes, you can cancel anytime from your account. You'll maintain access until the end of the billed period with no penalties.",
+        question: "What if I miss a workout?",
+        answer: "Life happens. Just tell your coach 'I couldn't run today', and we'll automatically adjust your schedule so you stay on track without overtraining.",
       },
       {
-        question: "Are the coaches certified?",
-        answer: "Yes, all our coaches have international certifications in running, sports nutrition, and injury prevention. We combine human expertise with AI technology.",
+        question: "Free vs Pro difference",
+        answer: "The Free plan gives you a static plan to get started. Pro includes real-time AI adaptations, injury prevention monitoring, 24/7 coaching chat, and deep performance analysis.",
+      },
+      {
+        question: "Cancel & refund",
+        answer: "Cancel anytime in 1 click from WhatsApp. Plus, we offer a 30-day money-back guarantee if you're not seeing results.",
+      },
+      {
+        question: "Languages",
+        answer: "Currently, Andes is available in English and Spanish. You can switch languages at any time.",
       },
     ],
   },
