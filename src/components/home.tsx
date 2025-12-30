@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence } from 'framer-motion';
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./ui/button";
@@ -28,7 +28,7 @@ const BlogHighlights = lazy(() => import("../features/blog/components/BlogHighli
 const FAQSection = lazy(() => import("./FAQSection"));
 
 // Modal components - load on demand
-const GritStoryModal = lazy(() => import("./grit/GritStoryModal"));
+
 const LeadMagnetModal = lazy(() => import("./LeadMagnetModal"));
 
 // Non-critical components
@@ -56,7 +56,7 @@ const Home = () => {
   });
   const [leadMagnetModalOpen, setLeadMagnetModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ title: string; pdfUrl: string } | null>(null);
-  const [selectedGritStory, setSelectedGritStory] = useState<any | null>(null);
+
   const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0);
 
   const gritSectionRef = useRef<HTMLDivElement>(null);
@@ -86,13 +86,7 @@ const Home = () => {
     pricingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const openGritStoryModal = (story: any) => {
-    setSelectedGritStory(story);
-  };
 
-  const closeGritStoryModal = () => {
-    setSelectedGritStory(null);
-  };
 
   const handlePlanClick = (plan: any) => {
     const planTitle = typeof plan.title === 'string' ? plan.title : plan.title[language];
@@ -232,7 +226,7 @@ const Home = () => {
 
         <section>
           <Suspense fallback={<div className="text-center p-12">Cargando Historias de GRIT...</div>}>
-            <GritSection ref={gritSectionRef} language={language} onStoryClick={openGritStoryModal} content={gritStoriesContent[language]} />
+            <GritSection ref={gritSectionRef} language={language} content={gritStoriesContent[language]} />
           </Suspense>
         </section>
 
@@ -270,16 +264,7 @@ const Home = () => {
           </div>
         </section>
 
-        <AnimatePresence>
-          {selectedGritStory && (
-            <Suspense fallback={<div>Cargando historia...</div>}>
-              <GritStoryModal
-                onClose={closeGritStoryModal}
-                story={selectedGritStory}
-              />
-            </Suspense>
-          )}
-        </AnimatePresence>
+
 
         {selectedPlan && (
           <Suspense fallback={<div>Cargando...</div>}>

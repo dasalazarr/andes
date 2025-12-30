@@ -19,7 +19,6 @@ const staggerContainer: Variants = {
 
 interface GritSectionProps {
   language: Language;
-  onStoryClick: (story: any) => void;
   content: {
     sectionTitle: string;
     sectionSubtitle: string;
@@ -27,7 +26,7 @@ interface GritSectionProps {
   };
 }
 
-const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onStoryClick, content }, forwardedRef) => {
+const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, content }, forwardedRef) => {
   const controls = useAnimation();
   const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
@@ -78,8 +77,7 @@ const GritSection = forwardRef<HTMLElement, GritSectionProps>(({ language, onSto
           {content.stories.map((story, index) => (
             <motion.div
               key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-[20px] glass-panel transition-all duration-300 hover:shadow-[0_0_40px_rgba(39,233,124,0.15)] hover:border-[#27e97c]/50"
-              onClick={() => onStoryClick({ ...story, image: runnerImages[story.imageKey] })}
+              className="group relative overflow-hidden rounded-[20px] glass-panel transition-all duration-300 hover:shadow-[0_0_40px_rgba(39,233,124,0.15)] hover:border-[#27e97c]/50"
             >
               {/* Image with overlay and hover effects */}
               <div className="relative h-64 overflow-hidden">
