@@ -293,7 +293,7 @@ const Home = () => {
         )}
       </main>
 
-      <section>
+      {/* <section>
         <Suspense fallback={<div className="text-center p-12">Cargando ciudades...</div>}>
           <CityCommunitySection
             sectionTitle={cityCommunityContent[language].sectionTitle}
@@ -302,7 +302,7 @@ const Home = () => {
             language={language}
           />
         </Suspense>
-      </section>
+      </section> */}
 
       <section>
         <Suspense fallback={<div className="text-center p-12">Cargando preguntas...</div>}>
