@@ -20,12 +20,16 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   const controls = useAnimation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const isMobile =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(max-width: 768px)').matches;
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView || isMobile) {
       controls.start('visible');
     }
-  }, [controls, isInView]);
+  }, [controls, isInView, isMobile]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -58,7 +62,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       ref={ref || sectionRef}
       id={id}
       className={className}
-      initial="hidden"
+      initial={isMobile ? 'visible' : 'hidden'}
       animate={controls}
       variants={containerVariants}
       {...props}

@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Rocket, Zap, HelpCircle } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Rocket, Zap, Check } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+import { analytics } from "@/utils/analytics";
 
 const iconComponents: { [key: string]: React.ElementType } = {
   Rocket,
@@ -22,273 +17,194 @@ interface Plan {
   description: string;
   features: (string | { text: string; tooltip: string })[];
   ctaText: string;
-  href?: string;
-  isPopular?: boolean;
-  buttonVariant?: 'primary' | 'secondary';
-  onCtaClick?: () => void;
-  image?: string;
-  imageAlt?: string;
-  [key: string]: any;
+  ctaDisclaimer?: string;
+  buttonVariant?: "primary" | "secondary";
+}
+
+interface ComparisonRow {
+  feature: string;
+  free: string;
+  premium: string;
 }
 
 interface PricingSectionProps {
   sectionTitle: string;
   sectionSubtitle?: string;
+  limitNote: string;
+  comparisonRows: ComparisonRow[];
   plans: Plan[];
-  onGetFreePlanClick?: () => void;
-  language?: 'en' | 'es';
+  onPlanClick?: (intent: "free" | "premium", placement: "pricing") => void | Promise<void>;
+  language?: "en" | "es";
 }
 
 const PricingSection: React.FC<PricingSectionProps> = ({
   sectionTitle,
   sectionSubtitle,
+  limitNote,
+  comparisonRows,
   plans,
+  onPlanClick,
   language: propLanguage,
 }) => {
   const location = useLocation();
-  const language = propLanguage || (location.pathname.startsWith('/es') ? 'es' : 'en');
-  const [buttonStates, setButtonStates] = useState<{ [key: string]: 'idle' | 'loading' | 'success' | 'error' }>({});
+  const language = propLanguage || (location.pathname.startsWith("/es") ? "es" : "en");
+  const [buttonStates, setButtonStates] = useState<{ free: "idle" | "loading"; premium: "idle" | "loading" }>({
+    free: "idle",
+    premium: "idle",
+  });
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const uiTranslations = {
-    loading: {
-      free: {
-        es: '🔄 Preparando entrenamiento...',
-        en: '🔄 Preparing training...'
-      },
-      premium: {
-        es: '🔄 Activando Premium...',
-        en: '🔄 Activating Premium...'
-      }
-    },
-    success: {
-      es: '✅ Redirigiendo a WhatsApp...',
-      en: '✅ Redirecting to WhatsApp...'
-    },
-    error: {
-      es: '🔄 Redirigiendo al formulario...',
-      en: '🔄 Redirecting to form...'
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    if (typeof window === "undefined" || typeof window.IntersectionObserver === "undefined") {
+      analytics.trackPricingView(language);
+      return;
     }
-  };
 
-  const handleOnboarding = async (intent: 'free' | 'premium') => {
-    const buttonKey = `${intent}-btn`;
-    setButtonStates(prev => ({ ...prev, [buttonKey]: 'loading' }));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            analytics.trackPricingView(language);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [language]);
+
+  const onStart = async (intent: "free" | "premium") => {
+    setButtonStates((prev) => ({ ...prev, [intent]: "loading" }));
 
     try {
-      const response = await fetch('https://v3-production-2670.up.railway.app/onboarding/start', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ intent, language })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.whatsappLink) {
-          setButtonStates(prev => ({ ...prev, [buttonKey]: 'success' }));
-          setTimeout(() => {
-            window.location.href = data.whatsappLink;
-          }, 1000);
-          return;
-        }
+      if (onPlanClick) {
+        await Promise.resolve(onPlanClick(intent, "pricing"));
       }
-
-      throw new Error('API call failed');
-    } catch (error) {
-      console.error('Onboarding error:', error);
-      setButtonStates(prev => ({ ...prev, [buttonKey]: 'error' }));
-    }
-  };
-
-  const getButtonText = (plan: Plan, isPremium: boolean) => {
-    const currentState = buttonStates[`${isPremium ? 'premium' : 'free'}-btn`];
-
-    switch (currentState) {
-      case 'loading':
-        return (
-          <span className="btn-text">
-            {uiTranslations.loading[isPremium ? 'premium' : 'free'][language]}
-          </span>
-        );
-      case 'success':
-        return <span className="btn-text">{uiTranslations.success[language]}</span>;
-      case 'error':
-        return <span className="btn-text">{uiTranslations.error[language]}</span>;
-      default:
-        return (
-          <>
-            <span className="btn-text">{plan.ctaText}</span>
-            <span className="btn-icon" style={{ marginLeft: '8px' }}>
-              {isPremium ? '💎' : '🏃‍♂️'}
-            </span>
-          </>
-        );
-    }
-  };
-
-  const translations = {
-    popular: {
-      en: 'Popular',
-      es: 'Popular'
-    },
-    whatsIncluded: {
-      en: "What's included:",
-      es: 'Lo que incluye:'
+    } finally {
+      setButtonStates((prev) => ({ ...prev, [intent]: "idle" }));
     }
   };
 
   return (
-    <>
-      <AnimatedSection className="mb-6 md:mb-8 text-center pt-8 md:pt-10">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white md:text-4xl">
-          {sectionTitle}
-        </h2>
-        {sectionSubtitle && (
-          <p className="mx-auto mt-2 md:mt-3 max-w-2xl text-sm md:text-base text-gray-300 md:text-lg px-4">
-            {sectionSubtitle}
-          </p>
-        )}
+    <section ref={sectionRef}>
+      <AnimatedSection className="text-center">
+        <h2 className="text-3xl font-bold text-white md:text-4xl">{sectionTitle}</h2>
+        {sectionSubtitle ? <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-300 md:text-lg">{sectionSubtitle}</p> : null}
+        <p className="mx-auto mt-4 max-w-2xl rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-xs font-medium text-white/85 md:text-sm">
+          {limitNote}
+        </p>
       </AnimatedSection>
 
-      <AnimatedSection className="mx-auto flex max-w-3xl flex-col">
-        {plans.map((plan, index) => {
+      <AnimatedSection className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6">
+        {plans.map((plan) => {
           const IconComponent = iconComponents[plan.iconName];
-          const isPremium = plan.buttonVariant === 'primary';
-
-          const wrapperClasses = index === 0
-            ? 'relative md:sticky md:top-32 z-20 md:pb-24'
-            : 'relative md:sticky md:top-32 md:-mt-24 z-30 md:pb-24';
-
-          // Base geometry for both cards
-          const cardBase = `overflow-hidden rounded-[32px] border transition-all duration-500 backdrop-blur-md`;
-
-          // Distinct styles sharing the same geometry
-          const cardClasses = isPremium
-            // Pro: Glowing Green Glass (Dark base + Green Gradient)
-            ? `${cardBase} bg-gradient-to-br from-[#0a0a0a]/90 to-[#0f3522]/90 border-[#27e97c] shadow-[0_0_60px_rgba(39,233,124,0.15)] text-white`
-            // Free: Frosted Dark Glass
-            : `${cardBase} bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10 text-white shadow-2xl`;
+          const isPremium = plan.buttonVariant === "primary";
+          const intent = isPremium ? "premium" : "free";
+          const isLoading = buttonStates[intent] === "loading";
 
           return (
-            <div key={plan.name} className={wrapperClasses + (index === 0 ? '' : ' mt-8 md:mt-80')}>
-              <article className={`${cardClasses} ${isPremium ? 'ring-1 ring-[#27e97c]/50' : ''}`}>
-                <div className="md:grid md:grid-cols-[minmax(260px,0.95fr)_1.35fr] md:gap-10">
-                  <div className="relative h-96 w-full overflow-hidden md:h-full group border-b md:border-b-0 md:border-r border-white/5">
-                    <img
-                      src={plan.image || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'}
-                      alt={plan.imageAlt || plan.name}
-                      className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                      loading="lazy"
-                    />
-                    {/* Unified Overlay for both to ensure text readability if overlaid, but here images are side panels */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  </div>
+            <article
+              key={plan.name}
+              className={`rounded-[28px] border p-5 backdrop-blur-xl md:p-7 ${
+                isPremium
+                  ? "glass-card-premium border-[#27e97c]/30 shadow-[0_0_30px_rgba(39,233,124,0.16)]"
+                  : "glass-panel border-white/15"
+              }`}
+            >
+              <div className="mb-5 flex items-center justify-between">
+                <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isPremium ? "bg-[#27e97c]/15 text-[#27e97c]" : "bg-white/10 text-white/80"}`}>
+                  {isPremium ? "Premium" : language === "es" ? "Free" : "Free"}
+                </span>
+                {IconComponent ? (
+                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full border ${isPremium ? "border-[#27e97c]/40 bg-[#27e97c]/15 text-[#27e97c]" : "border-white/20 bg-white/10 text-white/90"}`}>
+                    <IconComponent className="h-5 w-5" />
+                  </span>
+                ) : null}
+              </div>
 
-                  <div className="flex flex-col gap-6 p-6 md:p-10">
-                    {(plan as any).urgencyText && (
-                      <div className="text-center md:text-left">
-                        <span className="text-sm font-bold uppercase tracking-wider text-[#27e97c] drop-shadow-[0_0_10px_rgba(39,233,124,0.5)]">
-                          {(plan as any).urgencyText}
-                        </span>
-                      </div>
-                    )}
+              <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="text-4xl font-black text-white">{plan.price}</span>
+                {plan.priceDetail ? <span className="text-sm text-gray-300">{plan.priceDetail}</span> : null}
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-gray-200">{plan.description}</p>
 
-                    <div className="flex items-center gap-3">
-                      {IconComponent && (
-                        <span className={`flex h-12 w-12 items-center justify-center rounded-xl backdrop-blur-md border ${isPremium ? 'bg-[#27e97c]/20 border-[#27e97c] text-[#27e97c] shadow-[0_0_15px_rgba(39,233,124,0.3)]' : 'bg-white/5 border-white/10 text-white'}`}>
-                          <IconComponent className="h-6 w-6" />
-                        </span>
-                      )}
-                      <div>
-                        <h3 className="text-2xl font-black text-white tracking-tight">{plan.name}</h3>
-                      </div>
-                    </div>
+              <ul className="mt-5 space-y-2">
+                {plan.features.map((feature) => {
+                  const text = typeof feature === "string" ? feature : feature.text;
+                  return (
+                    <li key={text} className="flex items-start gap-2 text-sm text-gray-200">
+                      <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#27e97c]/15 text-[#27e97c]">
+                        <Check className="h-3 w-3" />
+                      </span>
+                      <span>{text}</span>
+                    </li>
+                  );
+                })}
+              </ul>
 
-                    <div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black tracking-tight text-white">{plan.price}</span>
-                        {plan.priceDetail && (
-                          <span className="text-lg font-medium text-gray-400">{plan.priceDetail}</span>
-                        )}
-                      </div>
-                      <p className="mt-4 text-base leading-relaxed font-medium text-gray-300">{plan.description}</p>
-                    </div>
+              <button
+                id={isPremium ? "start-premium-btn" : "start-free-btn"}
+                type="button"
+                data-intent={intent}
+                data-language={language}
+                className={`mt-6 min-h-[48px] w-full rounded-full px-6 py-3 text-sm font-semibold transition ${
+                  isPremium
+                    ? "bg-[#27e97c] text-black shadow-[0_10px_24px_rgba(39,233,124,0.35)] hover:bg-[#1fc869]"
+                    : "border border-white/20 bg-white/10 text-white hover:border-[#27e97c]/50 hover:text-[#27e97c]"
+                }`}
+                onClick={() => onStart(intent)}
+                disabled={isLoading}
+              >
+                {isLoading
+                  ? language === "es"
+                    ? "Conectando con WhatsApp..."
+                    : "Connecting to WhatsApp..."
+                  : plan.ctaText}
+              </button>
 
-                    <div>
-                      <button
-                        id={isPremium ? 'start-premium-btn' : 'start-free-btn'}
-                        className={`w-full rounded-2xl px-6 py-4 text-base font-bold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black ${isPremium
-                          ? 'bg-[#27e97c] text-black hover:bg-[#1fc869] focus:ring-[#27e97c] shadow-[0_0_20px_rgba(39,233,124,0.4)] hover:shadow-[0_0_35px_rgba(39,233,124,0.6)]'
-                          : 'glass-button text-white hover:text-[#27e97c] hover:border-[#27e97c]/50 focus:ring-white/20'
-                          } andes-onboarding-btn ${buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading' ? 'opacity-80' : ''}`}
-                        data-intent={isPremium ? 'premium' : 'free'}
-                        data-language={language}
-                        type="button"
-                        onClick={() => handleOnboarding(isPremium ? 'premium' : 'free')}
-                        disabled={buttonStates[`${isPremium ? 'premium' : 'free'}-btn`] === 'loading'}
-                        aria-label={isPremium
-                          ? (language === 'es' ? 'Comenzar entrenamiento premium' : 'Start premium training')
-                          : (language === 'es' ? 'Comenzar entrenamiento gratuito' : 'Start free training')
-                        }
-                      >
-                        {getButtonText(plan, isPremium)}
-                      </button>
-                      {(plan as any).ctaDisclaimer && (
-                        <p className="mt-3 text-center text-xs uppercase tracking-wider font-bold text-gray-500">
-                          {(plan as any).ctaDisclaimer}
-                        </p>
-                      )}
-                      {(plan as any).guarantee && (
-                        <p className="mt-2 text-center text-sm font-medium text-gray-400">
-                          {(plan as any).guarantee}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <div className={`mb-4 text-xs font-bold uppercase tracking-[0.2em] ${isPremium ? 'text-[#27e97c]' : 'text-gray-500'}`}>
-                        {translations.whatsIncluded[language as keyof typeof translations.whatsIncluded]}
-                      </div>
-                      <ul className="space-y-4 text-sm">
-                        {plan.features.map((feature, fIndex) => {
-                          const isFeatureObject = typeof feature === 'object';
-                          const featureText = isFeatureObject ? feature.text : feature;
-                          const featureTooltip = isFeatureObject ? feature.tooltip : null;
-                          const isHighlighted = isPremium && (fIndex === 0 || fIndex === 1);
-
-                          return (
-                            <li key={fIndex} className={`flex items-start ${isHighlighted ? 'text-white font-bold' : 'text-gray-300 font-medium'} list-none group/feature`}>
-                              <span className="leading-relaxed break-words flex-1 transition-colors duration-200 group-hover/feature:text-white">
-                                {featureText}
-                                {featureTooltip && (
-                                  <TooltipProvider>
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <button className="inline-flex align-middle ml-1.5 text-gray-500 hover:text-[#27e97c] transition-colors">
-                                          <HelpCircle className="h-4 w-4" />
-                                          <span className="sr-only">Info</span>
-                                        </button>
-                                      </TooltipTrigger>
-                                      <TooltipContent className="glass-card-dark text-white border-white/10 max-w-[250px]">
-                                        <p>{featureTooltip}</p>
-                                      </TooltipContent>
-                                    </Tooltip>
-                                  </TooltipProvider>
-                                )}
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
+              {plan.ctaDisclaimer ? <p className="mt-3 text-center text-xs text-gray-400">{plan.ctaDisclaimer}</p> : null}
+            </article>
           );
         })}
-        <div className="h-48" />
       </AnimatedSection>
-    </>
+
+      <AnimatedSection className="mt-6 overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] md:mt-8">
+        <table className="w-full table-fixed border-collapse text-left">
+          <thead>
+            <tr className="border-b border-white/10 bg-white/[0.03]">
+              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
+                {language === "es" ? "Comparativa" : "Comparison"}
+              </th>
+              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
+                {language === "es" ? "Free" : "Free"}
+              </th>
+              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-[#27e97c] md:px-6">
+                Premium
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr key={row.feature} className="border-b border-white/5 last:border-b-0">
+                <td className="px-4 py-3 text-sm text-gray-100 md:px-6">{row.feature}</td>
+                <td className="px-4 py-3 text-sm text-gray-300 md:px-6">{row.free}</td>
+                <td className="px-4 py-3 text-sm font-medium text-white md:px-6">{row.premium}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </AnimatedSection>
+
+      <p className="mt-4 text-center text-sm text-gray-300">
+        {language === "es" ? "Si no pagas, Andes sigue funcionando en modo Free/Lite." : "If you do not pay, Andes keeps working in Free/Lite mode."}
+      </p>
+    </section>
   );
 };
 

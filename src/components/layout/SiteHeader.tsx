@@ -19,7 +19,7 @@ const SiteHeader: React.FC = () => {
   const navSections = useMemo<NavSection[]>(
     () => [
       { id: 'hero', label: isEs ? 'Inicio' : 'Home' },
-      { id: 'benefits', label: isEs ? 'Beneficios' : 'Benefits' },
+      { id: 'benefits', label: isEs ? 'Cómo funciona' : 'How it works' },
       { id: 'reviews', label: isEs ? 'Testimonios' : 'Reviews' },
       { id: 'pricing', label: isEs ? 'Planes' : 'Plans' },
       { id: 'articles', label: isEs ? 'Aprender' : 'Learn' },

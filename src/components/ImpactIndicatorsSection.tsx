@@ -1,6 +1,7 @@
 import React from "react";
 import AnimatedSection from "./AnimatedSection";
 import { useAnimatedCounter } from "../hooks/useAnimatedCounter";
+import { ShieldCheck } from "lucide-react";
 
 interface IndicatorStat {
   value: string;
@@ -21,6 +22,7 @@ interface ImpactIndicatorsSectionProps {
   preheading: string;
   title: string;
   highlight: string;
+  pillars: string[];
   image: IndicatorImage;
   stats: IndicatorStat[];
 }
@@ -58,35 +60,47 @@ const ImpactIndicatorsSection: React.FC<ImpactIndicatorsSectionProps> = ({
   preheading,
   title,
   highlight,
+  pillars,
   image,
   stats,
 }) => {
   return (
     <AnimatedSection className="mx-auto max-w-6xl px-4">
       <section className="overflow-hidden">
-        <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_1fr] md:items-center mb-20">
-          <div className="px-8 py-10 md:px-12">
-            <span className="text-sm font-semibold uppercase tracking-[0.35em] text-[#27e97c]/80">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1.25fr)_1fr] md:items-center">
+          <div className="glass-panel rounded-[28px] px-5 py-6 sm:px-7 sm:py-8 md:px-10">
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#27e97c]/90 md:text-sm">
               {preheading}
             </span>
-            <h2 className="mt-4 text-3xl font-bold leading-tight text-white md:text-4xl">
+            <h2 className="mt-3 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
               {title}
             </h2>
-            <p className="mt-5 text-lg text-gray-300 md:text-xl">
+            <p className="mt-4 text-sm leading-relaxed text-gray-300 sm:text-base md:text-lg">
               {highlight}
             </p>
+
+            <ul className="mt-5 space-y-3">
+              {pillars.map((pillar) => (
+                <li key={pillar} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#27e97c]/15 text-[#27e97c]">
+                    <ShieldCheck className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="text-sm text-gray-200 sm:text-base">{pillar}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="relative h-full min-h-[260px] overflow-hidden">
+          <div className="relative h-full min-h-[260px] overflow-hidden rounded-[28px] border border-white/10">
             <img
               src={image.src}
               alt={image.alt}
-              className="h-[350px] w-full object-cover md:rounded-[16px]"
+              className="h-[300px] w-full object-cover sm:h-[350px]"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/55 via-black/20 to-transparent" />
           </div>
         </div>
-        <div className="glass-panel rounded-3xl overflow-hidden mt-8">
+        <div className="glass-panel mt-6 overflow-hidden rounded-3xl">
           <dl className="grid grid-cols-1 divide-y divide-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
             {stats.map((stat) => (
               <AnimatedStat key={stat.label} stat={stat} />

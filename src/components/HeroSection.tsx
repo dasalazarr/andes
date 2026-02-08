@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useRef, useEffect } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 type HeroHeadlineVariant = {
   lead: string;
@@ -18,8 +18,11 @@ interface HeroSectionProps {
   headline: HeroHeadline;
   description: string;
   ctaPrimaryText: string;
+  ctaSecondaryText: string;
+  limitNotice: string;
   keyBenefits: string;
-  onPrimaryClick: () => void;
+  onPrimaryClick: () => void | Promise<void>;
+  onSecondaryClick: () => void | Promise<void>;
   videoSrc: string;
   language: 'en' | 'es';
   abVariant?: 'A' | 'B';
@@ -30,13 +33,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   headline,
   description,
   ctaPrimaryText,
+  ctaSecondaryText,
+  limitNotice,
   keyBenefits,
   onPrimaryClick,
+  onSecondaryClick,
   videoSrc,
   language,
   abVariant = 'A',
 }) => {
   const comp = useRef<HTMLDivElement>(null);
+  const [loadingCta, setLoadingCta] = useState<'primary' | 'secondary' | null>(null);
 
   // Lógica para manejar variantes A/B
   const resolveHeadline = (): HeroHeadlineVariant => {
@@ -48,11 +55,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   const currentHeadline = resolveHeadline();
-
-  // Log video source changes
-  useEffect(() => {
-    console.log('Video source changed to:', videoSrc);
-  }, [videoSrc]);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -84,22 +86,36 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           opacity: 0,
           y: '+=16',
           duration: 0.6,
-          delay: -0.3,
+          delay: -0.25,
         });
     }, comp);
 
     return () => ctx.revert(); // Cleanup
   }, []);
 
+  const handlePrimaryClick = async () => {
+    setLoadingCta('primary');
+    try {
+      await Promise.resolve(onPrimaryClick());
+    } finally {
+      setLoadingCta(null);
+    }
+  };
+
+  const handleSecondaryClick = async () => {
+    setLoadingCta('secondary');
+    try {
+      await Promise.resolve(onSecondaryClick());
+    } finally {
+      setLoadingCta(null);
+    }
+  };
+
   return (
-    <div className="w-full h-screen min-h-[100dvh]" ref={comp}>
-      <div className="relative w-full h-full min-h-[600px] sm:min-h-[700px] md:min-h-screen overflow-hidden">
-        {/* Background Video with Overlay */}
+    <div className="w-full min-h-[88dvh]" ref={comp}>
+      <div className="relative min-h-[88dvh] w-full overflow-hidden md:min-h-screen">
         <div className="absolute inset-0 overflow-hidden">
-          {/* Preload poster image for better LCP */}
-          <link rel="preload" as="image" href={`${videoSrc}.jpg`} />
           <video
-            key={`${videoSrc}-video`}
             autoPlay
             loop
             muted
@@ -109,8 +125,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             poster={`${videoSrc}.jpg`}
             aria-label={language === 'es' ? 'Video de fondo: corredor entrenando en pista' : 'Background video: runner training on track'}
             onError={(e) => {
-              console.warn('Video failed to load:', videoSrc, e);
-              // Fallback to poster image if video fails
               const video = e.target as HTMLVideoElement;
               const fallbackImg = video.parentElement?.querySelector('img');
               if (fallbackImg) {
@@ -119,17 +133,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               }
             }}
           >
-            <source src={`${videoSrc}.webm?t=${new Date().getTime()}`} type="video/webm" key={`${videoSrc}-webm`} />
-            <source src={`${videoSrc}.mp4?t=${new Date().getTime()}`} type="video/mp4" key={`${videoSrc}-mp4`} />
-            {/* Fallback image */}
+            <source src={`${videoSrc}.webm`} type="video/webm" />
+            <source src={`${videoSrc}.mp4`} type="video/mp4" />
             <img
-              src={`${videoSrc}.jpg?t=${new Date().getTime()}`}
+              src={`${videoSrc}.jpg`}
               alt={language === 'es' ? 'Corredor entrenando en pista' : 'Runner training on track'}
               className="w-full h-full object-cover"
               style={{ display: 'none' }}
               onError={(e) => {
-                console.warn('Poster image failed to load:', `${videoSrc}.jpg`);
-                // Use a solid color background as final fallback
                 const img = e.target as HTMLImageElement;
                 img.style.display = 'none';
                 if (img.parentElement) {
@@ -138,53 +149,67 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               }}
             />
           </video>
-          {/* Overlay oscuro para mejorar contraste - 50% dark overlay */}
-          <div className="absolute inset-0 bg-black/50"></div>
-          {/* Gradient overlay at bottom for smooth transition to next section */}
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-black/55"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(39,233,124,0.16),transparent_45%)]"></div>
+          <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black via-black/85 to-transparent"></div>
         </div>
 
-        {/* Content Container - ensure it's above the video and overlay */}
         <div className="absolute inset-0 flex items-center">
-          <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-4 sm:gap-6 px-4 sm:px-6 py-16 sm:py-20 text-white">
-            <div id="preheading" className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/70">
-              <span className="h-px w-8 sm:w-10 bg-white/40" aria-hidden="true"></span>
-              <span>{preheading}</span>
-            </div>
+          <div className="relative z-20 mx-auto w-full max-w-6xl px-4 pb-20 pt-24 sm:px-6">
+            <div className="glass-card-premium max-w-xl rounded-[28px] p-5 text-white sm:p-7 md:p-8">
+              <div id="preheading" className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/75 sm:text-xs">
+                <span className="h-px w-6 bg-white/40 sm:w-8" aria-hidden="true"></span>
+                <Sparkles className="h-3.5 w-3.5 text-[#27e97c]" aria-hidden="true" />
+                <span>{preheading}</span>
+              </div>
 
-            <h1 id="headline" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
-              <span className="block">{currentHeadline.lead}</span>
-              <span className="mt-2 block text-white">
-                <span className="relative inline-flex items-center">
-                  <span className="absolute inset-x-0 bottom-1 h-2 sm:h-3 bg-[#27e97c]/30" aria-hidden="true"></span>
-                  <span className="relative text-[#27e97c]">{currentHeadline.accent}</span>
+              <h1 id="headline" className="mt-4 text-3xl font-bold leading-[1.08] sm:text-4xl md:text-5xl">
+                <span className="block">{currentHeadline.lead}</span>
+                <span className="mt-1 block text-white">
+                  <span className="relative inline-flex items-center">
+                    <span className="absolute inset-x-0 bottom-1 h-2 bg-[#27e97c]/30 sm:h-3" aria-hidden="true"></span>
+                    <span className="relative text-[#27e97c]">{currentHeadline.accent}</span>
+                  </span>
+                  {currentHeadline.trailing ? (
+                    <span className="ml-2">{currentHeadline.trailing}</span>
+                  ) : null}
                 </span>
-                {currentHeadline.trailing ? (
-                  <span className="ml-2">{currentHeadline.trailing}</span>
-                ) : null}
-              </span>
-            </h1>
+              </h1>
 
-            <p id="description" className="max-w-2xl text-sm sm:text-base md:text-lg text-white/80 leading-relaxed">
-              {description.split('\n').map((line, index) => (
-                <span key={index}>
-                  {line}
-                  {index < description.split('\n').length - 1 && <br />}
-                </span>
-              ))}
-            </p>
+              <p id="description" className="mt-4 text-sm leading-relaxed text-white/85 sm:text-base md:text-lg">
+                {description}
+              </p>
 
-            <div id="cta" className="flex flex-col items-start gap-4 sm:gap-6 md:gap-8 mt-2">
-              <Button
-                size="lg"
-                className="group inline-flex items-center gap-2 sm:gap-3 rounded-full bg-[#27e97c] px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-black shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:bg-[#27e97c]/90 hover:shadow-[#27e97c]/30 focus-visible:ring-[#27e97c] min-h-[48px]"
-                onClick={onPrimaryClick}
-                aria-label={language === 'es' ? 'Empieza en WhatsApp' : 'Start on WhatsApp'}
-              >
-                <span>{ctaPrimaryText}</span>
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </Button>
-              <div id="key-benefits" className="text-xs sm:text-sm font-medium tracking-[0.15em] sm:tracking-[0.2em] text-white/60">
+              <div id="cta" className="mt-5 flex w-full flex-col gap-3 sm:flex-row sm:items-center">
+                <Button
+                  size="lg"
+                  className="group min-h-[48px] rounded-full bg-[#27e97c] px-6 text-base font-semibold text-black shadow-[0_14px_30px_rgba(39,233,124,0.3)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-[#25d366] focus-visible:ring-[#27e97c]"
+                  onClick={handlePrimaryClick}
+                  disabled={loadingCta !== null}
+                  aria-label={ctaPrimaryText}
+                >
+                  <span>{loadingCta === "primary" ? (language === "es" ? "Preparando..." : "Preparing...") : ctaPrimaryText}</span>
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Button>
+
+                <Button
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  className="min-h-[48px] rounded-full border-white/25 bg-white/10 px-6 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/15"
+                  onClick={handleSecondaryClick}
+                  disabled={loadingCta !== null}
+                  aria-label={ctaSecondaryText}
+                >
+                  {loadingCta === "secondary" ? (language === "es" ? "Activando..." : "Activating...") : ctaSecondaryText}
+                </Button>
+              </div>
+
+              <p className="mt-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-medium leading-relaxed text-white/80 sm:text-sm">
+                {limitNotice}
+              </p>
+
+              <div id="key-benefits" className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60 sm:text-xs">
                 {keyBenefits}
               </div>
             </div>

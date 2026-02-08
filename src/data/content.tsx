@@ -6,40 +6,42 @@ import { articleImages } from '../config/images';
 
 export const heroContent = {
   es: {
-    preheading: "Coaching inteligente 24/7",
+    preheading: "Tu coach personal en WhatsApp",
     headline: {
       variantA: {
-        lead: "Conquista tu primera maratón",
-        accent: "paso a paso",
+        lead: "Tu coach personal 24/7",
+        accent: "en WhatsApp",
       },
       variantB: {
-        lead: "Conquista tu primera maratón",
-        accent: "paso a paso",
+        lead: "Tu coach personal 24/7",
+        accent: "en WhatsApp",
       },
     },
-    description: "¿Nunca has corrido? Perfecto. ¿Corres 10K a veces? Genial. \n Te encontramos exactamente donde estás y te guiamos.",
-    ctaPrimaryText: 'Empieza en WhatsApp',
-    ctaSecondaryText: "Quiero mi plan gratis",
-    keyBenefits: "Planes 100% personalizados • Feedback inmediato • Motivación diaria",
-    videoSrc: '/videos/video3', // Extension will be handled in component
+    description: "Empieza hoy sin descargar apps. Andes te acompaña cada día para que llegues a tu primera meta sin entrenar solo.",
+    ctaPrimaryText: "Empezar Gratis",
+    ctaSecondaryText: "Desbloquear Premium",
+    limitNotice: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo).",
+    keyBenefits: "Sin descargas • Respuesta en 1 minuto • No entrenas solo",
+    videoSrc: '/videos/video3',
   },
   en: {
-    preheading: "Always-on smart coaching",
+    preheading: "Your personal coach on WhatsApp",
     headline: {
       variantA: {
-        lead: "Crush your first marathon",
-        accent: "step-by-step",
+        lead: "Your personal coach 24/7",
+        accent: "on WhatsApp",
       },
       variantB: {
-        lead: "Crush your first marathon",
-        accent: "step-by-step",
+        lead: "Your personal coach 24/7",
+        accent: "on WhatsApp",
       },
     },
-    description: "Never run before? Perfect. Run 10K sometimes? Great. \n We meet you exactly where you are and guide you.",
-    ctaPrimaryText: 'Start on WhatsApp',
-    ctaSecondaryText: "I want my free plan",
-    keyBenefits: "100% personalized plans • Instant feedback • Daily motivation",
-    videoSrc: '/videos/video2', // Extension will be handled in component
+    description: "Start today with no app download. Andes supports you every day so you can finish your first race without training alone.",
+    ctaPrimaryText: "Start Free",
+    ctaSecondaryText: "Unlock Premium",
+    limitNotice: "After 30 smart messages, you continue in Lite mode (no lockout).",
+    keyBenefits: "No downloads • Start in 1 minute • Never train alone",
+    videoSrc: '/videos/video2',
   },
 };
 
@@ -93,56 +95,56 @@ export const leadMagnetContent = {
 
 export const benefitsContent = {
   es: {
-    sectionTitle: "¿Por Qué Elegir Andes?",
-    sectionSubtitle: "Tecnología, ciencia y coaching de élite para transformar tu entrenamiento. Descubre por qué somos diferentes.",
+    sectionTitle: "Cómo te transformamos",
+    sectionSubtitle: "No vendemos tecnología fría. Te acompañamos para que termines tu primera carrera sin entrenar solo.",
     benefits: [
       {
         icon: FaWhatsapp,
-        headline: "Tu coach en WhatsApp",
-        copy: "Sin apps nuevas: escribe \"Corrí 5k en 25 min…\" y registramos distancia, tiempo y molestias.",
-        proof: "Registro en segundos con smart-parse que entiende tu lenguaje",
-        testimonial: "Solo escribí mi carrera y recibí feedback inmediato. ¡Es como tener un coach en el bolsillo! — Ana, runner principiante",
+        headline: "1. Empieza hoy",
+        copy: "Escribes por WhatsApp y te damos un plan claro según tu nivel real.",
+        proof: "Activación guiada en minutos",
+        testimonial: "Sin descargas ni configuración compleja.",
       },
       {
         icon: FaCalendarAlt,
-        headline: "Plan al instante",
-        copy: "Di \"Dame mi plan\" y recibe tu semana según tu nivel y objetivo.",
-        proof: "Se actualiza cuando registras tus carreras; respeta tus unidades y días preferidos",
-        testimonial: "En minutos tenía mi plan completo. Se adapta perfectamente a mi horario y progreso. — Carlos, corredor experimentado",
+        headline: "2. Acompañamiento diario",
+        copy: "Ajustamos cargas con tu feedback para sostener constancia y motivación.",
+        proof: "Seguimiento por chat 24/7",
+        testimonial: "No entrenas solo en ningún momento.",
       },
       {
         icon: FaChartLine,
-        headline: "De 0 A 42 k",
-        copy: "Tu objetivo es terminar, no competir. Personalizamos cada semana a tu progreso real, sin presión, sin comparaciones.",
-        proof: "Acompañamiento personalizado desde tu primer kilómetro",
-        testimonial: "La combinación perfecta: respuestas rápidas de IA y consejos expertos cuando los necesito. — Sofía, maratonista",
+        headline: "3. Llegas a tu meta",
+        copy: "Progresas con una ruta sostenible para terminar tu primera carrera con confianza.",
+        proof: "Progresión personalizada de inicio a meta",
+        testimonial: "Tu avance importa más que cualquier vanity metric.",
       },
     ],
   },
   en: {
-    sectionTitle: "Why Choose Andes?",
-    sectionSubtitle: "Technology, science, and elite coaching to transform your training. Discover why we’re different.",
+    sectionTitle: "How We Transform Your Journey",
+    sectionSubtitle: "We do not sell cold tech. We support you so you can finish your first race without training alone.",
     benefits: [
       {
         icon: FaWhatsapp,
-        headline: "Your coach on WhatsApp",
-        copy: "No new apps: write \"I ran 5k in 25 min…\" and we log distance, time, and issues.",
-        proof: "Registration in seconds with smart-parse that understands your language",
-        testimonial: "I just texted my run and got instant feedback. It's like having a coach in your pocket! — Ana, beginner runner",
+        headline: "1. Start today",
+        copy: "You text us on WhatsApp and get a clear plan based on your current level.",
+        proof: "Guided setup in minutes",
+        testimonial: "No download and no setup friction.",
       },
       {
         icon: FaCalendarAlt,
-        headline: "Instant plan",
-        copy: "Say \"Give me my plan\" and receive your week based on your level and goal.",
-        proof: "Updates when you log your runs; respects your preferred units and days",
-        testimonial: "I had my complete plan in minutes. It adapts perfectly to my schedule and progress. — Carlos, experienced runner",
+        headline: "2. Daily support",
+        copy: "We adjust your load from your feedback so motivation and consistency stay high.",
+        proof: "24/7 chat follow-up",
+        testimonial: "You never train alone.",
       },
       {
         icon: FaChartLine,
-        headline: "From 0 To 42k",
-        copy: "Your goal is to finish, not to compete. We personalize each week to your actual progress, no pressure, no comparisons.",
-        proof: "Personalized guidance from your very first kilometer",
-        testimonial: "The perfect blend: quick AI responses and expert advice when I need it. — Sofia, marathoner",
+        headline: "3. Reach your goal",
+        copy: "Progress on a sustainable route to finish your first race with confidence.",
+        proof: "Personalized progression from day one",
+        testimonial: "Your progress matters more than vanity metrics.",
       },
     ],
   },
@@ -150,33 +152,43 @@ export const benefitsContent = {
 
 export const indicatorsContent = {
   es: {
-    preheading: "Nuestro impacto en números",
-    title: "De tu primer 5K a tu primer maratón.",
-    highlight: "Ajustamos lo importante—ritmos, entrenos y recuperación—para mejorar sin sobrecargas.",
+    preheading: "Seguridad primero",
+    title: "Bienestar y progreso sostenible.",
+    highlight: "Ajustamos carga, recuperación y ritmo para que mejores sin lesionarte.",
+    pillars: [
+      "Ajustes de carga según cómo te sentiste hoy.",
+      "Prevención de lesión antes que métricas de ego.",
+      "Progresión sostenible para crear hábito real."
+    ],
     image: {
       src: "/coaching.avif",
       alt: "Entrenador conversando con una corredora durante una sesión al aire libre",
     },
     stats: [
-      { value: "2,800 km", label: "Kilómetros acompañados" },
-      { value: "100 +", label: "Corredores activos en Andes" },
-      { value: "50 +", label: "Planes ajustados cada semana" },
-      { value: "10 +", label: "Maratones completadas" },
+      { value: "72", label: "NPS" },
+      { value: "64%", label: "Finaliza su primer plan" },
+      { value: "-28%", label: "Lesiones reportadas" },
+      { value: "58%", label: "Termina su primera carrera" },
     ],
   },
   en: {
-    preheading: "Our impact in numbers",
-    title: "From your first 5K to your first marathon.",
-    highlight: "We fine-tune the right details—paces, workouts, recovery—so you improve without breaking down.",
+    preheading: "Safety first",
+    title: "Well-being and sustainable progress.",
+    highlight: "We adjust load, recovery, and pace so you improve without getting injured.",
+    pillars: [
+      "Training load adjusts from how you felt today.",
+      "Injury prevention comes before vanity metrics.",
+      "Sustainable progression that builds a real habit."
+    ],
     image: {
       src: "/coaching.avif",
       alt: "Coach guiding a runner during an outdoor session",
     },
     stats: [
-      { value: "1,740 mi", label: "Guided miles" },
-      { value: "100 +", label: "Runners training with Andes" },
-      { value: "50 +", label: "Plans adapted each week" },
-      { value: "10 +", label: "Marathons completed" },
+      { value: "72", label: "NPS" },
+      { value: "64%", label: "First plan completion" },
+      { value: "-28%", label: "Reported injuries" },
+      { value: "58%", label: "First race finish rate" },
     ],
   },
 };
@@ -272,6 +284,12 @@ interface PricingContentStructure {
   sectionTitle: string;
   sectionSubtitle: string;
   competitiveAnchor: string;
+  limitNote: string;
+  comparisonRows: Array<{
+    feature: string;
+    free: string;
+    premium: string;
+  }>;
   plans: PricingPlan[];
 }
 
@@ -280,27 +298,33 @@ export const pricingContent: {
   en: PricingContentStructure;
 } = {
   es: {
-    sectionTitle: "Empieza gratis. Pásate a Pro cuando sientas la diferencia.",
-    sectionSubtitle: "Registra tus corridas ilimitadas. Prueba una muestra real de nuestro coaching inteligente y decide.",
-    competitiveAnchor: "", // Removed or kept empty as it wasn't in the new copy request, keeping structure compatible
+    sectionTitle: "Free vs Premium, sin letra pequeña",
+    sectionSubtitle: "Empieza gratis hoy y mejora cuando quieras.",
+    competitiveAnchor: "",
+    limitNote: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo).",
+    comparisonRows: [
+      { feature: "Entrenamiento base", free: "Sí", premium: "Sí" },
+      { feature: "Modo Lite sin bloqueo", free: "Sí", premium: "Sí" },
+      { feature: "Recordatorios proactivos", free: "No", premium: "Sí" },
+      { feature: "Seguimiento semanal personalizado", free: "No", premium: "Sí" },
+      { feature: "Detección de inactividad", free: "No", premium: "Sí" },
+      { feature: "Medallas y countdown de carrera", free: "No", premium: "Sí" },
+    ],
     plans: [
       {
-        name: "Starter",
+        name: "Empieza Gratis",
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Gratis para siempre. Registra tus corridas y prueba el coaching inteligente con una muestra finita.",
+        description: "Andes funciona siempre. Después de 30 mensajes inteligentes continúas en modo Lite, sin bloqueo.",
         features: [
-          "✅ Registro ilimitado de corridas (sin costo de IA)",
-          "✅ Tu primer plan VDOT (base)",
-          {
-            text: "✔️ 30 consultas inteligentes (de por vida)",
-            tooltip: "Las 'consultas inteligentes' se usan para preguntas de coaching, feedback y explicaciones. Cuando se terminan, sigues registrando corridas gratis para siempre."
-          },
-          "✅ Acceso a progreso básico (ritmo, racha, km)",
+          "Funcional siempre, incluso después del umbral.",
+          "Plan base para empezar desde cero.",
+          "Acompañamiento en modo Lite sin bloqueo.",
+          "Ideal para preparar tu primer 5K/10K.",
         ],
-        ctaText: "Empezar en WhatsApp",
-        ctaDisclaimer: "Sin tarjeta • Gratis para siempre",
+        ctaText: "Empezar Gratis",
+        ctaDisclaimer: "Sin tarjeta • Funciona siempre",
         href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
@@ -308,7 +332,7 @@ export const pricingContent: {
         imageAlt: "Corredora entrenando en un lago al amanecer",
       },
       {
-        name: "Pro Coach",
+        name: "Premium",
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/mes",
@@ -316,16 +340,15 @@ export const pricingContent: {
         annualPriceDetail: "/mes (facturado anual)",
         savingsPercentage: "Ahorra 15%",
         popularBadge: "⭐ MÁS ELEGIDO",
-        description: "Tu coach en WhatsApp para entrenar como profesional: respuestas más profundas, memoria y ajustes según tu progreso.",
+        description: "Desbloquea templates proactivos y seguimiento personalizado para acelerar resultados.",
         features: [
-          "🧠 Coaching ilimitado (fair use)",
-          "📈 Plan que se ajusta con tus corridas",
-          "🗂️ Memoria de atleta (historial, metas, contexto)",
-          "🛡️ Coaching consciente de molestias y carga (prevención)",
-          "📊 Insights avanzados (tendencias, racha, ACWR)",
-          "🏅 Más claridad para mejorar (no solo ‘registrar’)",
+          "Recordatorios automáticos de entrenamiento.",
+          "Seguimiento semanal personalizado.",
+          "Detección de inactividad y reactivación.",
+          "Medallas de progreso y countdown de carrera.",
+          "Mayor personalización por contexto y objetivo.",
         ],
-        ctaText: "Activar Pro Coach", // Icon added in component
+        ctaText: "Desbloquear Premium",
         ctaDisclaimer: "Cancela cuando quieras",
         href: "#pricing",
         isPopular: true,
@@ -336,27 +359,33 @@ export const pricingContent: {
     ],
   },
   en: {
-    sectionTitle: "Start free. Go Pro when you feel the difference.",
-    sectionSubtitle: "Unlimited run logging. Try a finite sample of real coaching and decide.",
+    sectionTitle: "Free vs Premium, no surprises",
+    sectionSubtitle: "Start free today and upgrade when you want.",
     competitiveAnchor: "",
+    limitNote: "After 30 smart messages, you continue in Lite mode (no lockout).",
+    comparisonRows: [
+      { feature: "Core training plan", free: "Yes", premium: "Yes" },
+      { feature: "Lite mode without lockout", free: "Yes", premium: "Yes" },
+      { feature: "Proactive reminders", free: "No", premium: "Yes" },
+      { feature: "Personalized weekly follow-up", free: "No", premium: "Yes" },
+      { feature: "Inactivity follow-up", free: "No", premium: "Yes" },
+      { feature: "Medals and race countdown", free: "No", premium: "Yes" },
+    ],
     plans: [
       {
-        name: "Starter",
+        name: "Start Free",
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "Free forever. Log every run and try a finite sample of smart coaching.",
+        description: "Andes always works. After 30 smart messages you continue in Lite mode, with no lockout.",
         features: [
-          "✅ Unlimited run logging (no AI cost)",
-          "✅ Your first VDOT plan (baseline)",
-          {
-            text: "✅ 30 Smart Coaching messages (lifetime)",
-            tooltip: "Smart Coaching is used for coaching questions, feedback and explanations. After you use them, run logging stays free forever."
-          },
-          "✅ Basic progress (pace, streak, km)",
+          "Always functional, even after the threshold.",
+          "Starter plan for beginner runners.",
+          "Lite support with no service lockout.",
+          "Strong entry point for first 5K/10K.",
         ],
-        ctaText: "Start on WhatsApp",
-        ctaDisclaimer: "No card • Free forever",
+        ctaText: "Start Free",
+        ctaDisclaimer: "No card • Always works",
         href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
@@ -364,7 +393,7 @@ export const pricingContent: {
         imageAlt: "Athlete swimming in open water at sunrise",
       },
       {
-        name: "Pro Coach",
+        name: "Premium",
         iconName: "Zap",
         price: "$9.99",
         priceDetail: "/month",
@@ -372,16 +401,15 @@ export const pricingContent: {
         annualPriceDetail: "/month (billed annually)",
         savingsPercentage: "Save 15%",
         popularBadge: "⭐ MOST CHOSEN",
-        description: "Your WhatsApp coach to train like a pro: deeper answers, memory, and plan adjustments as you progress.",
+        description: "Unlock proactive templates and personalized follow-up to accelerate progress.",
         features: [
-          "🧠 Unlimited coaching (fair use)",
-          "📈 Plan adjusts with your runs",
-          "🗂️ Athlete memory (goals, history, context)",
-          "🛡️ Injury-aware guidance (aches + load)",
-          "📊 Advanced insights (trends, streak, ACWR)",
-          "🏅 Train smarter, not just track",
+          "Proactive training reminders.",
+          "Personalized weekly follow-up.",
+          "Inactivity detection and re-engagement.",
+          "Progress medals and race countdown.",
+          "Deeper context-aware personalization.",
         ],
-        ctaText: "Unlock Pro Coach", // Icon added in component
+        ctaText: "Unlock Premium",
         ctaDisclaimer: "Cancel anytime",
         href: "#pricing",
         isPopular: true,
@@ -396,8 +424,20 @@ export const pricingContent: {
 export const faqContent = {
   es: {
     sectionTitle: "Preguntas Frecuentes",
-    sectionSubtitle: "Todo lo que necesitas saber",
+    sectionSubtitle: "Respuestas claras antes de empezar",
     faqs: [
+      {
+        question: "¿Qué pasa después de 30 mensajes?",
+        answer: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo). Andes no se detiene.",
+      },
+      {
+        question: "¿Qué incluye Premium exactamente?",
+        answer: "Premium desbloquea templates proactivos: recordatorios, seguimiento semanal personalizado, detección de inactividad, medallas y countdown de carrera.",
+      },
+      {
+        question: "¿Si no pago, Andes deja de funcionar?",
+        answer: "No. Andes sigue funcionando en Free/Lite.",
+      },
       {
         question: "¿Es para principiantes?",
         answer: "¡Absolutamente! Nuestros planes están diseñados para todos los niveles. Si eres principiante, comenzamos con caminatas y trotes suaves, progresando gradualmente hacia tu primera carrera de 5K.",
@@ -415,8 +455,8 @@ export const faqContent = {
         answer: "La vida pasa. Solo dile a tu coach 'hoy no pude correr' y ajustaremos automáticamente tu calendario para que sigas progresando sin sobrecargas.",
       },
       {
-        question: "Diferencia Gratis vs Pro",
-        answer: "El plan Gratis te da una estructura estática para empezar. El Pro incluye adaptaciones en tiempo real por IA, monitoreo de prevención de lesiones, chat de coaching 24/7 y análisis profundo de rendimiento.",
+        question: "Diferencia Gratis vs Premium",
+        answer: "Gratis es una puerta de entrada completa para arrancar. Premium añade seguimiento proactivo y personalización avanzada para progresar más rápido.",
       },
       {
         question: "Cancelación y garantía",
@@ -430,8 +470,20 @@ export const faqContent = {
   },
   en: {
     sectionTitle: "Frequently Asked Questions",
-    sectionSubtitle: "Everything you need to know",
+    sectionSubtitle: "Clear answers before you start",
     faqs: [
+      {
+        question: "What happens after 30 messages?",
+        answer: "After 30 smart messages, you continue in Lite mode (no lockout). Andes does not stop working.",
+      },
+      {
+        question: "What exactly is included in Premium?",
+        answer: "Premium unlocks proactive templates: reminders, personalized weekly follow-up, inactivity detection, medals, and race countdown.",
+      },
+      {
+        question: "If I do not pay, does Andes stop working?",
+        answer: "No. Andes keeps working in Free/Lite mode.",
+      },
       {
         question: "Is this for beginners?",
         answer: "Absolutely! Our plans are designed for all levels. If you're a beginner, we start with walking and light jogging, gradually progressing toward your first 5K race.",
@@ -449,8 +501,8 @@ export const faqContent = {
         answer: "Life happens. Just tell your coach 'I couldn't run today', and we'll automatically adjust your schedule so you stay on track without overtraining.",
       },
       {
-        question: "Free vs Pro difference",
-        answer: "The Free plan gives you a static plan to get started. Pro includes real-time AI adaptations, injury prevention monitoring, 24/7 coaching chat, and deep performance analysis.",
+        question: "Free vs Premium difference",
+        answer: "Free is a generous entry point for beginners. Premium adds proactive follow-up and advanced personalization to improve faster.",
       },
       {
         question: "Cancel & refund",

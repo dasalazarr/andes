@@ -1,5 +1,6 @@
-// Andes Simplified Onboarding Integration
-// Direct WhatsApp integration for improved conversion rates
+// Legacy onboarding integration.
+// Active production flow is centralized in `src/lib/onboarding.ts`.
+// Keep this file only as historical fallback reference.
 
 (function() {
   'use strict';

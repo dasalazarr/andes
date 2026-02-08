@@ -1,109 +1,80 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
+import Home from "@/components/home";
+import { startOnboarding } from "@/lib/onboarding";
 
-// Mockear los componentes antes de importar Home
-vi.mock('react', async () => {
-  const actual = await vi.importActual('react');
-  return {
-    ...actual,
-    lazy: (factory) => {
-      const Component = (props) => {
-        const LazyComponent = (props) => <div {...props} />;
-        return LazyComponent;
-      };
-      return Component;
-    },
-    Suspense: ({ children }) => <>{children}</>,
-  };
-});
-
-vi.mock('@/components/HeroSection', () => ({
-  default: ({ onPrimaryClick }) => (
-    <div data-testid="hero-section">
-      <button onClick={onPrimaryClick}>Mock Hero CTA</button>
-    </div>
-  ),
+vi.mock("@/hooks/useLanguageDetection", () => ({
+  useLanguageDetection: () => ({ currentLanguage: "en" }),
 }));
 
-vi.mock('@/components/ArticleCarousel', () => ({
-  default: ({ children }) => <div data-testid="article-carousel">{children}</div>,
+vi.mock("@/lib/onboarding", () => ({
+  startOnboarding: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/components/ArticleCard', () => ({
-  default: ({ title, onClick }) => (
-    <div data-testid="article-card" onClick={onClick}>
-      {title}
-    </div>
-  ),
+vi.mock("@/components/PricingSection", () => ({
+  default: () => <div data-testid="pricing-section">Mock Pricing</div>,
 }));
 
-vi.mock('@/components/TrainingPlanCard', () => ({
-  default: ({ title }) => <div data-testid="training-plan-card">{title}</div>,
+vi.mock("@/components/BenefitsSection", () => ({
+  default: () => <div data-testid="benefits-section">Mock Benefits</div>,
 }));
 
-vi.mock('@/components/UnderConstructionPlanCard', () => ({
-  default: ({ title }) => <div data-testid="under-construction-plan-card">{title}</div>,
+vi.mock("@/components/ImpactIndicatorsSection", () => ({
+  default: () => <div data-testid="safety-section">Mock Safety</div>,
 }));
 
-vi.mock('@/components/PlanRequestForm', () => ({
-  default: () => <div data-testid="plan-request-form">Mock Plan Request Form</div>,
+vi.mock("@/components/grit/GritSection", () => ({
+  default: () => <div data-testid="grit-section">Mock Grit</div>,
 }));
 
-vi.mock('@/components/ArticleDetail', () => ({
-  default: ({ onClose }) => (
-    <div data-testid="article-detail">
-      <button onClick={onClose}>Close</button>
-    </div>
-  ),
+vi.mock("@/features/blog/components/BlogHighlights", () => ({
+  default: () => <div data-testid="blog-section">Mock Blog</div>,
 }));
 
-// Importar Home después de configurar todos los mocks
-import Home from '@/components/home';
+vi.mock("@/components/FAQSection", () => ({
+  default: () => <div data-testid="faq-section">Mock FAQ</div>,
+}));
 
-describe('Home Component', () => {
+vi.mock("@/components/SeoManager", () => ({
+  default: () => null,
+}));
+
+describe("Home Component", () => {
   beforeEach(() => {
-    // Resetear cualquier mock antes de cada prueba
     vi.clearAllMocks();
-    
-    // Mock para window.scrollTo
     window.scrollTo = vi.fn();
-    
-    // Mock para Element.scrollIntoView
-    Element.prototype.scrollIntoView = vi.fn();
   });
 
-  it('renders all main sections correctly', () => {
-    render(<Home />);
-    
-    expect(screen.getByTestId('hero-section')).toBeInTheDocument();
-    expect(screen.getByTestId('article-carousel')).toBeInTheDocument();
-    expect(screen.getAllByTestId('article-card')).toHaveLength(4); // Hay 4 artículos en el componente
-    expect(screen.getByTestId('training-plan-card')).toBeInTheDocument();
-    expect(screen.getByTestId('under-construction-plan-card')).toBeInTheDocument();
-    // No verificamos plan-request-form ya que es lazy loaded y puede no estar en el DOM inicial
+  it("renders key sections", async () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    );
+
+    expect((await screen.findAllByRole("button", { name: "Start Free" })).length).toBeGreaterThan(0);
+    expect(await screen.findByTestId("pricing-section")).toBeInTheDocument();
+    expect(await screen.findByTestId("benefits-section")).toBeInTheDocument();
+    expect(await screen.findByTestId("faq-section")).toBeInTheDocument();
   });
 
-  it('has a working hero CTA button', async () => {
+  it("starts free onboarding from hero CTA", async () => {
     const user = userEvent.setup();
-    render(<Home />);
-    
-    const ctaButton = screen.getByText('Mock Hero CTA');
-    await user.click(ctaButton);
-    
-    // No verificamos scrollIntoView ya que puede ser difícil de probar en este contexto
-    // Solo verificamos que el botón existe y se puede hacer clic en él
-    expect(ctaButton).toBeInTheDocument();
-  });
 
-  it('displays correct training plans', () => {
-    render(<Home />);
-    
-    // Verificar que se muestran los planes de entrenamiento correctos
-    const trainingPlanCard = screen.getByTestId('training-plan-card');
-    const underConstructionPlanCard = screen.getByTestId('under-construction-plan-card');
-    
-    expect(trainingPlanCard).toBeInTheDocument();
-    expect(underConstructionPlanCard).toBeInTheDocument();
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    );
+
+    await user.click(screen.getAllByRole("button", { name: "Start Free" })[0]);
+
+    expect(startOnboarding).toHaveBeenCalledWith({
+      intent: "free",
+      language: "en",
+      placement: "hero",
+    });
   });
 });

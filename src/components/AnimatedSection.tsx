@@ -34,6 +34,10 @@ const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(({ childre
   const internalRef = useRef(null);
   const combinedRef = useCombinedRefs(internalRef, forwardedRef);
   const isInView = useInView(combinedRef, { once: true, amount: 0.2 });
+  const isMobile =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(max-width: 768px)').matches;
 
   const MotionComponent = motion[Component];
 
@@ -43,8 +47,8 @@ const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(({ childre
         ref={combinedRef}
         className={className}
         variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        initial={isMobile ? 'visible' : 'hidden'}
+        animate={isMobile || isInView ? 'visible' : 'hidden'}
       >
         {React.Children.map(children, (child) => (
           <motion.div variants={itemVariants}>{child}</motion.div>
@@ -57,8 +61,8 @@ const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(({ childre
     <MotionComponent
       ref={combinedRef}
       className={className}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 50 }}
+      initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      animate={{ opacity: isMobile || isInView ? 1 : 0, y: isMobile || isInView ? 0 : 50 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       {children}

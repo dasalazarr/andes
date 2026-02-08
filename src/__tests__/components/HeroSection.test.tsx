@@ -13,8 +13,11 @@ describe('HeroSection Component', () => {
     description:
       'Andes adapts every workout in real time so you stay confident from your first run to the finish line.',
     ctaPrimaryText: 'Get started',
+    ctaSecondaryText: 'Unlock Premium',
+    limitNotice: 'After 30 smart messages, you continue in Lite mode (no lockout).',
     keyBenefits: '100% personalized plans • Instant feedback • Daily motivation',
     onPrimaryClick: vi.fn(),
+    onSecondaryClick: vi.fn(),
     videoSrc: '/videos/hero-video',
     language: 'en' as const,
   };
@@ -32,6 +35,7 @@ describe('HeroSection Component', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Get started')).toBeInTheDocument();
+    expect(screen.getByText('Unlock Premium')).toBeInTheDocument();
   });
 
   it('renders with custom props', () => {
@@ -45,6 +49,8 @@ describe('HeroSection Component', () => {
       },
       description: 'Custom Description',
       ctaPrimaryText: 'Custom CTA',
+      ctaSecondaryText: 'Custom Secondary CTA',
+      limitNotice: 'Custom limit notice',
     };
 
     render(<HeroSection {...customProps} />);
@@ -55,6 +61,8 @@ describe('HeroSection Component', () => {
     expect(screen.getByText('and beyond')).toBeInTheDocument();
     expect(screen.getByText('Custom Description')).toBeInTheDocument();
     expect(screen.getByText('Custom CTA')).toBeInTheDocument();
+    expect(screen.getByText('Custom Secondary CTA')).toBeInTheDocument();
+    expect(screen.getByText('Custom limit notice')).toBeInTheDocument();
   });
 
   it('calls the onPrimaryClick handler when primary button is clicked', async () => {
@@ -68,7 +76,7 @@ describe('HeroSection Component', () => {
 
     render(<HeroSection {...testProps} />);
 
-    const primaryButton = screen.getByRole('button', { name: 'Start on WhatsApp' });
+    const primaryButton = screen.getByRole('button', { name: 'Get started' });
     await user.click(primaryButton);
 
     expect(onPrimaryClick).toHaveBeenCalledTimes(1);
