@@ -1,5 +1,17 @@
 # Andes Landing Base Solution (360)
 
+## 0) Límites del sistema
+
+`andes/` es la web pública de adquisición y conversión.
+
+`v3/` es el backend principal que procesa onboarding, mensajes de WhatsApp, IA, lógica de negocio e integraciones.
+
+Esta landing no reemplaza el backend.
+
+Su función es llevar al usuario desde la visita web hasta el inicio de conversación por WhatsApp.
+
+Referencia técnica del backend: `../../../v3/docs/README.md`
+
 ## 1) Concepto aplicado
 
 La landing está diseñada para una sola misión de negocio:
@@ -196,6 +208,7 @@ Eventos legacy/complementarios:
   `https://v3-production-2670.up.railway.app/onboarding/start`
 - Método: `POST`
 - Payload: `{ intent: "free" | "premium", language: "es" | "en" }`
+- Este endpoint vive en el backend `v3/`, no en la web pública.
 
 ### Integraciones
 

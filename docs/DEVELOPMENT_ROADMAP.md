@@ -1,5 +1,10 @@
 # 🏃‍♂️ Andes Runners - Comprehensive Development Roadmap
 
+> Scope note: `andes/` is the public website and acquisition layer.
+> The production backend, WhatsApp flows, AI orchestration, and operational integrations live in `../../v3/`.
+> Use `../../v3/docs/README.md` as the source of truth for current backend architecture.
+> Items in this roadmap beyond the current landing should be read as product exploration, not current system architecture.
+
 ## 📋 **Executive Summary**
 
 This roadmap outlines the transformation of the current Andes Runners landing page into a full-featured platform with e-commerce, user management, community features, and comprehensive training resources. The development is structured in 4 phases over 12-18 months.

@@ -6,41 +6,41 @@ import { articleImages } from '../config/images';
 
 export const heroContent = {
   es: {
-    preheading: "Tu coach personal en WhatsApp",
+    preheading: "Coach de running con IA",
     headline: {
       variantA: {
-        lead: "Tu coach personal 24/7",
-        accent: "en WhatsApp",
+        lead: "Termina tu primera maratón",
+        accent: "sin lesionarte",
       },
       variantB: {
-        lead: "Tu coach personal 24/7",
-        accent: "en WhatsApp",
+        lead: "Termina tu primera maratón",
+        accent: "sin lesionarte",
       },
     },
-    description: "Empieza hoy sin descargar apps. Andes te acompaña cada día para que llegues a tu primera meta sin entrenar solo.",
-    ctaPrimaryText: "Empezar Gratis",
-    ctaSecondaryText: "Desbloquear Premium",
-    limitNotice: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo).",
-    keyBenefits: "Sin descargas • Respuesta en 1 minuto • No entrenas solo",
+    description: "Un coach que se adapta a tu nivel, te acompaña cada kilómetro y te avisa antes de que te pases. Gratis, por WhatsApp.",
+    ctaPrimaryText: "Empezar Gratis por WhatsApp",
+    ctaSecondaryText: "Ver planes Premium",
+    limitNotice: "Gratis para siempre. Después de 30 mensajes inteligentes sigues en modo Lite, sin bloqueo.",
+    keyBenefits: "Sin descargas • Respuesta en 1 minuto • Prevención de lesiones",
     videoSrc: '/videos/video3',
   },
   en: {
-    preheading: "Your personal coach on WhatsApp",
+    preheading: "AI running coach",
     headline: {
       variantA: {
-        lead: "Your personal coach 24/7",
-        accent: "on WhatsApp",
+        lead: "Finish your first marathon",
+        accent: "injury-free",
       },
       variantB: {
-        lead: "Your personal coach 24/7",
-        accent: "on WhatsApp",
+        lead: "Finish your first marathon",
+        accent: "injury-free",
       },
     },
-    description: "Start today with no app download. Andes supports you every day so you can finish your first race without training alone.",
-    ctaPrimaryText: "Start Free",
-    ctaSecondaryText: "Unlock Premium",
-    limitNotice: "After 30 smart messages, you continue in Lite mode (no lockout).",
-    keyBenefits: "No downloads • Start in 1 minute • Never train alone",
+    description: "A coach that adapts to your level, supports you every kilometer, and warns you before you overdo it. Free, on WhatsApp.",
+    ctaPrimaryText: "Start Free on WhatsApp",
+    ctaSecondaryText: "See Premium Plans",
+    limitNotice: "Free forever. After 30 smart messages, you continue in Lite mode — no lockout.",
+    keyBenefits: "No downloads • Responds in 1 minute • Injury prevention built-in",
     videoSrc: '/videos/video2',
   },
 };
@@ -49,20 +49,75 @@ export const heroContent = {
 export const howItWorksContent = {
   es: {
     sectionTitle: "Cómo Funciona",
+    sectionSubtitle: "De cero a tu plan personalizado en 1 minuto",
     steps: [
-      "Responde 3 preguntas en WhatsApp.",
-      "Recibe tu plan en 1 minuto.",
-      "Ajustamos cada día según tu progreso."
-    ]
+      {
+        iconName: "MessageCircle",
+        title: "Escríbenos por WhatsApp",
+        description: "Sin descargas. Solo envía un mensaje y empezamos.",
+      },
+      {
+        iconName: "ClipboardList",
+        title: "Responde 3 preguntas",
+        description: "Tu nivel, tu objetivo, tu disponibilidad. Eso es todo.",
+      },
+      {
+        iconName: "Zap",
+        title: "Recibe tu plan personalizado",
+        description: "Listo para entrenar en menos de 1 minuto.",
+      },
+    ],
   },
   en: {
     sectionTitle: "How It Works",
+    sectionSubtitle: "From zero to your personalized plan in 1 minute",
     steps: [
-      "Answer 3 quick WhatsApp questions.",
-      "Get your plan in 1 minute.",
-      "We adapt it daily to your progress."
-    ]
-  }
+      {
+        iconName: "MessageCircle",
+        title: "Text us on WhatsApp",
+        description: "No downloads. Just send a message and we start.",
+      },
+      {
+        iconName: "ClipboardList",
+        title: "Answer 3 questions",
+        description: "Your level, your goal, your availability. That's it.",
+      },
+      {
+        iconName: "Zap",
+        title: "Get your personalized plan",
+        description: "Ready to train in under 1 minute.",
+      },
+    ],
+  },
+};
+
+// Product Demo Content — WhatsApp conversation mockup
+export const productDemoContent: {
+  es: { sectionTitle: string; sectionSubtitle: string; messages: { from: "coach" | "user"; text: string; }[] };
+  en: { sectionTitle: string; sectionSubtitle: string; messages: { from: "coach" | "user"; text: string; }[] };
+} = {
+  es: {
+    sectionTitle: "Así se ve una conversación con tu coach",
+    sectionSubtitle: "No es un bot genérico. Es un coach que te conoce.",
+    messages: [
+      { from: "coach", text: "¡Hola! 👋 Soy Andes, tu coach de running. ¿Cuál es tu objetivo?" },
+      { from: "user", text: "Quiero correr mi primer 10K sin lesionarme" },
+      { from: "coach", text: "¡Gran meta! 💪 Vamos a crear tu plan. ¿Cuántos días por semana puedes entrenar?" },
+      { from: "user", text: "3 días" },
+      { from: "coach", text: "Perfecto. Tu plan para esta semana:\n\n🏃 Lun — 3km trote suave\n🧘 Mié — 30min caminata rápida\n🏃 Vie — 4km con pausas\n\n¿Empezamos mañana?" },
+    ],
+  },
+  en: {
+    sectionTitle: "This is what a coaching conversation looks like",
+    sectionSubtitle: "Not a generic bot. A coach that knows you.",
+    messages: [
+      { from: "coach", text: "Hey! 👋 I'm Andes, your running coach. What's your goal?" },
+      { from: "user", text: "I want to run my first 10K without getting injured" },
+      { from: "coach", text: "Great goal! 💪 Let's build your plan. How many days per week can you train?" },
+      { from: "user", text: "3 days" },
+      { from: "coach", text: "Perfect. Your plan for this week:\n\n🏃 Mon — 3km easy jog\n🧘 Wed — 30min brisk walk\n🏃 Fri — 4km with breaks\n\nShall we start tomorrow?" },
+    ],
+  },
 };
 
 // Live Demo Content
@@ -165,11 +220,12 @@ export const indicatorsContent = {
       alt: "Entrenador conversando con una corredora durante una sesión al aire libre",
     },
     stats: [
-      { value: "72", label: "NPS" },
-      { value: "64%", label: "Finaliza su primer plan" },
-      { value: "-28%", label: "Lesiones reportadas" },
-      { value: "58%", label: "Termina su primera carrera" },
+      { value: "72", label: "NPS (beta)" },
+      { value: "64%", label: "Completa su primer plan" },
+      { value: "3", label: "Minutos para tu primer plan" },
+      { value: "24/7", label: "Disponibilidad del coach" },
     ],
+    statsDisclaimer: "Datos de nuestros primeros usuarios beta.",
   },
   en: {
     preheading: "Safety first",
@@ -185,64 +241,61 @@ export const indicatorsContent = {
       alt: "Coach guiding a runner during an outdoor session",
     },
     stats: [
-      { value: "72", label: "NPS" },
+      { value: "72", label: "NPS (beta)" },
       { value: "64%", label: "First plan completion" },
-      { value: "-28%", label: "Reported injuries" },
-      { value: "58%", label: "First race finish rate" },
+      { value: "3", label: "Minutes to your first plan" },
+      { value: "24/7", label: "Coach availability" },
     ],
+    statsDisclaimer: "Based on our first beta users.",
   },
 };
 
 export const testimonialsContent = {
   es: {
-    sectionTitle: "Lo Que Dicen Nuestros Corredores",
+    sectionTitle: "Lo que dicen nuestros primeros corredores",
+    sectionDisclaimer: "Historias representativas basadas en experiencias de nuestros primeros usuarios beta.",
     testimonials: [
       {
-        quote: "Completé mi primera maratón en 4:15 sin lesiones. El plan se adaptó perfectamente a mi horario de trabajo y el coaching 24/7 me mantuvo motivado durante los momentos difíciles.",
-        author: "Ana Pérez",
-        detail: "Maratonista, Ciudad de México",
+        quote: "Completé mi primera maratón en 4:15. El plan se adaptó a mi horario de oficina y el coach me avisaba cuando estaba forzando de más.",
+        author: "Ana P.",
+        detail: "Ciudad de México · Beta tester",
         result: "42.2km en 4:15",
-        image: "/images/testimonials/ana-perez.jpg",
       },
       {
-        quote: "Mejoré mi tiempo de 10K de 52 a 45 minutos en solo 3 meses. Los consejos de nutrición y el análisis de mi técnica fueron clave para este progreso.",
-        author: "Carlos López",
-        detail: "Corredor de 10K, Santiago de Chile",
+        quote: "Mejoré mi 10K de 52 a 45 minutos en 3 meses. Lo que más me sirvió fue que ajustaba el plan cuando me sentía cansado.",
+        author: "Carlos L.",
+        detail: "Santiago de Chile · Beta tester",
         result: "-7 min en 3 meses",
-        image: "/images/testimonials/carlos-lopez.jpg",
       },
       {
-        quote: "Empecé desde cero y ahora corro 5K sin problemas. La comunidad de WhatsApp me dio el apoyo que necesitaba para mantener la constancia.",
-        author: "Sofía Gómez",
-        detail: "Principiante Feliz, Bogotá",
+        quote: "Empecé sin saber nada de correr y ahora hago 5K sin parar. Es como WhatsAppear con un amigo que sabe de running.",
+        author: "Sofía G.",
+        detail: "Bogotá · Beta tester",
         result: "0 a 5K en 8 semanas",
-        image: "/images/testimonials/sofia-gomez.jpg",
       },
     ],
   },
   en: {
-    sectionTitle: "What Our Runners Say",
+    sectionTitle: "What our first runners say",
+    sectionDisclaimer: "Representative stories based on early beta user experiences.",
     testimonials: [
       {
-        quote: "I completed my first marathon in 4:15 injury-free. The plan adapted perfectly to my work schedule and the 24/7 coaching kept me motivated during tough moments.",
-        author: "Ana Perez",
-        detail: "Marathon Runner, Mexico City",
+        quote: "I finished my first marathon in 4:15. The plan adapted to my office schedule and the coach warned me when I was pushing too hard.",
+        author: "Ana P.",
+        detail: "Mexico City · Beta tester",
         result: "42.2km in 4:15",
-        image: "/images/testimonials/ana-perez.jpg",
       },
       {
-        quote: "I improved my 10K time from 52 to 45 minutes in just 3 months. The nutrition tips and technique analysis were key to this progress.",
-        author: "Carlos Lopez",
-        detail: "10K Runner, Santiago, Chile",
+        quote: "I improved my 10K from 52 to 45 minutes in 3 months. What helped most was the plan adjusting when I felt tired.",
+        author: "Carlos L.",
+        detail: "Santiago, Chile · Beta tester",
         result: "-7 min in 3 months",
-        image: "/images/testimonials/carlos-lopez.jpg",
       },
       {
-        quote: "I started from scratch and now I run 5K without problems. The WhatsApp community gave me the support I needed to stay consistent.",
-        author: "Sofia Gomez",
-        detail: "Happy Beginner, Bogota",
+        quote: "I started knowing nothing about running and now I do 5K without stopping. It's like texting a friend who knows about running.",
+        author: "Sofia G.",
+        detail: "Bogotá · Beta tester",
         result: "0 to 5K in 8 weeks",
-        image: "/images/testimonials/sofia-gomez.jpg",
       },
     ],
   },
@@ -423,94 +476,70 @@ export const pricingContent: {
 
 export const faqContent = {
   es: {
-    sectionTitle: "Preguntas Frecuentes",
-    sectionSubtitle: "Respuestas claras antes de empezar",
+    sectionTitle: "Tus dudas, resueltas",
+    sectionSubtitle: "Las preguntas que te harías antes de empezar",
     faqs: [
       {
-        question: "¿Qué pasa después de 30 mensajes?",
-        answer: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo). Andes no se detiene.",
+        question: "¿Y si me lesiono siguiendo el plan?",
+        answer: "Andes ajusta tu carga cada día según cómo te sentiste. Si reportas dolor o fatiga, reduce la intensidad automáticamente. Prevención de lesiones está integrada en cada plan — no es un extra, es la base.",
       },
       {
-        question: "¿Qué incluye Premium exactamente?",
-        answer: "Premium desbloquea templates proactivos: recordatorios, seguimiento semanal personalizado, detección de inactividad, medallas y countdown de carrera.",
+        question: "¿Es realmente gratis? ¿Cuál es la trampa?",
+        answer: "No hay trampa. Andes es gratis para siempre con 30 mensajes inteligentes. Después continúas en modo Lite sin bloqueo. Premium ($9.99/mes) añade recordatorios proactivos y seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
       {
-        question: "¿Si no pago, Andes deja de funcionar?",
-        answer: "No. Andes sigue funcionando en Free/Lite.",
+        question: "No sé nada de running. ¿Es para mí?",
+        answer: "Especialmente para ti. Andes empieza con caminatas y trote suave, sin presión. Te pregunta tu nivel, tu objetivo y tu disponibilidad. Si nunca corriste, tu plan empieza desde cero.",
       },
       {
-        question: "¿Es para principiantes?",
-        answer: "¡Absolutamente! Nuestros planes están diseñados para todos los niveles. Si eres principiante, comenzamos con caminatas y trotes suaves, progresando gradualmente hacia tu primera carrera de 5K.",
+        question: "¿Cómo es diferente de buscar planes en Google?",
+        answer: "Un plan de Google es estático — no sabe que hoy dormiste mal o que te duele la rodilla. Andes escucha tu feedback cada día y ajusta el plan en tiempo real. Es la diferencia entre un PDF y un coach.",
       },
       {
-        question: "¿Cómo funciona por WhatsApp?",
-        answer: "Es simple. Tienes un chat directo con tu Coach IA. Registras tus carreras, recibes feedback instantáneo, tu plan diario y resuelves dudas—todo dentro de WhatsApp. Sin descargar apps nuevas.",
+        question: "¿Qué pasa si falto a un entrenamiento?",
+        answer: "La vida pasa. Dile a Andes 'hoy no pude correr' y ajusta tu semana automáticamente. Sin culpa, sin sobrecargas. La consistencia importa más que la perfección.",
       },
       {
-        question: "¿Necesito reloj?",
-        answer: "No, no necesitas un reloj GPS. Puedes registrar tus carreras con una app en tu móvil (como Strava) o simplemente con un cronómetro si corres por tiempo.",
+        question: "¿Necesito equipo especial o reloj GPS?",
+        answer: "No. Solo necesitas zapatillas cómodas y tu teléfono. Puedes registrar carreras con Strava o simplemente con un cronómetro.",
       },
       {
-        question: "¿Y si fallo un entreno?",
-        answer: "La vida pasa. Solo dile a tu coach 'hoy no pude correr' y ajustaremos automáticamente tu calendario para que sigas progresando sin sobrecargas.",
-      },
-      {
-        question: "Diferencia Gratis vs Premium",
-        answer: "Gratis es una puerta de entrada completa para arrancar. Premium añade seguimiento proactivo y personalización avanzada para progresar más rápido.",
-      },
-      {
-        question: "Cancelación y garantía",
-        answer: "Cancela cuando quieras en 1 clic desde WhatsApp. Si no ves resultados en 30 días, te devolvemos tu dinero.",
-      },
-      {
-        question: "Idiomas",
-        answer: "Actualmente, Andes está disponible en Español e Inglés. Puedes cambiar el idioma en cualquier momento.",
+        question: "¿Puedo cancelar Premium cuando quiera?",
+        answer: "Sí, en 1 clic desde WhatsApp. Y si no ves resultados en 30 días, te devolvemos tu dinero.",
       },
     ],
   },
   en: {
-    sectionTitle: "Frequently Asked Questions",
-    sectionSubtitle: "Clear answers before you start",
+    sectionTitle: "Your questions, answered",
+    sectionSubtitle: "The things you'd ask before getting started",
     faqs: [
       {
-        question: "What happens after 30 messages?",
-        answer: "After 30 smart messages, you continue in Lite mode (no lockout). Andes does not stop working.",
+        question: "What if I get injured following the plan?",
+        answer: "Andes adjusts your training load every day based on how you felt. If you report pain or fatigue, it automatically reduces intensity. Injury prevention is built into every plan — it's not an add-on, it's the foundation.",
       },
       {
-        question: "What exactly is included in Premium?",
-        answer: "Premium unlocks proactive templates: reminders, personalized weekly follow-up, inactivity detection, medals, and race countdown.",
+        question: "Is it really free? What's the catch?",
+        answer: "No catch. Andes is free forever with 30 smart messages. After that, you continue in Lite mode with no lockout. Premium ($9.99/month) adds proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
       {
-        question: "If I do not pay, does Andes stop working?",
-        answer: "No. Andes keeps working in Free/Lite mode.",
+        question: "I know nothing about running. Is this for me?",
+        answer: "Especially for you. Andes starts with walking and light jogging, no pressure. It asks your level, your goal, and your availability. If you've never run, your plan starts from zero.",
       },
       {
-        question: "Is this for beginners?",
-        answer: "Absolutely! Our plans are designed for all levels. If you're a beginner, we start with walking and light jogging, gradually progressing toward your first 5K race.",
-      },
-      {
-        question: "How does WhatsApp coaching work?",
-        answer: "It's simple. You have a direct chat with your AI Coach. You log your runs, get instant feedback, receive your daily plan, and ask any questions—all within WhatsApp. No new apps to download.",
-      },
-      {
-        question: "Do I need a watch?",
-        answer: "No, a GPS watch is not required. You can track your runs with a phone app (like Strava) or just a simple stopwatch if you run by time.",
+        question: "How is this different from Googling a plan?",
+        answer: "A Google plan is static — it doesn't know you slept badly or your knee hurts. Andes listens to your daily feedback and adjusts in real time. It's the difference between a PDF and a coach.",
       },
       {
         question: "What if I miss a workout?",
-        answer: "Life happens. Just tell your coach 'I couldn't run today', and we'll automatically adjust your schedule so you stay on track without overtraining.",
+        answer: "Life happens. Tell Andes 'I couldn't run today' and it adjusts your week automatically. No guilt, no overloading. Consistency matters more than perfection.",
       },
       {
-        question: "Free vs Premium difference",
-        answer: "Free is a generous entry point for beginners. Premium adds proactive follow-up and advanced personalization to improve faster.",
+        question: "Do I need special gear or a GPS watch?",
+        answer: "No. You just need comfortable shoes and your phone. You can track runs with Strava or simply a stopwatch.",
       },
       {
-        question: "Cancel & refund",
-        answer: "Cancel anytime in 1 click from WhatsApp. Plus, we offer a 30-day money-back guarantee if you're not seeing results.",
-      },
-      {
-        question: "Languages",
-        answer: "Currently, Andes is available in English and Spanish. You can switch languages at any time.",
+        question: "Can I cancel Premium anytime?",
+        answer: "Yes, in 1 click from WhatsApp. And if you don't see results in 30 days, we'll refund your money.",
       },
     ],
   },

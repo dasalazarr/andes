@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import TrainingPlanCard from '@/components/TrainingPlanCard';
 
@@ -27,13 +28,13 @@ describe('TrainingPlanCard Component', () => {
       difficulty: 'Beginner' as const,
       pdfUrl: '/plans/5k-plan.pdf',
     };
-    render(<TrainingPlanCard {...props} />);
+    render(<MemoryRouter><TrainingPlanCard {...props} /></MemoryRouter>);
 
     expect(screen.getByText(props.title)).toBeInTheDocument();
     expect(screen.getByText(props.description)).toBeInTheDocument();
     expect(screen.getByText(props.duration)).toBeInTheDocument();
     expect(screen.getByText(props.difficulty)).toBeInTheDocument();
-    expect(screen.getByText('Download PDF')).toBeInTheDocument();
+    expect(screen.getByText('Download Plan')).toBeInTheDocument();
   });
 
   it('renders with custom props', () => {
@@ -45,7 +46,7 @@ describe('TrainingPlanCard Component', () => {
       pdfUrl: 'https://example.com/plan.pdf',
     };
 
-    render(<TrainingPlanCard {...customProps} />);
+    render(<MemoryRouter><TrainingPlanCard {...customProps} /></MemoryRouter>);
 
     expect(screen.getByText('Marathon Training Plan')).toBeInTheDocument();
     expect(screen.getByText('Advanced training for experienced runners')).toBeInTheDocument();
@@ -54,17 +55,17 @@ describe('TrainingPlanCard Component', () => {
   });
 
   it('applies correct color class based on difficulty', () => {
-    const { rerender } = render(<TrainingPlanCard {...baseProps} difficulty="Beginner" />);
+    const { rerender } = render(<MemoryRouter><TrainingPlanCard {...baseProps} difficulty="Beginner" /></MemoryRouter>);
     const beginnerBadge = screen.getByText('Beginner');
-    expect(beginnerBadge).toHaveClass('bg-green-100', 'text-green-800');
+    expect(beginnerBadge).toHaveClass('bg-green-500/10', 'text-green-400');
 
-    rerender(<TrainingPlanCard {...baseProps} difficulty="Intermediate" />);
+    rerender(<MemoryRouter><TrainingPlanCard {...baseProps} difficulty="Intermediate" /></MemoryRouter>);
     const intermediateBadge = screen.getByText('Intermediate');
-    expect(intermediateBadge).toHaveClass('bg-blue-100', 'text-blue-800');
+    expect(intermediateBadge).toHaveClass('bg-blue-500/10', 'text-blue-400');
 
-    rerender(<TrainingPlanCard {...baseProps} difficulty="Advanced" />);
+    rerender(<MemoryRouter><TrainingPlanCard {...baseProps} difficulty="Advanced" /></MemoryRouter>);
     const advancedBadge = screen.getByText('Advanced');
-    expect(advancedBadge).toHaveClass('bg-purple-100', 'text-purple-800');
+    expect(advancedBadge).toHaveClass('bg-[#006b5b]/10', 'text-[#25d366]');
   });
 
   it('opens PDF URL in a new tab when button is clicked', async () => {
@@ -75,9 +76,9 @@ describe('TrainingPlanCard Component', () => {
       pdfUrl: 'https://example.com/training-plan.pdf',
     };
 
-    render(<TrainingPlanCard {...props} />);
+    render(<MemoryRouter><TrainingPlanCard {...props} /></MemoryRouter>);
 
-    const downloadButton = screen.getByText('Download PDF');
+    const downloadButton = screen.getByText('Download Plan');
     await user.click(downloadButton);
 
     expect(mockOpen).toHaveBeenCalledTimes(1);

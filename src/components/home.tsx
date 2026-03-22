@@ -6,10 +6,11 @@ import {
   heroContent,
   benefitsContent,
   pricingContent,
-  gritStoriesContent,
   testimonialsContent,
   faqContent,
   indicatorsContent,
+  howItWorksContent,
+  productDemoContent,
 } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
@@ -19,8 +20,8 @@ import { startOnboarding, type OnboardingIntent, type OnboardingPlacement } from
 const BenefitsSection = lazy(() => import("./BenefitsSection"));
 const PricingSection = lazy(() => import("./PricingSection"));
 const ImpactIndicatorsSection = lazy(() => import("./ImpactIndicatorsSection"));
-const GritSection = lazy(() => import("./grit/GritSection"));
-const BlogHighlights = lazy(() => import("../features/blog/components/BlogHighlights"));
+const HowItWorksSection = lazy(() => import("./HowItWorksSection"));
+const ProductDemoSection = lazy(() => import("./ProductDemoSection"));
 const FAQSection = lazy(() => import("./FAQSection"));
 const SeoManager = lazy(() => import("./SeoManager"));
 
@@ -73,6 +74,7 @@ const Home = () => {
       <main className="flex-grow pb-24 md:pb-0">
         <SeoManager lang={language} />
 
+        {/* 1. Hero — Problem + solution + CTA */}
         <section id="hero">
           <HeroSection
             preheading={heroContent[language].preheading}
@@ -90,22 +92,29 @@ const Home = () => {
           />
         </section>
 
-        <section id="pricing" className="section-separator bg-black py-12 text-gray-100 md:py-16">
-          <div className="container mx-auto px-4">
-            <Suspense fallback={<div className="p-12 text-center">Cargando planes...</div>}>
-              <PricingSection
-                sectionTitle={pricingContent[language].sectionTitle}
-                sectionSubtitle={pricingContent[language].sectionSubtitle}
-                limitNote={pricingContent[language].limitNote}
-                comparisonRows={pricingContent[language].comparisonRows}
-                plans={pricingContent[language].plans}
-                onPlanClick={(intent) => handleOnboardingStart(intent, "pricing")}
-                language={language}
-              />
-            </Suspense>
-          </div>
+        {/* 2. Product Demo — "Así se ve una conversación con tu coach" */}
+        <section id="product-demo">
+          <Suspense fallback={<div className="p-12 text-center">Cargando demo...</div>}>
+            <ProductDemoSection
+              sectionTitle={productDemoContent[language].sectionTitle}
+              sectionSubtitle={productDemoContent[language].sectionSubtitle}
+              messages={productDemoContent[language].messages}
+            />
+          </Suspense>
         </section>
 
+        {/* 3. How It Works — 3 easy steps */}
+        <section id="how-it-works">
+          <Suspense fallback={<div className="p-12 text-center">Cargando pasos...</div>}>
+            <HowItWorksSection
+              sectionTitle={howItWorksContent[language].sectionTitle}
+              sectionSubtitle={howItWorksContent[language].sectionSubtitle}
+              steps={howItWorksContent[language].steps}
+            />
+          </Suspense>
+        </section>
+
+        {/* 4. Benefits — Each benefit with concrete proof */}
         <section id="benefits" className="bg-black py-10 text-gray-200 md:py-16">
           <div className="container relative z-0 mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando transformación...</div>}>
@@ -118,6 +127,7 @@ const Home = () => {
           </div>
         </section>
 
+        {/* 5. Impact Indicators — Safety & sustainable progress */}
         <section className="section-separator relative bg-black py-10 md:py-16">
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando seguridad...</div>}>
@@ -133,59 +143,13 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="bg-black py-8 md:py-12">
-          <div className="container mx-auto px-4">
-            <AnimatedSection className="glass-card-premium mx-auto max-w-4xl rounded-[28px] px-6 py-8 text-center md:px-10 md:py-10">
-              <h2 className="text-2xl font-bold text-white md:text-3xl">
-                {language === "es" ? "Termina tu primera carrera sin entrenar solo." : "Finish your first race without training alone."}
-              </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-300 md:text-base">
-                {language === "es"
-                  ? "Empieza por WhatsApp, recibe acompañamiento diario y llega a tu meta con progresión sostenible."
-                  : "Start on WhatsApp, get daily support, and reach your goal with sustainable progression."}
-              </p>
-              <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => handleOnboardingStart("free", "mid")}
-                  disabled={Boolean(activeCta)}
-                  className="min-h-[48px] rounded-full bg-[#27e97c] px-6 py-3 text-sm font-semibold text-black shadow-[0_14px_30px_rgba(39,233,124,0.3)] transition hover:bg-[#1fc869]"
-                >
-                  {isLoading("free", "mid")
-                    ? language === "es"
-                      ? "Conectando..."
-                      : "Connecting..."
-                    : language === "es"
-                      ? "Empezar Gratis"
-                      : "Start Free"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleOnboardingStart("premium", "mid")}
-                  disabled={Boolean(activeCta)}
-                  className="min-h-[48px] rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-[#27e97c]/50 hover:text-[#27e97c]"
-                >
-                  {isLoading("premium", "mid")
-                    ? language === "es"
-                      ? "Conectando..."
-                      : "Connecting..."
-                    : language === "es"
-                      ? "Desbloquear Premium"
-                      : "Unlock Premium"}
-                </button>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-
+        {/* 6. Testimonials — Social proof (labeled as beta) */}
         <section id="reviews" className="section-separator relative bg-black py-12 md:py-16">
           <div className="container mx-auto px-4">
             <AnimatedSection className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
               <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">{testimonialsContent[language].sectionTitle}</h2>
               <p className="text-sm text-gray-400 md:text-lg">
-                {language === "es"
-                  ? "Personas reales que ya lograron transformar su relación con el running."
-                  : "Real runners who already transformed their relationship with running."}
+                {testimonialsContent[language].sectionDisclaimer}
               </p>
             </AnimatedSection>
             <AnimatedSection>
@@ -226,18 +190,9 @@ const Home = () => {
                           }`}
                           aria-label={`${testimonial.author} testimonial`}
                         >
-                          {(testimonial as any).image ? (
-                            <img
-                              src={(testimonial as any).image}
-                              alt={testimonial.author}
-                              className="h-full w-full rounded-full object-cover"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-sm font-bold text-white md:text-base">
-                              {testimonial.author.charAt(0)}
-                            </span>
-                          )}
+                          <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-sm font-bold text-white md:text-base">
+                            {testimonial.author.charAt(0)}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -248,18 +203,24 @@ const Home = () => {
           </div>
         </section>
 
-        <section>
-          <Suspense fallback={<div className="p-12 text-center">Cargando historias...</div>}>
-            <GritSection language={language} content={gritStoriesContent[language]} />
-          </Suspense>
+        {/* 7. Pricing — Moved after demonstrating value */}
+        <section id="pricing" className="section-separator bg-black py-12 text-gray-100 md:py-16">
+          <div className="container mx-auto px-4">
+            <Suspense fallback={<div className="p-12 text-center">Cargando planes...</div>}>
+              <PricingSection
+                sectionTitle={pricingContent[language].sectionTitle}
+                sectionSubtitle={pricingContent[language].sectionSubtitle}
+                limitNote={pricingContent[language].limitNote}
+                comparisonRows={pricingContent[language].comparisonRows}
+                plans={pricingContent[language].plans}
+                onPlanClick={(intent) => handleOnboardingStart(intent, "pricing")}
+                language={language}
+              />
+            </Suspense>
+          </div>
         </section>
 
-        <section id="articles" className="bg-black py-8 md:py-12">
-          <Suspense fallback={<div className="p-12 text-center">Cargando blog...</div>}>
-            <BlogHighlights lang={language} limit={4} />
-          </Suspense>
-        </section>
-
+        {/* 8. FAQ — Real objections from Carlos */}
         <section>
           <Suspense fallback={<div className="p-12 text-center">Cargando FAQ...</div>}>
             <FAQSection
@@ -271,6 +232,7 @@ const Home = () => {
           </Suspense>
         </section>
 
+        {/* 9. Footer CTA — "Empieza ahora, es gratis" */}
         <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0">
             <img
@@ -318,8 +280,8 @@ const Home = () => {
                         ? "Conectando..."
                         : "Connecting..."
                       : language === "es"
-                        ? "Desbloquear Premium"
-                        : "Unlock Premium"}
+                        ? "Ver Premium"
+                        : "See Premium"}
                   </button>
                 </div>
               </AnimatedSection>

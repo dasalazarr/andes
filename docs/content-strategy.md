@@ -2,6 +2,12 @@
 
 Este documento detalla la estrategia completa de contenidos para Andes Runners, incluyendo análisis del estado actual, estrategia SEO, topic clusters, calendario editorial, y sistema de generación de contenidos.
 
+La función de esta estrategia es apoyar la adquisición web y la conversión hacia WhatsApp.
+
+La lógica operativa del producto vive en el backend `../../v3/`.
+
+Referencia técnica del backend: `../../v3/docs/README.md`
+
 ---
 
 ## 1. Análisis de Contenido Actual

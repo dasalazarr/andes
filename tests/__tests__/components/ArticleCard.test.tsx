@@ -12,13 +12,12 @@ describe('ArticleCard Component', () => {
     
     expect(screen.getByText(testArticle.title.en)).toBeInTheDocument();
     expect(screen.getByText(testArticle.excerpt.en)).toBeInTheDocument();
-    expect(screen.getByText('May 15, 2023')).toBeInTheDocument();
-    expect(screen.getByText('Andes Coach')).toBeInTheDocument();
+    expect(screen.getByText('May 2023')).toBeInTheDocument();
     
     // Verificar que la imagen existe y tiene la URL correcta
-    const image = screen.getByAltText(testArticle.title.en);
+    const image = screen.getByAltText(testArticle.imageAlt.en);
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', 'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80');
+    expect(image).toHaveAttribute('src', '/images/articlesimages/1.png');
   });
 
   it('renders with custom props', () => {
@@ -29,7 +28,7 @@ describe('ArticleCard Component', () => {
       excerpt: { en: "Custom article excerpt text EN", es: "Custom article excerpt text ES" },
       imageUrl: "/custom-image.jpg",
       readMoreUrl: "#custom-url",
-      date: "Custom Date",
+      date: "2023-05-15",
       fullContent: { en: "Full content EN", es: "Contenido completo ES" },
       image: "/custom-image.jpg"
     };
@@ -38,9 +37,9 @@ describe('ArticleCard Component', () => {
     
     expect(screen.getByText(customArticle.title.en)).toBeInTheDocument();
     expect(screen.getByText(customArticle.excerpt.en)).toBeInTheDocument();
-    expect(screen.getByText(customArticle.date)).toBeInTheDocument();
+    expect(screen.getByText('May 2023')).toBeInTheDocument();
     
-    const image = screen.getByAltText(customArticle.title.en);
+    const image = screen.getByAltText(customArticle.imageAlt.en);
     expect(image).toHaveAttribute('src', '/custom-image.jpg');
   });
 

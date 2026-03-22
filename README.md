@@ -4,6 +4,18 @@ Landing de adquisición para Andes.
 
 El objetivo principal es convertir visitas web en conversaciones iniciadas por WhatsApp.
 
+## Alcance del sistema
+
+- `andes/` es la web pública y la capa de adquisición/conversión.
+- `v3/` es el backend principal y la plataforma operativa.
+- WhatsApp es el canal principal donde vive la experiencia del usuario.
+
+## Relación con el backend
+
+- Esta web llama `POST /onboarding/start` del backend para generar el `whatsappLink`.
+- La lógica de negocio, la IA, los webhooks y las integraciones viven en `../../v3/`.
+- Documentación técnica operativa: `../../v3/docs/README.md`.
+
 ## Documentación clave
 
 1. Visión 360 de la solución base:  
@@ -12,6 +24,8 @@ El objetivo principal es convertir visitas web en conversaciones iniciadas por W
    `docs/content-strategy.md`
 3. Roadmap de desarrollo:  
    `docs/DEVELOPMENT_ROADMAP.md`
+4. Backend y arquitectura operativa:
+   `../../v3/docs/README.md`
 
 ## Stack técnico
 
