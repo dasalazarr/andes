@@ -20,8 +20,8 @@ export const heroContent = {
     description: "Un coach que se adapta a tu nivel, te acompaña cada kilómetro y te avisa antes de que te pases. Gratis, por WhatsApp.",
     ctaPrimaryText: "Empezar Gratis por WhatsApp",
     ctaSecondaryText: "Ver planes Premium",
-    limitNotice: "Gratis para siempre. Después de 30 mensajes inteligentes sigues en modo Lite, sin bloqueo.",
-    keyBenefits: "Sin descargas • Respuesta en 1 minuto • Prevención de lesiones",
+    limitNotice: "Gratis para siempre · Sin tarjeta · Sin bloqueo",
+    keyBenefits: "Sin descargas • Plan en 60 segundos • Prevención de lesiones",
     videoSrc: '/videos/video3',
   },
   en: {
@@ -39,8 +39,8 @@ export const heroContent = {
     description: "A coach that adapts to your level, supports you every kilometer, and warns you before you overdo it. Free, on WhatsApp.",
     ctaPrimaryText: "Start Free on WhatsApp",
     ctaSecondaryText: "See Premium Plans",
-    limitNotice: "Free forever. After 30 smart messages, you continue in Lite mode — no lockout.",
-    keyBenefits: "No downloads • Responds in 1 minute • Injury prevention built-in",
+    limitNotice: "Free forever · No card · No lockout",
+    keyBenefits: "No downloads • First plan in 60 seconds • Injury prevention built-in",
     videoSrc: '/videos/video2',
   },
 };
@@ -49,7 +49,7 @@ export const heroContent = {
 export const howItWorksContent = {
   es: {
     sectionTitle: "Cómo Funciona",
-    sectionSubtitle: "De cero a tu plan personalizado en 1 minuto",
+    sectionSubtitle: "De cero a tu plan personalizado en 60 segundos",
     steps: [
       {
         iconName: "MessageCircle",
@@ -64,13 +64,13 @@ export const howItWorksContent = {
       {
         iconName: "Zap",
         title: "Recibe tu plan personalizado",
-        description: "Listo para entrenar en menos de 1 minuto.",
+        description: "Listo para entrenar en menos de 60 segundos.",
       },
     ],
   },
   en: {
     sectionTitle: "How It Works",
-    sectionSubtitle: "From zero to your personalized plan in 1 minute",
+    sectionSubtitle: "From zero to your personalized plan in 60 seconds",
     steps: [
       {
         iconName: "MessageCircle",
@@ -85,7 +85,7 @@ export const howItWorksContent = {
       {
         iconName: "Zap",
         title: "Get your personalized plan",
-        description: "Ready to train in under 1 minute.",
+        description: "Ready to train in under 60 seconds.",
       },
     ],
   },
@@ -98,24 +98,22 @@ export const productDemoContent: {
 } = {
   es: {
     sectionTitle: "Así se ve una conversación con tu coach",
-    sectionSubtitle: "No es un bot genérico. Es un coach que te conoce.",
+    sectionSubtitle: "No es un bot genérico. Es un coach que recuerda, ajusta y previene lesiones.",
     messages: [
-      { from: "coach", text: "¡Hola! 👋 Soy Andes, tu coach de running. ¿Cuál es tu objetivo?" },
-      { from: "user", text: "Quiero correr mi primer 10K sin lesionarme" },
-      { from: "coach", text: "¡Gran meta! 💪 Vamos a crear tu plan. ¿Cuántos días por semana puedes entrenar?" },
-      { from: "user", text: "3 días" },
-      { from: "coach", text: "Perfecto. Tu plan para esta semana:\n\n🏃 Lun — 3km trote suave\n🧘 Mié — 30min caminata rápida\n🏃 Vie — 4km con pausas\n\n¿Empezamos mañana?" },
+      { from: "user", text: "Hoy hice 5K pero la rodilla derecha me molesta un poco." },
+      { from: "coach", text: "Gracias por contarme. Hoy descansas. Mañana caminata 25 min en lugar de los 6K que tocaban — bajamos carga 30% mientras la molestia cede.\n\nSi sigue mañana, lo marcamos para revisar antes del fin de semana." },
+      { from: "user", text: "Listo. ¿Y la carrera del domingo?" },
+      { from: "coach", text: "Si la rodilla mejora antes del viernes, llegamos. Si no, movemos el rodaje largo a 8K en vez de 12K. Tu meta de 21K en marzo no se mueve — solo este micro." },
     ],
   },
   en: {
     sectionTitle: "This is what a coaching conversation looks like",
-    sectionSubtitle: "Not a generic bot. A coach that knows you.",
+    sectionSubtitle: "Not a generic bot. A coach that remembers, adjusts, and prevents injuries.",
     messages: [
-      { from: "coach", text: "Hey! 👋 I'm Andes, your running coach. What's your goal?" },
-      { from: "user", text: "I want to run my first 10K without getting injured" },
-      { from: "coach", text: "Great goal! 💪 Let's build your plan. How many days per week can you train?" },
-      { from: "user", text: "3 days" },
-      { from: "coach", text: "Perfect. Your plan for this week:\n\n🏃 Mon — 3km easy jog\n🧘 Wed — 30min brisk walk\n🏃 Fri — 4km with breaks\n\nShall we start tomorrow?" },
+      { from: "user", text: "Did 5K today but my right knee feels a little off." },
+      { from: "coach", text: "Thanks for flagging. Rest today. Tomorrow's 6K becomes a 25-min walk — load down 30% until it settles.\n\nIf it's still there tomorrow, we'll review before the weekend." },
+      { from: "user", text: "Got it. What about Sunday's race?" },
+      { from: "coach", text: "If your knee clears by Friday, we're on. If not, the long run becomes 8K instead of 12K. Your March 21K goal stays — only this micro shifts." },
     ],
   },
 };
@@ -222,7 +220,7 @@ export const indicatorsContent = {
     stats: [
       { value: "72", label: "NPS (beta)" },
       { value: "64%", label: "Completa su primer plan" },
-      { value: "3", label: "Minutos para tu primer plan" },
+      { value: "60", label: "Segundos para tu primer plan" },
       { value: "24/7", label: "Disponibilidad del coach" },
     ],
     statsDisclaimer: "Datos de nuestros primeros usuarios beta.",
@@ -243,7 +241,7 @@ export const indicatorsContent = {
     stats: [
       { value: "72", label: "NPS (beta)" },
       { value: "64%", label: "First plan completion" },
-      { value: "3", label: "Minutes to your first plan" },
+      { value: "60", label: "Seconds to your first plan" },
       { value: "24/7", label: "Coach availability" },
     ],
     statsDisclaimer: "Based on our first beta users.",
@@ -378,7 +376,6 @@ export const pricingContent: {
         ],
         ctaText: "Empezar Gratis",
         ctaDisclaimer: "Sin tarjeta • Funciona siempre",
-        href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
         image: "/starter_es.png",
@@ -392,7 +389,7 @@ export const pricingContent: {
         annualPrice: "$8.49",
         annualPriceDetail: "/mes (facturado anual)",
         savingsPercentage: "Ahorra 15%",
-        popularBadge: "⭐ MÁS ELEGIDO",
+        popularBadge: "MÁS ELEGIDO",
         description: "Desbloquea templates proactivos y seguimiento personalizado para acelerar resultados.",
         features: [
           "Recordatorios automáticos de entrenamiento.",
@@ -403,7 +400,7 @@ export const pricingContent: {
         ],
         ctaText: "Desbloquear Premium",
         ctaDisclaimer: "Cancela cuando quieras",
-        href: "#pricing",
+        guarantee: "30 días de garantía · Devolvemos tu dinero si no ves resultados",
         isPopular: true,
         buttonVariant: "primary",
         image: "/pro_es.png",
@@ -439,7 +436,6 @@ export const pricingContent: {
         ],
         ctaText: "Start Free",
         ctaDisclaimer: "No card • Always works",
-        href: "#pricing",
         isPopular: false,
         buttonVariant: "secondary",
         image: "/starter_en.png",
@@ -453,7 +449,7 @@ export const pricingContent: {
         annualPrice: "$8.49",
         annualPriceDetail: "/month (billed annually)",
         savingsPercentage: "Save 15%",
-        popularBadge: "⭐ MOST CHOSEN",
+        popularBadge: "MOST CHOSEN",
         description: "Unlock proactive templates and personalized follow-up to accelerate progress.",
         features: [
           "Proactive training reminders.",
@@ -464,7 +460,7 @@ export const pricingContent: {
         ],
         ctaText: "Unlock Premium",
         ctaDisclaimer: "Cancel anytime",
-        href: "#pricing",
+        guarantee: "30-day guarantee · Money back if you don't see results",
         isPopular: true,
         buttonVariant: "primary",
         image: "/pro_en.png",
@@ -480,10 +476,6 @@ export const faqContent = {
     sectionSubtitle: "Las preguntas que te harías antes de empezar",
     faqs: [
       {
-        question: "¿Y si me lesiono siguiendo el plan?",
-        answer: "Andes ajusta tu carga cada día según cómo te sentiste. Si reportas dolor o fatiga, reduce la intensidad automáticamente. Prevención de lesiones está integrada en cada plan — no es un extra, es la base.",
-      },
-      {
         question: "¿Es realmente gratis? ¿Cuál es la trampa?",
         answer: "No hay trampa. Andes es gratis para siempre con 30 mensajes inteligentes. Después continúas en modo Lite sin bloqueo. Premium ($9.99/mes) añade recordatorios proactivos y seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
@@ -494,6 +486,10 @@ export const faqContent = {
       {
         question: "¿Cómo es diferente de buscar planes en Google?",
         answer: "Un plan de Google es estático — no sabe que hoy dormiste mal o que te duele la rodilla. Andes escucha tu feedback cada día y ajusta el plan en tiempo real. Es la diferencia entre un PDF y un coach.",
+      },
+      {
+        question: "¿Y si me lesiono siguiendo el plan?",
+        answer: "Andes ajusta tu carga cada día según cómo te sentiste. Si reportas dolor o fatiga, reduce la intensidad automáticamente. Prevención de lesiones está integrada en cada plan — no es un extra, es la base.",
       },
       {
         question: "¿Qué pasa si falto a un entrenamiento?",
@@ -514,10 +510,6 @@ export const faqContent = {
     sectionSubtitle: "The things you'd ask before getting started",
     faqs: [
       {
-        question: "What if I get injured following the plan?",
-        answer: "Andes adjusts your training load every day based on how you felt. If you report pain or fatigue, it automatically reduces intensity. Injury prevention is built into every plan — it's not an add-on, it's the foundation.",
-      },
-      {
         question: "Is it really free? What's the catch?",
         answer: "No catch. Andes is free forever with 30 smart messages. After that, you continue in Lite mode with no lockout. Premium ($9.99/month) adds proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
@@ -528,6 +520,10 @@ export const faqContent = {
       {
         question: "How is this different from Googling a plan?",
         answer: "A Google plan is static — it doesn't know you slept badly or your knee hurts. Andes listens to your daily feedback and adjusts in real time. It's the difference between a PDF and a coach.",
+      },
+      {
+        question: "What if I get injured following the plan?",
+        answer: "Andes adjusts your training load every day based on how you felt. If you report pain or fatigue, it automatically reduces intensity. Injury prevention is built into every plan — it's not an add-on, it's the foundation.",
       },
       {
         question: "What if I miss a workout?",
@@ -547,14 +543,16 @@ export const faqContent = {
 
 export const ctaContent = {
   es: {
-    title: "¿Listo para Empezar tu Aventura?",
-    subtitle: "Únete a la comunidad de Andes Runners hoy y lleva tu carrera al siguiente nivel. Te esperamos para conquistar cimas juntos.",
-    buttonText: "Comienza ahora",
+    title: "Tu primer plan está a 60 segundos.",
+    subtitle: "Sin descargas. Sin tarjeta. Sin bloqueo. Solo abre WhatsApp.",
+    buttonText: "Empezar Gratis por WhatsApp",
+    secondaryLinkText: "Ver planes Premium →",
   },
   en: {
-    title: "Ready to Start Your Adventure?",
-    subtitle: "Join the Andes Runners community today and take your running to the next level. We're waiting for you to conquer peaks together.",
-    buttonText: "Start now",
+    title: "Your first plan is 60 seconds away.",
+    subtitle: "No download. No card. No lockout. Just open WhatsApp.",
+    buttonText: "Start Free on WhatsApp",
+    secondaryLinkText: "See Premium plans →",
   },
 };
 

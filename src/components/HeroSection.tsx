@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { FaWhatsapp } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Unlock } from "lucide-react";
 
 type HeroHeadlineVariant = {
   lead: string;
@@ -188,6 +189,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   disabled={loadingCta !== null}
                   aria-label={ctaPrimaryText}
                 >
+                  <FaWhatsapp className="mr-2 h-5 w-5" aria-hidden="true" />
                   <span>{loadingCta === "primary" ? (language === "es" ? "Preparando..." : "Preparing...") : ctaPrimaryText}</span>
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Button>
@@ -205,8 +207,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </Button>
               </div>
 
-              <p className="mt-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-medium leading-relaxed text-white/80 sm:text-sm">
-                {limitNotice}
+              <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#27e97c]/30 bg-[#27e97c]/10 px-3.5 py-1.5 text-xs font-semibold text-[#27e97c] sm:text-sm">
+                <Unlock className="h-3.5 w-3.5" aria-hidden="true" />
+                <span>{limitNotice}</span>
               </p>
 
               <div id="key-benefits" className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60 sm:text-xs">

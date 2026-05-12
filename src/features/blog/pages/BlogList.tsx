@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { Language } from '../../../data/content';
 import { getSummaries, PostSummary } from '../lib/contentLoader';
 import { getCategoryLabel } from '../lib/categoryLabels';
 import BlogCard from '../components/BlogCard';
 import BlogSeo from '../components/BlogSeo';
+import { startOnboarding } from '@/lib/onboarding';
+import analytics from '@/utils/analytics';
 
 const FILTERS = [
   { key: '', labelEs: 'Todos', labelEn: 'All' },
@@ -32,6 +34,25 @@ const BlogList: React.FC = () => {
   const params = useMemo(() => new URLSearchParams(search), [search]);
   const filterKey = normalize(params.get('cat') || '');
   const postsAll = useMemo(() => getSummaries(lang), [lang]);
+  const [isCtaLoading, setIsCtaLoading] = useState(false);
+
+  const handleBlogCtaClick = async () => {
+    if (isCtaLoading) return;
+    setIsCtaLoading(true);
+
+    analytics.trackCTAClick('primary', 'blog_list_footer', lang);
+    analytics.trackWhatsAppClick('cta', undefined, lang);
+
+    try {
+      await startOnboarding({ intent: 'free', language: lang, placement: 'mid' });
+    } catch (error) {
+      console.error('Onboarding failed, using fallback:', error);
+      window.location.href = `/start?flow=free&language=${lang}`;
+    } finally {
+      setIsCtaLoading(false);
+    }
+  };
+
   const posts = useMemo(
     () => postsAll.filter((post) => matchesFilter(post, filterKey)),
     [postsAll, filterKey],
@@ -141,13 +162,17 @@ const BlogList: React.FC = () => {
                   ? 'Solicita un plan personalizado por WhatsApp con ajustes diarios de Andes.'
                   : 'Request a personalised WhatsApp plan from Andes with daily adjustments.'}
               </p>
-              <a
-                href={lang === 'es' ? '/es#pricing' : '/#pricing'}
-                className="mt-4 md:mt-5 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white px-5 py-2 text-xs md:text-sm font-semibold text-black transition hover:bg-neutral-100 min-h-[40px]"
+              <button
+                type="button"
+                onClick={handleBlogCtaClick}
+                disabled={isCtaLoading}
+                className="mt-4 md:mt-5 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white px-5 py-2 text-xs md:text-sm font-semibold text-black transition hover:bg-neutral-100 min-h-[40px] disabled:opacity-60"
               >
-                {lang === 'es' ? 'Solicitar plan gratuito' : 'Get your free plan'}
+                {isCtaLoading
+                  ? lang === 'es' ? 'Conectando...' : 'Connecting...'
+                  : lang === 'es' ? 'Solicitar plan gratuito' : 'Get your free plan'}
                 <span aria-hidden>→</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

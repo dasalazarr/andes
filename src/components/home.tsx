@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { ArrowRight, Quote } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 import HeroSection from "./HeroSection";
 import { initGA, trackABTest, trackSocialProofView, trackTestimonialView } from "../lib/analytics";
 import {
@@ -11,6 +12,7 @@ import {
   indicatorsContent,
   howItWorksContent,
   productDemoContent,
+  ctaContent,
 } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
@@ -247,41 +249,38 @@ const Home = () => {
             <div className="container mx-auto px-4">
               <AnimatedSection className="glass-card-premium mx-auto max-w-3xl rounded-[28px] px-6 py-8 text-center text-white md:px-10 md:py-10">
                 <h2 className="text-3xl font-bold leading-tight md:text-4xl">
-                  {language === "es" ? "¿Listo para empezar hoy?" : "Ready to start today?"}
+                  {ctaContent[language].title}
                 </h2>
                 <p className="mt-3 text-sm text-gray-300 md:text-base">
-                  {language === "es"
-                    ? "Empieza gratis en WhatsApp. Cuando quieras acelerar, desbloqueas Premium."
-                    : "Start free on WhatsApp. Upgrade to Premium when you want to accelerate."}
+                  {ctaContent[language].subtitle}
                 </p>
-                <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <div className="mt-6 flex flex-col items-center justify-center gap-4">
                   <button
                     type="button"
                     onClick={() => handleOnboardingStart("free", "footer")}
                     disabled={Boolean(activeCta)}
-                    className="min-h-[48px] rounded-full bg-[#25d366] px-7 py-3 text-sm font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869]"
+                    className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#25d366] px-7 py-3 text-sm font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869]"
                   >
-                    {isLoading("free", "footer")
-                      ? language === "es"
-                        ? "Conectando..."
-                        : "Connecting..."
-                      : language === "es"
-                        ? "Empezar Gratis"
-                        : "Start Free"}
+                    <FaWhatsapp className="h-5 w-5" aria-hidden="true" />
+                    <span>
+                      {isLoading("free", "footer")
+                        ? language === "es"
+                          ? "Conectando..."
+                          : "Connecting..."
+                        : ctaContent[language].buttonText}
+                    </span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleOnboardingStart("premium", "footer")}
                     disabled={Boolean(activeCta)}
-                    className="min-h-[48px] rounded-full border border-white/25 bg-white/10 px-7 py-3 text-sm font-semibold text-white transition hover:border-[#27e97c]/50 hover:text-[#27e97c]"
+                    className="text-sm font-medium text-white/70 underline-offset-4 transition hover:text-[#27e97c] hover:underline disabled:opacity-60"
                   >
                     {isLoading("premium", "footer")
                       ? language === "es"
                         ? "Conectando..."
                         : "Connecting..."
-                      : language === "es"
-                        ? "Ver Premium"
-                        : "See Premium"}
+                      : ctaContent[language].secondaryLinkText}
                   </button>
                 </div>
               </AnimatedSection>
