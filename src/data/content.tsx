@@ -20,7 +20,7 @@ export const heroContent = {
     description: "Un coach que se adapta a tu nivel, te acompaña cada kilómetro y te avisa antes de que te pases. Gratis, por WhatsApp.",
     ctaPrimaryText: "Empezar Gratis por WhatsApp",
     ctaSecondaryText: "Ver planes Premium",
-    limitNotice: "Gratis para siempre · Sin tarjeta · Sin bloqueo",
+    limitNotice: "15 días Premium gratis · Sin tarjeta · Sin bloqueo",
     keyBenefits: "Sin descargas • Plan en 60 segundos • Prevención de lesiones",
     videoSrc: '/videos/video3',
   },
@@ -39,7 +39,7 @@ export const heroContent = {
     description: "A coach that adapts to your level, supports you every kilometer, and warns you before you overdo it. Free, on WhatsApp.",
     ctaPrimaryText: "Start Free on WhatsApp",
     ctaSecondaryText: "See Premium Plans",
-    limitNotice: "Free forever · No card · No lockout",
+    limitNotice: "15 days of Premium free · No card · No lockout",
     keyBenefits: "No downloads • First plan in 60 seconds • Injury prevention built-in",
     videoSrc: '/videos/video2',
   },
@@ -352,7 +352,7 @@ export const pricingContent: {
     sectionTitle: "Free vs Premium, sin letra pequeña",
     sectionSubtitle: "Empieza gratis hoy y mejora cuando quieras.",
     competitiveAnchor: "",
-    limitNote: "Después de 30 mensajes inteligentes sigues en modo Lite (sin bloqueo).",
+    limitNote: "Empiezas con 15 días de Premium gratis. Después sigues gratis en modo Lite (sin bloqueo).",
     comparisonRows: [
       { feature: "Entrenamiento base", free: "Sí", premium: "Sí" },
       { feature: "Modo Lite sin bloqueo", free: "Sí", premium: "Sí" },
@@ -367,8 +367,9 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Andes funciona siempre. Después de 30 mensajes inteligentes continúas en modo Lite, sin bloqueo.",
+        description: "Empiezas con 15 días de Premium completo. Después, Andes sigue funcionando gratis en modo Lite, sin bloqueo.",
         features: [
+          "15 días de Premium gratis al empezar.",
           "Funcional siempre, incluso después del umbral.",
           "Plan base para empezar desde cero.",
           "Acompañamiento en modo Lite sin bloqueo.",
@@ -412,7 +413,7 @@ export const pricingContent: {
     sectionTitle: "Free vs Premium, no surprises",
     sectionSubtitle: "Start free today and upgrade when you want.",
     competitiveAnchor: "",
-    limitNote: "After 30 smart messages, you continue in Lite mode (no lockout).",
+    limitNote: "You start with 15 days of Premium free. After that, you stay free in Lite mode (no lockout).",
     comparisonRows: [
       { feature: "Core training plan", free: "Yes", premium: "Yes" },
       { feature: "Lite mode without lockout", free: "Yes", premium: "Yes" },
@@ -427,8 +428,9 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "Andes always works. After 30 smart messages you continue in Lite mode, with no lockout.",
+        description: "You start with 15 days of full Premium. After that, Andes keeps working free in Lite mode, with no lockout.",
         features: [
+          "15 days of Premium free when you start.",
           "Always functional, even after the threshold.",
           "Starter plan for beginner runners.",
           "Lite support with no service lockout.",
@@ -477,7 +479,7 @@ export const faqContent = {
     faqs: [
       {
         question: "¿Es realmente gratis? ¿Cuál es la trampa?",
-        answer: "No hay trampa. Andes es gratis para siempre con 30 mensajes inteligentes. Después continúas en modo Lite sin bloqueo. Premium ($9.99/mes) añade recordatorios proactivos y seguimiento personalizado, pero nunca te quedarás sin coach.",
+        answer: "No hay trampa. Empiezas con 15 días de Premium completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Premium ($9.99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
       {
         question: "No sé nada de running. ¿Es para mí?",
@@ -511,7 +513,7 @@ export const faqContent = {
     faqs: [
       {
         question: "Is it really free? What's the catch?",
-        answer: "No catch. Andes is free forever with 30 smart messages. After that, you continue in Lite mode with no lockout. Premium ($9.99/month) adds proactive reminders and personalized follow-up, but you'll never lose your coach.",
+        answer: "No catch. You start with 15 days of full Premium free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Premium ($9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
       {
         question: "I know nothing about running. Is this for me?",
