@@ -11,111 +11,95 @@ interface ChatTranslation {
 
 export const chatTranslations: { [lang: string]: ChatTranslation } = {
   es: {
-    title: "Prueba nuestro Coach con IA en Acción",
-    subtitle: "Mira cómo Andes adapta tu plan en tiempo real.",
+    title: "Un coach que te recuerda, no un bot que repite",
+    subtitle: "Esto es el día 2 con Andes: ayer reportaste una molestia. Mira lo que pasa hoy.",
     script: {
       start: {
-        bot: "¡Hola! Soy tu coach de IA de Andes. Para empezar, dime cuál es tu principal objetivo.",
+        bot: "¡Buenos días! Ayer registraste 6K y me contaste que la rodilla derecha te molestaba un poco al final. ¿Cómo amaneció hoy?",
         options: [
-          { text: "Correr mi primer maratón", payload: "first_marathon" },
-          { text: "Mejorar mi tiempo", payload: "improve_time" },
-          { text: "Correr de forma consistente", payload: "be_consistent" },
+          { text: "Mejor, casi no la siento", payload: "knee_better" },
+          { text: "Sigue igual", payload: "knee_same" },
+          { text: "Bien, pero dormí muy mal", payload: "slept_bad" },
         ],
       },
-      first_marathon: {
-        bot: "¡Excelente meta! Analicé tu perfil. Sugiero empezar con 3 sesiones de carrera y 2 de fuerza a la semana. ¿Te parece bien?",
+      knee_better: {
+        bot: "Me alegra. Aun así vamos con cuidado: tu carga de esta semana subió 32% sobre tu promedio del último mes, y ahí es donde aparecen las lesiones. Hoy cambio las series por 5K suave. ¿De acuerdo?",
         options: [
-          { text: "Suena bien", payload: "sounds_good" },
-          { text: "Es demasiado para mí", payload: "too_much" },
+          { text: "De acuerdo", payload: "adjusted_ok" },
+          { text: "¿Y mi carrera del domingo?", payload: "race_question" },
         ],
       },
-      improve_time: {
-        bot: "¡Vamos a por esa marca! Para mejorar tu velocidad, es clave el trabajo de series. ¿Te gustaría añadir un día de series en pista a tu plan?",
+      knee_same: {
+        bot: "Entonces hoy no corremos. Una molestia que no mejora en 48h es señal de frenar antes de que se vuelva lesión. Hoy descanso y mañana 25 min de caminata. ¿Te escribo mañana para revisar cómo sigue?",
         options: [
-          { text: "Sí, ¡vamos!", payload: "add_track" },
-          { text: "Prefiero entrenar en calle", payload: "prefer_street" },
+          { text: "Sí, revisemos mañana", payload: "checkin_set" },
+          { text: "¿Y mi carrera del domingo?", payload: "race_question" },
         ],
       },
-      be_consistent: {
-        bot: "La constancia es la clave del éxito. Para ayudarte, puedo enviarte recordatorios y ajustar tu plan si tienes una semana ocupada. ¿Qué día prefieres para tu descanso activo?",
+      slept_bad: {
+        bot: "Gracias por contarme — dormir mal baja tu recuperación, y con la rodilla de ayer no conviene exigir. Muevo las series al jueves y hoy hacemos 30 min suaves. Tu meta de marzo no cambia; solo reordeno la semana.",
         options: [
-          { text: "Lunes", payload: "rest_day" },
-          { text: "Viernes", payload: "rest_day" },
+          { text: "Perfecto, así lo hago", payload: "adjusted_ok" },
+          { text: "¿Y mi carrera del domingo?", payload: "race_question" },
         ],
       },
-      sounds_good: {
-        bot: "¡Perfecto! Tu plan para la primera semana está listo. Recuerda que se adaptará según tu progreso. ¡Mucho éxito!",
+      race_question: {
+        bot: "Si la rodilla está bien el viernes, corres el domingo. Si no, hacemos 8K suaves en vez de la carrera. Tu meta del 21K de marzo sigue intacta — solo protegemos este micro-ciclo. Decidimos juntos el viernes.",
         options: [],
       },
-      too_much: {
-        bot: "Entendido. No hay problema. Podemos empezar con 2 sesiones de carrera y 1 de fuerza. Lo más importante es escuchar a tu cuerpo. El plan se ajustará automáticamente.",
+      checkin_set: {
+        bot: "Listo, mañana te escribo para preguntarte por la rodilla. Así trabajo: recuerdo lo que me cuentas y ajusto tu plan antes de que una molestia se convierta en lesión.",
         options: [],
       },
-      add_track: {
-        bot: "¡Genial! He añadido una sesión de series a tu martes. Verás cómo mejora tu ritmo. ¡A darlo todo!",
-        options: [],
-      },
-      prefer_street: {
-        bot: "¡Sin problema! He adaptado la sesión de velocidad para que la puedas hacer en un terreno plano cerca de ti. ¡El plan se ajusta a tus preferencias!",
-        options: [],
-      },
-      rest_day: {
-        bot: "Anotado. Tu plan ha sido ajustado. ¡Recuerda que la recuperación es parte del entrenamiento!",
+      adjusted_ok: {
+        bot: "Plan actualizado ✅. Esto es lo que hago todos los días: cruzo lo que me cuentas (dolor, sueño, ánimo) con tu carga de entrenamiento, y ajusto antes de que algo se rompa.",
         options: [],
       },
     },
   },
   en: {
-    title: "Try our AI Coach in Action",
-    subtitle: "See how Andes adapts your plan in real-time.",
+    title: "A coach that remembers you, not a bot that repeats",
+    subtitle: "This is day 2 with Andes: yesterday you reported a niggle. See what happens today.",
     script: {
       start: {
-        bot: "Hello! I'm your Andes AI coach. To get started, tell me what your main goal is.",
+        bot: "Good morning! Yesterday you logged 6K and told me your right knee felt a little off near the end. How is it today?",
         options: [
-          { text: "Run my first marathon", payload: "first_marathon" },
-          { text: "Improve my time", payload: "improve_time" },
-          { text: "Run more consistently", payload: "be_consistent" },
+          { text: "Better, barely feel it", payload: "knee_better" },
+          { text: "Still the same", payload: "knee_same" },
+          { text: "Fine, but I slept badly", payload: "slept_bad" },
         ],
       },
-      first_marathon: {
-        bot: "Great goal! I've analyzed your profile. I suggest starting with 3 running sessions and 2 strength sessions per week. Does that sound good to you?",
+      knee_better: {
+        bot: "Glad to hear it. Still, let's be careful: your training load this week is up 32% over your monthly average, and that's exactly where injuries show up. Today I'm swapping intervals for an easy 5K. Sound good?",
         options: [
-          { text: "Sounds good", payload: "sounds_good" },
-          { text: "That's too much for me", payload: "too_much" },
+          { text: "Sounds good", payload: "adjusted_ok" },
+          { text: "What about Sunday's race?", payload: "race_question" },
         ],
       },
-      improve_time: {
-        bot: "Let's go for that personal best! To improve your speed, interval training is key. Would you like to add a track workout to your plan?",
+      knee_same: {
+        bot: "Then we don't run today. A niggle that hasn't improved in 48h is a sign to back off before it becomes an injury. Rest today, 25-min walk tomorrow. Want me to check in tomorrow to see how it's going?",
         options: [
-          { text: "Yes, let's do it!", payload: "add_track" },
-          { text: "I prefer street training", payload: "prefer_street" },
+          { text: "Yes, check in tomorrow", payload: "checkin_set" },
+          { text: "What about Sunday's race?", payload: "race_question" },
         ],
       },
-      be_consistent: {
-        bot: "Consistency is the key to success. To help you, I can send you reminders and adjust your plan if you have a busy week. Which day would you prefer for your active rest?",
+      slept_bad: {
+        bot: "Thanks for telling me — bad sleep cuts your recovery, and with yesterday's knee it's not the day to push. I'm moving intervals to Thursday; today is 30 easy minutes. Your March goal doesn't change — I'm just reordering the week.",
         options: [
-          { text: "Monday", payload: "rest_day" },
-          { text: "Friday", payload: "rest_day" },
+          { text: "Perfect, will do", payload: "adjusted_ok" },
+          { text: "What about Sunday's race?", payload: "race_question" },
         ],
       },
-      sounds_good: {
-        bot: "Perfect! Your plan for the first week is ready. Remember it will adapt based on your progress. Best of luck!",
+      race_question: {
+        bot: "If your knee is clear by Friday, you race Sunday. If not, we do an easy 8K instead. Your March 21K goal stays intact — we're only protecting this micro-cycle. We decide together on Friday.",
         options: [],
       },
-      too_much: {
-        bot: "Understood. No problem. We can start with 2 running sessions and 1 strength session. The most important thing is to listen to your body. The plan will adjust automatically.",
+      checkin_set: {
+        bot: "Done — I'll message you tomorrow to ask about the knee. That's how I work: I remember what you tell me and adjust your plan before a niggle becomes an injury.",
         options: [],
       },
-      add_track: {
-        bot: "Great! I've added an interval session on Tuesday. You'll see your pace improve in no time. Give it your all!",
-        options: [],
-      },
-      prefer_street: {
-        bot: "No problem! I've adapted the speed session for flat terrain near you. The plan adjusts to your preferences!",
-        options: [],
-      },
-      rest_day: {
-        bot: "Noted. Your plan has been adjusted. Remember that recovery is part of the training!",
+      adjusted_ok: {
+        bot: "Plan updated ✅. This is what I do every day: I cross what you tell me (pain, sleep, mood) with your training load, and adjust before something breaks.",
         options: [],
       },
     },

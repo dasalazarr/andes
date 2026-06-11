@@ -205,13 +205,13 @@ export const benefitsContent = {
 
 export const indicatorsContent = {
   es: {
-    preheading: "Seguridad primero",
-    title: "Bienestar y progreso sostenible.",
-    highlight: "Ajustamos carga, recuperación y ritmo para que mejores sin lesionarte.",
+    preheading: "Prevención, no reacción",
+    title: "El coach que cuida tu cuerpo semana a semana.",
+    highlight: "Monitoreamos tu carga de entrenamiento cada semana. Si escala demasiado rápido, te avisamos y bajamos el volumen antes de que aparezca la lesión.",
     pillars: [
-      "Ajustes de carga según cómo te sentiste hoy.",
-      "Prevención de lesión antes que métricas de ego.",
-      "Progresión sostenible para crear hábito real."
+      "Si reportas una molestia de 6/10 o más, el coach te escribe a las 48 horas para ver cómo sigues.",
+      "Calculamos tu índice de carga semanal (ACWR). Si sube de golpe, ajustamos ese mismo día.",
+      "El coach recuerda tus molestias pasadas y las considera en cada ajuste de plan.",
     ],
     image: {
       src: "/coaching.avif",
@@ -226,13 +226,13 @@ export const indicatorsContent = {
     statsDisclaimer: "Datos de nuestros primeros usuarios beta.",
   },
   en: {
-    preheading: "Safety first",
-    title: "Well-being and sustainable progress.",
-    highlight: "We adjust load, recovery, and pace so you improve without getting injured.",
+    preheading: "Prevention, not reaction",
+    title: "The coach that watches your body week over week.",
+    highlight: "We monitor your training load every week. If it spikes too fast, we warn you and cut volume before an injury shows up.",
     pillars: [
-      "Training load adjusts from how you felt today.",
-      "Injury prevention comes before vanity metrics.",
-      "Sustainable progression that builds a real habit."
+      "Report an ache at 6/10 or above and the coach follows up 48 hours later, automatically.",
+      "We track your weekly load ratio (ACWR). If it jumps, we adjust your plan that same day.",
+      "The coach remembers your past aches and factors them into every plan adjustment.",
     ],
     image: {
       src: "/coaching.avif",
