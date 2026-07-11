@@ -69,7 +69,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ sectionTitle, sectionSubtitle, 
   };
 
   return (
-    <section id="faq" className="bg-black py-14 md:py-20">
+    <section id="faq" className="bg-surface py-14 md:py-20">
       <div className="container mx-auto max-w-4xl px-4">
         <div className="mb-8 text-center md:mb-10">
           <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">{sectionTitle}</h2>

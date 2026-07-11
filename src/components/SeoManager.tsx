@@ -14,18 +14,18 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
 
   const seoContent = {
     en: {
-      title: "Andes Runners - AI-Powered Marathon Training for Beginners",
-      description: "Complete your first marathon with personalized AI coaching, expert guidance, and a supportive community. 98% success rate, 40,000+ km analyzed.",
-      keywords: "marathon training, running coach, AI coaching, beginner runner, personalized training plan",
-      ogTitle: "Andes Runners - Your AI Marathon Coach",
-      ogDescription: "Transform from beginner to marathon finisher with our AI-powered coaching platform. Join 2,500+ successful runners.",
+      title: "Andes — Fall in love with running in two weeks",
+      description: "A running club with real meetups in Pamplona and a WhatsApp coach that adapts to you. Your first race, no fear, no injuries. Start free.",
+      keywords: "running club Pamplona, beginner running, WhatsApp running coach, first race, women running club, couch to 5k",
+      ogTitle: "Andes — The club that makes you fall in love with running",
+      ogDescription: "Meetups that feel like plans with friends and a coach on WhatsApp that adapts to you. Your first race, no fear, no injuries.",
     },
     es: {
-      title: "Andes Runners - Entrenamiento de Maratón con IA para Principiantes",
-      description: "Completa tu primera maratón con coaching personalizado de IA, guía experta y comunidad de apoyo. 98% de éxito, 40,000+ km analizados.",
-      keywords: "entrenamiento maratón, coach running, coaching IA, corredor principiante, plan entrenamiento personalizado",
-      ogTitle: "Andes Runners - Tu Coach de Maratón con IA",
-      ogDescription: "Transforma de principiante a finalista de maratón con nuestra plataforma de coaching con IA. Únete a 2,500+ corredores exitosos.",
+      title: "Andes — Enamórate de correr en dos semanas",
+      description: "Un club de running con quedadas reales en Pamplona y una coach por WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones. Empieza gratis.",
+      keywords: "club running Pamplona, empezar a correr, coach running WhatsApp, primera carrera, club running mujeres, correr desde cero",
+      ogTitle: "Andes — El club que te enamora de correr",
+      ogDescription: "Quedadas que se sienten como un plan con amigas y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
     }
   };
 

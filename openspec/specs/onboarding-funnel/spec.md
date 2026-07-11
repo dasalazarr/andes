@@ -3,9 +3,7 @@
 ## Purpose
 
 El objetivo único de la landing es convertir visitantes en conversaciones de WhatsApp iniciadas. Esta spec fija cómo los CTAs llegan al backend y qué invariantes de copy no pueden romperse. Contraparte backend: spec `onboarding-contract` en `v3/v3/openspec/`.
-
 ## Requirements
-
 ### Requirement: Todo CTA pasa por el flujo unificado
 
 Todo CTA de conversión SHALL usar `startOnboarding({ intent, language, placement, source? })` de `src/lib/onboarding.ts` (que llama `POST /onboarding/start`). Los intents válidos son `free`, `premium` y `ambassador`. Prohibidos los links `wa.me/` ad-hoc — pierden routing y analytics.
@@ -45,3 +43,28 @@ Todo copy visible SHALL vivir en `src/data/content.tsx` (ES/EN); los componentes
 #### Scenario: Cambio de wording
 - **WHEN** se modifica un texto de una sección
 - **THEN** el cambio se hace en `content.tsx` en ambos idiomas, no en el JSX del componente
+
+### Requirement: Sección Club en la home
+
+La home SHALL incluir una sección `#club` (componente `ClubSection`, copy en `clubContent`) que presenta la experiencia física (quedadas en Pamplona) con un CTA de conversión a WhatsApp y un link a `/embajadores`. El CTA secundario del hero SHALL llevar a esta sección.
+
+#### Scenario: Visitante interesada en el club
+- **WHEN** la visitante pulsa "Conoce el club" en el hero
+- **THEN** la página hace scroll a la sección Club, donde puede unirse por WhatsApp (`startOnboarding('free')`) o navegar a `/embajadores`
+
+### Requirement: Verde de marca distinto del verde de conversión
+
+Los acentos de marca (texto, íconos, bordes, chips) SHALL usar el token `brand` (#34D399); el token `whatsapp` (#25d366) SHALL usarse exclusivamente en botones cuya acción abre WhatsApp. Prohibido introducir nuevos hex verdes hardcodeados en componentes del funnel.
+
+#### Scenario: Nuevo botón de conversión
+- **WHEN** se agrega un botón que dispara `startOnboarding`
+- **THEN** usa `bg-whatsapp` con ícono de WhatsApp; cualquier acento decorativo alrededor usa `brand`
+
+### Requirement: Navegación del header funciona fuera de la home
+
+Los items de navegación del header SHALL funcionar desde cualquier ruta: en la home hacen scroll a la sección; fuera de la home navegan a `{homePath}#{seccion}` y la home resuelve el hash al montar. El header SHALL tener fondo sólido (`bg-surface/90`) cuando está elevado, nunca flotar transparente sobre contenido.
+
+#### Scenario: Usuario en /embajadores pulsa "Planes"
+- **WHEN** el usuario pulsa "Planes" en el header estando en `/embajadores`
+- **THEN** navega a la home y la página hace scroll a `#pricing`
+

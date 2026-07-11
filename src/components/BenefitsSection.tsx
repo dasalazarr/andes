@@ -36,13 +36,13 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ sectionTitle, section
               return (
                 <article
                   key={benefit.headline}
-                  className="group glass-panel rounded-[24px] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#27e97c]/40 hover:shadow-[0_0_30px_rgba(39,233,124,0.12)] md:p-6"
+                  className="group glass-panel rounded-[24px] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_0_30px_rgba(52,211,153,0.12)] md:p-6"
                 >
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#27e97c]/30 bg-[#27e97c]/10 text-[#27e97c]">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-brand">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#27e97c]">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
                       Paso {index + 1}
                     </span>
                   </div>

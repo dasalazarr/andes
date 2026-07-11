@@ -152,7 +152,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 aria-pressed={billingCycle === "annual"}
                 className={`inline-flex min-h-[36px] items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] transition ${
                   billingCycle === "annual"
-                    ? "bg-[#27e97c] text-black shadow-[0_4px_12px_rgba(39,233,124,0.4)]"
+                    ? "bg-whatsapp text-black shadow-[0_4px_12px_rgba(52,211,153,0.4)]"
                     : "text-white/70 hover:text-white"
                 }`}
               >
@@ -160,7 +160,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 {plans.find((p) => p.savingsPercentage)?.savingsPercentage ? (
                   <span
                     className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
-                      billingCycle === "annual" ? "bg-black/15 text-black" : "bg-[#27e97c]/20 text-[#27e97c]"
+                      billingCycle === "annual" ? "bg-surface/15 text-black" : "bg-brand/20 text-brand"
                     }`}
                   >
                     {plans.find((p) => p.savingsPercentage)?.savingsPercentage}
@@ -193,18 +193,18 @@ const PricingSection: React.FC<PricingSectionProps> = ({
             >
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isPremium ? "bg-[#27e97c]/15 text-[#27e97c]" : "bg-white/10 text-white/80"}`}>
+                  <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isPremium ? "bg-brand/15 text-brand" : "bg-white/10 text-white/80"}`}>
                     {isPremium ? "Premium" : language === "es" ? "Free" : "Free"}
                   </span>
                   {isPremium && plan.popularBadge ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#27e97c] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-whatsapp px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black">
                       <Star className="h-3 w-3 fill-current" aria-hidden="true" />
                       {plan.popularBadge}
                     </span>
                   ) : null}
                 </div>
                 {IconComponent ? (
-                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full border ${isPremium ? "border-[#27e97c]/40 bg-[#27e97c]/15 text-[#27e97c]" : "border-white/20 bg-white/10 text-white/90"}`}>
+                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full border ${isPremium ? "border-brand/40 bg-brand/15 text-brand" : "border-white/20 bg-white/10 text-white/90"}`}>
                     <IconComponent className="h-5 w-5" />
                   </span>
                 ) : null}
@@ -215,7 +215,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 <span className="text-4xl font-black text-white">{displayPrice}</span>
                 {displayDetail ? <span className="text-sm text-gray-300">{displayDetail}</span> : null}
                 {showAnnual && plan.savingsPercentage ? (
-                  <span className="rounded-full bg-[#27e97c]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#27e97c]">
+                  <span className="rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand">
                     {plan.savingsPercentage}
                   </span>
                 ) : null}
@@ -227,7 +227,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                   const text = typeof feature === "string" ? feature : feature.text;
                   return (
                     <li key={text} className="flex items-start gap-2 text-sm text-gray-200">
-                      <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#27e97c]/15 text-[#27e97c]">
+                      <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand/15 text-brand">
                         <Check className="h-3 w-3" />
                       </span>
                       <span>{text}</span>
@@ -243,8 +243,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 data-language={language}
                 className={`mt-6 min-h-[48px] w-full rounded-full px-6 py-3 text-sm font-semibold transition ${
                   isPremium
-                    ? "bg-[#27e97c] text-black shadow-[0_10px_24px_rgba(39,233,124,0.35)] hover:bg-[#1fc869]"
-                    : "border border-white/20 bg-white/10 text-white hover:border-[#27e97c]/50 hover:text-[#27e97c]"
+                    ? "bg-whatsapp text-black shadow-[0_10px_24px_rgba(52,211,153,0.35)] hover:brightness-110"
+                    : "border border-white/20 bg-white/10 text-white hover:border-brand/50 hover:text-brand"
                 }`}
                 onClick={() => onStart(intent)}
                 disabled={isLoading}
@@ -259,7 +259,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
               {plan.ctaDisclaimer ? <p className="mt-3 text-center text-xs text-gray-400">{plan.ctaDisclaimer}</p> : null}
 
               {plan.guarantee ? (
-                <p className="mt-2 flex items-start justify-center gap-1.5 text-center text-xs text-[#27e97c]/90">
+                <p className="mt-2 flex items-start justify-center gap-1.5 text-center text-xs text-brand/90">
                   <ShieldCheck className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
                   <span>{plan.guarantee}</span>
                 </p>
@@ -279,7 +279,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
               <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
                 {language === "es" ? "Free" : "Free"}
               </th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-[#27e97c] md:px-6">
+              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-brand md:px-6">
                 Premium
               </th>
             </tr>

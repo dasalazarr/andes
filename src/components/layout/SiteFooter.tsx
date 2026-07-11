@@ -7,7 +7,6 @@ const categories = [
   { key: 'grit', labelEs: 'Historias GRIT', labelEn: 'GRIT Stories' },
   { key: 'injuries', labelEs: 'Lesiones', labelEn: 'Injuries' },
   { key: 'nutrition', labelEs: 'Nutrición', labelEn: 'Nutrition' },
-  { key: 'calendar', labelEs: 'Calendario de Carreras', labelEn: 'Race Calendar' },
 ];
 
 const SiteFooter: React.FC = () => {
@@ -24,19 +23,27 @@ const SiteFooter: React.FC = () => {
     : 'Sports coaching service powered by artificial intelligence. Your data is not used to train AI models.';
 
   return (
-    <footer className="bg-black text-white py-10 border-t border-white/10">
+    <footer className="bg-surface text-white py-10 border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-semibold mb-3">Andes Runners</h4>
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Andes Runners</p>
+            <h4 className="mb-2 font-display text-lg font-medium text-cream">Andes</h4>
+            <p className="max-w-xs text-sm text-gray-400">
+              {isEs
+                ? 'El club que te enamora de correr. Quedadas en Pamplona y una coach en WhatsApp.'
+                : 'The club that makes you fall in love with running. Pamplona meetups and a WhatsApp coach.'}
+            </p>
+            <p className="mt-3 text-xs text-gray-500">© {new Date().getFullYear()} Andes Runners</p>
           </div>
           <nav className="grid grid-cols-2 gap-2 text-sm">
+            <Link className="text-gray-300 hover:text-brand" to={isEs ? '/es/embajadores' : '/embajadores'}>
+              {isEs ? 'Embajadoras' : 'Ambassadors'}
+            </Link>
             {categories.map((c) => {
               const label = isEs ? c.labelEs : c.labelEn;
               const href = c.key ? `${base}?cat=${c.key}` : base;
               return (
-                <Link key={c.key || 'all'} className="text-gray-300 hover:text-[#25d366]" to={href}>
+                <Link key={c.key || 'all'} className="text-gray-300 hover:text-brand" to={href}>
                   {label}
                 </Link>
               );
@@ -45,11 +52,11 @@ const SiteFooter: React.FC = () => {
         </div>
         <div className="mt-8 border-t border-white/10 pt-6 text-sm text-gray-400 space-y-3">
           <div className="flex flex-wrap items-center gap-3">
-            <Link className="text-gray-300 hover:text-[#25d366]" to={privacyPath}>
+            <Link className="text-gray-300 hover:text-brand" to={privacyPath}>
               {privacyLabel}
             </Link>
             <span className="text-gray-600">|</span>
-            <Link className="text-gray-300 hover:text-[#25d366]" to={termsPath}>
+            <Link className="text-gray-300 hover:text-brand" to={termsPath}>
               {termsLabel}
             </Link>
           </div>

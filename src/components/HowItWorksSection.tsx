@@ -26,7 +26,7 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
   steps,
 }) => {
   return (
-    <section id="how-it-works" className="bg-black py-14 md:py-20">
+    <section id="how-it-works" className="bg-surface py-14 md:py-20">
       <div className="container mx-auto max-w-5xl px-4">
         <AnimatedSection className="mb-10 text-center md:mb-14">
           <h2 className="text-3xl font-bold text-white md:text-4xl">
@@ -41,7 +41,7 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
           <div className="relative grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
             {/* Connector line (desktop only) */}
             <div
-              className="pointer-events-none absolute left-0 right-0 top-14 hidden h-px bg-gradient-to-r from-transparent via-[#27e97c]/30 to-transparent md:block"
+              className="pointer-events-none absolute left-0 right-0 top-14 hidden h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent md:block"
               aria-hidden="true"
             />
 
@@ -54,10 +54,10 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                 >
                   {/* Step number + icon */}
                   <div className="relative mb-5">
-                    <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-[#27e97c] text-xs font-bold text-black">
+                    <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-whatsapp text-xs font-bold text-black">
                       {index + 1}
                     </span>
-                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-[#27e97c]/30 bg-[#27e97c]/10 text-[#27e97c] transition-all duration-300 group-hover:border-[#27e97c]/60 group-hover:shadow-[0_0_20px_rgba(39,233,124,0.15)]">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand/30 bg-brand/10 text-brand transition-all duration-300 group-hover:border-brand/60 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.15)]">
                       <Icon className="h-6 w-6" />
                     </span>
                   </div>

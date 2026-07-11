@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView, useReducedMotion } from 'framer-motion';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -20,16 +20,17 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   const controls = useAnimation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const prefersReducedMotion = useReducedMotion();
   const isMobile =
     typeof window !== 'undefined' &&
     typeof window.matchMedia === 'function' &&
     window.matchMedia('(max-width: 768px)').matches;
 
   useEffect(() => {
-    if (isInView || isMobile) {
+    if (isInView || isMobile || prefersReducedMotion) {
       controls.start('visible');
     }
-  }, [controls, isInView, isMobile]);
+  }, [controls, isInView, isMobile, prefersReducedMotion]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -62,7 +63,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       ref={ref || sectionRef}
       id={id}
       className={className}
-      initial={isMobile ? 'visible' : 'hidden'}
+      initial={isMobile || prefersReducedMotion ? 'visible' : 'hidden'}
       animate={controls}
       variants={containerVariants}
       {...props}

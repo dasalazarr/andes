@@ -82,7 +82,7 @@ const ProductDemoSection: React.FC<ProductDemoSectionProps> = ({
     !prefersReducedMotion && isTyping && messages[revealedCount]?.from === "coach";
 
   return (
-    <section id="product-demo" className="bg-black py-14 md:py-20">
+    <section id="product-demo" className="bg-surface py-14 md:py-20">
       <div className="container mx-auto max-w-4xl px-4">
         <AnimatedSection className="mb-10 text-center md:mb-14">
           <h2 className="text-3xl font-bold text-white md:text-4xl">{sectionTitle}</h2>
@@ -97,12 +97,12 @@ const ProductDemoSection: React.FC<ProductDemoSectionProps> = ({
           >
             {/* WhatsApp header */}
             <div className="flex items-center gap-3 border-b border-white/10 bg-[#1f2c34] px-4 py-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#27e97c] to-[#25d366]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand">
                 <span className="text-sm font-bold text-black">A</span>
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Andes Coach</p>
-                <p className="text-[11px] text-[#27e97c]">online</p>
+                <p className="text-[11px] text-brand">online</p>
               </div>
             </div>
 

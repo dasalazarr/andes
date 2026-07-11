@@ -6,42 +6,42 @@ import { articleImages } from '../config/images';
 
 export const heroContent = {
   es: {
-    preheading: "Coach de running con IA",
+    preheading: "El club de running de Pamplona · Coach por WhatsApp",
     headline: {
       variantA: {
-        lead: "Termina tu primera maratón",
-        accent: "sin lesionarte",
+        lead: "Enamórate de correr",
+        accent: "en dos semanas.",
       },
       variantB: {
-        lead: "Termina tu primera maratón",
-        accent: "sin lesionarte",
+        lead: "Enamórate de correr",
+        accent: "en dos semanas.",
       },
     },
-    description: "Un coach que se adapta a tu nivel, te acompaña cada kilómetro y te avisa antes de que te pases. Gratis, por WhatsApp.",
+    description: "Quedadas que se sienten como un plan con amigas y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
     ctaPrimaryText: "Empezar Gratis por WhatsApp",
-    ctaSecondaryText: "Ver planes Premium",
+    ctaSecondaryText: "Conoce el club",
     limitNotice: "15 días Premium gratis · Sin tarjeta · Sin bloqueo",
-    keyBenefits: "Sin descargas • Plan en 60 segundos • Prevención de lesiones",
-    videoSrc: '/videos/video3',
+    keyBenefits: "Sin descargas · Plan en 60 segundos · A tu ritmo, siempre",
+    imageSrc: '/images/club/hero.webp',
   },
   en: {
-    preheading: "AI running coach",
+    preheading: "The Pamplona running club · Coach on WhatsApp",
     headline: {
       variantA: {
-        lead: "Finish your first marathon",
-        accent: "injury-free",
+        lead: "Fall in love with running",
+        accent: "in two weeks.",
       },
       variantB: {
-        lead: "Finish your first marathon",
-        accent: "injury-free",
+        lead: "Fall in love with running",
+        accent: "in two weeks.",
       },
     },
-    description: "A coach that adapts to your level, supports you every kilometer, and warns you before you overdo it. Free, on WhatsApp.",
+    description: "Meetups that feel like plans with friends, and a WhatsApp coach that adapts to you. Your first race — no fear, no injuries.",
     ctaPrimaryText: "Start Free on WhatsApp",
-    ctaSecondaryText: "See Premium Plans",
+    ctaSecondaryText: "Meet the club",
     limitNotice: "15 days of Premium free · No card · No lockout",
-    keyBenefits: "No downloads • First plan in 60 seconds • Injury prevention built-in",
-    videoSrc: '/videos/video2',
+    keyBenefits: "No downloads · First plan in 60 seconds · Always at your pace",
+    imageSrc: '/images/club/hero.webp',
   },
 };
 
@@ -148,56 +148,56 @@ export const leadMagnetContent = {
 
 export const benefitsContent = {
   es: {
-    sectionTitle: "Cómo te transformamos",
-    sectionSubtitle: "No vendemos tecnología fría. Te acompañamos para que termines tu primera carrera sin entrenar solo.",
+    sectionTitle: "Lo que vas a ganar",
+    sectionSubtitle: "Tres cosas que no encuentras en un PDF de Google ni en una app fría.",
     benefits: [
       {
         icon: FaWhatsapp,
-        headline: "1. Empieza hoy",
-        copy: "Escribes por WhatsApp y te damos un plan claro según tu nivel real.",
-        proof: "Activación guiada en minutos",
-        testimonial: "Sin descargas ni configuración compleja.",
+        headline: "Una coach que te recuerda",
+        copy: "Recuerda cómo te fue el martes y ajusta el viernes. Sin volver a explicarle quién eres cada vez.",
+        proof: "Memoria persistente · Cero re-onboarding",
+        testimonial: "Es como escribirle a una amiga que sabe de running.",
       },
       {
         icon: FaCalendarAlt,
-        headline: "2. Acompañamiento diario",
-        copy: "Ajustamos cargas con tu feedback para sostener constancia y motivación.",
-        proof: "Seguimiento por chat 24/7",
-        testimonial: "No entrenas solo en ningún momento.",
+        headline: "Un plan que se mueve contigo",
+        copy: "¿Mala noche, agujetas, viaje? El plan se reordena solo. Sin culpa y sin volver a empezar.",
+        proof: "Recálculo de carga diario",
+        testimonial: "La constancia importa más que la perfección.",
       },
       {
         icon: FaChartLine,
-        headline: "3. Llegas a tu meta",
-        copy: "Progresas con una ruta sostenible para terminar tu primera carrera con confianza.",
-        proof: "Progresión personalizada de inicio a meta",
-        testimonial: "Tu avance importa más que cualquier vanity metric.",
+        headline: "Una alarma antes de la lesión",
+        copy: "Detecta la sobrecarga antes de que te haga daño y baja el volumen automáticamente.",
+        proof: "Prevención de lesiones de fábrica",
+        testimonial: "Te frena a tiempo para que no tengas que parar.",
       },
     ],
   },
   en: {
-    sectionTitle: "How We Transform Your Journey",
-    sectionSubtitle: "We do not sell cold tech. We support you so you can finish your first race without training alone.",
+    sectionTitle: "What you actually get",
+    sectionSubtitle: "Three things you won't find in a PDF plan from Google or a cold app.",
     benefits: [
       {
         icon: FaWhatsapp,
-        headline: "1. Start today",
-        copy: "You text us on WhatsApp and get a clear plan based on your current level.",
-        proof: "Guided setup in minutes",
-        testimonial: "No download and no setup friction.",
+        headline: "A coach that remembers you",
+        copy: "Remembers Tuesday's run and adjusts Friday's. No re-explaining who you are every time.",
+        proof: "Persistent memory · Zero re-onboarding",
+        testimonial: "Like texting a friend who knows about running.",
       },
       {
         icon: FaCalendarAlt,
-        headline: "2. Daily support",
-        copy: "We adjust your load from your feedback so motivation and consistency stay high.",
-        proof: "24/7 chat follow-up",
-        testimonial: "You never train alone.",
+        headline: "A plan that moves with you",
+        copy: "Bad night, sore legs, travel? The plan reshuffles itself. No guilt, no starting over.",
+        proof: "Daily load recalculation",
+        testimonial: "Consistency matters more than perfection.",
       },
       {
         icon: FaChartLine,
-        headline: "3. Reach your goal",
-        copy: "Progress on a sustainable route to finish your first race with confidence.",
-        proof: "Personalized progression from day one",
-        testimonial: "Your progress matters more than vanity metrics.",
+        headline: "An alarm before injury",
+        copy: "Detects overload before it hurts you and dials the volume back automatically.",
+        proof: "Injury prevention built in",
+        testimonial: "It slows you down in time, so you never have to stop.",
       },
     ],
   },
@@ -209,9 +209,9 @@ export const indicatorsContent = {
     title: "El coach que cuida tu cuerpo semana a semana.",
     highlight: "Monitoreamos tu carga de entrenamiento cada semana. Si escala demasiado rápido, te avisamos y bajamos el volumen antes de que aparezca la lesión.",
     pillars: [
-      "Si reportas una molestia de 6/10 o más, el coach te escribe a las 48 horas para ver cómo sigues.",
-      "Calculamos tu índice de carga semanal (ACWR). Si sube de golpe, ajustamos ese mismo día.",
-      "El coach recuerda tus molestias pasadas y las considera en cada ajuste de plan.",
+      "¿Hoy te sentiste pesada? Mañana entrenas más suave. Así de simple.",
+      "Si vamos camino a la sobrecarga, frenamos antes — no después de la lesión.",
+      "Tu coach recuerda tus molestias pasadas y las tiene en cuenta en cada ajuste.",
     ],
     image: {
       src: "/coaching.avif",
@@ -230,9 +230,9 @@ export const indicatorsContent = {
     title: "The coach that watches your body week over week.",
     highlight: "We monitor your training load every week. If it spikes too fast, we warn you and cut volume before an injury shows up.",
     pillars: [
-      "Report an ache at 6/10 or above and the coach follows up 48 hours later, automatically.",
-      "We track your weekly load ratio (ACWR). If it jumps, we adjust your plan that same day.",
-      "The coach remembers your past aches and factors them into every plan adjustment.",
+      "Felt heavy today? Tomorrow's session gets easier. That simple.",
+      "Heading toward overload? We pull back before the injury — not after.",
+      "Your coach remembers past aches and factors them into every adjustment.",
     ],
     image: {
       src: "/coaching.avif",
@@ -478,6 +478,10 @@ export const faqContent = {
     sectionSubtitle: "Las preguntas que te harías antes de empezar",
     faqs: [
       {
+        question: "¿Tengo que ser rápida o estar en forma para empezar?",
+        answer: "No. Andes existe justo para lo contrario: para que empieces desde cero, a tu ritmo. Las quedadas del club son a ritmo de conversación y tu plan puede empezar con caminatas. Nadie te va a dejar atrás.",
+      },
+      {
         question: "¿Es realmente gratis? ¿Cuál es la trampa?",
         answer: "No hay trampa. Empiezas con 15 días de Premium completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Premium ($9.99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
@@ -512,6 +516,10 @@ export const faqContent = {
     sectionSubtitle: "The things you'd ask before getting started",
     faqs: [
       {
+        question: "Do I need to be fast or fit to start?",
+        answer: "No. Andes exists for exactly the opposite: to help you start from zero, at your pace. Club meetups run at conversation pace and your plan can start with walks. Nobody gets left behind.",
+      },
+      {
         question: "Is it really free? What's the catch?",
         answer: "No catch. You start with 15 days of full Premium free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Premium ($9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
@@ -545,13 +553,13 @@ export const faqContent = {
 
 export const ctaContent = {
   es: {
-    title: "Tu primer plan está a 60 segundos.",
+    title: "Tu primera carrera empieza con un mensaje.",
     subtitle: "Sin descargas. Sin tarjeta. Sin bloqueo. Solo abre WhatsApp.",
     buttonText: "Empezar Gratis por WhatsApp",
     secondaryLinkText: "Ver planes Premium →",
   },
   en: {
-    title: "Your first plan is 60 seconds away.",
+    title: "Your first race starts with a message.",
     subtitle: "No download. No card. No lockout. Just open WhatsApp.",
     buttonText: "Start Free on WhatsApp",
     secondaryLinkText: "See Premium plans →",
@@ -1243,5 +1251,43 @@ export const ambassadorsContent = {
       subtitle: "If you want more women to fall in love with running, that ambassador is you.",
       ctaText: "Apply on WhatsApp",
     },
+  },
+};
+
+// Club Section (home) — pivote club de experiencia Pamplona
+export const clubContent = {
+  es: {
+    preheading: "Más que una app",
+    title: "Un club que te espera en Pamplona",
+    description:
+      "Coffee runs, quedadas a ritmo de conversación y gente que también está empezando. La coach te acompaña entre semana; el club te espera el jueves.",
+    features: [
+      { title: "Quedadas los jueves", description: "Rutas suaves de 3–4 km con café al final, en espacios aliados de la ciudad." },
+      { title: "Cero juicio", description: "Ritmo de conversación. Nadie se queda atrás, nadie corre sola." },
+      { title: "Tu coach entre evento y evento", description: "La misma coach de WhatsApp sabe a qué quedada fuiste y qué toca después." },
+    ],
+    image: {
+      src: "/images/club/quedada.webp",
+      alt: "Grupo de corredoras charlando y sonriendo durante una quedada al amanecer",
+    },
+    ctaText: "Únete al club por WhatsApp",
+    ambassadorLinkText: "¿Quieres liderarlo? Hazte embajadora →",
+  },
+  en: {
+    preheading: "More than an app",
+    title: "A club waiting for you in Pamplona",
+    description:
+      "Coffee runs, conversation-pace meetups and people who are also just starting. Your coach walks with you during the week; the club waits for you on Thursday.",
+    features: [
+      { title: "Thursday meetups", description: "Easy 3–4 km routes ending in coffee, at partner spots around the city." },
+      { title: "Zero judgment", description: "Conversation pace. Nobody gets left behind, nobody runs alone." },
+      { title: "Your coach between events", description: "The same WhatsApp coach knows which meetup you joined and what comes next." },
+    ],
+    image: {
+      src: "/images/club/quedada.webp",
+      alt: "Group of women runners chatting and smiling during a sunrise meetup",
+    },
+    ctaText: "Join the club on WhatsApp",
+    ambassadorLinkText: "Want to lead it? Become an ambassador →",
   },
 };

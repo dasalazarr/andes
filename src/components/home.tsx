@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ArrowRight, Quote } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import HeroSection from "./HeroSection";
@@ -20,6 +21,7 @@ import { analytics, initializeAnalytics } from "../utils/analytics";
 import { startOnboarding, type OnboardingIntent, type OnboardingPlacement } from "../lib/onboarding";
 
 const BenefitsSection = lazy(() => import("./BenefitsSection"));
+const ClubSection = lazy(() => import("./ClubSection"));
 const PricingSection = lazy(() => import("./PricingSection"));
 const ImpactIndicatorsSection = lazy(() => import("./ImpactIndicatorsSection"));
 const HowItWorksSection = lazy(() => import("./HowItWorksSection"));
@@ -29,6 +31,7 @@ const SeoManager = lazy(() => import("./SeoManager"));
 
 const Home = () => {
   const { currentLanguage: language } = useLanguageDetection();
+  const location = useLocation();
   const [abVariant] = useState<"A" | "B">(() => (Math.random() > 0.5 ? "B" : "A"));
   const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0);
   const [activeCta, setActiveCta] = useState<string | null>(null);
@@ -38,6 +41,16 @@ const Home = () => {
       initializeAnalytics(language);
     }
   }, [language]);
+
+  // Header links from other pages arrive as /#section — resolve the hash after App's scroll reset.
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    const timer = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [location.hash]);
 
   useEffect(() => {
     initGA();
@@ -71,8 +84,12 @@ const Home = () => {
 
   const isLoading = (intent: OnboardingIntent, placement: OnboardingPlacement) => activeCta === `${placement}-${intent}`;
 
+  const scrollToClub = () => {
+    document.getElementById("club")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-black">
+    <div className="flex min-h-screen flex-col bg-surface">
       <main className="flex-grow pb-24 md:pb-0">
         <SeoManager lang={language} />
 
@@ -87,8 +104,8 @@ const Home = () => {
             limitNotice={heroContent[language].limitNotice}
             keyBenefits={heroContent[language].keyBenefits}
             onPrimaryClick={() => handleOnboardingStart("free", "hero")}
-            onSecondaryClick={() => handleOnboardingStart("premium", "hero")}
-            videoSrc={heroContent[language].videoSrc}
+            onSecondaryClick={scrollToClub}
+            imageSrc={heroContent[language].imageSrc}
             language={language}
             abVariant={abVariant}
           />
@@ -105,7 +122,18 @@ const Home = () => {
           </Suspense>
         </section>
 
-        {/* 3. How It Works — 3 easy steps */}
+        {/* 3. Club — la experiencia física (pivote Pamplona) */}
+        <section id="club" className="section-separator relative bg-surface py-16 md:py-24">
+          <Suspense fallback={<div className="p-12 text-center">Cargando club...</div>}>
+            <ClubSection
+              language={language}
+              onJoinClick={() => handleOnboardingStart("free", "mid")}
+              isLoading={isLoading("free", "mid")}
+            />
+          </Suspense>
+        </section>
+
+        {/* 4. How It Works — 3 easy steps */}
         <section id="how-it-works">
           <Suspense fallback={<div className="p-12 text-center">Cargando pasos...</div>}>
             <HowItWorksSection
@@ -117,7 +145,7 @@ const Home = () => {
         </section>
 
         {/* 4. Benefits — Each benefit with concrete proof */}
-        <section id="benefits" className="bg-black py-10 text-gray-200 md:py-16">
+        <section id="benefits" className="bg-surface py-16 text-gray-200 md:py-24">
           <div className="container relative z-0 mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando transformación...</div>}>
               <BenefitsSection
@@ -130,7 +158,7 @@ const Home = () => {
         </section>
 
         {/* 5. Impact Indicators — Safety & sustainable progress */}
-        <section className="section-separator relative bg-black py-10 md:py-16">
+        <section className="section-separator relative bg-surface py-16 md:py-24">
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando seguridad...</div>}>
               <ImpactIndicatorsSection
@@ -140,16 +168,17 @@ const Home = () => {
                 pillars={indicatorsContent[language].pillars}
                 image={indicatorsContent[language].image}
                 stats={indicatorsContent[language].stats}
+                statsDisclaimer={indicatorsContent[language].statsDisclaimer}
               />
             </Suspense>
           </div>
         </section>
 
         {/* 6. Testimonials — Social proof (labeled as beta) */}
-        <section id="reviews" className="section-separator relative bg-black py-12 md:py-16">
+        <section id="reviews" className="section-separator relative bg-surface py-16 md:py-24">
           <div className="container mx-auto px-4">
             <AnimatedSection className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
-              <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">{testimonialsContent[language].sectionTitle}</h2>
+              <h2 className="mb-3 font-display text-3xl font-medium text-cream md:text-4xl">{testimonialsContent[language].sectionTitle}</h2>
               <p className="text-sm text-gray-400 md:text-lg">
                 {testimonialsContent[language].sectionDisclaimer}
               </p>
@@ -162,40 +191,36 @@ const Home = () => {
                   </div>
 
                   <div className="relative z-10">
-                    <div className="mb-5 flex justify-center gap-1 text-lg text-[#27e97c] md:text-xl" aria-hidden>
+                    <div className="mb-5 flex justify-center gap-1 text-lg text-brand md:text-xl" aria-hidden>
                       {Array.from({ length: 5 }).map((_, idx) => (
-                        <span key={idx} className="drop-shadow-[0_0_8px_rgba(39,233,124,0.4)]">★</span>
+                        <span key={idx}>★</span>
                       ))}
                     </div>
-                    <blockquote className="text-lg font-bold leading-snug text-white md:text-2xl lg:text-3xl">
+                    <blockquote className="font-display text-lg font-medium leading-snug text-cream md:text-2xl lg:text-3xl">
                       "{testimonialsContent[language].testimonials[activeTestimonialIndex].quote}"
                     </blockquote>
-                    <div className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-[#27e97c] md:text-sm">
+                    <div className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-brand md:text-sm">
                       {testimonialsContent[language].testimonials[activeTestimonialIndex].result}
                     </div>
-                    <div className="mt-3 text-base font-semibold text-white md:text-lg">
+                    <div className="mt-3 text-base font-semibold text-cream md:text-lg">
                       {testimonialsContent[language].testimonials[activeTestimonialIndex].author}
                     </div>
                     <div className="text-sm text-gray-400">
                       {testimonialsContent[language].testimonials[activeTestimonialIndex].detail}
                     </div>
-                    <div className="mt-7 flex flex-wrap justify-center gap-3 md:mt-8">
+                    <div className="mt-7 flex justify-center gap-2.5 md:mt-8" role="tablist" aria-label={language === "es" ? "Testimonios" : "Testimonials"}>
                       {testimonialsContent[language].testimonials.map((testimonial, index) => (
                         <button
                           key={testimonial.author}
                           type="button"
+                          role="tab"
+                          aria-selected={index === activeTestimonialIndex}
                           onClick={() => setActiveTestimonialIndex(index)}
-                          className={`relative h-12 w-12 rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#27e97c] md:h-14 md:w-14 ${
-                            index === activeTestimonialIndex
-                              ? "scale-110 border-[#27e97c] shadow-[0_0_20px_rgba(39,233,124,0.45)]"
-                              : "border-white/10 hover:border-[#27e97c]/60"
+                          className={`h-3 w-3 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
+                            index === activeTestimonialIndex ? "w-7 bg-brand" : "bg-white/20 hover:bg-white/40"
                           }`}
-                          aria-label={`${testimonial.author} testimonial`}
-                        >
-                          <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#006b5b] to-[#25d366] text-sm font-bold text-white md:text-base">
-                            {testimonial.author.charAt(0)}
-                          </span>
-                        </button>
+                          aria-label={`${language === "es" ? "Testimonio" : "Testimonial"} ${index + 1} ${language === "es" ? "de" : "of"} ${testimonialsContent[language].testimonials.length}: ${testimonial.author}`}
+                        />
                       ))}
                     </div>
                   </div>
@@ -206,7 +231,7 @@ const Home = () => {
         </section>
 
         {/* 7. Pricing — Moved after demonstrating value */}
-        <section id="pricing" className="section-separator bg-black py-12 text-gray-100 md:py-16">
+        <section id="pricing" className="section-separator bg-surface py-16 text-gray-100 md:py-24">
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando planes...</div>}>
               <PricingSection
@@ -243,12 +268,12 @@ const Home = () => {
               className="h-full w-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/65 to-black/75" />
+            <div className="absolute inset-0 bg-gradient-to-r from-surface/85 via-surface/75 to-surface/85" />
           </div>
           <div className="relative">
             <div className="container mx-auto px-4">
-              <AnimatedSection className="glass-card-premium mx-auto max-w-3xl rounded-[28px] px-6 py-8 text-center text-white md:px-10 md:py-10">
-                <h2 className="text-3xl font-bold leading-tight md:text-4xl">
+              <AnimatedSection className="glass-card-premium mx-auto max-w-3xl rounded-[28px] px-6 py-8 text-center text-cream md:px-10 md:py-10">
+                <h2 className="font-display text-3xl font-medium leading-tight md:text-4xl">
                   {ctaContent[language].title}
                 </h2>
                 <p className="mt-3 text-sm text-gray-300 md:text-base">
@@ -259,7 +284,7 @@ const Home = () => {
                     type="button"
                     onClick={() => handleOnboardingStart("free", "footer")}
                     disabled={Boolean(activeCta)}
-                    className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#25d366] px-7 py-3 text-sm font-semibold text-black shadow-[0_18px_35px_rgba(37,211,102,0.35)] transition hover:bg-[#1fc869]"
+                    className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-7 py-3 text-sm font-semibold text-black shadow-[0_10px_28px_rgba(37,211,102,0.25)] transition hover:brightness-110"
                   >
                     <FaWhatsapp className="h-5 w-5" aria-hidden="true" />
                     <span>
@@ -274,7 +299,7 @@ const Home = () => {
                     type="button"
                     onClick={() => handleOnboardingStart("premium", "footer")}
                     disabled={Boolean(activeCta)}
-                    className="text-sm font-medium text-white/70 underline-offset-4 transition hover:text-[#27e97c] hover:underline disabled:opacity-60"
+                    className="text-sm font-medium text-white/70 underline-offset-4 transition hover:text-brand hover:underline disabled:opacity-60"
                   >
                     {isLoading("premium", "footer")
                       ? language === "es"
@@ -295,7 +320,7 @@ const Home = () => {
             type="button"
             onClick={() => handleOnboardingStart("free", "sticky")}
             disabled={Boolean(activeCta)}
-            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#27e97c] px-4 py-3 text-sm font-semibold text-black"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-whatsapp px-4 py-3 text-sm font-semibold text-black"
           >
             {isLoading("free", "sticky")
               ? language === "es"

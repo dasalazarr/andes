@@ -17,7 +17,23 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        // Sistema "oscuro orgánico" (rediseño 2026-07). Reglas:
+        // - `brand` para texto/íconos/bordes de marca; `whatsapp` SOLO en botones de conversión.
+        surface: {
+          DEFAULT: '#0A0F0C',
+          elevated: '#111813',
+        },
+        brand: {
+          DEFAULT: '#34D399',
+          deep: '#006b5b',
+        },
+        whatsapp: '#25d366',
+        cream: '#F5F1E8',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -112,20 +128,6 @@ module.exports = {
           },
         },
       }),
-      colors: {
-        // Colores existentes...
-        // Paleta Andes: Verde base y resalte
-        'andes-green': '#006b5b', // Base
-        'andes-green-highlight': '#25d366', // Resalte electrizante
-        'andes-green-dark': '#005144', // Sombra/hover oscuro
-        'andes-green-light': '#25d366', // Para gradientes y hover
-        // Gradientes Andes
-        'andes-gradient-start': '#006b5b',
-        'andes-gradient-end': '#25d366',
-        // Sombra electrizante
-        'andes-shadow': 'rgba(37, 211, 102, 0.35)',
-        'solar-yellow': '#FFC700', // Accent color
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

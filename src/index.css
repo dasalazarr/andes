@@ -82,6 +82,24 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Accessibility: honor reduced motion globally (framer/GSAP inline animations included) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -133,15 +151,15 @@
   transform: translateX(-50%);
   width: 100px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(39, 233, 124, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.25), transparent);
 }
 
-/* Subtle texture overlay for visual interest while maintaining black background */
+/* Subtle texture overlay for visual interest on the organic dark surface */
 .black-texture {
   background:
-    radial-gradient(circle at 25% 25%, rgba(39, 233, 124, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(39, 233, 124, 0.02) 0%, transparent 50%),
-    #000000;
+    radial-gradient(circle at 25% 25%, rgba(52, 211, 153, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 107, 91, 0.05) 0%, transparent 50%),
+    #0A0F0C;
 }
 
 /* GRIT Stories hover animations */
@@ -185,12 +203,18 @@
 
   .glass-card-premium {
     background:
-      linear-gradient(140deg, rgba(12, 14, 18, 0.78), rgba(11, 28, 21, 0.66)),
-      radial-gradient(circle at top right, rgba(39, 233, 124, 0.18), transparent 50%);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+      linear-gradient(140deg, rgba(17, 24, 19, 0.85), rgba(10, 20, 15, 0.75)),
+      radial-gradient(circle at top right, rgba(52, 211, 153, 0.10), transparent 55%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
-      0 12px 38px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(20px);
+      0 12px 38px rgba(0, 0, 0, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Organic dark cards for the experience-club system */
+  .club-card {
+    @apply rounded-3xl border bg-surface-elevated;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 }
