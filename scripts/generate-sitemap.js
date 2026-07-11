@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = 'https://andesrunners.com';
+const BASE_URL = 'https://andesrc.com';
 const CONTENT_DIR = path.resolve(__dirname, '..', 'content', 'blog');
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 

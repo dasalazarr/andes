@@ -126,7 +126,7 @@ Lee más: [Link]
 ## Output
 
 A published, indexed, and promoted article with:
-1. Live URL on andesrunners.com
+1. Live URL on andesrc.com
 2. GSC indexing requested
 3. Social promotion initiated
 4. Performance tracking enabled

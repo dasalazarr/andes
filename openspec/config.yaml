@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Landing/funnel de Andes (andesrc.com): React 18 + TypeScript + Vite + Tailwind + Radix, Framer Motion/GSAP, bilingüe ES/EN (dos builds).
+  Objetivo único: convertir visitantes en conversación de WhatsApp (POST /onboarding/start -> wa.me). Ver spec onboarding-funnel.
+  Copy centralizado en src/data/content.tsx; CTAs vía src/lib/onboarding.ts; analytics en src/lib/analytics.ts; imports con alias @/.
+  Contexto de negocio 2026-07: pivote a club de experiencia wellness en Pamplona, ICP mujer principiante — ver docs/prd-experience-club-pamplona-2026-07.md.
+  Antes de PR: npm run lint, type-check y test deben pasar. No editar dist/.
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours

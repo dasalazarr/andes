@@ -23,7 +23,7 @@ interface BlogSeoListProps extends BlogSeoBaseProps {
 
 type BlogSeoProps = BlogSeoPostProps | BlogSeoListProps;
 
-const BASE_URL = 'https://andesrunners.com';
+const BASE_URL = 'https://andesrc.com';
 
 const BlogSeo: React.FC<BlogSeoProps> = (props) => {
   const {

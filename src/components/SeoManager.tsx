@@ -7,7 +7,7 @@ interface SeoManagerProps {
 }
 
 const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
-  const baseUrl = 'https://andesrunners.com'; // Reemplaza con tu dominio real
+  const baseUrl = 'https://andesrc.com';
 
   const enUrl = `${baseUrl}/`;
   const esUrl = `${baseUrl}/es/`;
@@ -84,8 +84,8 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
           "url": baseUrl,
           "logo": `${baseUrl}/images/logo.svg`,
           "sameAs": [
-            "https://instagram.com/andesrunners",
-            "https://facebook.com/andesrunners"
+            "https://instagram.com/andescoach",
+            "https://tiktok.com/@andesrc"
           ],
           "contactPoint": {
             "@type": "ContactPoint",

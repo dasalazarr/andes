@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import LegalPageLayout from '@/components/legal/LegalPageLayout';
 
-const contactEmail = 'support@andesrunners.com';
+const contactEmail = 'support@andesrc.com';
 
 const PrivacyPolicy: React.FC = () => {
   const { pathname } = useLocation();

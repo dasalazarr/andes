@@ -62,7 +62,7 @@ hreflang:
   "provider": {
     "@type": "Organization",
     "name": "AndesRC",
-    "url": "https://andesrunners.com"
+    "url": "https://andesrc.com"
   }
 }
 ```

@@ -37,7 +37,7 @@ geoTarget: ["Mexico City", "CDMX"]
   "provider": {
     "@type": "Organization",
     "name": "AndesRC",
-    "url": "https://andesrunners.com"
+    "url": "https://andesrc.com"
   }
 }
 </script>
