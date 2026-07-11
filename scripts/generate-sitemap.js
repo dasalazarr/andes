@@ -79,6 +79,8 @@ function main() {
   const urls = new Map();
   urls.set('/blog', { lastmod: null });
   urls.set('/es/blog', { lastmod: null });
+  urls.set('/embajadores', { lastmod: null });
+  urls.set('/es/embajadores', { lastmod: null });
 
   for (const file of files) {
     const raw = fs.readFileSync(file, 'utf-8');

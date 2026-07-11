@@ -1105,3 +1105,143 @@ export const trainingPlans = [
     isUnderConstruction: true,
   },
 ];
+
+// Ambassadors Page (/embajadores) — pivote club de experiencia Pamplona
+export const ambassadorsContent = {
+  es: {
+    seo: {
+      title: "Embajadoras Andes — Lidera el club de running de tu ciudad",
+      description:
+        "Buscamos embajadoras en Pamplona que quieran que más mujeres se enamoren de correr. Premium gratis, eventos y comunidad. Aplica en 1 minuto por WhatsApp.",
+    },
+    hero: {
+      preheading: "Programa de embajadoras · Pamplona",
+      headlineLead: "Corre con nosotras.",
+      headlineAccent: "Lidera tu ciudad.",
+      description:
+        "Andes es el club que ayuda a mujeres a enamorarse de correr: quedadas, coffee runs y una coach por WhatsApp que te acompaña entre evento y evento. Buscamos a las primeras 5 embajadoras fundadoras de Pamplona.",
+      ctaText: "Quiero ser embajadora",
+      ctaNote: "Aplicas por WhatsApp · Respuesta en 24h",
+    },
+    whatIs: {
+      title: "Qué hace una embajadora",
+      items: [
+        {
+          title: "Co-organiza las quedadas",
+          description: "Coffee runs y carreras suaves los jueves, con cafés y espacios aliados de Pamplona. Nosotros ponemos la logística; tú, la energía.",
+        },
+        {
+          title: "Es el rostro local del club",
+          description: "Recibe a las que llegan por primera vez y haz que nadie corra sola. Tu historia inspira a las que aún no se atreven.",
+        },
+        {
+          title: "Crea contenido con apoyo",
+          description: "Reels y fotos de los eventos con el kit y las ideas que te damos. Tú eliges cuánto y cómo.",
+        },
+      ],
+    },
+    benefits: {
+      title: "Lo que recibes",
+      items: [
+        { title: "Premium gratis", description: "Coach completo por WhatsApp mientras seas embajadora." },
+        { title: "Eventos con +1", description: "Acceso prioritario a todas las quedadas y experiencias, con invitación para una amiga." },
+        { title: "Visibilidad", description: "Presencia en las redes de Andes y co-creación de contenido con el club." },
+        { title: "Programa de referidas", description: "Próximamente: recompensas por cada corredora que se una gracias a ti." },
+      ],
+    },
+    howItWorks: {
+      title: "Cómo funciona",
+      steps: [
+        { title: "Aplica por WhatsApp", description: "Un mensaje. Sin formularios eternos." },
+        { title: "Charla de 15 minutos", description: "Nos conocemos y te contamos el plan de Pamplona." },
+        { title: "Tu primera quedada", description: "Co-organizas tu primer evento con todo nuestro apoyo." },
+      ],
+    },
+    socialProof: {
+      title: "Sé fundadora",
+      description:
+        "El club está naciendo en Pamplona. Las primeras 5 embajadoras definen la cultura: accesible, aspiracional y de cero juicio. Ese lugar en la historia no se repite.",
+    },
+    faq: {
+      title: "Preguntas rápidas",
+      items: [
+        {
+          question: "¿Necesito ser rápida o experta?",
+          answer: "No. Necesitas haber pasado por empezar. Si sabes lo que cuesta el primer kilómetro, sabes acompañar a otra que lo está viviendo.",
+        },
+        {
+          question: "¿Cuánto tiempo requiere?",
+          answer: "Unas 2 horas por semana: la quedada y un poco de contenido. Tú marcas el ritmo.",
+        },
+        {
+          question: "¿Me pagan?",
+          answer: "Hoy: Premium gratis, eventos y visibilidad. Pronto: programa de referidas con recompensas por cada corredora que traigas.",
+        },
+      ],
+    },
+    finalCta: {
+      title: "Pamplona está a una embajadora de distancia.",
+      subtitle: "Si quieres que más mujeres se enamoren de correr, esa embajadora eres tú.",
+      ctaText: "Aplicar por WhatsApp",
+    },
+  },
+  en: {
+    seo: {
+      title: "Andes Ambassadors — Lead your city's running club",
+      description:
+        "We're looking for ambassadors who want more women to fall in love with running. Free Premium, events and community. Apply in 1 minute on WhatsApp.",
+    },
+    hero: {
+      preheading: "Ambassador program · Pamplona",
+      headlineLead: "Run with us.",
+      headlineAccent: "Lead your city.",
+      description:
+        "Andes is the club helping women fall in love with running: meetups, coffee runs and a WhatsApp coach between events. We're looking for our first 5 founding ambassadors in Pamplona.",
+      ctaText: "I want to be an ambassador",
+      ctaNote: "Apply on WhatsApp · Reply within 24h",
+    },
+    whatIs: {
+      title: "What an ambassador does",
+      items: [
+        { title: "Co-hosts the meetups", description: "Coffee runs and easy-pace Thursday runs with partner cafés. We bring the logistics; you bring the energy." },
+        { title: "Is the club's local face", description: "Welcome first-timers so nobody runs alone. Your story inspires those who haven't dared yet." },
+        { title: "Creates content with support", description: "Reels and photos from events, with our kit and ideas. You choose how much and how." },
+      ],
+    },
+    benefits: {
+      title: "What you get",
+      items: [
+        { title: "Free Premium", description: "Full WhatsApp coach while you're an ambassador." },
+        { title: "Events with a +1", description: "Priority access to every meetup and experience, with an invite for a friend." },
+        { title: "Visibility", description: "Presence on Andes channels and content co-created with the club." },
+        { title: "Referral program", description: "Coming soon: rewards for every runner who joins thanks to you." },
+      ],
+    },
+    howItWorks: {
+      title: "How it works",
+      steps: [
+        { title: "Apply on WhatsApp", description: "One message. No endless forms." },
+        { title: "15-minute chat", description: "We meet and share the Pamplona plan." },
+        { title: "Your first meetup", description: "Co-host your first event with our full support." },
+      ],
+    },
+    socialProof: {
+      title: "Be a founder",
+      description:
+        "The club is being born in Pamplona. The first 5 ambassadors define its culture: accessible, aspirational, zero judgment. That place in the story doesn't repeat.",
+    },
+    faq: {
+      title: "Quick questions",
+      items: [
+        { question: "Do I need to be fast or experienced?", answer: "No. You need to have gone through starting. If you know what the first kilometer costs, you know how to support someone living it." },
+        { question: "How much time does it take?", answer: "About 2 hours a week: the meetup plus some content. You set the pace." },
+        { question: "Do I get paid?", answer: "Today: free Premium, events and visibility. Soon: a referral program with rewards for every runner you bring." },
+      ],
+    },
+    finalCta: {
+      title: "Pamplona is one ambassador away.",
+      subtitle: "If you want more women to fall in love with running, that ambassador is you.",
+      ctaText: "Apply on WhatsApp",
+    },
+  },
+};

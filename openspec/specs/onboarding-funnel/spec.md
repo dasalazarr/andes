@@ -8,11 +8,27 @@ El objetivo único de la landing es convertir visitantes en conversaciones de Wh
 
 ### Requirement: Todo CTA pasa por el flujo unificado
 
-Todo CTA de conversión SHALL usar `startOnboarding(intent)` de `src/lib/onboarding.ts` (que llama `POST /onboarding/start`). Prohibidos los links `wa.me/` ad-hoc — pierden routing y analytics.
+Todo CTA de conversión SHALL usar `startOnboarding({ intent, language, placement, source? })` de `src/lib/onboarding.ts` (que llama `POST /onboarding/start`). Los intents válidos son `free`, `premium` y `ambassador`. Prohibidos los links `wa.me/` ad-hoc — pierden routing y analytics.
 
 #### Scenario: Nuevo CTA añadido
 - **WHEN** se agrega un botón/CTA de conversión en cualquier sección
-- **THEN** dispara `startOnboarding('free' | 'premium')` vía onClick (no `href` a anclas) y emite su evento en `src/lib/analytics.ts`
+- **THEN** dispara `startOnboarding` con un intent válido vía onClick (no `href` a anclas) y emite su evento de analytics
+
+### Requirement: Página de embajadoras
+
+La landing SHALL exponer las rutas `/embajadores` y `/es/embajadores` (ambas en español) con: hero aspiracional, rol de embajadora, beneficios, proceso en 3 pasos, bloque de fundadoras y FAQ. Copy en `ambassadorsContent` dentro de `src/data/content.tsx`; página en `src/components/AmbassadorsPage.tsx`; rutas incluidas en el sitemap.
+
+#### Scenario: Visitante abre /embajadores
+- **WHEN** una visitante navega a `/embajadores`
+- **THEN** ve la página en español con SEO propio (title/canonical vía Helmet) y CTAs que disparan `startOnboarding('ambassador')`
+
+### Requirement: Atribución de origen en CTAs
+
+`startOnboarding` SHALL capturar un `source` opcional (`?source=` en la URL, patrón `[a-zA-Z0-9:_-]{1,64}`, persistido en sessionStorage) y enviarlo en el body de `POST /onboarding/start` para que el backend lo codifique en el deep link.
+
+#### Scenario: QR de evento
+- **WHEN** una asistente llega desde un QR con `?source=event:pamplona-jul23` y pulsa cualquier CTA
+- **THEN** el request a `/onboarding/start` incluye ese `source` aunque haya navegado entre páginas antes de pulsar
 
 ### Requirement: Copy alineado con la política freemium del backend
 

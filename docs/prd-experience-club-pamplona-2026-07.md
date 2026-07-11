@@ -32,7 +32,7 @@ El producto **ya tiene** la mecánica de "enamórate de correr en dos semanas": 
 
 Siendo directo, como pediste:
 
-1. ~~La landing está caída~~ **[RESUELTO 11-jul]**: la landing volvió a estar en línea bajo el dominio nuevo **`andesrc.com`** (Netlify). El dominio viejo `andesrunners.com` quedó muerto — decisión pendiente: dejarlo morir o renovarlo solo para redirigir 301 (SEO residual). **Nuevo P0 (11-jul)**: Neon Postgres agotó su cuota de compute y está suspendido — la DB de producción está caída; migración a Railway Postgres en curso (ver `v3/v3/docs` y runbook de migración). Sin DB no hay coach funcional para el piloto.
+1. ~~La landing está caída~~ **[RESUELTO 11-jul]**: la landing volvió a estar en línea bajo el dominio nuevo **`andesrc.com`** (Netlify). `andesrunners.com` era una referencia residual en el código, nunca fue dominio propio — referencias limpiadas el 11-jul. **[RESUELTO 11-jul]** el segundo P0 del día: Neon Postgres agotó su cuota y suspendió la DB de producción; se migró a Railway Postgres el mismo día (runbook: `v3/v3/docs/13-neon-to-railway-migration.md`) y se endureció el arranque contra caídas de Qdrant. Infra estable para el piloto.
 
 2. **La landing actual contradice el nuevo posicionamiento en un 180°.** Headline "Finish your first marathon injury-free", foto de hombre corriendo, estética dark/técnica, KPIs (NPS 72, ACWR), inglés por defecto. Todo grita "rendimiento, hombre, maratón". El nuevo ICP es mujer, principiante, social, aspiracional. **Pero**: no hagas un rebrand completo antes del piloto. Cambia solo lo que el tráfico del piloto va a ver (copy ES, hero, `/embajadores`) y valida con datos reales antes de rehacer el sitio entero. El rebrand total es una decisión post-piloto.
 
@@ -225,9 +225,9 @@ Requiere: códigos por embajadora (cubierto por B1), atribución de conversión 
 ## 6. Plan de trabajo semana a semana
 
 **Semana 0 (11–13 jul) — P0, nada más importa**
-- [x] Landing en línea — resuelto migrando al dominio `andesrc.com` (validado 11-jul: apex 200, www→301, hooks arriba).
-- [ ] **Migrar la DB de Neon (suspendida por cuota) a Railway Postgres** — sin esto no hay coach. Requiere upgrade temporal de Neon para poder hacer el dump.
-- [ ] Decidir destino de `andesrunners.com` (redirect 301 vs. dejarlo morir).
+- [x] Landing en línea en `andesrc.com` (validado 11-jul: apex 200, www→301, hooks arriba).
+- [x] DB migrada de Neon (suspendida por cuota) a Railway Postgres — 17/17 tablas verificadas, desplegado y healthy el 11-jul; proyecto Neon borrado.
+- [x] Boot del backend endurecido contra Qdrant caído (desplegado 11-jul).
 - [ ] Fix bug CTAs pricing + ícono WhatsApp (2h, F3).
 - [ ] Contactar micro-influencer y 2 cafés candidatos (el 23-jul está a 12 días; los partners se cierran esta semana o no hay piloto).
 - [ ] Consultar permisos: Ayuntamiento de Pamplona (ocupación de vía pública para quedada de ~30 personas) + presupuesto de seguro RC de un día.

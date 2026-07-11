@@ -9,6 +9,7 @@ import SiteFooter from "./components/layout/SiteFooter";
 import routes from "tempo-routes";
 import PrivacyPolicy from "@/components/legal/PrivacyPolicy";
 import TermsOfService from "@/components/legal/TermsOfService";
+import AmbassadorsPage from "@/components/AmbassadorsPage";
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,9 @@ function App() {
             <Route path="/es/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/es/blog/:slug" element={<BlogPost />} />
+            {/* Ambassadors (Pamplona experience club) */}
+            <Route path="/embajadores" element={<AmbassadorsPage />} />
+            <Route path="/es/embajadores" element={<AmbassadorsPage />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/es/privacy" element={<PrivacyPolicy />} />
