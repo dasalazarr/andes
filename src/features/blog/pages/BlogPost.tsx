@@ -191,7 +191,7 @@ const BlogPost: React.FC = () => {
       <BlogSeo
         type="post"
         lang={meta.lang}
-        title={`${title} • Andes Runners`}
+        title={`${title} • Andes`}
         description={meta.description}
         canonicalPath={(meta.lang === 'es' ? '/es/blog/' : '/blog/') + meta.slug}
         alternatePath={altPath}

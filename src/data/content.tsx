@@ -218,12 +218,12 @@ export const indicatorsContent = {
       alt: "Entrenador conversando con una corredora durante una sesión al aire libre",
     },
     stats: [
-      { value: "72", label: "NPS (beta)" },
-      { value: "64%", label: "Completa su primer plan" },
-      { value: "60", label: "Segundos para tu primer plan" },
-      { value: "24/7", label: "Disponibilidad del coach" },
+      { value: "15 días", label: "De Premium gratis al empezar" },
+      { value: "60 seg", label: "Para tu primer plan" },
+      { value: "24/7", label: "Tu coach siempre disponible" },
+      { value: "0€", label: "Para empezar, sin tarjeta" },
     ],
-    statsDisclaimer: "Datos de nuestros primeros usuarios beta.",
+    statsDisclaimer: "",
   },
   en: {
     preheading: "Prevention, not reaction",
@@ -239,12 +239,12 @@ export const indicatorsContent = {
       alt: "Coach guiding a runner during an outdoor session",
     },
     stats: [
-      { value: "72", label: "NPS (beta)" },
-      { value: "64%", label: "First plan completion" },
-      { value: "60", label: "Seconds to your first plan" },
-      { value: "24/7", label: "Coach availability" },
+      { value: "15 days", label: "Of full Premium when you start" },
+      { value: "60 sec", label: "To your first plan" },
+      { value: "24/7", label: "Your coach, always available" },
+      { value: "$0", label: "To start, no card needed" },
     ],
-    statsDisclaimer: "Based on our first beta users.",
+    statsDisclaimer: "",
   },
 };
 
@@ -254,22 +254,22 @@ export const testimonialsContent = {
     sectionDisclaimer: "Historias representativas basadas en experiencias de nuestros primeros usuarios beta.",
     testimonials: [
       {
-        quote: "Completé mi primera maratón en 4:15. El plan se adaptó a mi horario de oficina y el coach me avisaba cuando estaba forzando de más.",
-        author: "Ana P.",
-        detail: "Ciudad de México · Beta tester",
-        result: "42.2km en 4:15",
-      },
-      {
-        quote: "Mejoré mi 10K de 52 a 45 minutos en 3 meses. Lo que más me sirvió fue que ajustaba el plan cuando me sentía cansado.",
-        author: "Carlos L.",
-        detail: "Santiago de Chile · Beta tester",
-        result: "-7 min en 3 meses",
-      },
-      {
-        quote: "Empecé sin saber nada de correr y ahora hago 5K sin parar. Es como WhatsAppear con un amigo que sabe de running.",
+        quote: "Empecé sin saber nada de correr y ahora hago 5K sin parar. Es como WhatsAppear con una amiga que sabe de running.",
         author: "Sofía G.",
         detail: "Bogotá · Beta tester",
-        result: "0 a 5K en 8 semanas",
+        result: "De 0 a 5K en 8 semanas",
+      },
+      {
+        quote: "Siempre pensé que correr no era para mí. Empezamos caminando y corriendo por minutos, y a la tercera semana ya esperaba con ganas el siguiente entreno.",
+        author: "Ana P.",
+        detail: "Ciudad de México · Beta tester",
+        result: "3 salidas por semana, sin agujetas eternas",
+      },
+      {
+        quote: "Volví a correr después de años parada. Cuando aparecieron molestias en la rodilla, el plan frenó solo — esta vez no me rompí.",
+        author: "Carla L.",
+        detail: "Santiago de Chile · Beta tester",
+        result: "12 semanas corriendo, cero lesiones",
       },
     ],
   },
@@ -278,22 +278,22 @@ export const testimonialsContent = {
     sectionDisclaimer: "Representative stories based on early beta user experiences.",
     testimonials: [
       {
-        quote: "I finished my first marathon in 4:15. The plan adapted to my office schedule and the coach warned me when I was pushing too hard.",
-        author: "Ana P.",
-        detail: "Mexico City · Beta tester",
-        result: "42.2km in 4:15",
-      },
-      {
-        quote: "I improved my 10K from 52 to 45 minutes in 3 months. What helped most was the plan adjusting when I felt tired.",
-        author: "Carlos L.",
-        detail: "Santiago, Chile · Beta tester",
-        result: "-7 min in 3 months",
-      },
-      {
         quote: "I started knowing nothing about running and now I do 5K without stopping. It's like texting a friend who knows about running.",
         author: "Sofia G.",
         detail: "Bogotá · Beta tester",
-        result: "0 to 5K in 8 weeks",
+        result: "From 0 to 5K in 8 weeks",
+      },
+      {
+        quote: "I always thought running wasn't for me. We started with walk-run minutes, and by week three I was looking forward to the next session.",
+        author: "Ana P.",
+        detail: "Mexico City · Beta tester",
+        result: "3 runs a week, no endless soreness",
+      },
+      {
+        quote: "I came back to running after years off. When my knee started complaining, the plan eased up on its own — this time I didn't break.",
+        author: "Carla L.",
+        detail: "Santiago, Chile · Beta tester",
+        result: "12 weeks running, zero injuries",
       },
     ],
   },
@@ -576,52 +576,6 @@ export const freePlansSectionContent = {
     sectionSubtitle: "Training plans to take your running to the next level, completely free.",
   },
 };
-
-// Existing testimonialsContent will be replaced by gritStoriesContent
-/*
-export const testimonialsContent = {
-  es: {
-    sectionTitle: "Lo Que Dicen Nuestros Corredores",
-    testimonials: [
-      {
-        quote: "¡Gracias a Andes Runners, completé mi primera maratón! El plan fue perfecto y la comunidad increíble.",
-        author: "Ana Pérez",
-        detail: "Corredora de Maratón, Ciudad de México",
-      },
-      {
-        quote: "Mejoré mi tiempo en 10K significativamente. Los consejos de nutrición y entrenamiento fueron clave.",
-        author: "Carlos López",
-        detail: "Corredor de 10K, Santiago de Chile",
-      },
-      {
-        quote: "Empecé desde cero y ahora corro 5K sin problemas. ¡Totalmente recomendado!",
-        author: "Sofía Gómez",
-        detail: "Principiante Feliz, Bogotá",
-      },
-    ],
-  },
-  en: {
-    sectionTitle: "What Our Runners Say",
-    testimonials: [
-      {
-        quote: "Thanks to Andes Runners, I completed my first marathon! The plan was perfect and the community was incredible.",
-        author: "Ana Perez",
-        detail: "Marathon Runner, Mexico City",
-      },
-      {
-        quote: "I significantly improved my 10K time. The nutrition and training tips were key.",
-        author: "Carlos Lopez",
-        detail: "10K Runner, Santiago, Chile",
-      },
-      {
-        quote: "I started from scratch and now I run 5K without any problems. Totally recommended!",
-        author: "Sofia Gomez",
-        detail: "Happy Beginner, Bogota",
-      },
-    ],
-  },
-};
-*/
 
 // Articles Section Content
 interface ArticlesSectionText {

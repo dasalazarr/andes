@@ -11,7 +11,7 @@ const categories = [
 
 const SiteFooter: React.FC = () => {
   const { pathname } = useLocation();
-  const isEs = pathname.startsWith('/es');
+  const isEs = pathname.startsWith('/es') || pathname.startsWith('/embajadores');
   const base = isEs ? '/es/blog' : '/blog';
   const legalBase = isEs ? '/es' : '';
   const privacyPath = `${legalBase}/privacy`;
@@ -33,7 +33,7 @@ const SiteFooter: React.FC = () => {
                 ? 'El club que te enamora de correr. Quedadas en Pamplona y una coach en WhatsApp.'
                 : 'The club that makes you fall in love with running. Pamplona meetups and a WhatsApp coach.'}
             </p>
-            <p className="mt-3 text-xs text-gray-500">© {new Date().getFullYear()} Andes Runners</p>
+            <p className="mt-3 text-xs text-gray-400">© {new Date().getFullYear()} Andes</p>
           </div>
           <nav className="grid grid-cols-2 gap-2 text-sm">
             <Link className="text-gray-300 hover:text-brand" to={isEs ? '/es/embajadores' : '/embajadores'}>
@@ -60,7 +60,7 @@ const SiteFooter: React.FC = () => {
               {termsLabel}
             </Link>
           </div>
-          <p className="text-xs text-gray-500">{disclosureText}</p>
+          <p className="text-xs text-gray-400">{disclosureText}</p>
         </div>
       </div>
     </footer>

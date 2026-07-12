@@ -40,7 +40,7 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
       <title>{content.title}</title>
       <meta name="description" content={content.description} />
       <meta name="keywords" content={content.keywords} />
-      <meta name="author" content="Andes Runners" />
+      <meta name="author" content="Andes" />
       <meta name="robots" content="index, follow" />
 
       {/* 3. Open Graph */}
@@ -48,7 +48,7 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
       <meta property="og:title" content={content.ogTitle} />
       <meta property="og:description" content={content.ogDescription} />
       <meta property="og:url" content={lang === 'es' ? esUrl : enUrl} />
-      <meta property="og:site_name" content="Andes Runners" />
+      <meta property="og:site_name" content="Andes" />
       <meta property="og:image" content={`${baseUrl}/images/og-image.jpg`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -79,7 +79,7 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "Andes Runners",
+          "name": "Andes",
           "description": content.description,
           "url": baseUrl,
           "logo": `${baseUrl}/images/logo.svg`,

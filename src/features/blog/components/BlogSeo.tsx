@@ -54,7 +54,7 @@ const BlogSeo: React.FC<BlogSeoProps> = (props) => {
           dateModified: props.modifiedTime || props.publishedTime,
           publisher: {
             '@type': 'Organization',
-            name: 'Andes Runners',
+            name: 'Andes',
             url: BASE_URL,
             logo: {
               '@type': 'ImageObject',
@@ -86,7 +86,7 @@ const BlogSeo: React.FC<BlogSeoProps> = (props) => {
       <meta property="og:title" content={title} />
       {description && <meta property="og:description" content={description} />}
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:site_name" content="Andes Runners" />
+      <meta property="og:site_name" content="Andes" />
       {cover && <meta property="og:image" content={BASE_URL + cover} />}
       <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
 

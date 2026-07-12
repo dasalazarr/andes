@@ -80,7 +80,7 @@ const BlogList: React.FC = () => {
       <BlogSeo
         type="list"
         lang={lang}
-        title={`${heroTitle} • Andes Runners`}
+        title={`${heroTitle} • Andes`}
         description={heroSubtitle}
         canonicalPath={basePath}
         alternatePath={altListPath}
