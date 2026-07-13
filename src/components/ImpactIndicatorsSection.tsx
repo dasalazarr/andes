@@ -29,11 +29,11 @@ interface ImpactIndicatorsSectionProps {
 }
 
 const AnimatedStat: React.FC<{ stat: IndicatorStat }> = ({ stat }) => {
-  // Extract numeric value and suffix (like "+")
+  // Extract numeric value and suffix (like "+" or a unit word), preserving spacing
   const valueStr = stat.value || '';
-  const numericMatch = valueStr.match(/^(\d+(?:[,.]\d+)?)\s*(.*)$/);
+  const numericMatch = valueStr.match(/^(\d+(?:[,.]\d+)?)(\s*)(.*)$/);
   const numericValue = numericMatch ? parseFloat(numericMatch[1].replace(/[,.]/g, '')) : 0;
-  const suffix = numericMatch ? numericMatch[2] : '';
+  const suffix = numericMatch ? numericMatch[2] + numericMatch[3] : '';
 
   // Hide units for distance indicators
   const shouldHideUnit = ['mi', 'km'].includes(suffix.toLowerCase());

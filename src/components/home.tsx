@@ -145,7 +145,9 @@ const Home = () => {
         </section>
 
         {/* 4. Benefits — Each benefit with concrete proof */}
-        <section id="benefits" className="bg-surface py-16 text-gray-200 md:py-24">
+        <section id="benefits" className="relative overflow-hidden bg-surface py-16 text-gray-200 md:py-24">
+          <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[-8rem] h-96 w-96 rounded-full bg-brand-deep/30 blur-3xl" />
+          <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 left-[-6rem] h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
           <div className="container relative z-0 mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando transformación...</div>}>
               <BenefitsSection
@@ -158,7 +160,8 @@ const Home = () => {
         </section>
 
         {/* 5. Impact Indicators — Safety & sustainable progress */}
-        <section className="section-separator relative bg-surface py-16 md:py-24">
+        <section className="section-separator relative overflow-hidden bg-surface py-16 md:py-24">
+          <div aria-hidden="true" className="pointer-events-none absolute -top-24 left-[-7rem] h-96 w-96 rounded-full bg-brand-deep/30 blur-3xl" />
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando seguridad...</div>}>
               <ImpactIndicatorsSection
@@ -231,7 +234,9 @@ const Home = () => {
         </section>
 
         {/* 7. Pricing — Moved after demonstrating value */}
-        <section id="pricing" className="section-separator bg-surface py-16 text-gray-100 md:py-24">
+        <section id="pricing" className="section-separator relative overflow-hidden bg-surface py-16 text-gray-100 md:py-24">
+          <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[-7rem] h-96 w-96 rounded-full bg-brand-deep/30 blur-3xl" />
+          <div aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-6rem] h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
           <div className="container mx-auto px-4">
             <Suspense fallback={<div className="p-12 text-center">Cargando planes...</div>}>
               <PricingSection

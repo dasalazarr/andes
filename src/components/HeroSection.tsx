@@ -123,7 +123,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <img
             src={imageSrc}
             alt={language === 'es' ? 'Corredoras entrenando juntas al amanecer' : 'Women running together at sunrise'}
-            className="h-full w-full object-cover"
+            className="h-full w-full origin-center object-cover motion-safe:animate-ken-burns"
             width={1800}
             height={1200}
           />

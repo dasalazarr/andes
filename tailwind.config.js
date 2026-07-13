@@ -161,12 +161,17 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "ken-burns": {
+          from: { transform: "scale(1)" },
+          to: { transform: "scale(1.06)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "pulse-slow": "pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "accordion-up": "accordion-up 0.2s ease-out",
         "icon-glow": "icon-glow 2s ease-in-out infinite",
+        "ken-burns": "ken-burns 22s ease-out forwards",
       },
     },
   },
