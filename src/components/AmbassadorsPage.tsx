@@ -66,47 +66,46 @@ const AmbassadorsPage: React.FC = () => {
         <ManifestoOverlay text={content.manifesto} onComplete={() => setManifestoVisible(false)} />
       )}
 
-      <main className="mx-auto max-w-5xl px-6 pb-24 pt-16 sm:pt-20">
-        {/* Hero */}
-        <div className="relative overflow-hidden">
-          <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[-8rem] h-96 w-96 rounded-full bg-brand-deep/30 blur-3xl" />
-          <div aria-hidden="true" className="pointer-events-none absolute -bottom-16 left-[-6rem] h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
-          <AnimatedSection className="relative pt-10 text-center md:pt-16">
+      {/* Hero: full-bleed photo with overlaid text, matching HeroSection.tsx's Ken Burns + scrim pattern */}
+      <div className="relative min-h-[70vh] w-full overflow-hidden md:min-h-[85vh]">
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="/images/club/embajadoras.webp"
+            alt={heroImageAlt}
+            className="h-full w-full origin-center object-cover motion-safe:animate-ken-burns"
+          />
+          <div className="absolute inset-0 bg-surface/60" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,107,91,0.35),transparent_55%)]" />
+          <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-t from-surface via-surface/85 to-transparent" />
+        </div>
+
+        <div className="absolute bottom-6 left-6 z-10">
+          <div className="flex items-center gap-2 rounded-full glass-panel border-white/20 bg-neutral-900/60 px-4 py-2 backdrop-blur-md">
+            <MapPin className="h-4 w-4 text-brand" />
+            <span className="text-sm font-bold uppercase tracking-wide text-white">Pamplona</span>
+          </div>
+        </div>
+
+        <div className="relative z-10 flex min-h-[70vh] items-center justify-center px-6 py-16 md:min-h-[85vh]">
+          <AnimatedSection className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">{content.hero.preheading}</p>
-            <h1 className="mx-auto mt-4 max-w-3xl text-5xl font-black leading-[1.05] md:text-7xl">
+            <h1 className="mx-auto mt-4 max-w-3xl text-5xl font-black leading-[1.05] text-white md:text-7xl">
               {content.hero.headlineLead} <span className="text-brand">{content.hero.headlineAccent}</span>
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-gray-100 md:text-lg">
               {content.hero.description}
             </p>
             <div className="mt-8 flex flex-col items-center gap-3">
               {ctaButton(content.hero.ctaText, "ambassadors_hero")}
-              <p className="text-xs text-gray-400">{content.hero.ctaNote}</p>
+              <p className="text-xs text-gray-300">{content.hero.ctaNote}</p>
             </div>
           </AnimatedSection>
         </div>
+      </div>
 
-        {/* Foto del club */}
-        <AnimatedSection className="mt-16 md:mt-20">
-          <div className="relative overflow-hidden rounded-none">
-            <img
-              src="/images/club/embajadoras.webp"
-              alt={heroImageAlt}
-              className="h-auto w-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-white/10" />
-            <div className="absolute bottom-6 left-6 flex items-center">
-              <div className="flex items-center gap-2 rounded-full glass-panel border-white/20 bg-neutral-900/60 px-4 py-2 backdrop-blur-md">
-                <MapPin className="h-4 w-4 text-brand" />
-                <span className="text-sm font-bold uppercase tracking-wide text-white">Pamplona</span>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
+      <main className="mx-auto max-w-5xl px-6 pb-24 pt-16 sm:pt-20">
         {/* Stats */}
-        <AnimatedSection className="mt-16 md:mt-20">
+        <AnimatedSection>
           <div className="grid grid-cols-2 divide-y divide-white/10 rounded-[24px] border border-white/10 bg-white/[0.03] py-6 md:grid-cols-4 md:divide-x md:divide-y-0">
             {content.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-1 px-4 py-4 text-center">

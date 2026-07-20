@@ -5,6 +5,8 @@
 **Alcance**: frontend (`andes/andes/`) + backend (`v3/v3/`) + operación de eventos en Pamplona
 **Documentos relacionados**: `ux-ui-audit-2026-05.md` (auditoría de conversión), `v3/v3/docs/12-freemium-premium-model.md` (modelo comercial)
 
+> **Actualización 2026-07-20 (Diego)**: el ICP se amplió de "público femenino 25-40" a **"hombres y mujeres 25-40"** — el criterio es que nadie se sienta excluido por el lenguaje, no que se abandone el ángulo aspiracional/social del posicionamiento. Las referencias a "ICP mujer"/"público femenino" en §0, §1 y §2 de este documento son la foto de la estrategia al 11-jul y se conservan como registro de esa decisión original; la fuente de verdad vigente es esta nota y `.claude/STATUS.md`. El copy de `/embajadores` y del resto del sitio (`andes/andes/src/data/content.tsx`) ya se neutralizó en esta fecha — ver bitácora de STATUS.md.
+
 ---
 
 ## 0. Contexto y misión
@@ -113,6 +115,8 @@ Siendo directo, como pediste:
 ### 4.1 Frontend (`andes/andes/`)
 
 #### F1. Página `/embajadores` — **prioridad #1 de desarrollo**
+
+> **Estado 2026-07-20**: implementada y rediseñada (ver `.claude/STATUS.md` bitácora del día). El copy de abajo (headline "Corre con nosotras", "más mujeres se enamoren") es la versión original del 11-jul — el copy en producción ya es unisex ("Corramos juntos. Lidera tu ciudad.", "más gente se enamore de correr"). La estructura también ganó un overlay de intro (`ManifestoOverlay.tsx`), un bloque de stats (5 fundadores · 2h/semana · 24h respuesta · 100% coach incluido) y fotos reales del club en el hero y en "Cómo funciona".
 
 - **Ruta**: `/embajadores` (ES). `/ambassadors` (EN) puede esperar — el tráfico objetivo es local. Añadir a `App.tsx`, `SeoManager.tsx` y verificar que `scripts/generate-sitemap.js` la recoja.
 - **Copy**: nuevo objeto `ambassadorsContent` en `src/data/content.tsx` (fuente única, convención existente).
