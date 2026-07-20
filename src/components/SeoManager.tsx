@@ -16,16 +16,16 @@ const SeoManager: React.FC<SeoManagerProps> = ({ lang }) => {
     en: {
       title: "Andes — Fall in love with running in two weeks",
       description: "A running club with real meetups in Pamplona and a WhatsApp coach that adapts to you. Your first race, no fear, no injuries. Start free.",
-      keywords: "running club Pamplona, beginner running, WhatsApp running coach, first race, women running club, couch to 5k",
+      keywords: "running club Pamplona, beginner running, WhatsApp running coach, first race, running club for beginners, couch to 5k",
       ogTitle: "Andes — The club that makes you fall in love with running",
       ogDescription: "Meetups that feel like plans with friends and a coach on WhatsApp that adapts to you. Your first race, no fear, no injuries.",
     },
     es: {
       title: "Andes — Enamórate de correr en dos semanas",
       description: "Un club de running con quedadas reales en Pamplona y una coach por WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones. Empieza gratis.",
-      keywords: "club running Pamplona, empezar a correr, coach running WhatsApp, primera carrera, club running mujeres, correr desde cero",
+      keywords: "club running Pamplona, empezar a correr, coach running WhatsApp, primera carrera, club running principiantes, correr desde cero",
       ogTitle: "Andes — El club que te enamora de correr",
-      ogDescription: "Quedadas que se sienten como un plan con amigas y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
+      ogDescription: "Quedadas que se sienten como un plan con amigos y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
     }
   };
 

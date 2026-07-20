@@ -37,7 +37,7 @@ const SiteFooter: React.FC = () => {
           </div>
           <nav className="grid grid-cols-2 gap-2 text-sm">
             <Link className="text-gray-300 hover:text-brand" to={isEs ? '/es/embajadores' : '/embajadores'}>
-              {isEs ? 'Embajadoras' : 'Ambassadors'}
+              {isEs ? 'Embajadores' : 'Ambassadors'}
             </Link>
             {categories.map((c) => {
               const label = isEs ? c.labelEs : c.labelEn;

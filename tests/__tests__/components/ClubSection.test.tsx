@@ -40,7 +40,7 @@ describe('ClubSection', () => {
 
   it('links to the ambassadors page in the right language', () => {
     renderClub('es');
-    const link = screen.getByRole('link', { name: new RegExp('embajadora', 'i') });
+    const link = screen.getByRole('link', { name: new RegExp('embajador', 'i') });
     expect(link).toHaveAttribute('href', '/es/embajadores');
   });
 });

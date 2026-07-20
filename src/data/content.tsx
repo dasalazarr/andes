@@ -17,7 +17,7 @@ export const heroContent = {
         accent: "en dos semanas.",
       },
     },
-    description: "Quedadas que se sienten como un plan con amigas y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
+    description: "Quedadas que se sienten como un plan con amigos y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
     ctaPrimaryText: "Empezar Gratis por WhatsApp",
     ctaSecondaryText: "Conoce el club",
     limitNotice: "15 días Premium gratis · Sin tarjeta · Sin bloqueo",
@@ -209,13 +209,13 @@ export const indicatorsContent = {
     title: "El coach que cuida tu cuerpo semana a semana.",
     highlight: "Monitoreamos tu carga de entrenamiento cada semana. Si escala demasiado rápido, te avisamos y bajamos el volumen antes de que aparezca la lesión.",
     pillars: [
-      "¿Hoy te sentiste pesada? Mañana entrenas más suave. Así de simple.",
+      "¿Hoy notaste más cansancio de lo normal? Mañana entrenas más suave. Así de simple.",
       "Si vamos camino a la sobrecarga, frenamos antes — no después de la lesión.",
       "Tu coach recuerda tus molestias pasadas y las tiene en cuenta en cada ajuste.",
     ],
     image: {
       src: "/coaching.avif",
-      alt: "Entrenador conversando con una corredora durante una sesión al aire libre",
+      alt: "Conversación de coaching durante una sesión de running al aire libre",
     },
     stats: [
       { value: "15 días", label: "De Premium gratis al empezar" },
@@ -380,7 +380,7 @@ export const pricingContent: {
         isPopular: false,
         buttonVariant: "secondary",
         image: "/starter_es.png",
-        imageAlt: "Corredora entrenando en un lago al amanecer",
+        imageAlt: "Persona corriendo junto a un lago al amanecer",
       },
       {
         name: "Premium",
@@ -405,7 +405,7 @@ export const pricingContent: {
         isPopular: true,
         buttonVariant: "primary",
         image: "/pro_es.png",
-        imageAlt: "Corredor atravesando un bosque en carrera",
+        imageAlt: "Persona corriendo por un bosque en carrera",
       },
     ],
   },
@@ -478,7 +478,7 @@ export const faqContent = {
     sectionSubtitle: "Las preguntas que te harías antes de empezar",
     faqs: [
       {
-        question: "¿Tengo que ser rápida o estar en forma para empezar?",
+        question: "¿Tengo que estar en forma para empezar?",
         answer: "No. Andes existe justo para lo contrario: para que empieces desde cero, a tu ritmo. Las quedadas del club son a ritmo de conversación y tu plan puede empezar con caminatas. Nadie te va a dejar atrás.",
       },
       {
@@ -1072,21 +1072,28 @@ export const trainingPlans = [
 export const ambassadorsContent = {
   es: {
     seo: {
-      title: "Embajadoras Andes — Lidera el club de running de tu ciudad",
+      title: "Embajadores Andes — Lidera el club de running de tu ciudad",
       description:
-        "Buscamos embajadoras en Pamplona que quieran que más mujeres se enamoren de correr. Premium gratis, eventos y comunidad. Aplica en 1 minuto por WhatsApp.",
+        "Buscamos embajadores en Pamplona que quieran que más gente se enamore de correr. Premium gratis, eventos y comunidad. Aplica en 1 minuto por WhatsApp.",
     },
     hero: {
-      preheading: "Programa de embajadoras · Pamplona",
-      headlineLead: "Corre con nosotras.",
+      preheading: "Programa de embajadores · Pamplona",
+      headlineLead: "Corramos juntos.",
       headlineAccent: "Lidera tu ciudad.",
       description:
-        "Andes es el club que ayuda a mujeres a enamorarse de correr: quedadas, coffee runs y una coach por WhatsApp que te acompaña entre evento y evento. Buscamos a las primeras 5 embajadoras fundadoras de Pamplona.",
-      ctaText: "Quiero ser embajadora",
+        "Andes es el club que ayuda a la gente a enamorarse de correr: quedadas, coffee runs y una coach por WhatsApp que te acompaña entre evento y evento. Buscamos a los primeros 5 embajadores fundadores de Pamplona.",
+      ctaText: "Quiero ser embajador",
       ctaNote: "Aplicas por WhatsApp · Respuesta en 24h",
     },
+    manifesto: "Lidera tu ciudad.",
+    stats: [
+      { value: "5", label: "Fundadores en Pamplona" },
+      { value: "2h", label: "Por semana" },
+      { value: "24h", label: "Respuesta por WhatsApp" },
+      { value: "100%", label: "Coach incluido" },
+    ],
     whatIs: {
-      title: "Qué hace una embajadora",
+      title: "Qué hace un embajador",
       items: [
         {
           title: "Co-organiza las quedadas",
@@ -1094,7 +1101,7 @@ export const ambassadorsContent = {
         },
         {
           title: "Es el rostro local del club",
-          description: "Recibe a las que llegan por primera vez y haz que nadie corra sola. Tu historia inspira a las que aún no se atreven.",
+          description: "Recibe a quienes llegan por primera vez y haz que nadie corra solo. Tu historia inspira a quienes aún no se atreven.",
         },
         {
           title: "Crea contenido con apoyo",
@@ -1105,10 +1112,10 @@ export const ambassadorsContent = {
     benefits: {
       title: "Lo que recibes",
       items: [
-        { title: "Premium gratis", description: "Coach completo por WhatsApp mientras seas embajadora." },
-        { title: "Eventos con +1", description: "Acceso prioritario a todas las quedadas y experiencias, con invitación para una amiga." },
+        { title: "Premium gratis", description: "Coach completo por WhatsApp mientras seas embajador." },
+        { title: "Eventos con +1", description: "Acceso prioritario a todas las quedadas y experiencias, con invitación para un amigo." },
         { title: "Visibilidad", description: "Presencia en las redes de Andes y co-creación de contenido con el club." },
-        { title: "Programa de referidas", description: "Próximamente: recompensas por cada corredora que se una gracias a ti." },
+        { title: "Programa de referidos", description: "Próximamente: recompensas por cada persona que se una gracias a ti." },
       ],
     },
     howItWorks: {
@@ -1120,16 +1127,16 @@ export const ambassadorsContent = {
       ],
     },
     socialProof: {
-      title: "Sé fundadora",
+      title: "Sé fundador",
       description:
-        "El club está naciendo en Pamplona. Las primeras 5 embajadoras definen la cultura: accesible, aspiracional y de cero juicio. Ese lugar en la historia no se repite.",
+        "El club está naciendo en Pamplona. Los primeros 5 embajadores definen la cultura: accesible, aspiracional y de cero juicio. Ese lugar en la historia no se repite.",
     },
     faq: {
       title: "Preguntas rápidas",
       items: [
         {
-          question: "¿Necesito ser rápida o experta?",
-          answer: "No. Necesitas haber pasado por empezar. Si sabes lo que cuesta el primer kilómetro, sabes acompañar a otra que lo está viviendo.",
+          question: "¿Necesito tener experiencia o ser rápido?",
+          answer: "No. Necesitas haber pasado por empezar. Si sabes lo que cuesta el primer kilómetro, sabes acompañar a alguien que lo está viviendo.",
         },
         {
           question: "¿Cuánto tiempo requiere?",
@@ -1137,13 +1144,13 @@ export const ambassadorsContent = {
         },
         {
           question: "¿Me pagan?",
-          answer: "Hoy: Premium gratis, eventos y visibilidad. Pronto: programa de referidas con recompensas por cada corredora que traigas.",
+          answer: "Hoy: Premium gratis, eventos y visibilidad. Pronto: programa de referidos con recompensas por cada persona que traigas.",
         },
       ],
     },
     finalCta: {
-      title: "Pamplona está a una embajadora de distancia.",
-      subtitle: "Si quieres que más mujeres se enamoren de correr, esa embajadora eres tú.",
+      title: "Pamplona está a un embajador de distancia.",
+      subtitle: "Si quieres que más gente se enamore de correr, ese embajador eres tú.",
       ctaText: "Aplicar por WhatsApp",
     },
   },
@@ -1151,17 +1158,24 @@ export const ambassadorsContent = {
     seo: {
       title: "Andes Ambassadors — Lead your city's running club",
       description:
-        "We're looking for ambassadors who want more women to fall in love with running. Free Premium, events and community. Apply in 1 minute on WhatsApp.",
+        "We're looking for ambassadors who want more people to fall in love with running. Free Premium, events and community. Apply in 1 minute on WhatsApp.",
     },
     hero: {
       preheading: "Ambassador program · Pamplona",
       headlineLead: "Run with us.",
       headlineAccent: "Lead your city.",
       description:
-        "Andes is the club helping women fall in love with running: meetups, coffee runs and a WhatsApp coach between events. We're looking for our first 5 founding ambassadors in Pamplona.",
+        "Andes is the club helping people fall in love with running: meetups, coffee runs and a WhatsApp coach between events. We're looking for our first 5 founding ambassadors in Pamplona.",
       ctaText: "I want to be an ambassador",
       ctaNote: "Apply on WhatsApp · Reply within 24h",
     },
+    manifesto: "Lead your city.",
+    stats: [
+      { value: "5", label: "Founders in Pamplona" },
+      { value: "2h", label: "Per week" },
+      { value: "24h", label: "Reply on WhatsApp" },
+      { value: "100%", label: "Coach included" },
+    ],
     whatIs: {
       title: "What an ambassador does",
       items: [
@@ -1202,7 +1216,7 @@ export const ambassadorsContent = {
     },
     finalCta: {
       title: "Pamplona is one ambassador away.",
-      subtitle: "If you want more women to fall in love with running, that ambassador is you.",
+      subtitle: "If you want more people to fall in love with running, that ambassador is you.",
       ctaText: "Apply on WhatsApp",
     },
   },
@@ -1217,15 +1231,15 @@ export const clubContent = {
       "Coffee runs, quedadas a ritmo de conversación y gente que también está empezando. La coach te acompaña entre semana; el club te espera el jueves.",
     features: [
       { title: "Quedadas los jueves", description: "Rutas suaves de 3–4 km con café al final, en espacios aliados de la ciudad." },
-      { title: "Cero juicio", description: "Ritmo de conversación. Nadie se queda atrás, nadie corre sola." },
+      { title: "Cero juicio", description: "Ritmo de conversación. Nadie se queda atrás, nadie corre solo." },
       { title: "Tu coach entre evento y evento", description: "La misma coach de WhatsApp sabe a qué quedada fuiste y qué toca después." },
     ],
     image: {
       src: "/images/club/quedada.webp",
-      alt: "Grupo de corredoras charlando y sonriendo durante una quedada al amanecer",
+      alt: "Grupo corriendo y charlando durante una quedada al amanecer",
     },
     ctaText: "Únete al club por WhatsApp",
-    ambassadorLinkText: "¿Quieres liderarlo? Hazte embajadora →",
+    ambassadorLinkText: "¿Quieres liderarlo? Hazte embajador →",
   },
   en: {
     preheading: "More than an app",
@@ -1239,7 +1253,7 @@ export const clubContent = {
     ],
     image: {
       src: "/images/club/quedada.webp",
-      alt: "Group of women runners chatting and smiling during a sunrise meetup",
+      alt: "Group of runners chatting and smiling during a sunrise meetup",
     },
     ctaText: "Join the club on WhatsApp",
     ambassadorLinkText: "Want to lead it? Become an ambassador →",

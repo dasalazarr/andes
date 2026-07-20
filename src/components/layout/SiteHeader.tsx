@@ -146,7 +146,7 @@ const SiteHeader: React.FC = () => {
                 } after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-gradient-to-r after:from-brand after:to-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 ${isAmbassadorsActive ? 'after:scale-x-100' : ''
                 }`}
             >
-              {isEs ? 'Embajadoras' : 'Ambassadors'}
+              {isEs ? 'Embajadores' : 'Ambassadors'}
             </Link>
           </nav>
 
@@ -204,7 +204,7 @@ const SiteHeader: React.FC = () => {
                 className={`relative w-full py-2 text-center transition-colors duration-200 ${isAmbassadorsActive ? 'font-medium text-brand' : 'text-white/75 hover:text-white'
                   }`}
               >
-                {isEs ? 'Embajadoras' : 'Ambassadors'}
+                {isEs ? 'Embajadores' : 'Ambassadors'}
               </Link>
             </nav>
 
