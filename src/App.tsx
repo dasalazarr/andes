@@ -10,6 +10,7 @@ import routes from "tempo-routes";
 import PrivacyPolicy from "@/components/legal/PrivacyPolicy";
 import TermsOfService from "@/components/legal/TermsOfService";
 import AmbassadorsPage from "@/components/AmbassadorsPage";
+import NotFound from "@/components/NotFound";
 
 function App() {
   const location = useLocation();
@@ -26,7 +27,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/es" element={<Home />} />
-            <Route path="/es" element={<Home />} />
             {/* Blog (Phase 1: routing only) */}
             <Route path="/blog" element={<BlogList />} />
             <Route path="/es/blog" element={<BlogList />} />
@@ -39,6 +39,10 @@ function App() {
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/es/privacy" element={<PrivacyPolicy />} />
             <Route path="/es/terms" element={<TermsOfService />} />
+            {/* Catch-all 404 (disabled under Tempo so storyboards still resolve) */}
+            {import.meta.env.VITE_TEMPO !== "true" && (
+              <Route path="*" element={<NotFound />} />
+            )}
           </Routes>
           {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
           <SiteFooter />
