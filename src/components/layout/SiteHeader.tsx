@@ -208,10 +208,10 @@ const SiteHeader: React.FC = () => {
               onClick={() => setIsCityMenuOpen((v) => !v)}
               aria-haspopup="menu"
               aria-expanded={isCityMenuOpen}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors duration-200 ${
+              className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors duration-200 ${
                 isCityActive || isCityMenuOpen
-                  ? 'border-brand/50 bg-brand/10 text-white'
-                  : 'border-white/15 bg-white/5 text-white/85 hover:border-white/30 hover:text-white'
+                  ? 'text-brand hover:bg-white/5'
+                  : 'text-white/70 hover:bg-white/5 hover:text-white'
               }`}
             >
               <MapPin className="h-4 w-4 text-brand" aria-hidden="true" />
