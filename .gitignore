@@ -38,3 +38,4 @@ core
 
 # Local Netlify folder
 .netlify
+.claude/worktrees/
