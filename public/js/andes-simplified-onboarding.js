@@ -77,7 +77,7 @@
           content_name: `Andes ${intent} onboarding`,
           content_category: 'running_training',
           value: intent === 'premium' ? 9.99 : 0,
-          currency: 'USD'
+          currency: 'EUR'
         });
       }
 

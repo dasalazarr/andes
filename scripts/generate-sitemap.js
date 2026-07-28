@@ -81,6 +81,8 @@ function main() {
   urls.set('/es/blog', { lastmod: null });
   urls.set('/embajadores', { lastmod: null });
   urls.set('/es/embajadores', { lastmod: null });
+  urls.set('/pamplona', { lastmod: null });
+  urls.set('/es/pamplona', { lastmod: null });
 
   for (const file of files) {
     const raw = fs.readFileSync(file, 'utf-8');

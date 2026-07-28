@@ -10,6 +10,7 @@ import routes from "tempo-routes";
 import PrivacyPolicy from "@/components/legal/PrivacyPolicy";
 import TermsOfService from "@/components/legal/TermsOfService";
 import AmbassadorsPage from "@/components/AmbassadorsPage";
+import PamplonaPage from "@/components/PamplonaPage";
 import NotFound from "@/components/NotFound";
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
             {/* Ambassadors (Pamplona experience club) */}
             <Route path="/embajadores" element={<AmbassadorsPage />} />
             <Route path="/es/embajadores" element={<AmbassadorsPage />} />
+            {/* City product page (market axis, orthogonal to language) */}
+            <Route path="/pamplona" element={<PamplonaPage />} />
+            <Route path="/es/pamplona" element={<PamplonaPage />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/es/privacy" element={<PrivacyPolicy />} />

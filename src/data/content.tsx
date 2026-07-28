@@ -221,7 +221,7 @@ export const indicatorsContent = {
       { value: "15 días", label: "De Premium gratis al empezar" },
       { value: "60 seg", label: "Para tu primer plan" },
       { value: "24/7", label: "Tu coach siempre disponible" },
-      { value: "0€", label: "Para empezar, sin tarjeta" },
+      { value: "€0", label: "Para empezar, sin tarjeta" },
     ],
     statsDisclaimer: "",
   },
@@ -242,7 +242,7 @@ export const indicatorsContent = {
       { value: "15 days", label: "Of full Premium when you start" },
       { value: "60 sec", label: "To your first plan" },
       { value: "24/7", label: "Your coach, always available" },
-      { value: "$0", label: "To start, no card needed" },
+      { value: "€0", label: "To start, no card needed" },
     ],
     statsDisclaimer: "",
   },
@@ -385,9 +385,9 @@ export const pricingContent: {
       {
         name: "Premium",
         iconName: "Zap",
-        price: "$9.99",
+        price: "€9,99",
         priceDetail: "/mes",
-        annualPrice: "$8.49",
+        annualPrice: "€8,49",
         annualPriceDetail: "/mes (facturado anual)",
         savingsPercentage: "Ahorra 15%",
         popularBadge: "MÁS ELEGIDO",
@@ -446,9 +446,9 @@ export const pricingContent: {
       {
         name: "Premium",
         iconName: "Zap",
-        price: "$9.99",
+        price: "€9.99",
         priceDetail: "/month",
-        annualPrice: "$8.49",
+        annualPrice: "€8.49",
         annualPriceDetail: "/month (billed annually)",
         savingsPercentage: "Save 15%",
         popularBadge: "MOST CHOSEN",
@@ -483,7 +483,7 @@ export const faqContent = {
       },
       {
         question: "¿Es realmente gratis? ¿Cuál es la trampa?",
-        answer: "No hay trampa. Empiezas con 15 días de Premium completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Premium ($9.99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
+        answer: "No hay trampa. Empiezas con 15 días de Premium completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Premium (€9,99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
       {
         question: "No sé nada de running. ¿Es para mí?",
@@ -521,7 +521,7 @@ export const faqContent = {
       },
       {
         question: "Is it really free? What's the catch?",
-        answer: "No catch. You start with 15 days of full Premium free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Premium ($9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
+        answer: "No catch. You start with 15 days of full Premium free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Premium (€9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
       {
         question: "I know nothing about running. Is this for me?",
@@ -1218,6 +1218,182 @@ export const ambassadorsContent = {
       title: "Pamplona is one ambassador away.",
       subtitle: "If you want more people to fall in love with running, that ambassador is you.",
       ctaText: "Apply on WhatsApp",
+    },
+  },
+};
+
+// Página de ciudad (producto local). Audiencia: corredor casual de Pamplona
+// que quiere empezar con el club + la coach. Distinta de ambassadorsContent
+// (que recluta líderes). El idioma es ortogonal a la ciudad: /pamplona (en) y /es/pamplona (es).
+export const pamplonaContent = {
+  es: {
+    seo: {
+      title: "Andes Pamplona — Empieza a correr con tu club y tu coach",
+      description:
+        "El club de running de Pamplona para empezar desde cero: quedadas a ritmo de conversación y una coach por WhatsApp que se adapta a ti. Empieza gratis, sin tarjeta.",
+    },
+    hero: {
+      badge: "Pamplona",
+      preheading: "Tu club de running · Pamplona",
+      headlineLead: "Enamórate de correr",
+      headlineAccent: "en dos semanas.",
+      description:
+        "En Pamplona no corres solo. Quedadas a ritmo de conversación y una coach por WhatsApp que empieza donde estás tú —aunque hoy sea caminar. Sin presión, sin juicio.",
+      ctaText: "Empezar gratis",
+      ctaNote: "Gratis · Sin tarjeta · Por WhatsApp",
+    },
+    stats: [
+      { value: "2 semanas", label: "Para enamorarte de correr" },
+      { value: "15 días", label: "De Premium gratis al empezar" },
+      { value: "€0", label: "Para empezar, sin tarjeta" },
+      { value: "24/7", label: "Tu coach en WhatsApp" },
+    ],
+    value: {
+      title: "No necesitas ser corredor. Solo empezar.",
+      items: [
+        {
+          title: "Empieza donde estás",
+          description: "Tu plan puede arrancar caminando. Andes se adapta a tu nivel, tu objetivo y tu semana real. Nada de ritmos imposibles.",
+        },
+        {
+          title: "Una coach que te escucha",
+          description: "Le cuentas cómo te sentiste y ajusta el plan cada día. Si te duele algo o dormiste mal, baja la carga. Es un coach, no un PDF.",
+        },
+        {
+          title: "El club te espera el jueves",
+          description: "Coffee runs y quedadas por Pamplona con gente que también está empezando. La coach entre semana; el club, en la calle.",
+        },
+      ],
+    },
+    howItWorks: {
+      title: "Cómo empiezas",
+      steps: [
+        { title: "Escribe por WhatsApp", description: "Un mensaje y listo. Sin apps que descargar ni formularios eternos." },
+        { title: "Tu primera semana", description: "Andes te pregunta por qué corres y arma tu plan. Empiezas hoy mismo, a tu ritmo." },
+        { title: "Corre con el club", description: "Te sumas a la próxima quedada en Pamplona. Nadie se queda atrás." },
+      ],
+    },
+    club: {
+      title: "Un club que te espera en Pamplona",
+      description:
+        "Andes nació para que la gente normal se enamore de correr. Quedadas a ritmo de conversación, cafés aliados y una comunidad de cero juicio. Empezar es más fácil acompañado.",
+      imageAlt: "Grupo del club Andes en una quedada en Pamplona",
+    },
+    pricing: {
+      title: "Empieza gratis. Premium cuando quieras.",
+      subtitle: "Empiezas con 15 días de Premium completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo.",
+      freeTitle: "Gratis",
+      freeDescription: "Tu plan base y la coach por WhatsApp, siempre funcional. Ideal para tu primer 5K.",
+      premiumTitle: "Premium",
+      premiumPrice: "€9,99",
+      premiumDetail: "/mes",
+      premiumDescription: "Recordatorios proactivos, seguimiento semanal y medallas de progreso para no soltar el hábito.",
+      note: "Empiezas con 15 días de Premium gratis, sin tarjeta.",
+      ctaText: "Empezar gratis",
+    },
+    ambassadorCta: {
+      title: "¿Y si lideras el club?",
+      description: "Si quieres que más gente de Pamplona se enamore de correr, conviértete en embajador fundador.",
+      linkText: "Conoce el programa de embajadores →",
+    },
+    faq: {
+      title: "Preguntas rápidas",
+      items: [
+        { question: "¿Tengo que estar en forma?", answer: "No. Andes existe para lo contrario: empezar desde cero, a tu ritmo. Las quedadas son a ritmo de conversación y tu plan puede empezar caminando." },
+        { question: "¿Es de verdad gratis?", answer: "Sí. Empiezas con 15 días de Premium completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo. Premium (€9,99/mes) es opcional." },
+        { question: "¿Dónde son las quedadas?", answer: "En Pamplona, con cafés y espacios aliados. Te avisamos por WhatsApp de la próxima en cuanto te sumes." },
+      ],
+    },
+    finalCta: {
+      title: "Pamplona corre. Súmate.",
+      subtitle: "Tu primera carrera empieza con un mensaje.",
+      ctaText: "Empezar gratis por WhatsApp",
+      ctaNote: "Gratis · Sin tarjeta",
+    },
+  },
+  en: {
+    seo: {
+      title: "Andes Pamplona — Start running with your club and your coach",
+      description:
+        "Pamplona's running club to start from zero: conversation-pace meetups and a WhatsApp coach that adapts to you. Start free, no card needed.",
+    },
+    hero: {
+      badge: "Pamplona",
+      preheading: "Your running club · Pamplona",
+      headlineLead: "Fall in love with running",
+      headlineAccent: "in two weeks.",
+      description:
+        "In Pamplona you don't run alone. Conversation-pace meetups and a WhatsApp coach that starts where you are —even if today that means walking. No pressure, no judgment.",
+      ctaText: "Start free",
+      ctaNote: "Free · No card · On WhatsApp",
+    },
+    stats: [
+      { value: "2 weeks", label: "To fall in love with running" },
+      { value: "15 days", label: "Of Premium free when you start" },
+      { value: "€0", label: "To start, no card needed" },
+      { value: "24/7", label: "Your coach on WhatsApp" },
+    ],
+    value: {
+      title: "You don't need to be a runner. Just start.",
+      items: [
+        {
+          title: "Start where you are",
+          description: "Your plan can start with walking. Andes adapts to your level, your goal and your real week. No impossible paces.",
+        },
+        {
+          title: "A coach that listens",
+          description: "Tell it how you felt and it adjusts the plan every day. Sore or slept badly? It eases the load. It's a coach, not a PDF.",
+        },
+        {
+          title: "The club waits on Thursday",
+          description: "Coffee runs and meetups around Pamplona with people also starting out. The coach midweek; the club, on the street.",
+        },
+      ],
+    },
+    howItWorks: {
+      title: "How you start",
+      steps: [
+        { title: "Message on WhatsApp", description: "One message and you're in. No apps to download, no endless forms." },
+        { title: "Your first week", description: "Andes asks why you run and builds your plan. You start today, at your pace." },
+        { title: "Run with the club", description: "Join the next meetup in Pamplona. Nobody gets left behind." },
+      ],
+    },
+    club: {
+      title: "A club that waits for you in Pamplona",
+      description:
+        "Andes was born so everyday people fall in love with running. Conversation-pace meetups, partner cafés and a zero-judgment community. Starting is easier together.",
+      imageAlt: "Andes club group during a Pamplona meetup",
+    },
+    pricing: {
+      title: "Start free. Premium when you want.",
+      subtitle: "You start with 15 days of full Premium, no card. After that you stay free in Lite mode, no lockout.",
+      freeTitle: "Free",
+      freeDescription: "Your base plan and the WhatsApp coach, always functional. Ideal for your first 5K.",
+      premiumTitle: "Premium",
+      premiumPrice: "€9.99",
+      premiumDetail: "/month",
+      premiumDescription: "Proactive reminders, weekly follow-up and progress medals so you keep the habit.",
+      note: "You start with 15 days of Premium free, no card needed.",
+      ctaText: "Start free",
+    },
+    ambassadorCta: {
+      title: "What if you led the club?",
+      description: "If you want more people in Pamplona to fall in love with running, become a founding ambassador.",
+      linkText: "See the ambassador program →",
+    },
+    faq: {
+      title: "Quick questions",
+      items: [
+        { question: "Do I need to be fit?", answer: "No. Andes exists for the opposite: to start from zero, at your pace. Meetups are conversation-pace and your plan can start with walking." },
+        { question: "Is it really free?", answer: "Yes. You start with 15 days of full Premium, no card. After that you stay free in Lite mode, no lockout. Premium (€9.99/month) is optional." },
+        { question: "Where are the meetups?", answer: "In Pamplona, with partner cafés and spaces. We'll message you the next one on WhatsApp as soon as you join." },
+      ],
+    },
+    finalCta: {
+      title: "Pamplona runs. Join in.",
+      subtitle: "Your first run starts with a message.",
+      ctaText: "Start free on WhatsApp",
+      ctaNote: "Free · No card",
     },
   },
 };
