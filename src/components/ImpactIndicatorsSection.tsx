@@ -92,11 +92,11 @@ const ImpactIndicatorsSection: React.FC<ImpactIndicatorsSectionProps> = ({
               ))}
             </ul>
           </div>
-          <div className="relative h-full min-h-[260px] overflow-hidden rounded-[28px] border border-white/10">
+          <div className="relative h-[300px] w-full overflow-hidden rounded-[28px] border border-white/10 sm:h-[350px] md:h-full md:min-h-[300px]">
             <img
               src={image.src}
               alt={image.alt}
-              className="h-[300px] w-full object-cover sm:h-[350px]"
+              className="h-full w-full object-cover"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-black/55 via-black/20 to-transparent" />
