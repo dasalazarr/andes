@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ArrowRight, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import HeroSection from "./HeroSection";
 import { initGA, trackABTest, trackSocialProofView, trackTestimonialView } from "../lib/analytics";
@@ -318,26 +318,6 @@ const Home = () => {
           </div>
         </section>
       </main>
-
-      <div className="fixed inset-x-4 bottom-4 z-40 md:hidden">
-        <div className="glass-card-premium rounded-2xl border border-white/15 p-3 shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-          <button
-            type="button"
-            onClick={() => handleOnboardingStart("free", "sticky")}
-            disabled={Boolean(activeCta)}
-            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-whatsapp px-4 py-3 text-sm font-semibold text-black"
-          >
-            {isLoading("free", "sticky")
-              ? language === "es"
-                ? "Conectando..."
-                : "Connecting..."
-              : language === "es"
-                ? "Empezar Gratis"
-                : "Start Free"}
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
     </div>
   );
 };
