@@ -387,9 +387,9 @@ export const pricingContent: {
         iconName: "Zap",
         price: "€9,99",
         priceDetail: "/mes",
-        annualPrice: "€8,49",
+        annualPrice: "€8,33",
         annualPriceDetail: "/mes (facturado anual)",
-        savingsPercentage: "Ahorra 15%",
+        savingsPercentage: "Ahorra 17%",
         popularBadge: "MÁS ELEGIDO",
         description: "Desbloquea templates proactivos y seguimiento personalizado para acelerar resultados.",
         features: [
@@ -448,9 +448,9 @@ export const pricingContent: {
         iconName: "Zap",
         price: "€9.99",
         priceDetail: "/month",
-        annualPrice: "€8.49",
+        annualPrice: "€8.33",
         annualPriceDetail: "/month (billed annually)",
-        savingsPercentage: "Save 15%",
+        savingsPercentage: "Save 17%",
         popularBadge: "MOST CHOSEN",
         description: "Unlock proactive templates and personalized follow-up to accelerate progress.",
         features: [
