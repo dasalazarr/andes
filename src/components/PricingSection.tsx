@@ -194,7 +194,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isPremium ? "bg-brand/15 text-brand" : "bg-white/10 text-white/80"}`}>
-                    {isPremium ? "Premium" : language === "es" ? "Free" : "Free"}
+                    {isPremium ? "Pro" : language === "es" ? "Free" : "Free"}
                   </span>
                   {isPremium && plan.popularBadge ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-whatsapp px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black">
@@ -280,7 +280,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 {language === "es" ? "Free" : "Free"}
               </th>
               <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-brand md:px-6">
-                Premium
+                Pro
               </th>
             </tr>
           </thead>

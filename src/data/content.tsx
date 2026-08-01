@@ -20,7 +20,7 @@ export const heroContent = {
     description: "Quedadas que se sienten como un plan con amigos y una coach en WhatsApp que se adapta a ti. Tu primera carrera, sin miedo y sin lesiones.",
     ctaPrimaryText: "Empezar Gratis por WhatsApp",
     ctaSecondaryText: "Conoce el club",
-    limitNotice: "15 días Premium gratis · Sin tarjeta · Sin bloqueo",
+    limitNotice: "15 días Pro gratis · Sin tarjeta · Sin bloqueo",
     keyBenefits: "Sin descargas · Plan en 60 segundos · A tu ritmo, siempre",
     imageSrc: '/images/club/hero.webp',
   },
@@ -39,7 +39,7 @@ export const heroContent = {
     description: "Meetups that feel like plans with friends, and a WhatsApp coach that adapts to you. Your first race — no fear, no injuries.",
     ctaPrimaryText: "Start Free on WhatsApp",
     ctaSecondaryText: "Meet the club",
-    limitNotice: "15 days of Premium free · No card · No lockout",
+    limitNotice: "15 days of Pro free · No card · No lockout",
     keyBenefits: "No downloads · First plan in 60 seconds · Always at your pace",
     imageSrc: '/images/club/hero.webp',
   },
@@ -218,7 +218,7 @@ export const indicatorsContent = {
       alt: "Conversación de coaching durante una sesión de running al aire libre",
     },
     stats: [
-      { value: "15 días", label: "De Premium gratis al empezar" },
+      { value: "15 días", label: "De Pro gratis al empezar" },
       { value: "60 seg", label: "Para tu primer plan" },
       { value: "24/7", label: "Tu coach siempre disponible" },
       { value: "€0", label: "Para empezar, sin tarjeta" },
@@ -239,7 +239,7 @@ export const indicatorsContent = {
       alt: "Coach guiding a runner during an outdoor session",
     },
     stats: [
-      { value: "15 days", label: "Of full Premium when you start" },
+      { value: "15 days", label: "Of full Pro when you start" },
       { value: "60 sec", label: "To your first plan" },
       { value: "24/7", label: "Your coach, always available" },
       { value: "€0", label: "To start, no card needed" },
@@ -349,10 +349,10 @@ export const pricingContent: {
   en: PricingContentStructure;
 } = {
   es: {
-    sectionTitle: "Free vs Premium, sin letra pequeña",
+    sectionTitle: "Free vs Pro, sin letra pequeña",
     sectionSubtitle: "Empieza gratis hoy y mejora cuando quieras.",
     competitiveAnchor: "",
-    limitNote: "Empiezas con 15 días de Premium gratis. Después sigues gratis en modo Lite (sin bloqueo).",
+    limitNote: "Empiezas con 15 días de Pro gratis. Después sigues gratis en modo Lite (sin bloqueo).",
     comparisonRows: [
       { feature: "Entrenamiento base", free: "Sí", premium: "Sí" },
       { feature: "Modo Lite sin bloqueo", free: "Sí", premium: "Sí" },
@@ -367,9 +367,9 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
-        description: "Empiezas con 15 días de Premium completo. Después, Andes sigue funcionando gratis en modo Lite, sin bloqueo.",
+        description: "Empiezas con 15 días de Pro completo. Después, Andes sigue funcionando gratis en modo Lite, sin bloqueo.",
         features: [
-          "15 días de Premium gratis al empezar.",
+          "15 días de Pro gratis al empezar.",
           "Funcional siempre, incluso después del umbral.",
           "Plan base para empezar desde cero.",
           "Acompañamiento en modo Lite sin bloqueo.",
@@ -383,7 +383,7 @@ export const pricingContent: {
         imageAlt: "Persona corriendo junto a un lago al amanecer",
       },
       {
-        name: "Premium",
+        name: "Pro",
         iconName: "Zap",
         price: "€9,99",
         priceDetail: "/mes",
@@ -399,7 +399,7 @@ export const pricingContent: {
           "Medallas de progreso y countdown de carrera.",
           "Mayor personalización por contexto y objetivo.",
         ],
-        ctaText: "Desbloquear Premium",
+        ctaText: "Desbloquear Pro",
         ctaDisclaimer: "Cancela cuando quieras",
         guarantee: "30 días de garantía · Devolvemos tu dinero si no ves resultados",
         isPopular: true,
@@ -410,10 +410,10 @@ export const pricingContent: {
     ],
   },
   en: {
-    sectionTitle: "Free vs Premium, no surprises",
+    sectionTitle: "Free vs Pro, no surprises",
     sectionSubtitle: "Start free today and upgrade when you want.",
     competitiveAnchor: "",
-    limitNote: "You start with 15 days of Premium free. After that, you stay free in Lite mode (no lockout).",
+    limitNote: "You start with 15 days of Pro free. After that, you stay free in Lite mode (no lockout).",
     comparisonRows: [
       { feature: "Core training plan", free: "Yes", premium: "Yes" },
       { feature: "Lite mode without lockout", free: "Yes", premium: "Yes" },
@@ -428,9 +428,9 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
-        description: "You start with 15 days of full Premium. After that, Andes keeps working free in Lite mode, with no lockout.",
+        description: "You start with 15 days of full Pro. After that, Andes keeps working free in Lite mode, with no lockout.",
         features: [
-          "15 days of Premium free when you start.",
+          "15 days of Pro free when you start.",
           "Always functional, even after the threshold.",
           "Starter plan for beginner runners.",
           "Lite support with no service lockout.",
@@ -444,7 +444,7 @@ export const pricingContent: {
         imageAlt: "Athlete swimming in open water at sunrise",
       },
       {
-        name: "Premium",
+        name: "Pro",
         iconName: "Zap",
         price: "€9.99",
         priceDetail: "/month",
@@ -460,7 +460,7 @@ export const pricingContent: {
           "Progress medals and race countdown.",
           "Deeper context-aware personalization.",
         ],
-        ctaText: "Unlock Premium",
+        ctaText: "Unlock Pro",
         ctaDisclaimer: "Cancel anytime",
         guarantee: "30-day guarantee · Money back if you don't see results",
         isPopular: true,
@@ -483,7 +483,7 @@ export const faqContent = {
       },
       {
         question: "¿Es realmente gratis? ¿Cuál es la trampa?",
-        answer: "No hay trampa. Empiezas con 15 días de Premium completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Premium (€9,99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
+        answer: "No hay trampa. Empiezas con 15 días de Pro completo gratis, sin tarjeta. Después sigues gratis: 30 mensajes inteligentes y luego modo Lite sin bloqueo. Pro (€9,99/mes) mantiene los recordatorios proactivos y el seguimiento personalizado, pero nunca te quedarás sin coach.",
       },
       {
         question: "No sé nada de running. ¿Es para mí?",
@@ -506,7 +506,7 @@ export const faqContent = {
         answer: "No. Solo necesitas zapatillas cómodas y tu teléfono. Puedes registrar carreras con Strava o simplemente con un cronómetro.",
       },
       {
-        question: "¿Puedo cancelar Premium cuando quiera?",
+        question: "¿Puedo cancelar Pro cuando quiera?",
         answer: "Sí, en 1 clic desde WhatsApp. Y si no ves resultados en 30 días, te devolvemos tu dinero.",
       },
     ],
@@ -521,7 +521,7 @@ export const faqContent = {
       },
       {
         question: "Is it really free? What's the catch?",
-        answer: "No catch. You start with 15 days of full Premium free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Premium (€9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
+        answer: "No catch. You start with 15 days of full Pro free, no card needed. After that you stay free: 30 smart messages, then Lite mode with no lockout. Pro (€9.99/month) keeps proactive reminders and personalized follow-up, but you'll never lose your coach.",
       },
       {
         question: "I know nothing about running. Is this for me?",
@@ -544,7 +544,7 @@ export const faqContent = {
         answer: "No. You just need comfortable shoes and your phone. You can track runs with Strava or simply a stopwatch.",
       },
       {
-        question: "Can I cancel Premium anytime?",
+        question: "Can I cancel Pro anytime?",
         answer: "Yes, in 1 click from WhatsApp. And if you don't see results in 30 days, we'll refund your money.",
       },
     ],
@@ -556,13 +556,13 @@ export const ctaContent = {
     title: "Tu primera carrera empieza con un mensaje.",
     subtitle: "Sin descargas. Sin tarjeta. Sin bloqueo. Solo abre WhatsApp.",
     buttonText: "Empezar Gratis por WhatsApp",
-    secondaryLinkText: "Ver planes Premium →",
+    secondaryLinkText: "Ver planes Pro →",
   },
   en: {
     title: "Your first race starts with a message.",
     subtitle: "No download. No card. No lockout. Just open WhatsApp.",
     buttonText: "Start Free on WhatsApp",
-    secondaryLinkText: "See Premium plans →",
+    secondaryLinkText: "See Pro plans →",
   },
 };
 
@@ -1074,7 +1074,7 @@ export const ambassadorsContent = {
     seo: {
       title: "Embajadores Andes — Lidera el club de running de tu ciudad",
       description:
-        "Buscamos embajadores en Pamplona que quieran que más gente se enamore de correr. Premium gratis, eventos y comunidad. Aplica en 1 minuto por WhatsApp.",
+        "Buscamos embajadores en Pamplona que quieran que más gente se enamore de correr. Pro gratis, eventos y comunidad. Aplica en 1 minuto por WhatsApp.",
     },
     hero: {
       preheading: "Programa de embajadores · Pamplona",
@@ -1112,7 +1112,7 @@ export const ambassadorsContent = {
     benefits: {
       title: "Lo que recibes",
       items: [
-        { title: "Premium gratis", description: "Coach completo por WhatsApp mientras seas embajador." },
+        { title: "Pro gratis", description: "Coach completo por WhatsApp mientras seas embajador." },
         { title: "Eventos con +1", description: "Acceso prioritario a todas las quedadas y experiencias, con invitación para un amigo." },
         { title: "Visibilidad", description: "Presencia en las redes de Andes y co-creación de contenido con el club." },
         { title: "Programa de referidos", description: "Próximamente: recompensas por cada persona que se una gracias a ti." },
@@ -1144,7 +1144,7 @@ export const ambassadorsContent = {
         },
         {
           question: "¿Me pagan?",
-          answer: "Hoy: Premium gratis, eventos y visibilidad. Pronto: programa de referidos con recompensas por cada persona que traigas.",
+          answer: "Hoy: Pro gratis, eventos y visibilidad. Pronto: programa de referidos con recompensas por cada persona que traigas.",
         },
       ],
     },
@@ -1158,7 +1158,7 @@ export const ambassadorsContent = {
     seo: {
       title: "Andes Ambassadors — Lead your city's running club",
       description:
-        "We're looking for ambassadors who want more people to fall in love with running. Free Premium, events and community. Apply in 1 minute on WhatsApp.",
+        "We're looking for ambassadors who want more people to fall in love with running. Free Pro, events and community. Apply in 1 minute on WhatsApp.",
     },
     hero: {
       preheading: "Ambassador program · Pamplona",
@@ -1187,7 +1187,7 @@ export const ambassadorsContent = {
     benefits: {
       title: "What you get",
       items: [
-        { title: "Free Premium", description: "Full WhatsApp coach while you're an ambassador." },
+        { title: "Free Pro", description: "Full WhatsApp coach while you're an ambassador." },
         { title: "Events with a +1", description: "Priority access to every meetup and experience, with an invite for a friend." },
         { title: "Visibility", description: "Presence on Andes channels and content co-created with the club." },
         { title: "Referral program", description: "Coming soon: rewards for every runner who joins thanks to you." },
@@ -1211,7 +1211,7 @@ export const ambassadorsContent = {
       items: [
         { question: "Do I need to be fast or experienced?", answer: "No. You need to have gone through starting. If you know what the first kilometer costs, you know how to support someone living it." },
         { question: "How much time does it take?", answer: "About 2 hours a week: the meetup plus some content. You set the pace." },
-        { question: "Do I get paid?", answer: "Today: free Premium, events and visibility. Soon: a referral program with rewards for every runner you bring." },
+        { question: "Do I get paid?", answer: "Today: free Pro, events and visibility. Soon: a referral program with rewards for every runner you bring." },
       ],
     },
     finalCta: {
@@ -1244,7 +1244,7 @@ export const pamplonaContent = {
     },
     stats: [
       { value: "2 semanas", label: "Para enamorarte de correr" },
-      { value: "15 días", label: "De Premium gratis al empezar" },
+      { value: "15 días", label: "De Pro gratis al empezar" },
       { value: "€0", label: "Para empezar, sin tarjeta" },
       { value: "24/7", label: "Tu coach en WhatsApp" },
     ],
@@ -1280,15 +1280,15 @@ export const pamplonaContent = {
       imageAlt: "Grupo del club Andes en una quedada en Pamplona",
     },
     pricing: {
-      title: "Empieza gratis. Premium cuando quieras.",
-      subtitle: "Empiezas con 15 días de Premium completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo.",
+      title: "Empieza gratis. Pro cuando quieras.",
+      subtitle: "Empiezas con 15 días de Pro completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo.",
       freeTitle: "Gratis",
       freeDescription: "Tu plan base y la coach por WhatsApp, siempre funcional. Ideal para tu primer 5K.",
-      premiumTitle: "Premium",
+      premiumTitle: "Pro",
       premiumPrice: "€9,99",
       premiumDetail: "/mes",
       premiumDescription: "Recordatorios proactivos, seguimiento semanal y medallas de progreso para no soltar el hábito.",
-      note: "Empiezas con 15 días de Premium gratis, sin tarjeta.",
+      note: "Empiezas con 15 días de Pro gratis, sin tarjeta.",
       ctaText: "Empezar gratis",
     },
     ambassadorCta: {
@@ -1300,7 +1300,7 @@ export const pamplonaContent = {
       title: "Preguntas rápidas",
       items: [
         { question: "¿Tengo que estar en forma?", answer: "No. Andes existe para lo contrario: empezar desde cero, a tu ritmo. Las quedadas son a ritmo de conversación y tu plan puede empezar caminando." },
-        { question: "¿Es de verdad gratis?", answer: "Sí. Empiezas con 15 días de Premium completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo. Premium (€9,99/mes) es opcional." },
+        { question: "¿Es de verdad gratis?", answer: "Sí. Empiezas con 15 días de Pro completo, sin tarjeta. Después sigues gratis en modo Lite, sin bloqueo. Pro (€9,99/mes) es opcional." },
         { question: "¿Dónde son las quedadas?", answer: "En Pamplona, con cafés y espacios aliados. Te avisamos por WhatsApp de la próxima en cuanto te sumes." },
       ],
     },
@@ -1329,7 +1329,7 @@ export const pamplonaContent = {
     },
     stats: [
       { value: "2 weeks", label: "To fall in love with running" },
-      { value: "15 days", label: "Of Premium free when you start" },
+      { value: "15 days", label: "Of Pro free when you start" },
       { value: "€0", label: "To start, no card needed" },
       { value: "24/7", label: "Your coach on WhatsApp" },
     ],
@@ -1365,15 +1365,15 @@ export const pamplonaContent = {
       imageAlt: "Andes club group during a Pamplona meetup",
     },
     pricing: {
-      title: "Start free. Premium when you want.",
-      subtitle: "You start with 15 days of full Premium, no card. After that you stay free in Lite mode, no lockout.",
+      title: "Start free. Pro when you want.",
+      subtitle: "You start with 15 days of full Pro, no card. After that you stay free in Lite mode, no lockout.",
       freeTitle: "Free",
       freeDescription: "Your base plan and the WhatsApp coach, always functional. Ideal for your first 5K.",
-      premiumTitle: "Premium",
+      premiumTitle: "Pro",
       premiumPrice: "€9.99",
       premiumDetail: "/month",
       premiumDescription: "Proactive reminders, weekly follow-up and progress medals so you keep the habit.",
-      note: "You start with 15 days of Premium free, no card needed.",
+      note: "You start with 15 days of Pro free, no card needed.",
       ctaText: "Start free",
     },
     ambassadorCta: {
@@ -1385,7 +1385,7 @@ export const pamplonaContent = {
       title: "Quick questions",
       items: [
         { question: "Do I need to be fit?", answer: "No. Andes exists for the opposite: to start from zero, at your pace. Meetups are conversation-pace and your plan can start with walking." },
-        { question: "Is it really free?", answer: "Yes. You start with 15 days of full Premium, no card. After that you stay free in Lite mode, no lockout. Premium (€9.99/month) is optional." },
+        { question: "Is it really free?", answer: "Yes. You start with 15 days of full Pro, no card. After that you stay free in Lite mode, no lockout. Pro (€9.99/month) is optional." },
         { question: "Where are the meetups?", answer: "In Pamplona, with partner cafés and spaces. We'll message you the next one on WhatsApp as soon as you join." },
       ],
     },
