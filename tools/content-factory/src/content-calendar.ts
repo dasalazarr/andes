@@ -3,9 +3,17 @@
  * Mirrors docs/content-strategy-pamplona-2026-08.md §3-4 — keep both in sync.
  * This is the single source of truth the CLI reads from; add new pieces here,
  * not inline in index.ts.
+ *
+ * productionMode reflects what Higgsfield's real workflow catalog can and
+ * can't do (confirmed 2026-08-07, see higgsfield-client.ts):
+ *   - "ambassador-filmed": no Higgsfield workflow fits raw candid phone
+ *     footage — these scripts are filming briefs for a human, not AI prompts.
+ *   - "ai-generated": fits an existing Higgsfield workflow; the script below
+ *     is the brief to feed that workflow's own intake.
  */
 
 export type Format = "short" | "long";
+export type ProductionMode = "ambassador-filmed" | "ai-generated";
 
 export interface CalendarPiece {
   id: string;
@@ -14,7 +22,10 @@ export interface CalendarPiece {
   hook: string;
   angle: string;
   cta: "/pamplona" | "/embajadores";
-  /** Full shot list / VO / music / edit direction, ready to paste into Higgsfield. */
+  productionMode: ProductionMode;
+  /** Only set when productionMode is "ai-generated" — the Higgsfield workflow name to load via get_workflow_instructions. */
+  higgsfieldWorkflow?: string;
+  /** Shot list / VO / music / edit direction — a filming brief (ambassador-filmed) or a generation brief (ai-generated). */
   script: string;
   /** For YouTube Video Package generation (long-form primarily, but shorts get simple captions too). */
   youtubePackage?: {
@@ -24,13 +35,26 @@ export interface CalendarPiece {
   };
 }
 
-const MASTER_STYLE = `MOTOR: Cense 2.0, 1080p [verificar nombre exacto de motor tras autenticación con Higgsfield]
-MARCA: Andes — club de running de Pamplona. Logo: montaña verde sobre fondo oscuro.
-PERSONAJE: consistencia absoluta de rostro, vestuario y tono de voz en TODO el metraje.
-ESTÉTICA: luz natural de mañana/tarde, Pamplona urbano-verde, cámara en mano con
-  ligera inestabilidad (no gimbal perfecto) — crudo/candid supera a lo pulido en 2026.
+const BRAND = `MARCA: Andes — club de running de Pamplona. Logo: montaña verde sobre fondo oscuro.
 VOZ EN OFF: cálida, cercana, "una amiga que sabe de running" — nunca jerga técnica
   (nada de "paces", "VDOT", "PRs" de cara al usuario).`;
+
+/** Header for pieces a human (ideally an ambassador) films on their phone. */
+const FILMED_STYLE = `${BRAND}
+FORMATO: filmado por un embajador con el móvil, vertical 9:16, 15-30s.
+ESTÉTICA: luz natural, Pamplona urbano-verde, cámara en mano, ligera
+  inestabilidad — priorizar candid real sobre producción pulida (así rinde
+  mejor este formato ahora mismo — ver docs/content-strategy-pamplona-2026-08.md §2).
+PERSONAJE: personas reales del club (ambassador, miembros) — no avatar de marca.`;
+
+/** Header for pieces routed through Higgsfield's faceless-channel-video workflow. */
+const AI_STYLE = `${BRAND}
+FORMATO: horizontal 16:9, 5-10min.
+HIGGSFIELD: workflow "faceless-channel-video" (narrador + visuales, sin actor
+  en cámara) — cargar con get_workflow_instructions antes de generar; ese
+  workflow decide el modelo/motor internamente, no lo fijamos aquí.
+ESTÉTICA: consistencia de marca (montaña verde, fondo oscuro) en cualquier
+  asset gráfico que el workflow produzca.`;
 
 export const CALENDAR: CalendarPiece[] = [
   {
@@ -40,8 +64,8 @@ export const CALENDAR: CalendarPiece[] = [
     hook: "POV: son las 11pm y no sabes si corres mañana",
     angle: "Pain point + respuesta sin juicio, humaniza el WhatsApp",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
 GUION: Persona en pijama, luz de teléfono en la cara, 11pm. Escribe "no sé si
   corro mañana, estoy agotada". Corte a burbuja de WhatsApp respondiendo con
   calidez, sin culpa. Corte a la misma persona corriendo suave a la mañana
@@ -58,8 +82,8 @@ CTA: "Empieza gratis por WhatsApp" / on-screen: "andesrc.com/pamplona"`,
     hook: "Si nunca has ido a un run club y te da vergüenza...",
     angle: "POV embajador, cámara en mano, formato crudo",
     cta: "/embajadores",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
 GUION: Cámara en mano (POV embajador) llegando al café aliado un jueves
   temprano, saludando gente que llega, grupo estirando, arrancan a ritmo de
   conversación. Priorizar momentos candid reales sobre guion rígido.
@@ -75,12 +99,12 @@ CTA: "¿Y si lideras el club de tu ciudad? → /embajadores"`,
     hook: "Tu plan de running no sabe que hoy dormiste mal",
     angle: "Comparación plan estático vs. coach adaptativo (cita FAQ real)",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
-GUION: Split-screen: PDF/hoja de plan genérico vs. chat de WhatsApp. Texto
-  overlay: "1. No sabe que dormiste mal" / "2. No sabe que te duele la rodilla"
-  / "3. No se adapta si viajas". Corte final: notificación de WhatsApp
-  reordenando el plan solo.
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
+GUION: Split-screen: PDF/hoja de plan genérico vs. chat de WhatsApp real.
+  Texto overlay: "1. No sabe que dormiste mal" / "2. No sabe que te duele la
+  rodilla" / "3. No se adapta si viajas". Corte final: notificación de
+  WhatsApp reordenando el plan solo.
 VOZ EN OFF: "Un plan de Google es estático. No sabe que hoy dormiste mal."
 MÚSICA: mínima, casi ausente — dejar que el contraste visual hable.
 CTA: "El tuyo sí se adapta → empieza gratis"`,
@@ -92,8 +116,8 @@ CTA: "El tuyo sí se adapta → empieza gratis"`,
     hook: "No necesitas gym ni app de pago para esto",
     angle: "Accesibilidad, Free/Lite Mode nunca bloquea",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
 GUION: Persona mostrando que no tiene ropa de gym cara ni suscripción a app de
   running, solo el móvil. Escribe a Andes por WhatsApp, arranca a caminar/correr
   suave desde la puerta de casa.
@@ -108,10 +132,12 @@ CTA: "Empieza gratis por WhatsApp"`,
     hook: "Hace 2 semanas no corría ni 1km",
     angle: "Testimonio real, ligado a la promesa literal del hero",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
 GUION: Split temporal: día 1 caminando/trotando incómodo vs. día 14 corriendo
-  con soltura junto al grupo. Overlay de fecha en cada mitad.
+  con soltura junto al grupo. Overlay de fecha en cada mitad. (Filmar ambos
+  momentos reales con la misma persona — no generar sintéticamente: el peso
+  del formato es que sea verificablemente real.)
 VOZ EN OFF: "Hace 2 semanas no corría ni 1km. Enamórate de correr en dos
   semanas."
 MÚSICA: sube de energía del lado "después".
@@ -124,8 +150,8 @@ CTA: "Tu primera carrera empieza con un mensaje → /pamplona"`,
     hook: "Faltan 3 días para la próxima quedada",
     angle: "FOMO comunitario + recap de la última, formato evento",
     cta: "/embajadores",
-    script: `${MASTER_STYLE}
-FORMATO: vertical 9:16, 15-30s
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
 GUION: Recap rápido de la última quedada del jueves (risas, café, grupo
   corriendo) con overlay de cuenta regresiva "3... 2... 1 día" para la próxima.
 VOZ EN OFF: "El club está naciendo en Pamplona. ¿Vienes el jueves?"
@@ -139,15 +165,16 @@ CTA: "Apúntate a la próxima quedada → /pamplona"`,
     hook: "Detrás de escena: la ciencia real detrás de un plan que llega por WhatsApp",
     angle: "VDOT/ciencia real explicada simple, sin sonar a infomercial",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: horizontal 16:9, 5-10min
+    productionMode: "ai-generated",
+    higgsfieldWorkflow: "faceless-channel-video",
+    script: `${AI_STYLE}
+TIPO DE FLUJO: Explainer (dentro de faceless-channel-video)
 GUION: Explicación en tono casual de cómo el coach calcula ritmos a partir de
   carreras/entrenamientos recientes (metodología real, sin nombrarla como
   "VDOT" al usuario), ilustrado con un caso real de Pamplona. Cierre con
   testimonio breve.
-VOZ EN OFF: narrativa educativa, sin jerga, comparando con "cómo lo haría un
-  entrenador humano" para anclar la credibilidad.
-MÚSICA: instrumental cálido, discreto.
+NARRACIÓN: educativa, sin jerga, comparando con "cómo lo haría un entrenador
+  humano" para anclar la credibilidad.
 CTA: "/pamplona" en descripción y card final.`,
     youtubePackage: {
       titleOptions: [
@@ -175,8 +202,10 @@ CTA: "/pamplona" en descripción y card final.`,
     hook: "Así es un run club para gente que odia correr sola",
     angle: "Mini-documental: embajador + coach en paralelo",
     cta: "/embajadores",
-    script: `${MASTER_STYLE}
-FORMATO: horizontal 16:9, 5-7min, estructura documental
+    productionMode: "ambassador-filmed",
+    script: `${FILMED_STYLE}
+FORMATO: horizontal 16:9, 5-7min — mejor filmado real que generado: es
+  literalmente un documental sobre gente y un lugar reales.
 GUION: Acto 1 — por qué nace el club (voz del embajador). Acto 2 — la quedada
   del jueves de principio a fin. Acto 3 — qué pasa entre quedada y quedada
   (WhatsApp coach, capturas reales de conversación). Cierre — testimonio de
@@ -209,14 +238,16 @@ CTA: "/embajadores" (cierre) + "/pamplona" (descripción).`,
     hook: "Por qué la mayoría de lesiones de principiante son evitables",
     angle: "Educativo, casual, con testimonio real de un miembro",
     cta: "/pamplona",
-    script: `${MASTER_STYLE}
-FORMATO: horizontal 16:9, 5-10min
+    productionMode: "ai-generated",
+    higgsfieldWorkflow: "faceless-channel-video",
+    script: `${AI_STYLE}
+TIPO DE FLUJO: Explainer (dentro de faceless-channel-video)
 GUION: Explicación casual de por qué los principiantes se lesionan (progresión
   demasiado rápida, cero seguimiento de carga) y cómo el coach lo previene
-  antes de que pase, no después. Testimonio real de alguien que evitó una
-  lesión gracias al ajuste automático del plan.
-VOZ EN OFF: educativo, tranquilizador, cero tono alarmista.
-MÚSICA: instrumental cálido, discreto.
+  antes de que pase, no después. Referenciar (sin filmarlo dentro del mismo
+  asset generado) un testimonio real de alguien que evitó una lesión gracias
+  al ajuste automático del plan — puede insertarse como clip filmado aparte.
+NARRACIÓN: educativa, tranquilizadora, cero tono alarmista.
 CTA: "/pamplona" en descripción y card final.`,
     youtubePackage: {
       titleOptions: [

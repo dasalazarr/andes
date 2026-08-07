@@ -1,64 +1,45 @@
 /**
- * Higgsfield integration boundary.
+ * Higgsfield integration boundary — confirmed against the real MCP tool
+ * catalog (authenticated 2026-08-07). Two things are now settled:
  *
- * As of writing, the "claude.ai Higgsfield" MCP connector is installed but not
- * authenticated in this workspace, and MCP tools are only callable from inside
- * a Claude Code conversation — not from an arbitrary standalone Node process.
- * That means there are two honest ways to actually run a job, and this client
- * intentionally does NOT pretend to be a working HTTP integration until one of
- * them is confirmed:
+ * 1. There is no separate REST API — generation only happens through the
+ *    `claude.ai Higgsfield` MCP tools inside an authenticated Claude Code
+ *    session. A standalone Node process cannot call them directly; this file
+ *    stays a thin, honest boundary rather than a fake HTTP client.
+ * 2. Higgsfield's real surface is a set of NAMED WORKFLOWS
+ *    (`get_workflow_instructions`), not a generic "make any video" call.
+ *    Relevant ones for this calendar:
+ *      - `faceless-channel-video` — narrator-led explainer/documentary/story,
+ *        30s-10+min, non-photoreal. Good fit for L1-L3.
+ *      - `character-sheet` — consistent persona/reference across generations.
+ *        Only useful if a piece needs a repeated AI-generated "character";
+ *        our own brand voice deliberately avoids a fixed coach avatar (the
+ *        coach is a WhatsApp voice, not an on-screen mascot) — see
+ *        content-calendar.ts MASTER_STYLE.
+ *      - `ugc-*` flows (ugc-flow, ugc-saas-flow, etc.) — product-review-style
+ *        talking-head ads with a real product/URL. Andes has no e-commerce
+ *        product page, so these fit poorly except possibly a SaaS-style demo
+ *        of the WhatsApp coaching flow itself.
+ *      - Nothing in the catalog fits "raw, candid, ambassador-shot phone
+ *        footage" — which is exactly the format the content-strategy doc's
+ *        own §2 pattern research says wins right now. That's why S1-S6 are
+ *        marked `productionMode: "ambassador-filmed"` in content-calendar.ts,
+ *        not routed through Higgsfield at all.
  *
- *   1. Higgsfield exposes a plain REST API (api key based) separate from its
- *      MCP proxy — if so, fill in submitJob/pollJob/downloadAsset below against
- *      the real endpoints once you have API docs/credentials.
- *   2. There is no separate REST API, and generation only happens through the
- *      MCP tool inside a Claude Code session — if so, this script's job is to
- *      print copy-ready prompts (see `generate --dry-run`, the default) for a
- *      human/Claude to paste into the authenticated MCP session, not to POST
- *      anywhere itself.
+ * Practical flow for an "ai-generated" piece:
+ *   1. `npm run prompt -- <pieceId>` to get the brief.
+ *   2. In a live Claude Code session (Higgsfield authenticated via `/mcp`),
+ *      ask Claude to call `get_workflow_instructions` for the piece's
+ *      `higgsfieldWorkflow`, then `generate_video`/`generate_image` per that
+ *      workflow's own intake, then `jobs_wait`, then save the asset.
+ *   3. Generation is metered (credits) — confirm before running each piece;
+ *      check `balance` first. `use_unlim` free-trial generations exist but
+ *      are opt-in only when explicitly requested — never assume/spend them.
  *
- * Run `/mcp` → authenticate "claude.ai Higgsfield", then ask Claude Code to
- * inspect the tools that appear and update this file accordingly.
+ * This file intentionally has no exported functions: there is nothing here
+ * a standalone script can correctly call. Automating further would mean
+ * building an actual MCP client in this script, which is unnecessary — the
+ * generation already happens from inside this same Claude Code session.
  */
 
-export interface SubmitJobParams {
-  pieceId: string;
-  prompt: string;
-}
-
-export interface SubmitJobResult {
-  jobId: string;
-}
-
-export interface JobStatus {
-  jobId: string;
-  status: "queued" | "rendering" | "done" | "failed";
-  assetUrl?: string;
-}
-
-export class HiggsfieldNotConfiguredError extends Error {
-  constructor() {
-    super(
-      [
-        "Higgsfield is not wired up for direct script calls yet.",
-        "Run `/mcp` in Claude Code and authenticate \"claude.ai Higgsfield\",",
-        "then update tools/content-factory/src/higgsfield-client.ts against the",
-        "real tool schema/API before calling submitJob/pollJob/downloadAsset.",
-        "Until then, use `npm run prompt -- <pieceId>` to get a copy-ready prompt.",
-      ].join(" "),
-    );
-    this.name = "HiggsfieldNotConfiguredError";
-  }
-}
-
-export async function submitJob(_params: SubmitJobParams): Promise<SubmitJobResult> {
-  throw new HiggsfieldNotConfiguredError();
-}
-
-export async function pollJob(_jobId: string): Promise<JobStatus> {
-  throw new HiggsfieldNotConfiguredError();
-}
-
-export async function downloadAsset(_assetUrl: string, _destPath: string): Promise<void> {
-  throw new HiggsfieldNotConfiguredError();
-}
+export {};

@@ -92,51 +92,31 @@ Cada pieza cierra con CTA a `/pamplona` (corredor casual) o `/embajadores` (líd
 
 ---
 
-## 4. Plantillas Higgsfield (Paso 4)
+## 4. Higgsfield: qué encaja y qué no (Paso 4)
 
-**Estado:** Higgsfield MCP está instalado pero **aún no autenticado** en esta sesión (conector de claude.ai — se activa corriendo `/mcp` y seleccionando "claude.ai Higgsfield"). Las plantillas de abajo están completas y listas para usar, pero los parámetros exactos del motor ("Cense 2.0 1080p" tal como lo especificaste) deben verificarse contra el schema real de la herramienta una vez autenticado — lo marco explícitamente para no inventar parámetros que no existan.
+**Estado:** Higgsfield MCP autenticado el 07-ago-2026 ("claude.ai Higgsfield"). Esto cambió el enfoque de esta sección: Higgsfield **no es un generador genérico de video** — es un catálogo de *workflows* nombrados (`get_workflow_instructions`), cada uno con su propio intake. No existe un motor "Cense 2.0" (esa era una especificación sin verificar del brief original); cada workflow decide su propio modelo internamente.
 
-### Plantilla maestra (reutilizable)
+**El hallazgo clave — y confirma lo que ya decía §2:** el catálogo real de Higgsfield cubre bien contenido narrado/explicativo sin actor en cámara (`faceless-channel-video`: Explainer, History/documental, Kids, Fairy Tale) y anuncios estilo UGC con producto/URL real (`ugc-flow` y variantes, pensados para reseñas tipo talking-head de un producto de e-commerce). **Ningún workflow del catálogo produce metraje crudo, cámara en mano, candid de una quedada real** — que es exactamente el formato que §2 identificó como el que mejor rinde ahora mismo para contenido de run clubs. Esto no es una limitación que rodear: es la confirmación de que ese contenido debe salir de un embajador con el móvil, no de un generador de IA.
 
-```
-MOTOR: Cense 2.0, 1080p [verificar nombre exacto de motor tras autenticación]
-FORMATO: [vertical 9:16 15-30s | horizontal 16:9 5-10min]
-MARCA: Andes — club de running de Pamplona. Logo: montaña verde sobre fondo oscuro.
-PERSONAJE: [ver ficha de personaje abajo] — mantener consistencia absoluta de rostro,
-  vestuario y tono de voz en TODO el metraje, sin variación entre tomas.
-ESTÉTICA: luz natural de mañana/tarde, Pamplona urbano-verde, cámara en mano con
-  ligera inestabilidad (no gimbal perfecto) — el "crudo" supera a lo pulido en 2026.
-VOZ EN OFF: tono cálido, cercano, como "una amiga que sabe de running" — nunca
-  motivacional-genérico de gym, nunca jerga técnica (nada de "paces", "VDOT", "PRs").
-MÚSICA: [ver por pieza] volumen bajo, no debe tapar la voz en off.
-EDICIÓN: cortes rápidos en el hook (primeros 3s), ritmo que baja en el cuerpo del
-  video, cierre con card de texto + CTA hablado.
-GUION: [texto específico de la pieza — ver ejemplos abajo]
-CTA FINAL (hablado + en pantalla): "[CTA específico]"
-YOUTUBE VIDEO PACKAGE:
-  - 3 opciones de título (ES + EN si aplica)
-  - Descripción SEO (150-300 palabras, menciona "Pamplona", "club de running",
-    "coach WhatsApp", enlace a andesrc.com)
-  - 10-15 tags (mezcla amplia + específica: running principiantes, Pamplona,
-    club de running, coach IA, running sin lesiones)
-  - 3 conceptos de miniatura para test A/B (variar: primer plano emocional vs.
-    texto-hook vs. acción en movimiento)
-```
+**Reparto de piezas del calendario:**
 
-### Ficha de personaje (consistencia visual)
+| Pieza | Modo de producción | Por qué |
+|---|---|---|
+| S1, S2, S3, S4, S5, S6 | **Filmado por embajador** | Son momentos candid de personas y lugares reales — el formato que gana ahora mismo (§2), y ningún workflow de Higgsfield lo replica de forma creíble. |
+| L2 ("Una semana en el club") | **Filmado por embajador** | Es literalmente un documental sobre gente y un sitio reales — filmarlo tiene más credibilidad que generarlo. |
+| L1, L3 (explicativos, sin protagonista en cámara) | **Generado con Higgsfield** — workflow `faceless-channel-video` | Encajan directo en el tipo "Explainer" del workflow: narrador + visuales, sin necesidad de actor real. |
 
-```
-Nombre de referencia: "la coach Andes" (voz, no rostro fijo de marca — el producto
-  es WhatsApp, no un avatar; usar corredores reales/actores como protagonistas,
-  la "coach" es la voz en off/mensajes de WhatsApp en pantalla).
-Edad aparente: 28-38. Vestuario: ropa deportiva casual, sin marcas de gym de lujo
-  (coherente con ICP no-performance). Entorno recurrente: calles/parques de
-  Pamplona, café aliado del club, punto de encuentro de la quedada del jueves.
-```
+De cara al brief original: no hay una "ficha de personaje" única de marca porque el propio tono de Andes ya lo descarta — la coach es la voz de WhatsApp, no un avatar fijo; los protagonistas son corredores/embajadores reales.
 
-### Ejemplos concretos (listos para pegar en Higgsfield, uno por pieza del calendario)
+### Cómo correr una pieza `ai-generated`
 
-**S1 — "Le escribí a mi coach a las 11pm"**
+1. `npm run prompt -- L1` (o `L3`) en `tools/content-factory/` para ver el brief completo.
+2. En esta misma sesión de Claude Code, con Higgsfield autenticado: pedir que cargue `get_workflow_instructions({ workflow: "faceless-channel-video" })` y lo ejecute con ese brief.
+3. Revisar `balance` antes — la generación consume créditos (210 disponibles en el plan Starter al momento de escribir esto). No correr las 9 piezas de una sentada sin revisar costo.
+
+### Ejemplos concretos por pieza
+
+**S1 — "Le escribí a mi coach a las 11pm"** · `[FILMAR — embajador]`
 ```
 GUION: Persona en pijama, luz de teléfono en la cara, 11pm. Escribe "no sé si
   corro mañana, estoy agotada". Corte a burbuja de WhatsApp respondiendo con
@@ -148,7 +128,7 @@ MÚSICA: lo-fi suave, sube ligeramente en el corte final.
 CTA: "Empieza gratis por WhatsApp → link en bio" / on-screen: "andesrc.com/pamplona"
 ```
 
-**S2 — Día en la vida de un embajador**
+**S2 — Día en la vida de un embajador** · `[FILMAR — embajador]`
 ```
 GUION: Cámara en mano (POV embajador) llegando al café aliado un jueves temprano,
   saludando gente que llega, grupo estirando, arrancan a ritmo de conversación.
@@ -159,7 +139,7 @@ MÚSICA: percusión ligera, energía de mañana, sin ser "hype" agresivo.
 CTA: "¿Y si lideras el club de tu ciudad? → /embajadores"
 ```
 
-**S3 — "3 señales de que tu plan no te entiende"**
+**S3 — "3 señales de que tu plan no te entiende"** · `[FILMAR — embajador]`
 ```
 GUION: Split-screen: PDF/hoja de plan genérico vs. chat de WhatsApp. Texto
   overlay: "1. No sabe que dormiste mal" / "2. No sabe que te duele la rodilla"
@@ -171,7 +151,7 @@ MÚSICA: mínima, casi ausente — dejar que el contraste visual hable.
 CTA: "El tuyo sí se adapta → empieza gratis"
 ```
 
-**L2 — "Una semana en el club de running de Pamplona" (largo)**
+**L2 — "Una semana en el club de running de Pamplona" (largo)** · `[FILMAR — embajador]`
 ```
 GUION: Estructura documental 5-7min. Acto 1: por qué nace el club (voz del
   embajador). Acto 2: la quedada del jueves de principio a fin. Acto 3: qué pasa
@@ -185,19 +165,34 @@ YOUTUBE PACKAGE: título A "Así es un run club para gente que odia correr sola"
 CTA: "/embajadores" (cierre) + "/pamplona" (descripción).
 ```
 
-*(El resto de piezas del calendario siguen esta misma estructura — se generan bajo pedido con el mismo nivel de detalle una vez se prioricen para producción.)*
+**L1 — "Cómo un chatbot de WhatsApp calcula tus ritmos como un entrenador olímpico"** · `[GENERAR — Higgsfield: faceless-channel-video, tipo Explainer]`
+```
+GUION: Explicación en tono casual de cómo el coach calcula ritmos a partir de
+  carreras/entrenamientos recientes (metodología real, sin nombrarla como
+  "VDOT" al usuario), ilustrado con un caso real de Pamplona. Cierre con
+  testimonio breve.
+NARRACIÓN: educativa, sin jerga, comparando con "cómo lo haría un entrenador
+  humano" para anclar la credibilidad.
+YOUTUBE PACKAGE: título A "Cómo un chatbot de WhatsApp calcula tus ritmos como
+  un entrenador olímpico" / título B "La ciencia real detrás de tu plan de
+  running por WhatsApp" / título C "Así calcula Andes tu plan de entrenamiento
+  (sin apps, sin gym)".
+CTA: "/pamplona" en descripción y card final.
+```
+
+*(L3 sigue la misma estructura que L1 — ver `tools/content-factory/src/content-calendar.ts` para el brief completo de las 9 piezas, fuente única compartida entre este doc y el CLI.)*
 
 ---
 
 ## 5. Automatización (Paso 5)
 
-Ver `tools/content-factory/README.md` para el script y su estado. Resumen: el script está construido y compila, pero **no envía trabajos reales de generación** hasta que (a) Higgsfield esté autenticado en esta sesión y (b) confirmes qué pieza quieres correr como prueba — la generación es previsiblemente de pago/medida por uso.
+Ver `tools/content-factory/README.md` para el estado completo. Resumen: `npm run prompt -- <id>` y `npm run generate -- <id>` funcionan hoy — el segundo distingue automáticamente entre piezas para filmar (imprime el brief de filmación) y piezas para generar con Higgsfield (imprime qué workflow cargar y cómo). No hay llamada directa a una API de Higgsfield desde el script: las herramientas MCP solo corren dentro de una sesión de Claude Code autenticada, así que la generación real se pide en vivo, no por batch automático. Antes de generar cualquier pieza: revisar `balance` (210 créditos disponibles en el plan Starter al confirmar esto) — no correr las 9 piezas de una sentada.
 
 ---
 
 ## Próximos pasos
 
 1. Reescribir las 3 bios existentes (YT/IG/TikTok) para mencionar Pamplona + `/pamplona` — 15 minutos, sin costo, mayor impacto inmediato de esta auditoría.
-2. Correr `/mcp` → autenticar "claude.ai Higgsfield" cuando quieras generar video real.
-3. Priorizar 1-2 piezas cortas (S1-S6) para la primera producción real, idealmente grabadas por un embajador en la próxima quedada del jueves — coincide con el patrón de "baja producción gana" de §2.
+2. Priorizar 1-2 piezas cortas (S1-S6) para la primera producción real, filmadas por un embajador en la próxima quedada del jueves — coincide con el patrón de "baja producción gana" de §2 y es gratis (no consume créditos de Higgsfield).
+3. Si quieres una primera pieza generada por IA como prueba, L1 es la candidata más barata/rápida de validar (Explainer corto, sin necesidad de metraje real) — confirma cuál antes de gastar créditos.
 4. Enviarme enlaces reales de canales de referencia si quieres que reemplace el §2 genérico por un análisis específico.

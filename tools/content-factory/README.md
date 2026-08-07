@@ -6,17 +6,29 @@ Sized for the ~9 pieces in that calendar — not a bulk/mass generation pipeline
 
 ## State
 
-- **Works today**: `npm run list` and `npm run prompt -- <pieceId>` — prints a
-  copy-ready Higgsfield prompt for any calendar piece, straight from
-  `src/content-calendar.ts`. Also `npm run export-metadata`, which writes the
-  YouTube title/description/tags for long-form pieces to
-  `assets/content_factory/youtube-metadata.json`.
-- **Not wired up yet**: `npm run generate -- <pieceId>` — calls into
-  `src/higgsfield-client.ts`, which currently throws
-  `HiggsfieldNotConfiguredError` on purpose. Higgsfield's real integration
-  shape (a plain REST API vs. MCP-only) isn't confirmed yet — see the comment
-  at the top of that file for what to check once you've run `/mcp` and
-  authenticated "claude.ai Higgsfield".
+Higgsfield was authenticated 2026-08-07 and its real capabilities are now
+confirmed: it's a set of named workflows (`get_workflow_instructions`), not a
+generic "make any video" call, and MCP tools only run inside a live Claude
+Code session — there's no separate REST API this script can call directly.
+See `src/higgsfield-client.ts` for the full breakdown.
+
+That reshaped the calendar: each piece now has a `productionMode`.
+
+- **`ambassador-filmed`** (S1-S6, L2): no Higgsfield workflow fits raw candid
+  phone footage — and per the strategy doc's own §2 pattern research, that
+  format outperforms polish right now anyway. These are filming briefs for a
+  human, not AI prompts.
+- **`ai-generated`** (L1, L3): fit Higgsfield's `faceless-channel-video`
+  workflow (narrator-led explainer, no actor on camera).
+
+Commands:
+- `npm run list` — all pieces with format + production mode.
+- `npm run prompt -- <pieceId>` — the copy-ready brief.
+- `npm run generate -- <pieceId>` — for `ambassador-filmed` pieces, prints the
+  filming brief with a note that no AI generation applies; for `ai-generated`
+  pieces, prints which Higgsfield workflow to load and how, in-session.
+- `npm run export-metadata` — YouTube title/description/tags for long-form
+  pieces, written to `assets/content_factory/youtube-metadata.json`.
 
 ## Usage
 
