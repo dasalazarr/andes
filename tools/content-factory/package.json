@@ -1,0 +1,20 @@
+{
+  "name": "andes-content-factory",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Right-sized automation for the Pamplona-club editorial calendar: prints copy-ready Higgsfield prompts today, submits real jobs once Higgsfield is authenticated and its tool schema is known.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "list": "tsx src/index.ts list",
+    "prompt": "tsx src/index.ts prompt",
+    "generate": "tsx src/index.ts generate",
+    "export-metadata": "tsx src/index.ts export-metadata"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.2"
+  }
+}

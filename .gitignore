@@ -39,3 +39,7 @@ core
 # Local Netlify folder
 .netlify
 .claude/worktrees/
+
+# content-factory rendered output (large binaries, not source)
+assets/content_factory/*
+!assets/content_factory/.gitkeep
