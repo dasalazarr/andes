@@ -77,7 +77,7 @@ const PamplonaPage: React.FC = () => {
           <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-t from-surface via-surface/85 to-transparent" />
         </div>
 
-        <div className="absolute bottom-6 left-6 z-10">
+        <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2">
           <div className="flex items-center gap-2 rounded-full glass-panel border-white/20 bg-neutral-900/60 px-4 py-2 backdrop-blur-md">
             <MapPin className="h-4 w-4 text-brand" />
             <span className="text-sm font-bold uppercase tracking-wide text-white">{content.hero.badge}</span>

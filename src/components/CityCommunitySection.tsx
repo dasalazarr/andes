@@ -165,7 +165,7 @@ const CityCommunitySection: React.FC<CityCommunitySectionProps> = ({ sectionTitl
               <div className="absolute inset-0 bg-white/10"></div>
 
               {/* Glass Pill Label with Location */}
-              <div className="absolute bottom-6 left-6 flex items-center">
+              <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-white/20 bg-neutral-900/60 backdrop-blur-md transition-all duration-300 group-hover:bg-[#27e97c]/20 group-hover:border-[#27e97c]/50 group-hover:scale-105">
                   <MapPin className="h-4 w-4 text-[#27e97c]" />
                   <span className="text-white font-bold tracking-wide text-sm uppercase">{city.name}</span>
