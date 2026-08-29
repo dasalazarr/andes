@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
-import { trackFAQClick } from '../lib/analytics';
+import { trackFAQClick } from '../utils/analytics';
 
 interface FAQItemProps {
   question: string;

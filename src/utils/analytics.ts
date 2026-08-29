@@ -1,7 +1,12 @@
 // Google Analytics utility functions
 // Provides type-safe event tracking for key user interactions
 
-// Use existing gtag declaration from src/lib/analytics.ts
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
 
 // Event categories for organized tracking
 export const EventCategories = {
@@ -158,6 +163,54 @@ export const analytics = {
         }
       });
     }
+  }
+};
+
+// Hero A/B test and section-view tracking
+export const trackABTest = (variant: 'A' | 'B', language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'ab_test_view', {
+      experiment_name: 'hero_title_variant',
+      variant,
+      language,
+      custom_parameter_1: 'hero_section'
+    });
+  }
+};
+
+export const trackSocialProofView = (language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'social_proof_view', {
+      language,
+      custom_parameter_1: 'hero_section'
+    });
+  }
+};
+
+export const trackTestimonialView = (language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'testimonial_section_view', {
+      language,
+      custom_parameter_1: 'testimonials_section'
+    });
+  }
+};
+
+export const trackFAQClick = (question: string, language: 'en' | 'es') => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'faq_click', {
+      question,
+      language,
+      custom_parameter_1: 'faq_section'
+    });
+  }
+};
+
+export const trackPlanDownload = (planTitle: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'download_plan', {
+      plan_title: planTitle
+    });
   }
 };
 

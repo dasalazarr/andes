@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { Quote } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import HeroSection from "./HeroSection";
-import { initGA, trackABTest, trackSocialProofView, trackTestimonialView } from "../lib/analytics";
 import {
   heroContent,
   benefitsContent,
@@ -17,7 +16,7 @@ import {
 } from "../data/content";
 import AnimatedSection from "./ui/animated-section";
 import { useLanguageDetection } from "../hooks/useLanguageDetection";
-import { analytics, initializeAnalytics } from "../utils/analytics";
+import { analytics, initializeAnalytics, trackABTest, trackSocialProofView, trackTestimonialView } from "../utils/analytics";
 import { startOnboarding, type OnboardingIntent, type OnboardingPlacement } from "../lib/onboarding";
 
 const BenefitsSection = lazy(() => import("./BenefitsSection"));
@@ -53,7 +52,6 @@ const Home = () => {
   }, [location.hash]);
 
   useEffect(() => {
-    initGA();
     trackABTest(abVariant, language);
     trackSocialProofView(language);
     trackTestimonialView(language);

@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download } from "lucide-react";
-import { trackPlanDownload } from "../lib/analytics";
+import { trackPlanDownload } from "../utils/analytics";
 
 interface TrainingPlanCardProps {
   title: string | { en: string; es: string };
