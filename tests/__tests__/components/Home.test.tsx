@@ -13,16 +13,12 @@ vi.mock("@/lib/onboarding", () => ({
   startOnboarding: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("@/components/ProductDemoSection", () => ({
-  default: () => <div data-testid="product-demo-section">Mock Product Demo</div>,
+vi.mock("@/components/WeekStorySection", () => ({
+  default: () => <div data-testid="week-story-section">Mock Week Story</div>,
 }));
 
 vi.mock("@/components/HowItWorksSection", () => ({
   default: () => <div data-testid="how-it-works-section">Mock How It Works</div>,
-}));
-
-vi.mock("@/components/BenefitsSection", () => ({
-  default: () => <div data-testid="benefits-section">Mock Benefits</div>,
 }));
 
 vi.mock("@/components/PricingSection", () => ({
@@ -57,12 +53,9 @@ describe("Home Component", () => {
     // Hero CTA should be visible
     expect((await screen.findAllByRole("button", { name: /Start Free/i })).length).toBeGreaterThan(0);
 
-    // New sections should be present
-    expect(await screen.findByTestId("product-demo-section")).toBeInTheDocument();
+    expect(await screen.findByTestId("week-story-section")).toBeInTheDocument();
     expect(await screen.findByTestId("how-it-works-section")).toBeInTheDocument();
-
-    // Existing sections should still be present
-    expect(await screen.findByTestId("benefits-section")).toBeInTheDocument();
+    expect(await screen.findByTestId("safety-section")).toBeInTheDocument();
     expect(await screen.findByTestId("pricing-section")).toBeInTheDocument();
     expect(await screen.findByTestId("faq-section")).toBeInTheDocument();
   });
@@ -82,6 +75,37 @@ describe("Home Component", () => {
       intent: "free",
       language: "en",
       placement: "hero",
+    });
+  });
+
+  it("does not render club voices while there are no real quotes", async () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    );
+
+    await screen.findByTestId("week-story-section");
+    expect(screen.queryByText(/Voices from the club/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Beta tester/i)).not.toBeInTheDocument();
+  });
+
+  it("tags city requests from the club section", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+    );
+
+    await user.click(await screen.findByRole("button", { name: /Ask for Andes in your city/i }));
+
+    expect(startOnboarding).toHaveBeenCalledWith({
+      intent: "free",
+      language: "en",
+      placement: "city_request",
+      source: "city-request",
     });
   });
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import AnimatedSection from "./AnimatedSection";
 import { useAnimatedCounter } from "../hooks/useAnimatedCounter";
-import { ShieldCheck } from "lucide-react";
 
 interface IndicatorStat {
   value: string;
@@ -13,19 +12,8 @@ interface IndicatorStat {
   locale?: string;
 }
 
-interface IndicatorImage {
-  src: string;
-  alt: string;
-}
-
 interface ImpactIndicatorsSectionProps {
-  preheading: string;
-  title: string;
-  highlight: string;
-  pillars: string[];
-  image: IndicatorImage;
   stats: IndicatorStat[];
-  statsDisclaimer?: string;
 }
 
 const AnimatedStat: React.FC<{ stat: IndicatorStat }> = ({ stat }) => {
@@ -47,76 +35,27 @@ const AnimatedStat: React.FC<{ stat: IndicatorStat }> = ({ stat }) => {
   });
 
   return (
-    <div ref={ref} className="px-8 py-6 text-center md:py-8">
-      <dt className="text-3xl font-semibold text-white md:text-4xl">
+    <div ref={ref} className="px-4 py-6 text-center md:px-8 md:py-8">
+      <dt className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
         {formattedCount}{shouldHideUnit ? '' : suffix}
       </dt>
-      <dd className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-gray-400">
+      <dd className="mt-2 text-[11px] font-medium uppercase tracking-[0.18em] text-gray-400 sm:text-sm">
         {stat.label}
       </dd>
     </div>
   );
 };
-const ImpactIndicatorsSection: React.FC<ImpactIndicatorsSectionProps> = ({
-  preheading,
-  title,
-  highlight,
-  pillars,
-  image,
-  stats,
-  statsDisclaimer,
-}) => {
+// Fila de cifras bajo "Tu primera semana". La narrativa de prevención vive en el miércoles de WeekStorySection.
+const ImpactIndicatorsSection: React.FC<ImpactIndicatorsSectionProps> = ({ stats }) => {
   return (
     <AnimatedSection className="mx-auto max-w-6xl px-4">
-      <section className="overflow-hidden">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,1.25fr)_1fr] md:items-center">
-          <div className="glass-panel rounded-[28px] px-5 py-6 sm:px-7 sm:py-8 md:px-10">
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-brand/90 md:text-sm">
-              {preheading}
-            </span>
-            <h2 className="mt-3 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
-              {title}
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-gray-300 sm:text-base md:text-lg">
-              {highlight}
-            </p>
-
-            <ul className="mt-5 space-y-3">
-              {pillars.map((pillar) => (
-                <li key={pillar} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="text-sm text-gray-200 sm:text-base">{pillar}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative h-[300px] w-full overflow-hidden rounded-[28px] border border-white/10 sm:h-[350px] md:h-full md:min-h-[300px]">
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/55 via-black/20 to-transparent" />
-          </div>
-        </div>
-        <div className="glass-panel mt-6 overflow-hidden rounded-3xl">
-          {statsDisclaimer ? (
-            <div className="border-b border-white/10 px-5 py-2.5">
-              <span className="inline-flex items-center rounded-full bg-white/[0.06] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-gray-400">
-                {statsDisclaimer}
-              </span>
-            </div>
-          ) : null}
-          <dl className="grid grid-cols-1 divide-y divide-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
-            {stats.map((stat) => (
-              <AnimatedStat key={stat.label} stat={stat} />
-            ))}
-          </dl>
-        </div>
-      </section>
+      <div className="glass-panel overflow-hidden rounded-3xl">
+        <dl className="grid grid-cols-2 divide-white/10 md:grid-cols-4 md:divide-x">
+          {stats.map((stat) => (
+            <AnimatedStat key={stat.label} stat={stat} />
+          ))}
+        </dl>
+      </div>
     </AnimatedSection>
   );
 };

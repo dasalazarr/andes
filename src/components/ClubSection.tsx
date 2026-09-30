@@ -10,10 +10,11 @@ const featureIcons = [Coffee, HeartHandshake, MessageCircle];
 interface ClubSectionProps {
   language: "es" | "en";
   onJoinClick: () => void | Promise<void>;
+  onCityRequestClick?: () => void | Promise<void>;
   isLoading?: boolean;
 }
 
-const ClubSection: React.FC<ClubSectionProps> = ({ language, onJoinClick, isLoading = false }) => {
+const ClubSection: React.FC<ClubSectionProps> = ({ language, onJoinClick, onCityRequestClick, isLoading = false }) => {
   const content = clubContent[language];
   const ambassadorsPath = language === "es" ? "/es/embajadores" : "/embajadores";
 
@@ -79,6 +80,19 @@ const ClubSection: React.FC<ClubSectionProps> = ({ language, onJoinClick, isLoad
             >
               {content.ambassadorLinkText}
             </Link>
+            {onCityRequestClick ? (
+              <p className="text-sm text-gray-400">
+                {content.cityRequest.text}{" "}
+                <button
+                  type="button"
+                  onClick={onCityRequestClick}
+                  disabled={isLoading}
+                  className="font-medium text-cream underline-offset-4 transition hover:text-brand hover:underline disabled:opacity-60"
+                >
+                  {content.cityRequest.linkText}
+                </button>
+              </p>
+            ) : null}
           </div>
         </div>
       </AnimatedSection>

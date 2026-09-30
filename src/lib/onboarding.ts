@@ -1,5 +1,5 @@
 export type OnboardingIntent = "free" | "premium" | "ambassador";
-export type OnboardingPlacement = "hero" | "mid" | "footer" | "sticky" | "pricing" | "ambassadors";
+export type OnboardingPlacement = "hero" | "mid" | "footer" | "sticky" | "pricing" | "ambassadors" | "week_story" | "city_request";
 export type OnboardingLanguage = "es" | "en";
 
 interface StartOnboardingParams {

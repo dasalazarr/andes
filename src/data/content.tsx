@@ -91,29 +91,127 @@ export const howItWorksContent = {
   },
 };
 
-// Product Demo Content — WhatsApp conversation mockup
-export const productDemoContent: {
-  es: { sectionTitle: string; sectionSubtitle: string; messages: { from: "coach" | "user"; text: string; }[] };
-  en: { sectionTitle: string; sectionSubtitle: string; messages: { from: "coach" | "user"; text: string; }[] };
-} = {
+// "Tu primera semana con Andes" — sección experiencial de la home (sustituye al chat demo).
+// Cada día revela un atributo; el jueves (club) es el clímax. Casual-first: minutos y sensación.
+// Los videos se generan en andes/andes-launch-video (npm run render:landing) → /videos/week/{id}-{lang}.*
+export type WeekDayId = "mon" | "tue" | "wed" | "thu" | "sun";
+
+export interface WeekDay {
+  id: WeekDayId;
+  day: string;
+  title: string;
+  body: string;
+  attribute: string;
+  videoAlt: string;
+  isClub?: boolean;
+}
+
+export const weekStoryContent: Record<"es" | "en", {
+  preheading: string;
+  sectionTitle: string;
+  sectionSubtitle: string;
+  clubBadge: string;
+  clubCta: string;
+  days: WeekDay[];
+}> = {
   es: {
-    sectionTitle: "Así se ve una conversación con tu coach",
-    sectionSubtitle: "No es un bot genérico. Es un coach que recuerda, ajusta y previene lesiones.",
-    messages: [
-      { from: "user", text: "Hoy hice 5K pero la rodilla derecha me molesta un poco." },
-      { from: "coach", text: "Gracias por contarme. Hoy descansas. Mañana caminata 25 min en lugar de los 6K que tocaban — bajamos carga 30% mientras la molestia cede.\n\nSi sigue mañana, lo marcamos para revisar antes del fin de semana." },
-      { from: "user", text: "Listo. ¿Y la carrera del domingo?" },
-      { from: "coach", text: "Si la rodilla mejora antes del viernes, llegamos. Si no, movemos el rodaje largo a 8K en vez de 12K. Tu meta de 21K en marzo no se mueve — solo este micro." },
+    preheading: "Así se siente empezar",
+    sectionTitle: "Tu primera semana con Andes",
+    sectionSubtitle: "Un coach en tu WhatsApp entre semana. Un club que te espera el jueves.",
+    clubBadge: "El corazón de Andes",
+    clubCta: "Quiero ir a la próxima quedada",
+    days: [
+      {
+        id: "mon",
+        day: "Lunes",
+        title: "Escribes “quiero empezar”. Tu plan llega en 60 segundos.",
+        body: "Tres preguntas y listo: caminar y trotar a tu ritmo, sin descargar nada. La quedada del jueves ya viene en tu semana.",
+        attribute: "Solo WhatsApp",
+        videoAlt: "Chat de WhatsApp donde Andes crea un plan de primera semana con la quedada del club incluida",
+      },
+      {
+        id: "tue",
+        day: "Martes",
+        title: "Cuentas cómo te fue con un mensaje. Nada de formularios.",
+        body: "“Hoy 20 min, me costó” basta. Tu coach lo registra, lo recuerda y ajusta lo que viene.",
+        attribute: "Un coach que recuerda",
+        videoAlt: "Mensaje de WhatsApp que se convierte en un entreno registrado con tiempo y sensación",
+      },
+      {
+        id: "wed",
+        day: "Miércoles",
+        title: "¿Te molesta algo? El plan se mueve contigo.",
+        body: "Bajas la carga antes de que la molestia sea lesión. Sin culpa, sin empezar de cero.",
+        attribute: "Prevención, no reacción",
+        videoAlt: "El coach ajusta el entreno del jueves tras una molestia en la rodilla",
+      },
+      {
+        id: "thu",
+        day: "Jueves",
+        title: "Corres con gente que también está empezando.",
+        body: "Quedada suave a ritmo de conversación y café al final. Aquí es donde correr deja de ser una obligación y pasa a ser tu plan de la semana.",
+        attribute: "Nadie corre solo",
+        videoAlt: "Miembros del club Andes en una quedada en Pamplona",
+        isClub: true,
+      },
+      {
+        id: "sun",
+        day: "Domingo",
+        title: "Miras atrás y ves tu primera semana hecha.",
+        body: "Resumen de tu semana, tu racha y la semana 2 lista. El hábito se ve, y eso engancha.",
+        attribute: "Progreso que se nota",
+        videoAlt: "Resumen semanal con salidas, minutos y quedada completadas",
+      },
     ],
   },
   en: {
-    sectionTitle: "This is what a coaching conversation looks like",
-    sectionSubtitle: "Not a generic bot. A coach that remembers, adjusts, and prevents injuries.",
-    messages: [
-      { from: "user", text: "Did 5K today but my right knee feels a little off." },
-      { from: "coach", text: "Thanks for flagging. Rest today. Tomorrow's 6K becomes a 25-min walk — load down 30% until it settles.\n\nIf it's still there tomorrow, we'll review before the weekend." },
-      { from: "user", text: "Got it. What about Sunday's race?" },
-      { from: "coach", text: "If your knee clears by Friday, we're on. If not, the long run becomes 8K instead of 12K. Your March 21K goal stays — only this micro shifts." },
+    preheading: "What starting feels like",
+    sectionTitle: "Your first week with Andes",
+    sectionSubtitle: "A coach in your WhatsApp during the week. A club waiting for you on Thursday.",
+    clubBadge: "The heart of Andes",
+    clubCta: "Save me a spot at the next meetup",
+    days: [
+      {
+        id: "mon",
+        day: "Monday",
+        title: "You text “I want to start”. Your plan arrives in 60 seconds.",
+        body: "Three questions and you're set: walk and jog at your pace, nothing to download. Thursday's meetup is already in your week.",
+        attribute: "Just WhatsApp",
+        videoAlt: "WhatsApp chat where Andes builds a first-week plan including the club meetup",
+      },
+      {
+        id: "tue",
+        day: "Tuesday",
+        title: "You tell it how it went in one message. No forms.",
+        body: "“20 min today, it was tough” is enough. Your coach logs it, remembers it and adjusts what comes next.",
+        attribute: "A coach that remembers",
+        videoAlt: "A WhatsApp message turning into a logged session with time and feeling",
+      },
+      {
+        id: "wed",
+        day: "Wednesday",
+        title: "Something feels off? The plan moves with you.",
+        body: "Load goes down before a niggle becomes an injury. No guilt, no starting over.",
+        attribute: "Prevention, not reaction",
+        videoAlt: "The coach adjusts Thursday's session after a knee niggle",
+      },
+      {
+        id: "thu",
+        day: "Thursday",
+        title: "You run with people who are also just starting.",
+        body: "An easy, conversation-pace meetup with coffee at the end. This is where running stops being a chore and becomes the plan you look forward to.",
+        attribute: "Nobody runs alone",
+        videoAlt: "Andes club members at a meetup in Pamplona",
+        isClub: true,
+      },
+      {
+        id: "sun",
+        day: "Sunday",
+        title: "You look back and see your first week done.",
+        body: "A recap of your week, your streak and week 2 ready. You can see the habit forming — and that's what keeps you going.",
+        attribute: "Progress you can see",
+        videoAlt: "Weekly recap with runs, minutes and meetup completed",
+      },
     ],
   },
 };
@@ -146,156 +244,46 @@ export const leadMagnetContent = {
   }
 };
 
-export const benefitsContent = {
-  es: {
-    sectionTitle: "Lo que vas a ganar",
-    sectionSubtitle: "Tres cosas que no encuentras en un PDF de Google ni en una app fría.",
-    benefits: [
-      {
-        icon: FaWhatsapp,
-        headline: "Una coach que te recuerda",
-        copy: "Recuerda cómo te fue el martes y ajusta el viernes. Sin volver a explicarle quién eres cada vez.",
-        proof: "Memoria persistente · Cero re-onboarding",
-        testimonial: "Es como escribirle a una amiga que sabe de running.",
-      },
-      {
-        icon: FaCalendarAlt,
-        headline: "Un plan que se mueve contigo",
-        copy: "¿Mala noche, agujetas, viaje? El plan se reordena solo. Sin culpa y sin volver a empezar.",
-        proof: "Recálculo de carga diario",
-        testimonial: "La constancia importa más que la perfección.",
-      },
-      {
-        icon: FaChartLine,
-        headline: "Una alarma antes de la lesión",
-        copy: "Detecta la sobrecarga antes de que te haga daño y baja el volumen automáticamente.",
-        proof: "Prevención de lesiones de fábrica",
-        testimonial: "Te frena a tiempo para que no tengas que parar.",
-      },
-    ],
-  },
-  en: {
-    sectionTitle: "What you actually get",
-    sectionSubtitle: "Three things you won't find in a PDF plan from Google or a cold app.",
-    benefits: [
-      {
-        icon: FaWhatsapp,
-        headline: "A coach that remembers you",
-        copy: "Remembers Tuesday's run and adjusts Friday's. No re-explaining who you are every time.",
-        proof: "Persistent memory · Zero re-onboarding",
-        testimonial: "Like texting a friend who knows about running.",
-      },
-      {
-        icon: FaCalendarAlt,
-        headline: "A plan that moves with you",
-        copy: "Bad night, sore legs, travel? The plan reshuffles itself. No guilt, no starting over.",
-        proof: "Daily load recalculation",
-        testimonial: "Consistency matters more than perfection.",
-      },
-      {
-        icon: FaChartLine,
-        headline: "An alarm before injury",
-        copy: "Detects overload before it hurts you and dials the volume back automatically.",
-        proof: "Injury prevention built in",
-        testimonial: "It slows you down in time, so you never have to stop.",
-      },
-    ],
-  },
-};
-
+// Stats de la home (fila bajo "Tu primera semana"). La parte de prevención vive ahora en el miércoles de weekStoryContent.
 export const indicatorsContent = {
   es: {
-    preheading: "Prevención, no reacción",
-    title: "El coach que cuida tu cuerpo semana a semana.",
-    highlight: "Monitoreamos tu carga de entrenamiento cada semana. Si escala demasiado rápido, te avisamos y bajamos el volumen antes de que aparezca la lesión.",
-    pillars: [
-      "¿Hoy notaste más cansancio de lo normal? Mañana entrenas más suave. Así de simple.",
-      "Si vamos camino a la sobrecarga, frenamos antes — no después de la lesión.",
-      "Tu coach recuerda tus molestias pasadas y las tiene en cuenta en cada ajuste.",
-    ],
-    image: {
-      src: "/coaching.avif",
-      alt: "Conversación de coaching durante una sesión de running al aire libre",
-    },
     stats: [
       { value: "15 días", label: "De Pro gratis al empezar" },
       { value: "60 seg", label: "Para tu primer plan" },
       { value: "24/7", label: "Tu coach siempre disponible" },
       { value: "€0", label: "Para empezar, sin tarjeta" },
     ],
-    statsDisclaimer: "",
   },
   en: {
-    preheading: "Prevention, not reaction",
-    title: "The coach that watches your body week over week.",
-    highlight: "We monitor your training load every week. If it spikes too fast, we warn you and cut volume before an injury shows up.",
-    pillars: [
-      "Felt heavy today? Tomorrow's session gets easier. That simple.",
-      "Heading toward overload? We pull back before the injury — not after.",
-      "Your coach remembers past aches and factors them into every adjustment.",
-    ],
-    image: {
-      src: "/coaching.avif",
-      alt: "Coach guiding a runner during an outdoor session",
-    },
     stats: [
       { value: "15 days", label: "Of full Pro when you start" },
       { value: "60 sec", label: "To your first plan" },
       { value: "24/7", label: "Your coach, always available" },
       { value: "€0", label: "To start, no card needed" },
     ],
-    statsDisclaimer: "",
   },
 };
 
-export const testimonialsContent = {
+// Voces del club — SOLO frases reales de miembros con consentimiento registrado
+// (ver docs/content-engine-club-2026-10.md). Mientras la lista esté vacía, la sección no se muestra.
+// Formato: { quote, author: nombre de pila, detail: "Miembro fundador · Pamplona", photo?: "/images/club/voces/<nombre>.webp" }
+export interface ClubVoice {
+  quote: string;
+  author: string;
+  detail: string;
+  photo?: string;
+}
+
+export const clubVoicesContent: Record<"es" | "en", { preheading: string; sectionTitle: string; voices: ClubVoice[] }> = {
   es: {
-    sectionTitle: "Lo que dicen nuestros primeros corredores",
-    sectionDisclaimer: "Historias representativas basadas en experiencias de nuestros primeros usuarios beta.",
-    testimonials: [
-      {
-        quote: "Empecé sin saber nada de correr y ahora hago 5K sin parar. Es como WhatsAppear con una amiga que sabe de running.",
-        author: "Sofía G.",
-        detail: "Bogotá · Beta tester",
-        result: "De 0 a 5K en 8 semanas",
-      },
-      {
-        quote: "Siempre pensé que correr no era para mí. Empezamos caminando y corriendo por minutos, y a la tercera semana ya esperaba con ganas el siguiente entreno.",
-        author: "Ana P.",
-        detail: "Ciudad de México · Beta tester",
-        result: "3 salidas por semana, sin agujetas eternas",
-      },
-      {
-        quote: "Volví a correr después de años parada. Cuando aparecieron molestias en la rodilla, el plan frenó solo — esta vez no me rompí.",
-        author: "Carla L.",
-        detail: "Santiago de Chile · Beta tester",
-        result: "12 semanas corriendo, cero lesiones",
-      },
-    ],
+    preheading: "Miembros fundadores",
+    sectionTitle: "Voces del club",
+    voices: [],
   },
   en: {
-    sectionTitle: "What our first runners say",
-    sectionDisclaimer: "Representative stories based on early beta user experiences.",
-    testimonials: [
-      {
-        quote: "I started knowing nothing about running and now I do 5K without stopping. It's like texting a friend who knows about running.",
-        author: "Sofia G.",
-        detail: "Bogotá · Beta tester",
-        result: "From 0 to 5K in 8 weeks",
-      },
-      {
-        quote: "I always thought running wasn't for me. We started with walk-run minutes, and by week three I was looking forward to the next session.",
-        author: "Ana P.",
-        detail: "Mexico City · Beta tester",
-        result: "3 runs a week, no endless soreness",
-      },
-      {
-        quote: "I came back to running after years off. When my knee started complaining, the plan eased up on its own — this time I didn't break.",
-        author: "Carla L.",
-        detail: "Santiago, Chile · Beta tester",
-        result: "12 weeks running, zero injuries",
-      },
-    ],
+    preheading: "Founding members",
+    sectionTitle: "Voices from the club",
+    voices: [],
   },
 };
 
@@ -1398,13 +1386,14 @@ export const pamplonaContent = {
   },
 };
 
-// Club Section (home) — pivote club de experiencia Pamplona
+// Club Section (home) — la comunidad como motor: "los primeros de Pamplona"
+// Imagen: sustituir quedada.webp (stock) por la foto real del grupo en cuanto haya consentimiento.
 export const clubContent = {
   es: {
-    preheading: "Más que una app",
-    title: "Un club que te espera en Pamplona",
+    preheading: "Los primeros de Pamplona",
+    title: "Un club que se está formando. Todavía puedes ser de los primeros.",
     description:
-      "Coffee runs, quedadas a ritmo de conversación y gente que también está empezando. La coach te acompaña entre semana; el club te espera el jueves.",
+      "Somos un grupo pequeño que empezó a correr junto: quedadas los jueves a ritmo de conversación y café al final. La coach te acompaña entre semana; el club te espera el jueves.",
     features: [
       { title: "Quedadas los jueves", description: "Rutas suaves de 3–4 km con café al final, en espacios aliados de la ciudad." },
       { title: "Cero juicio", description: "Ritmo de conversación. Nadie se queda atrás, nadie corre solo." },
@@ -1412,16 +1401,20 @@ export const clubContent = {
     ],
     image: {
       src: "/images/club/quedada.webp",
-      alt: "Grupo corriendo y charlando durante una quedada al amanecer",
+      alt: "Grupo corriendo y charlando durante una quedada",
     },
     ctaText: "Únete al club por WhatsApp",
     ambassadorLinkText: "¿Quieres liderarlo? Hazte embajador →",
+    cityRequest: {
+      text: "¿No estás en Pamplona?",
+      linkText: "Pide Andes en tu ciudad →",
+    },
   },
   en: {
-    preheading: "More than an app",
-    title: "A club waiting for you in Pamplona",
+    preheading: "The first ones in Pamplona",
+    title: "A club in the making. You can still be one of the first.",
     description:
-      "Coffee runs, conversation-pace meetups and people who are also just starting. Your coach walks with you during the week; the club waits for you on Thursday.",
+      "We're a small group that started running together: Thursday meetups at conversation pace, coffee at the end. Your coach walks with you during the week; the club waits for you on Thursday.",
     features: [
       { title: "Thursday meetups", description: "Easy 3–4 km routes ending in coffee, at partner spots around the city." },
       { title: "Zero judgment", description: "Conversation pace. Nobody gets left behind, nobody runs alone." },
@@ -1429,9 +1422,13 @@ export const clubContent = {
     ],
     image: {
       src: "/images/club/quedada.webp",
-      alt: "Group of runners chatting and smiling during a sunrise meetup",
+      alt: "Group of runners chatting during a meetup",
     },
     ctaText: "Join the club on WhatsApp",
     ambassadorLinkText: "Want to lead it? Become an ambassador →",
+    cityRequest: {
+      text: "Not in Pamplona?",
+      linkText: "Ask for Andes in your city →",
+    },
   },
 };
