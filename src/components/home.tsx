@@ -142,6 +142,7 @@ const Home = () => {
               sectionTitle={howItWorksContent[language].sectionTitle}
               sectionSubtitle={howItWorksContent[language].sectionSubtitle}
               steps={howItWorksContent[language].steps}
+              language={language}
             />
           </Suspense>
         </section>

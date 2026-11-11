@@ -1,12 +1,44 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Rocket, Zap, Check, ShieldCheck, Star } from "lucide-react";
+import {
+  BellRing,
+  Brain,
+  CalendarCheck,
+  Check,
+  ChevronDown,
+  Flag,
+  Footprints,
+  Gift,
+  HeartPulse,
+  Infinity as InfinityIcon,
+  Medal,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Star,
+} from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { analytics } from "@/utils/analytics";
 
-const iconComponents: { [key: string]: React.ElementType } = {
-  Rocket,
-  Zap,
+const featureIcons: Record<string, React.ElementType> = {
+  BellRing,
+  Brain,
+  CalendarCheck,
+  Check,
+  Flag,
+  Footprints,
+  Gift,
+  HeartPulse,
+  Infinity: InfinityIcon,
+  Medal,
+  MessageCircle,
+};
+
+// "€9,99" → { currency: "€", amount: "9,99" }; "Gratis"/"Free" → €0
+const splitPrice = (price: string) => {
+  const match = price.match(/^([^\d\s]*)\s*([\d.,]+)$/);
+  return match ? { currency: match[1] || "€", amount: match[2] } : { currency: "€", amount: "0" };
 };
 
 interface Plan {
@@ -18,7 +50,9 @@ interface Plan {
   annualPriceDetail?: string;
   savingsPercentage?: string;
   description: string;
-  features: (string | { text: string; tooltip: string })[];
+  headline?: string;
+  tagline?: string;
+  features: (string | { text: string; tooltip?: string; icon?: string })[];
   ctaText: string;
   ctaDisclaimer?: string;
   guarantee?: string;
@@ -60,6 +94,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     premium: "idle",
   });
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
+  const [compareOpen, setCompareOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const hasAnnualOption = plans.some((p) => p.annualPrice);
@@ -172,83 +207,57 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         ) : null}
       </AnimatedSection>
 
-      <AnimatedSection className="mt-6 grid grid-cols-1 items-stretch gap-4 md:mt-8 md:grid-cols-2 md:gap-6">
+      <AnimatedSection className="mt-6 grid grid-cols-1 items-stretch gap-4 md:mt-8 md:grid-cols-2 md:gap-5">
         {plans.map((plan) => {
-          const IconComponent = iconComponents[plan.iconName];
           const isPremium = plan.buttonVariant === "primary";
           const intent = isPremium ? "premium" : "free";
           const isLoading = buttonStates[intent] === "loading";
           const showAnnual = billingCycle === "annual" && Boolean(plan.annualPrice);
           const displayPrice = showAnnual && plan.annualPrice ? plan.annualPrice : plan.price;
           const displayDetail = showAnnual && plan.annualPriceDetail ? plan.annualPriceDetail : plan.priceDetail;
+          const { currency, amount } = splitPrice(displayPrice);
+          const struck = showAnnual ? splitPrice(plan.price).amount : null;
+          const perMonth = displayDetail || (language === "es" ? "/mes" : "/month");
 
           return (
             <article
               key={plan.name}
-              className={`relative rounded-[28px] border p-5 backdrop-blur-xl transition-transform duration-200 md:p-7 ${
+              className={`relative flex flex-col rounded-[28px] border p-6 md:p-8 ${
                 isPremium
-                  ? "glass-card-premium border-emerald-500/40 shadow-[0_0_60px_-15px_rgba(34,197,94,0.5)] md:scale-[1.02]"
-                  : "glass-panel border-white/15"
+                  ? "border-brand/40 bg-gradient-to-br from-brand-deep/45 via-surface-elevated to-surface-elevated shadow-[0_0_60px_-20px_rgba(52,211,153,0.45)]"
+                  : "border-white/15 bg-white/[0.03]"
               }`}
             >
-              <div className="mb-5 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isPremium ? "bg-brand/15 text-brand" : "bg-white/10 text-white/80"}`}>
-                    {isPremium ? "Pro" : language === "es" ? "Free" : "Free"}
-                  </span>
-                  {isPremium && plan.popularBadge ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-whatsapp px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-black">
-                      <Star className="h-3 w-3 fill-current" aria-hidden="true" />
-                      {plan.popularBadge}
-                    </span>
-                  ) : null}
-                </div>
-                {IconComponent ? (
-                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full border ${isPremium ? "border-brand/40 bg-brand/15 text-brand" : "border-white/20 bg-white/10 text-white/90"}`}>
-                    <IconComponent className="h-5 w-5" />
+              {/* Eyebrow + badge */}
+              <div className="flex min-h-[32px] items-center justify-between gap-3">
+                <span className="text-base font-semibold text-white">{isPremium ? "Pro" : "Free"}</span>
+                {isPremium && plan.popularBadge ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
+                    <Star className="h-3 w-3 fill-current" aria-hidden="true" />
+                    {plan.popularBadge}
                   </span>
                 ) : null}
               </div>
 
-              <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
-              <div className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                <span className="text-4xl font-black text-white">{displayPrice}</span>
-                {displayDetail ? <span className="text-sm text-gray-300">{displayDetail}</span> : null}
-                {showAnnual && plan.savingsPercentage ? (
-                  <span className="rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand">
-                    {plan.savingsPercentage}
-                  </span>
-                ) : null}
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-gray-200">{plan.description}</p>
+              {/* Titular + subtítulo */}
+              <h3 className="mt-4 text-2xl font-semibold text-white md:text-[28px]">{plan.headline ?? plan.name}</h3>
+              <p className="mt-1.5 text-[15px] text-gray-300">{plan.tagline ?? plan.description}</p>
 
-              <ul className="mt-5 space-y-2">
-                {plan.features.map((feature) => {
-                  const text = typeof feature === "string" ? feature : feature.text;
-                  return (
-                    <li key={text} className="flex items-start gap-2 text-sm text-gray-200">
-                      <span className="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand/15 text-brand">
-                        <Check className="h-3 w-3" />
-                      </span>
-                      <span>{text}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
+              {/* CTA arriba */}
               <button
                 id={isPremium ? "start-premium-btn" : "start-free-btn"}
                 type="button"
                 data-intent={intent}
                 data-language={language}
-                className={`mt-6 min-h-[48px] w-full rounded-full px-6 py-3 text-sm font-semibold transition ${
+                className={`mt-6 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:opacity-70 ${
                   isPremium
-                    ? "bg-whatsapp text-black shadow-[0_10px_24px_rgba(52,211,153,0.35)] hover:brightness-110"
-                    : "border border-white/20 bg-white/10 text-white hover:border-brand/50 hover:text-brand"
+                    ? "bg-whatsapp text-black shadow-[0_10px_24px_rgba(52,211,153,0.3)] hover:brightness-110"
+                    : "border border-white/25 text-white hover:border-white/50 hover:bg-white/[0.04]"
                 }`}
                 onClick={() => onStart(intent)}
                 disabled={isLoading}
               >
+                {isPremium && !isLoading ? <Sparkles className="h-4 w-4" aria-hidden="true" /> : null}
                 {isLoading
                   ? language === "es"
                     ? "Conectando con WhatsApp..."
@@ -256,49 +265,92 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                   : plan.ctaText}
               </button>
 
-              {plan.ctaDisclaimer ? <p className="mt-3 text-center text-xs text-gray-400">{plan.ctaDisclaimer}</p> : null}
+              {/* Precio */}
+              <div className="mt-6 flex flex-wrap items-baseline gap-x-1.5 gap-y-1 text-white" aria-live="polite">
+                {struck ? (
+                  <span className="mr-1 text-2xl text-gray-500 line-through decoration-1">
+                    <sup className="text-xs">{currency}</sup>
+                    {struck}
+                  </span>
+                ) : null}
+                <span className="text-4xl font-semibold tracking-tight">
+                  <sup className="mr-0.5 align-super text-base font-normal text-gray-300">{currency}</sup>
+                  {amount}
+                </span>
+                <span className="text-sm text-gray-400">{perMonth}</span>
+                {showAnnual && plan.savingsPercentage ? (
+                  <span className="ml-1 rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand">
+                    {plan.savingsPercentage}
+                  </span>
+                ) : null}
+              </div>
 
-              {plan.guarantee ? (
-                <p className="mt-2 flex items-start justify-center gap-1.5 text-center text-xs text-brand/90">
-                  <ShieldCheck className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
-                  <span>{plan.guarantee}</span>
-                </p>
-              ) : null}
+              {/* Funciones con icono propio */}
+              <ul className="mt-6 space-y-3">
+                {plan.features.map((feature) => {
+                  const text = typeof feature === "string" ? feature : feature.text;
+                  const iconName = typeof feature === "string" ? undefined : feature.icon;
+                  const Icon = (iconName && featureIcons[iconName]) || Check;
+                  return (
+                    <li key={text} className="flex items-start gap-3 text-[15px] text-gray-200">
+                      <Icon className={`mt-0.5 h-[18px] w-[18px] flex-shrink-0 ${isPremium ? "text-brand" : "text-gray-400"}`} aria-hidden="true" />
+                      <span>{text}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Letra pequeña al pie */}
+              <div className="mt-auto space-y-1 pt-8 text-xs leading-relaxed text-gray-400">
+                {plan.ctaDisclaimer ? <p>{plan.ctaDisclaimer}</p> : null}
+                {plan.guarantee ? (
+                  <p className="flex items-start gap-1.5 text-brand/90">
+                    <ShieldCheck className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
+                    <span>{plan.guarantee}</span>
+                  </p>
+                ) : null}
+              </div>
             </article>
           );
         })}
       </AnimatedSection>
 
-      <AnimatedSection className="mt-6 overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] md:mt-8">
-        <table className="w-full table-fixed border-collapse text-left">
-          <thead>
-            <tr className="border-b border-white/10 bg-white/[0.03]">
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
-                {language === "es" ? "Comparativa" : "Comparison"}
-              </th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
-                {language === "es" ? "Free" : "Free"}
-              </th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-brand md:px-6">
-                Pro
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonRows.map((row) => (
-              <tr key={row.feature} className="border-b border-white/5 last:border-b-0">
-                <td className="px-4 py-3 text-sm text-gray-100 md:px-6">{row.feature}</td>
-                <td className="px-4 py-3 text-sm text-gray-300 md:px-6">{row.free}</td>
-                <td className="px-4 py-3 text-sm font-medium text-white md:px-6">{row.premium}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </AnimatedSection>
-
-      <p className="mt-4 text-center text-sm text-gray-300">
+      <p className="mt-5 text-center text-sm text-gray-400">
         {language === "es" ? "Si no pagas, Andes sigue funcionando en modo Free/Lite." : "If you do not pay, Andes keeps working in Free/Lite mode."}
       </p>
+
+      <Collapsible open={compareOpen} onOpenChange={setCompareOpen} className="mt-4">
+        <div className="text-center">
+          <CollapsibleTrigger className="inline-flex items-center gap-1 text-sm font-medium text-white underline decoration-dotted underline-offset-4 hover:text-brand">
+            {compareOpen
+              ? language === "es" ? "Ocultar comparativa" : "Hide comparison"
+              : language === "es" ? "Ver comparativa completa" : "See full comparison"}
+            <ChevronDown className={`h-4 w-4 transition-transform ${compareOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+          </CollapsibleTrigger>
+        </div>
+        <CollapsibleContent className="mt-5 overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03]">
+          <table className="w-full table-fixed border-collapse text-left">
+            <thead>
+              <tr className="border-b border-white/10 bg-white/[0.03]">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">
+                  {language === "es" ? "Comparativa" : "Comparison"}
+                </th>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 md:px-6">Free</th>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-brand md:px-6">Pro</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr key={row.feature} className="border-b border-white/5 last:border-b-0">
+                  <td className="px-4 py-3 text-sm text-gray-100 md:px-6">{row.feature}</td>
+                  <td className="px-4 py-3 text-sm text-gray-300 md:px-6">{row.free}</td>
+                  <td className="px-4 py-3 text-sm font-medium text-white md:px-6">{row.premium}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CollapsibleContent>
+      </Collapsible>
     </section>
   );
 };

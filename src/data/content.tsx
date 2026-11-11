@@ -52,17 +52,17 @@ export const howItWorksContent = {
     sectionSubtitle: "De cero a tu plan personalizado en 60 segundos",
     steps: [
       {
-        iconName: "MessageCircle",
+        iconName: "WhatsApp",
         title: "Escríbenos por WhatsApp",
         description: "Sin descargas. Solo envía un mensaje y empezamos.",
       },
       {
-        iconName: "ClipboardList",
+        iconName: "ListChecks",
         title: "Responde 3 preguntas",
         description: "Tu nivel, tu objetivo, tu disponibilidad. Eso es todo.",
       },
       {
-        iconName: "Zap",
+        iconName: "CalendarCheck",
         title: "Recibe tu plan personalizado",
         description: "Listo para entrenar en menos de 60 segundos.",
       },
@@ -73,17 +73,17 @@ export const howItWorksContent = {
     sectionSubtitle: "From zero to your personalized plan in 60 seconds",
     steps: [
       {
-        iconName: "MessageCircle",
+        iconName: "WhatsApp",
         title: "Text us on WhatsApp",
         description: "No downloads. Just send a message and we start.",
       },
       {
-        iconName: "ClipboardList",
+        iconName: "ListChecks",
         title: "Answer 3 questions",
         description: "Your level, your goal, your availability. That's it.",
       },
       {
-        iconName: "Zap",
+        iconName: "CalendarCheck",
         title: "Get your personalized plan",
         description: "Ready to train in under 60 seconds.",
       },
@@ -216,6 +216,189 @@ export const weekStoryContent: Record<"es" | "en", {
   },
 };
 
+// Chat de WhatsApp en vivo de "Tu primera semana" (sustituye a los clips de Remotion).
+// Guion tomado de andes-launch-video/src/landing/copy.ts. Casual-first: minutos y sensación.
+export type WeekChatCard =
+  | { type: "plan"; kicker: string; title: string; clubTag: string; rows: { d: string; w: string; m: string; club?: boolean }[] }
+  | { type: "log"; kicker: string; fields: { k: string; v: string }[]; stamp: string }
+  | { type: "adjust"; before: string; after: string; tag: string }
+  | { type: "club"; image: string; imageAlt: string; place: string; chips: string[] }
+  | { type: "recap"; kicker: string; title: string; stats: { k: string; v: string }[]; next: string };
+
+export type WeekChatItem =
+  | { kind: "msg"; from: "user" | "coach"; text: string; time: string }
+  | { kind: "card"; card: WeekChatCard };
+
+export const weekChatContent: Record<"es" | "en", {
+  name: string;
+  online: string;
+  typing: string;
+  typeHere: string;
+  today: string;
+  chats: Record<WeekDayId, WeekChatItem[]>;
+}> = {
+  es: {
+    name: "Andes Coach",
+    online: "en línea",
+    typing: "escribiendo…",
+    typeHere: "Mensaje",
+    today: "HOY",
+    chats: {
+      mon: [
+        { kind: "msg", from: "user", text: "Quiero empezar a correr, pero nunca he corrido 🙈", time: "7:12" },
+        { kind: "msg", from: "coach", text: "¡Me encanta! 3 preguntas rápidas y tu plan está listo.", time: "7:12" },
+        {
+          kind: "card",
+          card: {
+            type: "plan",
+            kicker: "Semana 1 · a tu ritmo",
+            title: "Tu plan",
+            clubTag: "Pamplona",
+            rows: [
+              { d: "L", w: "Caminar + trotar", m: "20′" },
+              { d: "X", w: "Caminar + trotar", m: "20′" },
+              { d: "J", w: "Quedada del club", m: "30′", club: true },
+              { d: "S", w: "Paseo largo", m: "35′" },
+            ],
+          },
+        },
+      ],
+      tue: [
+        { kind: "msg", from: "user", text: "Hoy 20 min, al final me costó 😮‍💨", time: "19:40" },
+        {
+          kind: "card",
+          card: {
+            type: "log",
+            kicker: "Guardado · sin formularios",
+            fields: [
+              { k: "Tiempo", v: "20 min" },
+              { k: "Sensación", v: "Exigente" },
+            ],
+            stamp: "🔥 Racha: 2 días",
+          },
+        },
+        { kind: "msg", from: "coach", text: "Normal al empezar 💚 El jueves vamos más suave, con el club.", time: "19:41" },
+      ],
+      wed: [
+        { kind: "msg", from: "user", text: "Me molesta un poco la rodilla derecha", time: "8:05" },
+        { kind: "msg", from: "coach", text: "Gracias por contármelo. Hoy descansas y el jueves alternas caminar y trotar, sin prisa.", time: "8:06" },
+        { kind: "card", card: { type: "adjust", before: "Jueves · Trote 30′", after: "Jueves · Caminar + trotar 25′", tag: "Plan ajustado ✅" } },
+      ],
+      thu: [
+        { kind: "msg", from: "coach", text: "Hoy toca quedada del club 🏃‍♀️ Ritmo de conversación y café al final.", time: "12:30" },
+        { kind: "msg", from: "user", text: "¡Allí estaré! Un poco nerviosa 😅", time: "12:34" },
+        {
+          kind: "card",
+          card: {
+            type: "club",
+            image: "/images/club/hero.webp",
+            imageAlt: "Miembros del club Andes en una quedada en Pamplona",
+            place: "Pamplona",
+            chips: ["Quedada de los jueves", "Café al final", "Nadie corre solo"],
+          },
+        },
+      ],
+      sun: [
+        {
+          kind: "card",
+          card: {
+            type: "recap",
+            kicker: "Tu primera semana",
+            title: "¡Semana 1 completada!",
+            stats: [
+              { k: "salidas", v: "3" },
+              { k: "minutos", v: "70" },
+              { k: "quedada", v: "1" },
+            ],
+            next: "La semana 2 ya está lista. Mismo ritmo, un poco más de trote.",
+          },
+        },
+        { kind: "msg", from: "user", text: "¡No me lo creo! 🥹", time: "10:02" },
+      ],
+    },
+  },
+  en: {
+    name: "Andes Coach",
+    online: "online",
+    typing: "typing…",
+    typeHere: "Message",
+    today: "TODAY",
+    chats: {
+      mon: [
+        { kind: "msg", from: "user", text: "I want to start running, but I've never run 🙈", time: "7:12" },
+        { kind: "msg", from: "coach", text: "Love it! 3 quick questions and your plan is ready.", time: "7:12" },
+        {
+          kind: "card",
+          card: {
+            type: "plan",
+            kicker: "Week 1 · your pace",
+            title: "Your plan",
+            clubTag: "Pamplona",
+            rows: [
+              { d: "M", w: "Walk + jog", m: "20′" },
+              { d: "W", w: "Walk + jog", m: "20′" },
+              { d: "T", w: "Club meetup", m: "30′", club: true },
+              { d: "S", w: "Long walk", m: "35′" },
+            ],
+          },
+        },
+      ],
+      tue: [
+        { kind: "msg", from: "user", text: "Did 20 min today, the end was tough 😮‍💨", time: "19:40" },
+        {
+          kind: "card",
+          card: {
+            type: "log",
+            kicker: "Saved · no forms",
+            fields: [
+              { k: "Time", v: "20 min" },
+              { k: "Feeling", v: "Tough" },
+            ],
+            stamp: "🔥 Streak: 2 days",
+          },
+        },
+        { kind: "msg", from: "coach", text: "Totally normal at the start 💚 Thursday we go easier, with the club.", time: "19:41" },
+      ],
+      wed: [
+        { kind: "msg", from: "user", text: "My right knee feels a bit off", time: "8:05" },
+        { kind: "msg", from: "coach", text: "Thanks for telling me. Rest today, and on Thursday you'll mix walking and jogging, no rush.", time: "8:06" },
+        { kind: "card", card: { type: "adjust", before: "Thursday · Jog 30′", after: "Thursday · Walk + jog 25′", tag: "Plan adjusted ✅" } },
+      ],
+      thu: [
+        { kind: "msg", from: "coach", text: "Club meetup today 🏃‍♀️ Conversation pace, coffee at the end.", time: "12:30" },
+        { kind: "msg", from: "user", text: "I'll be there! A bit nervous 😅", time: "12:34" },
+        {
+          kind: "card",
+          card: {
+            type: "club",
+            image: "/images/club/hero.webp",
+            imageAlt: "Andes club members at a meetup in Pamplona",
+            place: "Pamplona",
+            chips: ["Thursday meetup", "Coffee at the end", "Nobody runs alone"],
+          },
+        },
+      ],
+      sun: [
+        {
+          kind: "card",
+          card: {
+            type: "recap",
+            kicker: "Your first week",
+            title: "Week 1 done!",
+            stats: [
+              { k: "runs", v: "3" },
+              { k: "minutes", v: "70" },
+              { k: "meetup", v: "1" },
+            ],
+            next: "Week 2 is ready. Same vibe, a little more jogging.",
+          },
+        },
+        { kind: "msg", from: "user", text: "I can't believe it! 🥹", time: "10:02" },
+      ],
+    },
+  },
+};
+
 // Live Demo Content
 export const liveDemoContent = {
   es: {
@@ -295,8 +478,11 @@ interface PricingPlan {
   priceDetail: string;
   annualPrice?: string;
   annualPriceDetail?: string;
+  /** Titular de la tarjeta (estilo OpenAI: eyebrow → titular → subtítulo) */
+  headline?: string;
+  tagline?: string;
   description: string;
-  features: (string | { text: string; tooltip: string })[];
+  features: (string | { text: string; tooltip?: string; icon?: string })[];
   ctaText: string;
   ctaDisclaimer?: string;
   ctaSecondaryText?: string;
@@ -355,13 +541,15 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Gratis",
         priceDetail: "",
+        headline: "Empieza a correr",
+        tagline: "Tu coach en WhatsApp, sin pagar nada.",
         description: "Empiezas con 15 días de Pro completo. Después, Andes sigue funcionando gratis en modo Lite, sin bloqueo.",
         features: [
-          "15 días de Pro gratis al empezar.",
-          "Funcional siempre, incluso después del umbral.",
-          "Plan base para empezar desde cero.",
-          "Acompañamiento en modo Lite sin bloqueo.",
-          "Ideal para preparar tu primer 5K/10K.",
+          { icon: "Gift", text: "15 días de Pro gratis al empezar" },
+          { icon: "Footprints", text: "Plan base para empezar desde cero" },
+          { icon: "MessageCircle", text: "Coach por WhatsApp en modo Lite" },
+          { icon: "Infinity", text: "Sin bloqueo: funciona siempre" },
+          { icon: "Flag", text: "Ideal para tu primer 5K/10K" },
         ],
         ctaText: "Empezar Gratis",
         ctaDisclaimer: "Sin tarjeta • Funciona siempre",
@@ -379,13 +567,16 @@ export const pricingContent: {
         annualPriceDetail: "/mes (facturado anual)",
         savingsPercentage: "Ahorra 17%",
         popularBadge: "MÁS ELEGIDO",
+        headline: "Tu coach, siempre encima",
+        tagline: "Andes te escribe primero para que no lo dejes.",
         description: "Desbloquea templates proactivos y seguimiento personalizado para acelerar resultados.",
         features: [
-          "Recordatorios automáticos de entrenamiento.",
-          "Seguimiento semanal personalizado.",
-          "Detección de inactividad y reactivación.",
-          "Medallas de progreso y countdown de carrera.",
-          "Mayor personalización por contexto y objetivo.",
+          { icon: "BellRing", text: "Recordatorios automáticos de entrenamiento" },
+          { icon: "CalendarCheck", text: "Seguimiento semanal personalizado" },
+          { icon: "HeartPulse", text: "Detección de inactividad y reactivación" },
+          { icon: "Medal", text: "Medallas de progreso y countdown de carrera" },
+          { icon: "Brain", text: "Más personalización por contexto y objetivo" },
+          { icon: "Check", text: "Todo lo de Free" },
         ],
         ctaText: "Desbloquear Pro",
         ctaDisclaimer: "Cancela cuando quieras",
@@ -416,13 +607,15 @@ export const pricingContent: {
         iconName: "Rocket",
         price: "Free",
         priceDetail: "",
+        headline: "Start running",
+        tagline: "Your coach on WhatsApp, for nothing.",
         description: "You start with 15 days of full Pro. After that, Andes keeps working free in Lite mode, with no lockout.",
         features: [
-          "15 days of Pro free when you start.",
-          "Always functional, even after the threshold.",
-          "Starter plan for beginner runners.",
-          "Lite support with no service lockout.",
-          "Strong entry point for first 5K/10K.",
+          { icon: "Gift", text: "15 days of Pro free when you start" },
+          { icon: "Footprints", text: "Starter plan for total beginners" },
+          { icon: "MessageCircle", text: "WhatsApp coach in Lite mode" },
+          { icon: "Infinity", text: "No lockout: always works" },
+          { icon: "Flag", text: "Great for your first 5K/10K" },
         ],
         ctaText: "Start Free",
         ctaDisclaimer: "No card • Always works",
@@ -440,13 +633,16 @@ export const pricingContent: {
         annualPriceDetail: "/month (billed annually)",
         savingsPercentage: "Save 17%",
         popularBadge: "MOST CHOSEN",
+        headline: "Your coach, always on it",
+        tagline: "Andes texts you first so you don't drop off.",
         description: "Unlock proactive templates and personalized follow-up to accelerate progress.",
         features: [
-          "Proactive training reminders.",
-          "Personalized weekly follow-up.",
-          "Inactivity detection and re-engagement.",
-          "Progress medals and race countdown.",
-          "Deeper context-aware personalization.",
+          { icon: "BellRing", text: "Proactive training reminders" },
+          { icon: "CalendarCheck", text: "Personalized weekly follow-up" },
+          { icon: "HeartPulse", text: "Inactivity detection and re-engagement" },
+          { icon: "Medal", text: "Progress medals and race countdown" },
+          { icon: "Brain", text: "Deeper context-aware personalization" },
+          { icon: "Check", text: "Everything in Free" },
         ],
         ctaText: "Unlock Pro",
         ctaDisclaimer: "Cancel anytime",

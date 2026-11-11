@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach, beforeAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import WeekStorySection from "@/components/WeekStorySection";
-import { weekStoryContent } from "@/data/content";
+import { weekChatContent, weekStoryContent } from "@/data/content";
 
 const reducedMotion = vi.hoisted(() => ({ value: false }));
 
@@ -30,9 +30,8 @@ const renderSection = (onJoinClick = vi.fn()) => {
 
 describe("WeekStorySection", () => {
   beforeAll(() => {
-    // jsdom no implementa reproducción de media
-    window.HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
-    window.HTMLMediaElement.prototype.pause = vi.fn();
+    // jsdom no implementa scrollIntoView
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 
   afterEach(() => {
@@ -47,15 +46,20 @@ describe("WeekStorySection", () => {
     expect(screen.getByText(weekStoryContent.es.clubBadge)).toBeInTheDocument();
   });
 
-  it("serves pre-rendered Remotion clips per language", () => {
+  it("renders a live WhatsApp chat instead of video clips", () => {
+    reducedMotion.value = true;
     renderSection();
 
-    const sources = Array.from(document.querySelectorAll("video source")).map((s) => s.getAttribute("src"));
-    expect(sources).toContain("/videos/week/mon-es.mp4");
-    expect(sources).toContain("/videos/week/thu-es.mp4");
+    expect(document.querySelector("video")).toBeNull();
+    const firstUserMsg = weekChatContent.es.chats.mon[0];
+    expect(firstUserMsg.kind).toBe("msg");
+    if (firstUserMsg.kind === "msg") {
+      expect(screen.getAllByText(firstUserMsg.text).length).toBeGreaterThan(0);
+    }
   });
 
-  it("reloads clips when the language resolves after mount", () => {
+  it("switches chat language when the language resolves after mount", () => {
+    reducedMotion.value = true;
     const content = weekStoryContent.en;
     const props = {
       preheading: content.preheading,
@@ -67,19 +71,14 @@ describe("WeekStorySection", () => {
       onJoinClick: vi.fn(),
     };
     const { rerender } = render(<WeekStorySection language="en" {...props} />);
-    const before = document.querySelector("video");
+    expect(screen.getAllByText(weekChatContent.en.online).length).toBeGreaterThan(0);
     rerender(<WeekStorySection language="es" {...props} />);
-
-    expect(document.querySelector("video source")).toHaveAttribute("src", "/videos/week/mon-es.mp4");
-    expect(document.querySelector("video")).not.toBe(before);
+    expect(screen.getAllByText(weekChatContent.es.online).length).toBeGreaterThan(0);
   });
 
-  it("falls back to posters when the user prefers reduced motion", () => {
-    reducedMotion.value = true;
+  it("lets users jump between days from the progress dots", () => {
     renderSection();
-
-    expect(document.querySelector("video")).toBeNull();
-    expect(screen.getAllByAltText(weekStoryContent.es.days[0].videoAlt)[0]).toHaveAttribute("src", "/videos/week/mon-es.jpg");
+    expect(screen.getByRole("button", { name: weekStoryContent.es.days[3].day })).toBeInTheDocument();
   });
 
   it("Thursday CTA starts onboarding", async () => {
