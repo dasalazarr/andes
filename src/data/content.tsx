@@ -217,24 +217,16 @@ export const weekStoryContent: Record<"es" | "en", {
 };
 
 // Chat de WhatsApp en vivo de "Tu primera semana" (sustituye a los clips de Remotion).
-// Guion tomado de andes-launch-video/src/landing/copy.ts. Casual-first: minutos y sensación.
-export type WeekChatCard =
-  | { type: "plan"; kicker: string; title: string; clubTag: string; rows: { d: string; w: string; m: string; club?: boolean }[] }
-  | { type: "log"; kicker: string; fields: { k: string; v: string }[]; stamp: string }
-  | { type: "adjust"; before: string; after: string; tag: string }
-  | { type: "club"; image: string; imageAlt: string; place: string; chips: string[] }
-  | { type: "recap"; kicker: string; title: string; stats: { k: string; v: string }[]; next: string };
-
+// Solo formatos nativos de WhatsApp: texto (con *negrita*), emojis e imagen con pie. Nada de gráficos.
 export type WeekChatItem =
   | { kind: "msg"; from: "user" | "coach"; text: string; time: string }
-  | { kind: "card"; card: WeekChatCard };
+  | { kind: "image"; from: "user" | "coach"; image: string; imageAlt: string; caption: string; time: string };
 
 export const weekChatContent: Record<"es" | "en", {
   name: string;
   online: string;
   typing: string;
   typeHere: string;
-  today: string;
   chats: Record<WeekDayId, WeekChatItem[]>;
 }> = {
   es: {
@@ -242,77 +234,30 @@ export const weekChatContent: Record<"es" | "en", {
     online: "en línea",
     typing: "escribiendo…",
     typeHere: "Mensaje",
-    today: "HOY",
     chats: {
       mon: [
         { kind: "msg", from: "user", text: "Quiero empezar a correr, pero nunca he corrido 🙈", time: "7:12" },
         { kind: "msg", from: "coach", text: "¡Me encanta! 3 preguntas rápidas y tu plan está listo.", time: "7:12" },
-        {
-          kind: "card",
-          card: {
-            type: "plan",
-            kicker: "Semana 1 · a tu ritmo",
-            title: "Tu plan",
-            clubTag: "Pamplona",
-            rows: [
-              { d: "L", w: "Caminar + trotar", m: "20′" },
-              { d: "X", w: "Caminar + trotar", m: "20′" },
-              { d: "J", w: "Quedada del club", m: "30′", club: true },
-              { d: "S", w: "Paseo largo", m: "35′" },
-            ],
-          },
-        },
+        { kind: "msg", from: "coach", text: "*Tu plan · Semana 1* 🏃‍♀️\n\nLun · Caminar + trotar, 20 min\nMié · Caminar + trotar, 20 min\nJue · Quedada del club en Pamplona 🤝\nSáb · Paseo largo, 35 min\n\nA tu ritmo, sin prisa.", time: "7:13" },
       ],
       tue: [
         { kind: "msg", from: "user", text: "Hoy 20 min, al final me costó 😮‍💨", time: "19:40" },
-        {
-          kind: "card",
-          card: {
-            type: "log",
-            kicker: "Guardado · sin formularios",
-            fields: [
-              { k: "Tiempo", v: "20 min" },
-              { k: "Sensación", v: "Exigente" },
-            ],
-            stamp: "🔥 Racha: 2 días",
-          },
-        },
-        { kind: "msg", from: "coach", text: "Normal al empezar 💚 El jueves vamos más suave, con el club.", time: "19:41" },
+        { kind: "msg", from: "coach", text: "Apuntado ✅ 20 min, sensación exigente.", time: "19:41" },
+        { kind: "msg", from: "coach", text: "Normal al empezar 💚 El jueves vamos más suave, con el club.\n\n🔥 *Racha: 2 días*", time: "19:41" },
       ],
       wed: [
         { kind: "msg", from: "user", text: "Me molesta un poco la rodilla derecha", time: "8:05" },
-        { kind: "msg", from: "coach", text: "Gracias por contármelo. Hoy descansas y el jueves alternas caminar y trotar, sin prisa.", time: "8:06" },
-        { kind: "card", card: { type: "adjust", before: "Jueves · Trote 30′", after: "Jueves · Caminar + trotar 25′", tag: "Plan ajustado ✅" } },
+        { kind: "msg", from: "coach", text: "Gracias por contármelo. Hoy descansas 🙌", time: "8:06" },
+        { kind: "msg", from: "coach", text: "He cambiado tu jueves: *caminar + trotar 25 min* en vez de trote continuo. Sin prisa.", time: "8:06" },
       ],
       thu: [
         { kind: "msg", from: "coach", text: "Hoy toca quedada del club 🏃‍♀️ Ritmo de conversación y café al final.", time: "12:30" },
         { kind: "msg", from: "user", text: "¡Allí estaré! Un poco nerviosa 😅", time: "12:34" },
-        {
-          kind: "card",
-          card: {
-            type: "club",
-            image: "/images/club/hero.webp",
-            imageAlt: "Miembros del club Andes en una quedada en Pamplona",
-            place: "Pamplona",
-            chips: ["Quedada de los jueves", "Café al final", "Nadie corre solo"],
-          },
-        },
+        { kind: "image", from: "coach", image: "/images/club/hero.webp", imageAlt: "Miembros del club Andes en una quedada en Pamplona", caption: "Así fue la de hoy 💚 Nadie corre solo.", time: "20:15" },
       ],
       sun: [
-        {
-          kind: "card",
-          card: {
-            type: "recap",
-            kicker: "Tu primera semana",
-            title: "¡Semana 1 completada!",
-            stats: [
-              { k: "salidas", v: "3" },
-              { k: "minutos", v: "70" },
-              { k: "quedada", v: "1" },
-            ],
-            next: "La semana 2 ya está lista. Mismo ritmo, un poco más de trote.",
-          },
-        },
+        { kind: "msg", from: "coach", text: "*¡Semana 1 completada!* 🎉\n\n🏃‍♀️ 3 salidas\n⏱️ 70 minutos\n🤝 1 quedada", time: "10:00" },
+        { kind: "msg", from: "coach", text: "La semana 2 ya está lista. Mismo ritmo, un poco más de trote.", time: "10:00" },
         { kind: "msg", from: "user", text: "¡No me lo creo! 🥹", time: "10:02" },
       ],
     },
@@ -322,77 +267,30 @@ export const weekChatContent: Record<"es" | "en", {
     online: "online",
     typing: "typing…",
     typeHere: "Message",
-    today: "TODAY",
     chats: {
       mon: [
         { kind: "msg", from: "user", text: "I want to start running, but I've never run 🙈", time: "7:12" },
         { kind: "msg", from: "coach", text: "Love it! 3 quick questions and your plan is ready.", time: "7:12" },
-        {
-          kind: "card",
-          card: {
-            type: "plan",
-            kicker: "Week 1 · your pace",
-            title: "Your plan",
-            clubTag: "Pamplona",
-            rows: [
-              { d: "M", w: "Walk + jog", m: "20′" },
-              { d: "W", w: "Walk + jog", m: "20′" },
-              { d: "T", w: "Club meetup", m: "30′", club: true },
-              { d: "S", w: "Long walk", m: "35′" },
-            ],
-          },
-        },
+        { kind: "msg", from: "coach", text: "*Your plan · Week 1* 🏃‍♀️\n\nMon · Walk + jog, 20 min\nWed · Walk + jog, 20 min\nThu · Club meetup in Pamplona 🤝\nSat · Long walk, 35 min\n\nYour pace, no rush.", time: "7:13" },
       ],
       tue: [
         { kind: "msg", from: "user", text: "Did 20 min today, the end was tough 😮‍💨", time: "19:40" },
-        {
-          kind: "card",
-          card: {
-            type: "log",
-            kicker: "Saved · no forms",
-            fields: [
-              { k: "Time", v: "20 min" },
-              { k: "Feeling", v: "Tough" },
-            ],
-            stamp: "🔥 Streak: 2 days",
-          },
-        },
-        { kind: "msg", from: "coach", text: "Totally normal at the start 💚 Thursday we go easier, with the club.", time: "19:41" },
+        { kind: "msg", from: "coach", text: "Logged ✅ 20 min, felt tough.", time: "19:41" },
+        { kind: "msg", from: "coach", text: "Totally normal at the start 💚 Thursday we go easier, with the club.\n\n🔥 *Streak: 2 days*", time: "19:41" },
       ],
       wed: [
         { kind: "msg", from: "user", text: "My right knee feels a bit off", time: "8:05" },
-        { kind: "msg", from: "coach", text: "Thanks for telling me. Rest today, and on Thursday you'll mix walking and jogging, no rush.", time: "8:06" },
-        { kind: "card", card: { type: "adjust", before: "Thursday · Jog 30′", after: "Thursday · Walk + jog 25′", tag: "Plan adjusted ✅" } },
+        { kind: "msg", from: "coach", text: "Thanks for telling me. Rest today 🙌", time: "8:06" },
+        { kind: "msg", from: "coach", text: "I've changed your Thursday: *walk + jog 25 min* instead of a continuous jog. No rush.", time: "8:06" },
       ],
       thu: [
         { kind: "msg", from: "coach", text: "Club meetup today 🏃‍♀️ Conversation pace, coffee at the end.", time: "12:30" },
         { kind: "msg", from: "user", text: "I'll be there! A bit nervous 😅", time: "12:34" },
-        {
-          kind: "card",
-          card: {
-            type: "club",
-            image: "/images/club/hero.webp",
-            imageAlt: "Andes club members at a meetup in Pamplona",
-            place: "Pamplona",
-            chips: ["Thursday meetup", "Coffee at the end", "Nobody runs alone"],
-          },
-        },
+        { kind: "image", from: "coach", image: "/images/club/hero.webp", imageAlt: "Andes club members at a meetup in Pamplona", caption: "Today's meetup 💚 Nobody runs alone.", time: "20:15" },
       ],
       sun: [
-        {
-          kind: "card",
-          card: {
-            type: "recap",
-            kicker: "Your first week",
-            title: "Week 1 done!",
-            stats: [
-              { k: "runs", v: "3" },
-              { k: "minutes", v: "70" },
-              { k: "meetup", v: "1" },
-            ],
-            next: "Week 2 is ready. Same vibe, a little more jogging.",
-          },
-        },
+        { kind: "msg", from: "coach", text: "*Week 1 done!* 🎉\n\n🏃‍♀️ 3 runs\n⏱️ 70 minutes\n🤝 1 meetup", time: "10:00" },
+        { kind: "msg", from: "coach", text: "Week 2 is ready. Same vibe, a little more jogging.", time: "10:00" },
         { kind: "msg", from: "user", text: "I can't believe it! 🥹", time: "10:02" },
       ],
     },

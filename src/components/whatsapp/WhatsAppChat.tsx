@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Camera, CheckCheck, Mic, Paperclip, Phone, Smile, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { WeekChatCard, WeekChatItem } from "@/data/content";
+import type { WeekChatItem } from "@/data/content";
 
 // Paleta real de WhatsApp (modo oscuro)
 const WA = {
@@ -41,132 +41,47 @@ const Meta: React.FC<{ time: string; out: boolean }> = ({ time, out }) => (
   </span>
 );
 
-const Bubble: React.FC<{ from: "user" | "coach"; text: string; time: string; first: boolean }> = ({ from, text, time, first }) => {
-  const out = from === "user";
+// Formato nativo de WhatsApp: *negrita* y saltos de línea
+const formatWa = (text: string) =>
+  text.split(/(\*[^*\n]+\*)/g).map((part, i) =>
+    part.startsWith("*") && part.endsWith("*") && part.length > 2 ? (
+      <strong key={i} className="font-semibold">{part.slice(1, -1)}</strong>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    ),
+  );
+
+const Bubble: React.FC<{ item: WeekChatItem; first: boolean }> = ({ item, first }) => {
+  const out = item.from === "user";
+  const isImage = item.kind === "image";
   return (
     <div className={cn("flex", out ? "justify-end" : "justify-start")}>
       <div
         className={cn(
-          "relative max-w-[85%] px-2.5 pb-1.5 pt-1.5 text-[14.5px] leading-[1.35] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]",
+          "relative max-w-[85%] whitespace-pre-line text-[14.5px] leading-[1.35] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]",
+          isImage ? "w-[75%] p-1" : "px-2.5 pb-1.5 pt-1.5",
           first ? (out ? "rounded-lg rounded-tr-none" : "rounded-lg rounded-tl-none") : "rounded-lg",
         )}
         style={{ background: out ? WA.out : WA.in, color: WA.text }}
       >
         {first ? <Tail out={out} /> : null}
-        <span>{text}</span>
-        <Meta time={time} out={out} />
+        {item.kind === "image" ? (
+          <>
+            <img src={item.image} alt={item.imageAlt} loading="lazy" className="aspect-[4/3] w-full rounded-md object-cover" width={320} height={240} />
+            <div className="px-1.5 pb-0.5 pt-1.5">
+              <span>{formatWa(item.caption)}</span>
+              <Meta time={item.time} out={out} />
+            </div>
+          </>
+        ) : (
+          <>
+            <span>{formatWa(item.text)}</span>
+            <Meta time={item.time} out={out} />
+          </>
+        )}
       </div>
     </div>
   );
-};
-
-const CardShell: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
-  <div className="flex justify-start">
-    <div className={cn("w-[88%] overflow-hidden rounded-lg text-[13px]", className)} style={{ background: WA.in, color: WA.text }}>
-      {children}
-    </div>
-  </div>
-);
-
-const Kicker: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand">{children}</p>
-);
-
-const RichCard: React.FC<{ card: WeekChatCard }> = ({ card }) => {
-  switch (card.type) {
-    case "plan":
-      return (
-        <CardShell className="p-3">
-          <Kicker>{card.kicker}</Kicker>
-          <p className="mt-0.5 font-display text-lg text-cream">{card.title}</p>
-          <ul className="mt-2 divide-y divide-white/[0.06]">
-            {card.rows.map((r) => (
-              <li key={r.d + r.w} className="flex items-center gap-2.5 py-1.5">
-                <span
-                  className={cn(
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] font-bold",
-                    r.club ? "bg-brand text-black" : "bg-brand/15 text-brand",
-                  )}
-                >
-                  {r.d}
-                </span>
-                <span className="flex-1 font-medium">
-                  {r.w}
-                  {r.club ? (
-                    <span className="ml-1.5 rounded bg-brand/20 px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-wider text-brand">
-                      {card.clubTag}
-                    </span>
-                  ) : null}
-                </span>
-                <span className="tabular-nums" style={{ color: WA.meta }}>{r.m}</span>
-              </li>
-            ))}
-          </ul>
-        </CardShell>
-      );
-    case "log":
-      return (
-        <CardShell className="p-3">
-          <Kicker>{card.kicker}</Kicker>
-          <div className="mt-2 grid grid-cols-2 gap-2">
-            {card.fields.map((f) => (
-              <div key={f.k} className="rounded-md bg-white/[0.05] px-2.5 py-1.5">
-                <p className="text-[11px]" style={{ color: WA.meta }}>{f.k}</p>
-                <p className="font-display text-base text-cream">{f.v}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-2 text-[12px] font-semibold text-brand">{card.stamp}</p>
-        </CardShell>
-      );
-    case "adjust":
-      return (
-        <CardShell className="p-3">
-          <p className="line-through decoration-red-400/80" style={{ color: WA.meta }}>{card.before}</p>
-          <p className="mt-1 font-semibold">
-            <span className="text-brand">→ </span>
-            {card.after}
-          </p>
-          <p className="mt-2 text-[12px] font-semibold text-brand">{card.tag}</p>
-        </CardShell>
-      );
-    case "club":
-      return (
-        <CardShell>
-          <div className="relative">
-            <img src={card.image} alt={card.imageAlt} loading="lazy" className="h-32 w-full object-cover" width={400} height={128} />
-            <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[10.5px] font-semibold text-white backdrop-blur">
-              📍 {card.place}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-1.5 p-2.5">
-            {card.chips.map((c) => (
-              <span key={c} className="rounded-full border border-brand/30 bg-brand/10 px-2 py-0.5 text-[11px] font-medium text-brand">
-                {c}
-              </span>
-            ))}
-          </div>
-        </CardShell>
-      );
-    case "recap":
-      return (
-        <CardShell className="p-3">
-          <Kicker>{card.kicker}</Kicker>
-          <p className="mt-0.5 font-display text-lg text-cream">{card.title}</p>
-          <div className="mt-2 grid grid-cols-3 gap-1.5 text-center">
-            {card.stats.map((s) => (
-              <div key={s.k} className="rounded-md bg-white/[0.05] py-1.5">
-                <p className="font-display text-xl text-cream">{s.v}</p>
-                <p className="text-[10.5px]" style={{ color: WA.meta }}>{s.k}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-2 text-[12.5px]" style={{ color: WA.meta }}>{card.next}</p>
-        </CardShell>
-      );
-    default:
-      return null;
-  }
 };
 
 const TypingDots: React.FC = () => (
@@ -226,7 +141,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({ items, playing, name, onlin
   }, [items, playing, reduce]);
 
   const next = items[shown];
-  const coachTyping = !reduce && playing && next?.kind !== undefined && (next.kind === "card" || next.from === "coach") && shown > 0;
+  const coachTyping = !reduce && playing && shown > 0 && next?.from === "coach";
 
   return (
     <div
@@ -238,7 +153,9 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({ items, playing, name, onlin
     >
       {/* Cabecera */}
       <div className="flex items-center gap-3 px-3 py-2.5" style={{ background: WA.header }}>
-        <img src="/logo.svg" alt="" className="h-9 w-9 rounded-full bg-cream p-1.5" width={36} height={36} />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface ring-1 ring-white/10">
+          <img src="/path2.svg" alt="" className="h-4 w-auto" />
+        </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-[15px] font-medium" style={{ color: WA.text }}>{name}</p>
           <p className="text-[12px]" style={{ color: WA.meta }} aria-live="polite">
@@ -263,8 +180,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({ items, playing, name, onlin
           <AnimatePresence initial={false}>
             {items.slice(0, shown).map((item, i) => {
               const prev = items[i - 1];
-              const first =
-                item.kind === "msg" && !(prev?.kind === "msg" && prev.from === item.from);
+              const first = !prev || prev.from !== item.from;
               return (
                 <motion.div
                   key={i}
@@ -274,11 +190,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({ items, playing, name, onlin
                   transition={{ duration: 0.28, ease: "easeOut" }}
                   className={first && i > 0 ? "mt-1" : undefined}
                 >
-                  {item.kind === "msg" ? (
-                    <Bubble from={item.from} text={item.text} time={item.time} first={first} />
-                  ) : (
-                    <RichCard card={item.card} />
-                  )}
+                  <Bubble item={item} first={first} />
                 </motion.div>
               );
             })}
